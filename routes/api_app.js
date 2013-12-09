@@ -73,7 +73,7 @@ exports.guiding = function(app){
 
   //上传数据：更新app第一步信息
   app.post("/app/update/step1.json",function(req,res){
-    application.updateAppStep1(req,res);
+    application.updateAppStep(req,res);
   });
 
   //上传数据：创建app的第2-5步信息
