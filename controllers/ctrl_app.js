@@ -308,10 +308,10 @@ exports.update1 = function (handler, callback) {
     , requireDevice = handler.params.requireDevice
     , bundleIdentifier = handler.params.bundleIdentifier
     , bundlerVersion   = handler.params.bundlerVersion
-    , editstep         = 1
+    , editstep         = 1;
 //    , editstep         = handler.params.editstep;
     //added by 需要测试 ！！
-    , permissonDownload = hanlder.params.permisson.download;
+//    , permissonDownload = hanlder.params.permisson.download;
 
   var appUpdate = {
       updateAt    : new Date()
@@ -330,7 +330,7 @@ exports.update1 = function (handler, callback) {
     , bundleIdentifier : bundleIdentifier
     , bundlerVersion   : bundlerVersion
     //added by yt
-    , permission       : permissonDownload
+//    , permission       : permissonDownload
     , status           : 0
     , editstep         : editstep
     };
@@ -348,19 +348,20 @@ exports.update2 = function (handler, callback) {
   var appId      = handler.params.appId
     , code       = handler.params.code
     , createBy   = handler.uid
-    , iconBig    = handler.params['icon.big']
-    , iconSmall  = handler.params['icon.small']
+    , iconBig    = handler.params["icon.big"]
+    , iconSmall  = handler.params["icon.small"]
     , screenshot = handler.params.screenshot
     , pptfile    = handler.params.pptfile
     , downloadId = handler.params.downloadId
-    , size = handler.params.pptfile_size
+    , size       = handler.params.pptfileSize
+    , editstep   = 2;
 //    , editstep = handler.params.editstep
-  var app_update = {
+  var appUpdate = {
     updateAt : new Date()
    ,updateBy : createBy
-   , icon :{
-      big: icon_big
-      ,small :icon_small
+   ,icon : {
+      big     : iconBig
+     ,small  :iconSmall
 
     }
   , screenshot : screenshot
