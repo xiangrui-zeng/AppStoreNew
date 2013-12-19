@@ -32,7 +32,7 @@ function login() {
       if (err) {
         return Alertify.log.info("用户名或密码不正确");
       }
-      window.location = "/empty";
+      window.location = "/starwall";
     });
   }
   

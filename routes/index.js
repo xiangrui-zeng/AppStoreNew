@@ -39,4 +39,10 @@ exports.guiding = function (app) {
     log.audit("logout");
     user.simpleLogout(req, res);
   });
+
+  app.get("/app/add/step1",function(req, res) {
+    res.render("app_add_step_1", {"title": "app_add_step_1", user: req.session.user, appId: ""
+      ,appTypes: ""
+      ,categoryTypes: ""});
+  });
 };
