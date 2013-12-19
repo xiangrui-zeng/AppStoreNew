@@ -1,0 +1,39 @@
+.user_select_print {
+    float: left;
+    width: 150px;
+    border: 1px solid #CDCDCD;
+    padding: 2px;
+
+}
+
+.user_select_print ul {
+    list-style: none;
+    margin-left: 10px;
+    max-height: 100px;
+    overflow: scroll;
+    padding-right: 30px;
+}
+
+.user_select_print ul li span {
+    width: 100px;
+}
+
+.user_has_selected {
+}
+
+textarea {
+    resize: none;
+}
+
+.top_line {
+    padding-top: 11px; border-top: 1px solid #eee;
+}
+
+.span10_left_line {
+    border-left: 1px solid #eee;
+}
+.sidebar ul .app_add {
+    border-top: 0px;
+    margin-top: 20px;
+}
+

@@ -1,0 +1,60 @@
+<script src="/javascripts/common/carousel.js"></script>
+<!-- 滚动列表外框模板 -->
+<script type="text/template" id="template_carousel">
+  <div id="{{ id_carousel }}" class="carousel slide" >
+    <ol class="carousel-indicators">
+      <$ for(var i=0; i < page_count; i++) { $>
+      <$ if( i == 0 ) { $>
+      <li data-target="#{{ id_carousel }}" data-slide-to="0" class="active"></li>
+      <$ } else { $>
+      <li data-target="#{{ id_carousel }}" data-slide-to="{{ i }}"></li>
+      <$ } $>
+      <$ } $>
+    </ol>
+
+    <!-- Carousel items -->
+    <div class="carousel-inner" id="{{ id_item_group_container }}">
+    </div><!--/carousel-inner-->
+
+    <a class="left carousel-control" href="#{{ id_carousel }}" data-slide="prev">‹</a>
+    <a class="right carousel-control" href="#{{ id_carousel }}" data-slide="next">›</a>
+  </div><!--/myCarousel-->
+</script>
+
+<!-- 滚动列表组容器模板 -->
+<script type="text/template" id="template_carousel_item_group">
+  <div class="item {{ active }}"><div class="row-fluid" id="{{ id_item_container }}">
+  </div></div><!--/item-->
+</script>
+
+<!-- 滚动列表项目模板 -->
+<script type="text/template" id="template_carousel_item">
+  <div class="span3">
+    <div class="thumbnail" id="{{ id_item }}" style="position: relative;">
+
+      <div class="caption">
+        <a href="/app/{{ app._id }}">
+          <$ var pic = (app.icon && app.icon.big) ? app.icon.big: ""$>
+          <img data-src="holder.js/260x180" alt="{{ app.name }}" src="/picture/{{ pic }}"  class="carousel-image" >
+        </a>
+        <h4>{{ _.escape(app.name) }}</h4>
+        <$ var rank = app.rank; $>
+        <$ rank = rank ?rank: 0;  $>
+        <$ rank = (rank > 5)? 5: rank;  $>
+        <$ for (var i = 0; i < 5; i++) { $>
+        <$ if (i < rank) { $>
+        <i class="icon-star"></i>
+        <$ } else { $>
+        <i class="icon-star-empty"></i>
+        <$ } $>
+        <$ } $>
+        <$ if(app.downloadURL) { $>
+        <a href="{{ _.escape(app.downloadURL) }}" style="float:right;"><button class="btn btn-small btn-success">install</button></a>
+        <$ } else { $>
+        <a href="#" style="float:right;"><button class="btn btn-small btn-success" disabled>install</button></a>
+        <$ } $>
+      </div>
+    </div>
+  </div>
+</script>
+

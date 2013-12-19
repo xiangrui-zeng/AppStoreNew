@@ -1,0 +1,70 @@
+<script src="/vendor/jquery.min.js"></script>
+<script type='text/javascript' src='/vendor/underscore-1.4.4.js'></script>
+<script type='text/javascript' src='/vendor/backbone-0.9.10.js'></script>
+<script type="text/javascript" src="/vendor/socket.io.js"></script>
+<script type="text/javascript" src="/vendor/jquery.imageloader.js"></script>
+
+<script type="text/javascript" src="/vendor/alertify/alertify.min.js"></script>
+
+
+<script type="text/javascript" src="/javascripts/starwall.js"></script>
+<link rel='stylesheet' href='/stylesheets/smart.css'/>
+<!-- include the core styles -->
+<link rel="stylesheet" href="/vendor/alertify/themes/alertify.css"/>
+<!-- include a theme, can be included into the core instead of 2 separate files -->
+<link rel="stylesheet" href="/vendor/alertify/themes/alertify.bootstrap.css"/>
+<!-- Bootstrap addition -->
+<script type='text/javascript' src='/vendor/bootstrap/js/bootstrap.js'></script>
+<link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap-responsive.css">
+
+<!-- colorpicker -->
+<script type='text/javascript' src='/vendor/colorpicker/wColorPicker.js'></script>
+<link rel='stylesheet' href='/vendor/colorpicker/wColorPicker.css'/>
+
+<!-- jqueryui -->
+<script type='text/javascript' src='/vendor/jquery-ui-1.10.1/js/jquery-ui-1.10.1.custom.min.js'></script>
+<link rel='stylesheet' href='/vendor/jquery-ui-1.10.1/css/smoothness/jquery-ui-1.10.1.custom.min.css'/>
+
+<!-- Highcharts -->
+<script type='text/javascript' src='/vendor/highcharts/highcharts.js'></script>
+<script type='text/javascript' src='/vendor/highcharts/modules/exporting.js'></script>
+<script type='text/javascript' src='/vendor/highcharts/themes/dark-green.js'></script>
+
+<!-- jrumble -->
+<script type='text/javascript' src="/vendor/jquery.jrumble.1.3.min.js"></script>
+
+<!-- jcrop -->
+<script type='text/javascript' src="/vendor/jcrop/js/jquery.Jcrop.min.js"></script>
+<link rel="stylesheet" href="/vendor/jcrop/css/jquery.Jcrop.css">
+
+<!-- lightbox -->
+<script type="text/javascript" src="/vendor/lightbox/lightbox.js"></script>
+<link href="/vendor/lightbox/lightbox.css" rel="stylesheet">
+
+<script type='text/javascript' src='/javascripts/menu.model.js'></script>
+<script type='text/javascript' src='/javascripts/menu.view.js'></script>
+<script src="/vendor/jquery.validate.js"></script>
+
+<!-- StartWall -->
+<script src="/javascripts/sw/sw.core.js"></script>
+<script src="/javascripts/sw/sw.alertMsg.js"></script>
+<script src="/javascripts/sw/sw.ui.js"></script>
+<script src="/javascripts/sw/sw.regional.zh.js"></script>
+<script src="/javascripts/sw/sw.ajax.js"></script>
+<script src="/javascripts/sw/sw.string.js"></script>
+<script src="/javascripts/sw/sw.app.js"></script>
+
+
+<!-- 初始化框架页面处理 -->
+<script type="text/javascript">
+$(function () {
+    $sw.init("/javascripts/sw/env.xml", { //【可选】
+        debug: true,  // 调试模式 【true|false】
+        callback: function () {
+            initEnv();
+        }
+    });
+});
+
+</script>
+

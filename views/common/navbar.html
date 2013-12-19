@@ -1,0 +1,142 @@
+<script type='text/javascript' src='/javascripts/searcher.model.js'></script>
+<script type='text/javascript' src='/javascripts/searcher.view.js'></script>
+
+<input type="hidden" id="_csrf" name="_csrf" value="" />
+<input type="hidden" id="bright" name="bright" value="" />
+<input type="hidden" id="userid" name="userid" value="" />
+<input type="hidden" id="timezone" name="timezone" value="" />
+
+<header>
+  <strong>AppStore</strong>
+  <div id="_userbox">
+    <div>
+      <a href="#" id="_userpic"><img src="<%= user.photo ? '/picture/' + user.photo.big : '/images/user.png' %>"></a>
+      <a href="#" id="_username"> </a>
+    </div>
+    <ul>
+      <li><a href="/simplelogout" id="_logout"><i class="icon-signout"></i></a></li>
+    </ul>
+  </div>
+</header>
+<div id="_navbar">
+  <nav>
+    <ul id="_group1" rel="sam">
+      <li>
+        <a id="home" href="/starwall" style="font-size: 16px;">
+          <i class="icon-home icon-large"></i>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <nav id="_search">
+    <input id="search" value="" x-webkit-speech /><div></div>
+  </nav>
+  <nav>
+    <ul id="_group2" rel="sam">
+      <li><a id="" href="/list/download">インストール済</a></li>
+      </li>
+    </ul>
+  </nav>
+  <nav>
+    <ul id="" rel="sam">
+      <li><a id="" href="/list/notification">アップデート</a></li>
+      </li>
+    </ul>
+  </nav>
+  <nav>
+    <ul id="" rel="sam">
+      <li><a id="" href="/userlist">用户列表</a></li>
+      </li>
+    </ul>
+  </nav>
+  <nav>
+    <ul id="" rel="sam">
+      <li><a id="" href="/list/manage">管理</a></li>
+      </li>
+    </ul>
+  </nav>
+  <nav>
+    <ul id="" rel="sam">
+      <li><a id="" href="#">ビュー</a></li>
+      </li>
+    </ul>
+  </nav>
+  <nav>
+    <ul id="" rel="sam">
+      <li><a id="" href="#">报告</a></li>
+      </li>
+    </ul>
+  </nav>
+  <nav>
+    <ul id="" rel="sam">
+      <li><a id="upload" href="/app/add/step1">アップロード</a></li>
+      </li>
+    </ul>
+  </nav>
+
+</div>
+
+<div id="_searchresult" class="bucketed">
+  <ul class="search">
+    <li class="bottom"><i class="icon-search"></i> </li>
+  </ul>
+</div>
+
+<div id="_findresult" style="z-index: 100000000000000000000000; ">
+  <ul class="search">
+    <li class="bottom"><i class="icon-search"></i> </li>
+  </ul>
+</div>
+
+<!-- 全文检索框 -->
+<script type="text/template" id="_searchresult-user-template">
+  <li class="user">
+    <div class="left">
+      <a href="/user/{{ id }}">
+        <img src="{{ photo }}" />
+        <span>{{ name }}</span>
+        <span class="addition">{{ addition }}</span>
+      </a>
+    </div>
+    <div class="right">
+      <a uid="{{ id }}" class="operation btn btn-small btn-info" href="#"> </a>
+    </div>
+  </li>
+</script>
+<script type="text/template" id="_searchresult-group-template">
+  <li class="user">
+    <div class="left">
+      <a href="/group/{{ id }}">
+        <img src="{{ photo }}" />
+        <span>{{ name }}</span>
+        <span class="addition">{{ addition }}</span>
+      </a>
+    </div>
+    <div class="right hidden">
+      <a gid="{{ id }}" class="operation btn btn-small btn-info" href="#"> </a>
+    </div>
+  </li>
+</script>
+<script type="text/template" id="_searchresult-file-template">
+  <li class="user">
+    <div class="left">
+      <a href="/file/{{ id }}">
+        <img src="{{ photo }}" />
+        <span>{{ name }}</span>
+        <span class="addition">{{ addition }}</span>
+      </a>
+    </div>
+    <div class="right hidden">
+      <a fid="{{ id }}" class="operation btn btn-small btn-info" href="#">            </a>
+    </div>
+  </li>
+</script>
+<script type="text/template" id="_searchresult-header-template">
+  <li class="header">{{ type }}</li>
+</script>
+<script type="text/template" id="_searchresult-bottom-template">
+  <li class="bottom">
+    <a href="/list/search?keywords={{ keywords }}"><i class="icon-search"></i> </a>
+  </li>
+</script>
+

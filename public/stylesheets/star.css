@@ -1,0 +1,126 @@
+.sidebar {
+  margin-top: 10px;
+  margin-left: 20px;
+  width: 200px;
+  text-align: center;
+  /**/
+
+}
+.sidebar .itemgroup {
+  margin-top: 10px;
+}
+.sidebar .itemgroup div label {
+  float: left;
+  width: 30px;
+  text-align: left;
+  margin-left: 10px;
+  font-size: 12px;
+}
+.sidebar .itemgroup div div {
+  margin-left: 40px;
+  width: 100px;
+  line-height: 20px;
+  margin-bottom: 5px;
+  font-size: 12px;
+  text-align: right;
+}
+.sidebar hr {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.sidebar img {
+  width: 150px;
+  height: 150px;
+  border: 1px solid #EEE;
+  -webkit-border-radius: 3px;
+}
+.main {
+  margin: 0 auto;
+  width: 920px;
+}
+section {
+  width: 800px;
+}
+.detail {
+  min-height: 490px;
+  background-color: #FAFAFA;
+  width: 675px;
+  height: 40px;
+  line-height: 40px;
+  margin-left: 130px;
+  margin-bottom: 10px;
+  padding: 5px;
+  -webkit-border-radius: 2px;
+}
+.detail img {
+  width: 200px;
+  height: 300px;
+  margin-left: 10px;
+  border: 1px solid #EEF;
+  -webkit-border-radius: 5px;
+}
+.textarea {
+  background-color: white;
+  width: 660px;
+  height: 100px;
+  overflow-y: auto;
+  margin-left: 5px;
+  margin-bottom: 10px;
+  padding-left: 5px;
+  -webkit-border-radius: 2px;
+  line-height: normal;
+  border: 1px solid #EEF;
+}
+.textarea-large {
+  background-color: white;
+  width: 660px;
+  height: 410px;
+  overflow-y: auto;
+  margin-left: 5px;
+  margin-bottom: 10px;
+  padding-left: 5px;
+  -webkit-border-radius: 2px;
+  line-height: normal;
+  border: 1px solid #EEF;
+}
+.comment {
+  min-height: 200px;
+  background-color: #FAFAFA;
+  margin-left: 130px;
+  width: 675px;
+  padding: 5px;
+}
+.comment textarea {
+  width: 650px;
+  height: 80px;
+  margin-left: 5px;
+}
+.comment #operationarea {
+  /*width: 995px;*/
+
+  text-align: right;
+  padding-right: 15px;
+}
+.comment #operationarea i {
+  cursor: pointer;
+}
+.comment ul {
+  margin-top: 10px;
+  margin-left: 5px;
+}
+.comment ul li {
+  list-style-type: none;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #EEF;
+}
+.comment ul li .portrait {
+  width: 30px;
+}
+.comment ul li div {
+  padding-left: 40px;
+}
+#gallery {
+  height: 320px;
+  overflow-x: auto;
+  white-space: nowrap;
+}

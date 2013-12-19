@@ -1,0 +1,308 @@
+<script>
+    var test_detail_list_data = [
+        {
+            name: "AAAAAA"
+            ,_id: "51f75888edf7dd4511000007"
+            ,memo: "AAAAA----"
+            ,appType: "iphone,ipad"
+            ,icon:{
+            big:""
+            ,small: ""
+        }
+            ,category: "10001"
+            ,version: "1.2.3"
+            ,downloadId: "51f758f876592e4511000009"
+            ,open_date: {}
+            ,expire_date: {}
+            ,create_date: {}
+            , create_user: "1111"
+            , update_date: {}
+            , update_user: "222"
+            , require: {
+            os: "iOS"
+            ,device:"iphone4以上,ipad5"
+            ,server: "nothing"              //服务器要求
+        }
+            , size: 4848448
+            , status: -1                // 状态：-1、无效app 0、未公开 1、社内公开 2、社外限定公开 3、社外任意公开
+            , rank: 3
+        }
+    ];
+    for(var i=0; i< 19; i++) {
+        test_detail_list_data.push({
+            "_id" : "51f75888edf7dd4511000007",
+            "appType" : "iPhone",
+            "category" : [],
+            "create_date" : Date( 1375164552798 ),
+            "create_user" : "51f48e4be381cbcf0200000a",
+            "description" : "test",
+            "downloadId" : "51f758f876592e4511000009",
+            "editstep" : 4,
+            "icon" : { "big" : "51f758b876592e4511000005",
+                "small" : "51f758b176592e4511000001" },
+            "memo" : "test",
+            "name" : "app1",
+            "notice" : "ddd",
+            "permission" : { "admin" : [
+                "" ],
+                "download" : [
+                    "" ],
+                "edit" : [
+                    "" ],
+                "view" : [
+                    "" ] },
+            "pptfile" : "",
+            "release_note" : "sss",
+            "require" : { "device" : "iphone5" ,os: "ios"},
+            "screenshot" : [
+                "" ],
+            "support" : "ddd",
+            "update_date" : Date( 1375164552798 ),
+            "update_user" : "51f48e4be381cbcf0200000a",
+            "version" : "1.2",
+            "rank" : 4,
+            "video" : "" });
+    }
+</script>
+
+<div style="padding:5px; background:#ffffff;width:800px">
+
+<div id="<%= carousel_id %>" class="carousel slide" >
+
+<ol class="carousel-indicators">
+    <li data-target="#<%= carousel_id %>" data-slide-to="0" class="active"></li>
+    <li data-target="#<%= carousel_id %>" data-slide-to="1"></li>
+    <li data-target="#<%= carousel_id %>" data-slide-to="2"></li>
+</ol>
+
+<!-- Carousel items -->
+<div class="carousel-inner">
+
+<div class="item active">
+    <div class="row-fluid">
+        <div class="span3">
+            <div class="thumbnail" style="position: relative;">
+
+                <div class="caption">
+                    <a href="/app/<%=app_id%>">
+                        <img data-src="holder.js/260x180" alt="260x180" src="/images/cross.png"  class="carousel-image" >
+                    </a>
+                    <h4>Cross</h4>
+                    <i class="icon-star"></i>
+                    <i class="icon-star"></i>
+                    <i class="icon-star"></i>
+                    <i class="icon-star-half-empty"></i>
+                    <i class="icon-star-empty"></i>
+                    <a href="/file/download.json?_id=<%=file_id%>" style="float:right;"><button class="btn btn-small btn-success">下载</button></a>
+                </div>
+            </div>
+        </div>
+        <div class="span3">
+            <div class="thumbnail" style="position: relative;">
+
+                <div class="caption">
+                    <a href="/app/<%=app_id%>">
+                        <img data-src="holder.js/260x180" alt="260x180" src="/images/test/tsu_icon_144.png"  class="carousel-image" >
+                    </a>
+                    <h4>店舗支援アプリ</h4>
+                    <i class="icon-star"></i>
+                    <i class="icon-star"></i>
+                    <i class="icon-star"></i>
+                    <i class="icon-star-half-empty"></i>
+                    <i class="icon-star-empty"></i>
+                    <a href="/file/download.json?_id=<%=file_id%>" style="float:right;"><button class="btn btn-small btn-success">下载</button></a>
+                </div>
+            </div>
+        </div>
+        <div class="span3">
+            <div class="thumbnail" style="position: relative;">
+
+                <div class="caption">
+                    <a href="/app/<%=app_id%>">
+                        <img data-src="holder.js/260x180" alt="260x180" src="/images/test/ico_114px.png"  class="carousel-image" >
+                    </a>
+                    <h4>貸出くん</h4>
+                    <i class="icon-star"></i>
+                    <i class="icon-star"></i>
+                    <i class="icon-star"></i>
+                    <i class="icon-star-half-empty"></i>
+                    <i class="icon-star-empty"></i>
+                    <a href="/file/download.json?_id=<%=file_id%>" style="float:right;"><button class="btn btn-small btn-success">下载</button></a>
+                </div>
+            </div>
+        </div>
+        <div class="span3">
+            <div class="thumbnail" style="position: relative;">
+
+                <div class="caption">
+                    <a href="/app/<%=app_id%>">
+                        <img data-src="holder.js/260x180" alt="260x180" src="/images/test/Icon2x.png"  class="carousel-image" >
+                    </a>
+                    <h4>ReportViewer</h4>
+                    <i class="icon-star"></i>
+                    <i class="icon-star"></i>
+                    <i class="icon-star"></i>
+                    <i class="icon-star-half-empty"></i>
+                    <i class="icon-star-empty"></i>
+                    <a href="/file/download.json?_id=<%=file_id%>" style="float:right;"><button class="btn btn-small btn-success">下载</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div><!--/item-->
+
+
+<div class="item">
+    <div class="row-fluid">
+        <div class="span3">
+            <div class="thumbnail" style="position: relative;">
+
+                <div class="caption">
+                    <a href="/app/<%=app_id%>">
+                        <img data-src="holder.js/260x180" alt="260x180" src="/images/test/ico_114px.png"  class="carousel-image" >
+                    </a>
+                    <h4>貸出くん</h4>
+                    <i class="icon-star"></i>
+                    <i class="icon-star"></i>
+                    <i class="icon-star"></i>
+                    <i class="icon-star-half-empty"></i>
+                    <i class="icon-star-empty"></i>
+                    <a href="/file/download.json?_id=<%=file_id%>" style="float:right;"><button class="btn btn-small btn-success">下载</button></a>
+                </div>
+            </div>
+        </div>
+        <div class="span3">
+            <div class="thumbnail" style="position: relative;">
+
+                <div class="caption">
+                    <a href="/app/<%=app_id%>">
+                        <img data-src="holder.js/260x180" alt="260x180" src="/images/test/IMPImage.do.png"  class="carousel-image" >
+                    </a>
+                    <h4>通報くん</h4>
+                    <i class="icon-star"></i>
+                    <i class="icon-star"></i>
+                    <i class="icon-star"></i>
+                    <i class="icon-star-half-empty"></i>
+                    <i class="icon-star-empty"></i>
+                    <a href="/file/download.json?_id=<%=file_id%>" style="float:right;"><button class="btn btn-small btn-success">下载</button></a>
+                </div>
+            </div>
+        </div>
+        <div class="span3">
+            <div class="thumbnail" style="position: relative;">
+
+                <div class="caption">
+                    <a href="/app/<%=app_id%>">
+                        <img data-src="holder.js/260x180" alt="260x180" src="/images/cross.png"  class="carousel-image" >
+                    </a>
+                    <h4>Cross</h4>
+                    <i class="icon-star"></i>
+                    <i class="icon-star"></i>
+                    <i class="icon-star"></i>
+                    <i class="icon-star-half-empty"></i>
+                    <i class="icon-star-empty"></i>
+                    <a href="/file/download.json?_id=<%=file_id%>" style="float:right;"><button class="btn btn-small btn-success">下载</button></a>
+                </div>
+            </div>
+        </div>
+        <div class="span3">
+            <div class="thumbnail" style="position: relative;">
+
+                <div class="caption">
+                    <a href="/app/<%=app_id%>">
+                        <img data-src="holder.js/260x180" alt="260x180" src="/images/test/Icon-72-2x.png"  class="carousel-image" >
+                    </a>
+                    <h4>お客様の声</h4>
+                    <i class="icon-star"></i>
+                    <i class="icon-star"></i>
+                    <i class="icon-star"></i>
+                    <i class="icon-star-half-empty"></i>
+                    <i class="icon-star-empty"></i>
+                    <a href="/file/download.json?_id=<%=file_id%>" style="float:right;"><button class="btn btn-small btn-success">下载</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div><!--/item-->
+<div class="item">
+    <div class="row-fluid">
+        <div class="span3">
+            <div class="thumbnail" style="position: relative;">
+
+                <div class="caption">
+                    <a href="/app/<%=app_id%>">
+                        <img data-src="holder.js/260x180" alt="260x180" src="/images/test/ico_114px.png"  class="carousel-image" >
+                    </a>
+                    <h4>貸出くん</h4>
+                    <i class="icon-star"></i>
+                    <i class="icon-star"></i>
+                    <i class="icon-star"></i>
+                    <i class="icon-star-half-empty"></i>
+                    <i class="icon-star-empty"></i>
+                    <a href="/file/download.json?_id=<%=file_id%>" style="float:right;"><button class="btn btn-small btn-success">下载</button></a>
+                </div>
+            </div>
+        </div>
+        <div class="span3">
+            <div class="thumbnail" style="position: relative;">
+
+                <div class="caption">
+                    <a href="/app/<%=app_id%>">
+                        <img data-src="holder.js/260x180" alt="260x180" src="/images/test/IMPImage.do.png"  class="carousel-image" >
+                    </a>
+                    <h4>通報くん</h4>
+                    <i class="icon-star"></i>
+                    <i class="icon-star"></i>
+                    <i class="icon-star"></i>
+                    <i class="icon-star-half-empty"></i>
+                    <i class="icon-star-empty"></i>
+                    <a href="/file/download.json?_id=<%=file_id%>" style="float:right;"><button class="btn btn-small btn-success">下载</button></a>
+                </div>
+            </div>
+        </div>
+        <div class="span3">
+            <div class="thumbnail" style="position: relative;">
+
+                <div class="caption">
+                    <a href="/app/<%=app_id%>">
+                        <img data-src="holder.js/260x180" alt="260x180" src="/images/cross.png"  class="carousel-image" >
+                    </a>
+                    <h4>Cross</h4>
+                    <i class="icon-star"></i>
+                    <i class="icon-star"></i>
+                    <i class="icon-star"></i>
+                    <i class="icon-star-half-empty"></i>
+                    <i class="icon-star-empty"></i>
+                    <a href="/file/download.json?_id=<%=file_id%>" style="float:right;"><button class="btn btn-small btn-success">下载</button></a>
+                </div>
+            </div>
+        </div>
+        <div class="span3">
+            <div class="thumbnail" style="position: relative;">
+
+                <div class="caption">
+                    <a href="/app/<%=app_id%>">
+                        <img data-src="holder.js/260x180" alt="260x180" src="/images/test/Icon-72-2x.png"  class="carousel-image" >
+                    </a>
+                    <h4>お客様の声</h4>
+                    <i class="icon-star"></i>
+                    <i class="icon-star"></i>
+                    <i class="icon-star"></i>
+                    <i class="icon-star-half-empty"></i>
+                    <i class="icon-star-empty"></i>
+                    <a href="/file/download.json?_id=<%=file_id%>" style="float:right;"><button class="btn btn-small btn-success">下载</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div><!--/item-->
+</div><!--/carousel-inner-->
+
+<a class="left carousel-control" href="#<%= carousel_id %>" data-slide="prev">‹</a>
+<a class="right carousel-control" href="#<%= carousel_id %>" data-slide="next">›</a>
+</div><!--/myCarousel-->
+
+</div><!--/well-->
