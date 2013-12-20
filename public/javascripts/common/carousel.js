@@ -44,23 +44,13 @@ var Carousel = {
             var tmpl_loading = this.getTmpl("template_loading");
             this.container.html(tmpl_loading);
             var category = this.category ? this.category: "";
-            $.ajax({
-                url: this.url + "&count=" + this.item_count + "&category=" + category,
-                type: "GET",
-                async: true,
-                dataType: "json",
-                contentType: false,
-                processData: false,
-                success: function (result) {
-                    if (result.error) {
-                        alert(result.error.message)
-                    } else {
-                        _this.load_end(result.data);
-                    }
-                },
-                error: function (err) {
-                    alert(err);
-                }
+            var jsonUrl = this.url + "&count=" + this.item_count + "&category=" + category;
+            smart.doget(jsonUrl , function(err, result) {
+              if (err) {
+                smart.error(err,i18n["js.common.search.error"],false);
+              } else {
+                _this.load_end(result);
+              }
             });
         }
         ,load_end: function(data) {

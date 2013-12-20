@@ -1,6 +1,7 @@
 
 var log       = smart.framework.log
-  , user      = require("../apis/user");
+  , user      = require("../apis/user")
+  , application = require('../apis/application');
 
 /*
  * GET home page.
@@ -44,5 +45,9 @@ exports.guiding = function (app) {
     res.render("app_add_step_1", {"title": "app_add_step_1", user: req.session.user, appId: ""
       ,appTypes: ""
       ,categoryTypes: ""});
+  });
+
+  app.get('/app/list.json', function(req, res){
+    application.list(req, res);
   });
 };
