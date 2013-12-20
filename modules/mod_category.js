@@ -6,7 +6,7 @@ var Categories = {
          {
              id: undefined
              ,code: 10000
-             ,name: "设备"
+             ,name: "デバイス"
              ,items: [
                 {  id: undefined, code: 10001 ,name: "iOS", icon:"/images/system/ios.png"}
                 ,{ id: undefined, code: 10002 ,name: "Android", icon:"/images/system/android.png" }
@@ -16,7 +16,7 @@ var Categories = {
          ,{
             id: undefined
             ,code: 20000
-             ,name: "业务类别"
+             ,name: "業種"
             ,items: [
                 {  id: undefined, code: 20001 ,name: "贩卖/零售" }
                 ,{ id: undefined, code: 20002 ,name: "制造" }
@@ -33,7 +33,7 @@ var Categories = {
          ,{
             id: undefined
             ,code: 30000
-             ,name: "规模"
+             ,name: "規模"
             ,items: [
                 {  id: undefined, code: 30001 ,name: "2000人以下" }
                 ,{ id: undefined, code: 30002 ,name: "1000人以下" }
@@ -44,6 +44,7 @@ var Categories = {
          }
      ]
 };
+
 //获取Categories
 exports.getCategories = function () {
     return Categories;

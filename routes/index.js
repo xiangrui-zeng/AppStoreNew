@@ -1,6 +1,7 @@
 
 var log       = smart.framework.log
-  , user      = require("../apis/user");
+  , user      = require("../apis/user")
+  , application = require('../apis/application');
 
 /*
  * GET home page.
@@ -105,5 +106,9 @@ exports.guiding = function (app) {
   // 获取分类一览
   app.get('/app/category.json', function(req, res){
     category.getCategory(req, res);
+  });
+
+  app.get('/app/list.json', function(req, res){
+    application.list(req, res);
   });
 };
