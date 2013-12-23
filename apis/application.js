@@ -96,8 +96,10 @@ exports.createAppStep1 = function (req, res) {
     };
     data.update_date = new Date();
     data.update_user = creator;
+  log.operation("begin: create app step1.", handler.uid);
     app.create(data, function (err, result) {
       response.send(res, err, result);
+      log.operation("finish: create app step1.", handler.uid);
     });
 };
 exports.createAppStep2 = function (req_, res_) {
