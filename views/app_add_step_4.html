@@ -1,0 +1,190 @@
+<% include common/head.html %>
+
+<!-- Side bar -->
+
+
+<script type="text/javascript">
+    <%
+    if (appId != '0') { %>
+
+        $(function () {
+            smart.doget('/app/info.json?app_id=<%=appId%>', function (err, data) {
+                console.log(data);
+                for (var i = 1; i <= 5; i++) {
+                    if (data.editstep >= i) {
+                        $("#step" + (i) + "").attr("href", "/app/add/step" + (i) + "?appId=" + data._id);
+                        $("#step" + (i) + "").css("background-image","url(/images/check.png)");
+                        $("#step" + (i) + "").css("background-repeat","no-repeat");
+                    } else
+                        $("#step" + (i) + "").attr("href", "#");
+
+                    $("#step4").addClass("active");
+                }
+                if(!data.support){
+                    return;
+                }
+
+                $("#support").val(data.support);
+                $("#notice").val(data.notice);
+                $("#release_note").val(data.release_note);
+
+            });
+        });
+
+    <%
+    }
+    %>
+    function didSendStepCallback(result) {
+        // 错误信息
+        if(result.error && result.error.code) {
+            $alertMsg.error(result.error.message);
+            return;
+        }
+        console.log("console.log(result);");
+        console.log(result);
+        var appId = result.data._id;
+        console.log("appp id   is   %s", appId);
+        window.location.href = "/app/add/step5?appId=" + appId;
+    }
+    ;
+    function didSendFn(data) {
+        var sendData = {};
+        var crsf = $("#_csrf").val();
+        for (var i in data) {
+            sendData[data[i].name] = data[i].value;
+            if (data[i].name == 'appId') {
+                sendData["_id"] = data[i].value;
+            }
+        }
+        sendData["_csrf"] = crsf;
+        return sendData;
+    }
+    ;
+
+</script>
+<br>
+<br>
+<div class="container-fluid top_line">
+    <div class="row-fluid">
+        <div class="span3">
+            <% include common/app_add_sidebar.html %>
+        </div>
+        <div class="span9 span10_left_line">
+
+
+            <div class="span9">
+
+                <form class="required-validate form-horizontal" action="/app/create/step4.json" method="post"
+                      onsubmit="return validateCallback(this,didSendStepCallback,didSendFn,'确认提交吗？')">
+                    <input type="hidden" name="appId" value="<%=appId%>"/>
+
+                    <div class="widget-box">
+                        <div class="widget-content nopadding">
+
+                            <div class="control-group">
+                                <label class="control-label">support</label>
+
+                                <div class="controls">
+                                    <textarea class="required" name="support" id="support"></textarea>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">注意事項</label>
+
+                                <div class="controls">
+                                    <textarea class="required" name="notice" id="notice"></textarea>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">release_note</label>
+
+                                <div class="controls">
+                                    <textarea class="required" name="release_note" id="release_note"/></textarea>
+                                </div>
+                            </div>
+
+
+                            <div class="control-group">
+                                <label class="control-label"></label>
+
+                                <div class="controls">
+                                    <button class="btn btn-small btn-success" type="submit">Next</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+<!-- This is just a little bit of custom CSS code to enhance things. Feel free to place this in your main CSS file. I've commented to say what each bit does. -->
+<style type="text/css">
+        /* Removes the default 20px margin and creates some padding space for the indicators and controls */
+    .carousel {
+        margin-bottom: 0;
+        padding: 0 40px 30px 40px;
+    }
+
+        /* Reposition the controls slightly */
+    .carousel-control {
+        left: -12px;
+    }
+
+    .carousel-control.right {
+        right: -12px;
+    }
+
+        /* Changes the position of the indicators */
+    .carousel-indicators {
+        right: 50%;
+        top: auto;
+        bottom: 0px;
+        margin-right: -19px;
+    }
+
+        /* Changes the colour of the indicators */
+    .carousel-indicators li {
+        background: #c0c0c0;
+    }
+
+    .carousel-indicators .active {
+        background: #333333;
+    }
+
+    .desc {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: rgba(128, 0, 0, 0.4);
+        width: 100%;
+        height: 100%;
+        color: #fff !important;
+    }
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#myCarousel').carousel({
+            interval: 10000
+        })
+
+        $("[rel='tooltip']").tooltip();
+
+        $('#item1').hover(
+                function () {
+                    $(this).find('.desc').slideDown(250); //.fadeIn(250)
+                },
+                function () {
+                    $(this).find('.desc').slideUp(250); //.fadeOut(205)
+                }
+        );
+    });
+</script>
+
+<% include common/foot.html %>

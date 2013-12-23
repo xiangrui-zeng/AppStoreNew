@@ -86,27 +86,26 @@ function validateCallback(form, callback, fn,confirmMsg) {
     var f = fn($form.serializeArray());
 
     var csrftoken = $('#_csrf').val();
-    console.log(f);
+    console.log(csrftoken);
     var data =  (fn?fn($form.serializeArray()):{
         "_csrf": csrftoken,
         "form": $form.serializeArray()
     })||{"_csrf":csrftoken};
     console.log(data);
     var _submitFn = function () {
-        $.ajax({
-            type: form.method || 'POST',
-            url: $form.attr("action"),
-            data: data,
-            dataType: "json",
-            cache: false,
-            success: callback || $sw.ajaxDone,
-            error: $sw.ajaxError
-        });
+      smart.dopost($form.attr("action"),data,  function(err, result) {
+        if (err) {
+          alert($form.attr("action")+"?_csrf=");
+          return Alertify.log.info("提交失败");
+        }
+        window.location = "/app/add/step2";
+      });
     }
 
     if (confirmMsg) {
         $alertMsg.confirm(confirmMsg||"确认提交吗？", {okCall: _submitFn});
     } else {
+
         _submitFn();
     }
 

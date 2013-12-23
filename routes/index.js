@@ -2,7 +2,9 @@
 var log       = smart.framework.log
   , user      = require("../apis/user")
   , application = require('../apis/application');
+  //, categorory = require('/modules/mod_category')
 
+var ctrlapp = require('../controllers/ctrl_app');
 /*
  * GET home page.
  */
@@ -41,10 +43,76 @@ exports.guiding = function (app) {
     user.simpleLogout(req, res);
   });
 
-  app.get("/app/add/step1",function(req, res) {
-    res.render("app_add_step_1", {"title": "app_add_step_1", user: req.session.user, appId: ""
-      ,appTypes: ""
-      ,categoryTypes: ""});
+  //上传应用第一步
+//  app.get("/app/add/step1",function(req, res) {
+//    res.render("app_add_step_1", {
+//      "title": "app_add_step_1",
+//      user: req.session.user,
+//      appId: ""
+//      ,appTypes: ""
+//      ,categoryTypes: ""});
+//    });
+
+  app.get('/app/add/step1', function (req, res) {
+    ctrlapp.renderAppStep(req, res, 1);
+  });
+
+  //json的post与get方法
+  //上传应用
+  app.post('/app/create.json',function(req,res)
+  {
+    application.createApp(req,res);
+  });
+  //上传数据：创建app第一步信息
+  app.post('/app/create/step1.json',function(req,res)
+  {
+    application.createAppStep1(req,res);
+  });
+  //上传数据：更新app第一步信息
+  app.post('/app/update/step1.json',function(req,res)
+  {
+    application.updateAppStep1(req,res);
+  });
+  //上传数据：创建app的第2-5步信息
+  app.post('/app/create/step2.json',function(req,res)
+  {
+    application.createAppStep2(req,res);
+  });
+
+  app.post('/app/create/step3.json',function(req,res)
+  {
+    application.createAppStep3(req,res);
+  });
+
+  app.post('/app/create/step4.json',function(req,res)
+  {
+    application.createAppStep4(req,res);
+  });
+
+  app.post('/app/create/step5.json',function(req,res)
+  {
+    application.createAppStep5(req,res);
+  });
+  //get**.json
+  app.get('/app/info.json',function(req,res){
+    application.getAppInfo(req,res);
+  });
+
+  app.get('/app/search.json', function(req, res){
+    application.search(req, res);
+  });
+
+  app.get('/app/list.json', function(req, res){
+    application.list(req, res);
+  });
+
+  app.get('/app/downloaded/list.json', function(req, res){
+    application.downloadedList(req, res);
+  });
+
+  // 获取分类一览
+  app.get('/app/category.json', function(req, res){
+    category.getCategory(req, res);
   });
 
   app.get('/app/list.json', function(req, res){
