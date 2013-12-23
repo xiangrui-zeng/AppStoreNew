@@ -73,18 +73,18 @@ exports.updateAppStep1 = function (req_, res_) {
         });
     });
 };
-exports.createAppStep1 = function (req_, res_) {
-    var creator = req_.session.user._id;
-    var data = util.checkObject(req_.body);
+exports.createAppStep1 = function (req, res) {
+    var creator = req.session.user._id;
+    var data = util.checkObject(req.body);
     data.require = {
-        device: req_.body['require.device'],
-        os: req_.body['require.os']
+        device: req.body['require.device'],
+        os: req.body['require.os']
     };
     data.create_user = creator;
     data.editstep = 1;
     data.editing = 0;
     data.status = -1;
-    data.category = req_.body.category;
+    data.category = req.body.category;
     data.permission = {
         admin: [creator],
         edit: [creator],

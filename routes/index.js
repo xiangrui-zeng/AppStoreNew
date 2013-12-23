@@ -2,7 +2,9 @@
 var log       = smart.framework.log
   , user      = require("../apis/user")
   , application = require('../apis/application');
+  //, categorory = require('/modules/mod_category')
 
+var ctrlapp = require('../controllers/ctrl_app');
 /*
  * GET home page.
  */
@@ -42,14 +44,19 @@ exports.guiding = function (app) {
   });
 
   //上传应用第一步
-  app.get("/app/add/step1",function(req, res) {
-    res.render("app_add_step_1", {
-      "title": "app_add_step_1",
-      user: req.session.user,
-      appId: ""
-      ,appTypes: ""
-      ,categoryTypes: ""});
-    });
+//  app.get("/app/add/step1",function(req, res) {
+//    res.render("app_add_step_1", {
+//      "title": "app_add_step_1",
+//      user: req.session.user,
+//      appId: ""
+//      ,appTypes: ""
+//      ,categoryTypes: ""});
+//    });
+
+  app.get('/app/add/step1', function (req, res) {
+    ctrlapp.renderAppStep(req, res, 1);
+  });
+
   //json的post与get方法
   //上传应用
   app.post('/app/create.json',function(req,res)

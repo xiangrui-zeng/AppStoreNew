@@ -91,6 +91,18 @@ exports.isAppTypes = function (category) {
 }
 
 exports.getAppTypeName = function (category) {
+  if(category) {
+    var code = category;
+    var c_types = exports.getAppTypes();
+    for (var i in c_types.items) {
+      if(c_types.items[i].code == code)
+        return c_types.items[i].name;
+    }
+  }
+  return "";
+}
+
+exports.getAppTypeName = function (category) {
     if(category) {
         var code = category;
         var c_types = exports.getAppTypes();
