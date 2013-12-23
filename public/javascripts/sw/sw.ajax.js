@@ -91,7 +91,6 @@ function validateCallback(form, callback, fn,confirmMsg) {
     var _submitFn = function () {
       smart.dopost($form.attr("action"),data,  function(err, result) {
         if (err) {
-          alert($form.attr("action")+"?_csrf=");
           return Alertify.log.info("提交失败");
         }
         window.location = "/app/add/step2";
