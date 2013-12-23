@@ -1,7 +1,8 @@
 
 var log       = smart.framework.log
   , user      = require("../apis/user")
-  , application = require('../apis/application');
+  , application = require('../apis/application')
+  , file      = require("../apis/file");
   //, categorory = require('/modules/mod_category')
 
 var ctrlapp = require('../controllers/ctrl_app');
@@ -56,6 +57,10 @@ exports.guiding = function (app) {
   app.get('/app/add/step1', function (req, res) {
     ctrlapp.renderAppStep(req, res, 1);
   });
+
+  app.get('/app/add/step2', function(req, res) {
+    ctrlapp.renderAppStep(req, res, 2);
+  })
 
   //json的post与get方法
   //上传应用
@@ -117,5 +122,13 @@ exports.guiding = function (app) {
 
   app.get('/app/list.json', function(req, res){
     application.list(req, res);
+  });
+
+  app.post('/app/image/save.json', function (req, res) {
+    application.saveimage(req, res);
+  });
+  // 获取图片
+  app.get('/picture/:id', function (req, res) {
+    file.getImage(req, res);
   });
 };

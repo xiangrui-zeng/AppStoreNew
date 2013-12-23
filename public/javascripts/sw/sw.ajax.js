@@ -12,26 +12,22 @@ function uploadFiles(input, files, callback) {
     }
     var _uploadFn = function (opt) {
         var crsf = $("#_csrf").val();
-        $.ajax({
-            url: "/gridfs/save.json?_csrf=" + crsf,
-            type: "POST",
-            async: false,
-            data: opt.data,
-            dataType: "json",
-            contentType: false,
-            processData: false,
-            success: function (result) {
-                if (result.error) {
+      // 发送文件
+      smart.dopostData("/app/image/save.json", fd,function(err, result){
 
-                    callback(1, input, result);
-                } else {
-                    callback(0, input, result);
-                }
-            },
-            error: function (err) {
-                callback(1, err);
+          if(smart.error(err, i18n["js.common.upload.error"], false)){
+            callback(1, err);
+          } else {
+            if (result.error) {
+
+              callback(1, input, result);
+            } else {
+              callback(0, input, result);
             }
-        });
+          }
+        }
+
+      );
     };
     _uploadFn({data: fd});
 };

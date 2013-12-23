@@ -1,6 +1,8 @@
 var app = require("../controllers/ctrl_app.js")
   , util = smart.framework.util
   , response  = smart.framework.response
+  , context   = smart.framework.context
+  , log       = smart.framework.log
   , apputil = require("../core/apputil.js")
   , starerrors = require("../core/starerrors.js");
 
@@ -150,6 +152,18 @@ exports.createAppStep2 = function (req_, res_) {
         });
     });
 };
+
+// uploud image
+exports.saveimage = function(req, res) {
+  var handler = new context().bind(req, res);
+  log.operation("begin: upload an item.", handler.uid);
+
+  app.addimage(handler, function(err, result) {
+    log.operation("finish: upload an item.", handler.uid);
+    response.send(res, err, result);
+  });
+};
+
 exports.createAppStep3 = function (req_, res_) {
     var creator = req_.session.user._id;
     var appId = req_.body._id;
