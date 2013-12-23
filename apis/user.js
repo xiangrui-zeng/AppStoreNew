@@ -364,43 +364,6 @@ exports.updatePassword = function(req, res) {
   });
 };
 
-/**
- * 修改图形密码（for iPad）
- * @param req 请求对象
- * @param res 响应对象
- * @returns {*} 无
- */
-exports.updatePattern = function(req, res) {
-
-  var handler = new context().bind(req, res);
-
-  handler.addParams("extendKey", "pattern");
-  handler.addParams("extendValue", handler.params.pattern);
-
-  ctrlUser.updateExtendProperty(handler, function(err, result) {
-    return response.send(res, err, {isSuccess: result ? true : false});
-  });
-};
-
-/**
- * 检查图形密码是否正确（for iPad）
- * @param req 请求对象
- * @param res 响应对象
- * @returns {*} 无
- */
-exports.isPatternRight = function(req, res) {
-
-  var handler = new context().bind(req, res);
-
-  ctrlUser.get(handler, function(err, result) {
-
-    if (err) {
-      return response.send(res, err);
-    }
-
-    return response.send(res, err, {isRight: (result.extend.pattern === handler.params.pattern)});
-  });
-};
 
 
 
