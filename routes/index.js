@@ -52,9 +52,24 @@ exports.guiding = function (app) {
 //      ,appTypes: ""
 //      ,categoryTypes: ""});
 //    });
-
+  //上传应用第一步
   app.get('/app/add/step1', function (req, res) {
     ctrlapp.renderAppStep(req, res, 1);
+  });
+
+  app.get('/app/add/step2', function (req, res) {
+    ctrlapp.renderAppStep(req, res, 2);
+  });
+
+  app.get('/app/add/step3', function (req, res) {
+    ctrlapp.renderAppStep(req, res, 3);
+  });
+  app.get('/app/add/step4', function (req, res) {
+    ctrlapp.renderAppStep(req, res, 4);
+  });
+
+  app.get('/app/add/step5', function (req, res) {
+    ctrlapp.renderAppStep(req, res, 5);
   });
 
   //json的post与get方法
@@ -115,7 +130,4 @@ exports.guiding = function (app) {
     category.getCategory(req, res);
   });
 
-  app.get('/app/list.json', function(req, res){
-    application.list(req, res);
-  });
 };
