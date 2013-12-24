@@ -3,9 +3,6 @@ var app = require("../controllers/ctrl_app.js")
     , download = require("../controllers/ctrl_download")
     , util = smart.framework.util
     , json = smart.framework.response;
-var   app      = require("../controllers/ctrl_app.js")
-    , download = require("../controllers/ctrl_download")
-    , util     = smart.framework.util;
 
 
 exports.create = function (req_, res_, callback) {

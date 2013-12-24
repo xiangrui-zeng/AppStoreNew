@@ -1,8 +1,7 @@
-var download = require("../modules/mod_download.js");
-var app = require("../modules/mod_app.js");
-var async = smart.util.async;
-var app      = require("../modules/mod_app.js");
-var async    = smart.util.async;
+var download = require("../modules/mod_download.js")
+  , app = require("../modules/mod_app.js")
+  , async = smart.util.async
+  , app      = require("../modules/mod_app.js");
 
 exports.create = function (data_, callback_){
   var down_ = data_;

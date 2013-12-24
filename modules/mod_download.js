@@ -1,13 +1,15 @@
 var mongo       = smart.util.mongoose
   , conn        = smart.framework.connection
   , schema      = mongo.Schema;
+
+
 var Download = new schema({
-    app_id : {type:String}
-    , create_at: { type: Date, default: Date.now }
-    , ip    : {type:String}
-    , create_user :{type:String}
-    , type  : {type:String}
-    , device : {type:String}
+      app_id       : { type: String }
+    , create_at    : { type: Date, default: Date.now }
+    , ip           : { type: String }
+    , create_user  : { type: String }
+    , type         : { type: String }
+    , device       : { type: String }
 });
 
 function model() {
