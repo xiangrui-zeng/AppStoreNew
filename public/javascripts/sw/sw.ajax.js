@@ -15,7 +15,8 @@ function uploadFiles(input, files, callback) {
       // 发送文件
       smart.dopostData("/app/image/save.json", fd,function(err, result){
 
-          if(smart.error(err, i18n["js.common.upload.error"], false)){
+
+          if(err){
             callback(1, err);
           } else {
             if (result.error) {

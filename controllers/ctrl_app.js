@@ -31,10 +31,11 @@ exports.findAppInfoById = function (app_id_, callback_) {
 exports.addimage = function(handler, callback) {
 
   file.add(handler, function(err, result){
+
     if(err){
       return callback(new error.InternalServer(err));
     }
-    callback(err, result[0]._id);
+    callback(err, result);
   });
 };
 

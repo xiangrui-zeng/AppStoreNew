@@ -52,15 +52,6 @@ exports.guiding = function (app) {
   });
 
   //上传应用第一步
-//  app.get("/app/add/step1",function(req, res) {
-//    res.render("app_add_step_1", {
-//      "title": "app_add_step_1",
-//      user: req.session.user,
-//      appId: ""
-//      ,appTypes: ""
-//      ,categoryTypes: ""});
-//    });
-  //上传应用第一步
   app.get('/app/add/step1', function (req, res) {
     ctrlapp.renderAppStep(req, res, 1);
   });
@@ -141,7 +132,7 @@ exports.guiding = function (app) {
   app.get('/app/list.json', function(req, res){
     application.list(req, res);
   });
-
+  //存储图片
   app.post('/app/image/save.json', function (req, res) {
     application.saveimage(req, res);
   });

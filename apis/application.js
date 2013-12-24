@@ -100,33 +100,33 @@ exports.createAppStep1 = function (req, res) {
       response.send(res, err, result);
     });
 };
-exports.createAppStep2 = function (req_, res_) {
-    var creator = req_.session.user._id;
-    var appId = req_.body._id;
-    var icon_big = req_.body['icon.big'];
-    var icon_small = req_.body['icon.small'];
-    var screenshot = req_.body.screenshot;
-    var pptfile = req_.body.pptfile;
-    var video = req_.body.video;
-    var downloadId = req_.body.downloadId;
-    var plistDownloadId = req_.body.plistDownloadId;
+exports.createAppStep2 = function (req, res) {
+    var creator = req.session.user._id;
+    var appId = req.body._id;
+    var icon_big = req.body['icon.big'];
+    var icon_small = req.body['icon.small'];
+    var screenshot = req.body.screenshot;
+    var pptfile = req.body.pptfile;
+    var video = req.body.video;
+    var downloadId = req.body.downloadId;
+    var plistDownloadId = req.body.plistDownloadId;
     var editstep = 2;
     console.log(icon_big.length);
     console.log(icon_small.length);
     console.log(screenshot.length);
     if (icon_small.length == 0) {
-        return res_.send(json.dataSchema({status: 300, error: "没有上传小图标"}));
+        return res.send(json.dataSchema({status: 300, error: "没有上传小图标"}));
     }
     if (icon_big.length == 0) {
-        return res_.send(json.dataSchema({status: 300, error: "没有上传大图标"}));
+        return res.send(json.dataSchema({status: 300, error: "没有上传大图标"}));
     }
     if (screenshot.length == 0) {
-        return res_.send(json.dataSchema({status: 300, error: "没有上传素材图片"}));
+        return res.send(json.dataSchema({status: 300, error: "没有上传素材图片"}));
     }
 
     app.findAppInfoById(appId, function (err, docs) {
         // check编辑权限
-        if(!apputil.isCanEdit(docs, req_.session.user._id))
+        if(!apputil.isCanEdit(docs, req.session.user._id))
           return new error.InternalServer(err);
 
         docs.update_date = new Date();
@@ -157,8 +157,24 @@ exports.createAppStep2 = function (req_, res_) {
 exports.saveimage = function(req, res) {
   var handler = new context().bind(req, res);
   log.operation("begin: upload an item.", handler.uid);
+  var params = handler.params
+   , files = params.files;
+  var tmpFiles = [];
+  console.log(files);
+  if(files) {
+    if(files[0] instanceof Array){
+      var fileList = files[0];
+      for(var i in fileList){
+        tmpFiles.push(fileList[i]);
+      }
+    }  else {
+      tmpFiles.push(files[0]);
+    }
+  }
+  handler.addParams("files",tmpFiles);
 
   app.addimage(handler, function(err, result) {
+    console.log(result+"_______________________________")
     log.operation("finish: upload an item.", handler.uid);
     response.send(res, err, result);
   });

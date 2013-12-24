@@ -69,6 +69,7 @@ var $app = {
             $("#setuserlist").html('');
             ajaxGetCallback($("#download_set_btn"), {}, that.didDownloadSelectRender);
         });
+      //上传第二步 App
         $("#pptfile_btn").bind("click", function () {
             $("#pptfile_file").bind("change", function (e) {
                 uploadFiles('didUploadPPTFile', e.target.files, that.didUploadPPTFile);
@@ -87,7 +88,7 @@ var $app = {
             src.attr("accept", "");
             src.trigger('click');
         });
-
+        //上传第二步 小图标
         $("#icon_small_btn").bind("click", function () {
             $("#icon_small_file").bind("change", function (e) {
                 uploadFiles('didUploadSmallFile', e.target.files, that.didUploadSmallFile);
@@ -97,6 +98,7 @@ var $app = {
             src.attr("accept", "");
             src.trigger('click');
         });
+      //上传第二步 大图标
         $("#icon_big_btn").bind("click", function () {
             $("#icon_big_file").bind("change", function (e) {
                 uploadFiles('didUploadSmallFile', e.target.files, that.didUploadBigFile);
@@ -117,6 +119,7 @@ var $app = {
             src.attr("accept", "");
             src.trigger('click');
         });
+      //上传第二步 大图片（6个）
         $("#image_big_btn").bind("click", function () {
             $("#image_big_file").bind("change", function (e) {
                 if (e.target.files.length < 7) {
@@ -310,7 +313,7 @@ var $app = {
     },
     didUploadPPTFile: function (status, input, fid) {
         console.log(fid);
-        var fid = fid.data.items[0]._id;
+        var fid = fid.data;
         $("#pptfile_hid").val(fid);
         $("#pptfile_hid").attr("readonly", "readonly");
         $("#pptfile_hid").after(fid);
@@ -449,8 +452,8 @@ var $app = {
 
     },
     didUploadSmallFile: function (status, input, fid) {
-        console.log(input);
-        var fid = fid.data.items[0]._id;
+        console.log(fid);
+        var fid = fid.data[0]._id;
         $("#icon_small_file_hid").val(fid);
         $("#icon_small_img").css("display", "block");
         $("#icon_small_btn").css("display", "none");
@@ -464,7 +467,7 @@ var $app = {
     },
     didUploadBigFile: function (status, input, fid) {
         console.log(input);
-        var fid = fid.data.items[0]._id;
+        var fid = fid.data[0]._id;
         $("#icon_big_file_hid").val(fid);
         $("#icon_big_img").css("display", "block");
         $("#icon_big_btn").css("display", "none");
@@ -477,13 +480,13 @@ var $app = {
 
     },
     didUploadImageFile: function (status, input, fid) {
-        console.log(input);
+        console.log(fid);
 //        var fid = fid.data.items[0]._id;
         var fids = [];
-        for (var i = 0; i < fid.data.items.length; i++) {
-            console.log(fid.data.items[i]);
-            fids.push(fid.data.items[i]._id);
-            $($("#image_show img").eq(i)[0]).attr("src", '/picture/' + fid.data.items[i]._id);
+        for (var i = 0; i < fid.data.length; i++) {
+            console.log(fid.data[i]._id);
+            fids.push(fid.data[i]._id);
+            $($("#image_show img").eq(i)[0]).attr("src", '/picture/' + fid.data[i]._id);
         }
 
         $("#image_big_file_hid").val(fids);
