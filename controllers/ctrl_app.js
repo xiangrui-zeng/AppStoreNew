@@ -1,6 +1,7 @@
 var EventProxy = require('eventproxy');
 var app = require("../modules/mod_app.js")
   , user = smart.ctrl.user
+  , file      = smart.ctrl.file
   , downloadInfo = require("../modules/mod_download")
   , async = smart.util.async
   , categorory = require('../modules/mod_category')
@@ -25,6 +26,16 @@ exports.findAppInfoById = function (app_id_, callback_) {
         console.log(docs);
         callback_(err, docs);
     });
+};
+
+exports.addimage = function(handler, callback) {
+
+  file.add(handler, function(err, result){
+    if(err){
+      return callback(new error.InternalServer(err));
+    }
+    callback(err, result[0]._id);
+  });
 };
 
 exports.getAppInfoById = function (app_id_, callback_) {

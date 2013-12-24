@@ -1,6 +1,8 @@
 var app = require("../controllers/ctrl_app.js")
   , util = smart.framework.util
   , response  = smart.framework.response
+  , context   = smart.framework.context
+  , log       = smart.framework.log
   , apputil = require("../core/apputil.js")
   , starerrors = require("../core/starerrors.js");
 
@@ -73,18 +75,18 @@ exports.updateAppStep1 = function (req_, res_) {
         });
     });
 };
-exports.createAppStep1 = function (req_, res_) {
-    var creator = req_.session.user._id;
-    var data = util.checkObject(req_.body);
+exports.createAppStep1 = function (req, res) {
+    var creator = req.session.user._id;
+    var data = util.checkObject(req.body);
     data.require = {
-        device: req_.body['require.device'],
-        os: req_.body['require.os']
+        device: req.body['require.device'],
+        os: req.body['require.os']
     };
     data.create_user = creator;
     data.editstep = 1;
     data.editing = 0;
     data.status = -1;
-    data.category = req_.body.category;
+    data.category = req.body.category;
     data.permission = {
         admin: [creator],
         edit: [creator],
@@ -94,8 +96,10 @@ exports.createAppStep1 = function (req_, res_) {
     };
     data.update_date = new Date();
     data.update_user = creator;
+  log.operation("begin: create app step1.", handler.uid);
     app.create(data, function (err, result) {
       response.send(res, err, result);
+      log.operation("finish: create app step1.", handler.uid);
     });
 };
 exports.createAppStep2 = function (req_, res_) {
@@ -150,6 +154,18 @@ exports.createAppStep2 = function (req_, res_) {
         });
     });
 };
+
+// uploud image
+exports.saveimage = function(req, res) {
+  var handler = new context().bind(req, res);
+  log.operation("begin: upload an item.", handler.uid);
+
+  app.addimage(handler, function(err, result) {
+    log.operation("finish: upload an item.", handler.uid);
+    response.send(res, err, result);
+  });
+};
+
 exports.createAppStep3 = function (req_, res_) {
     var creator = req_.session.user._id;
     var appId = req_.body._id;

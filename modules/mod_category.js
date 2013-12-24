@@ -45,10 +45,12 @@ var Categories = {
      ]
 };
 
+//获取Categories
 exports.getCategories = function () {
     return Categories;
 }
 
+//获取Categories中的code类型
 exports.getByCode = function (code) {
     return _getByByCode(exports.getCategories(), code);
 }
@@ -86,6 +88,18 @@ exports.isAppTypes = function (category) {
     }
 
     return false;
+}
+
+exports.getAppTypeName = function (category) {
+  if(category) {
+    var code = category;
+    var c_types = exports.getAppTypes();
+    for (var i in c_types.items) {
+      if(c_types.items[i].code == code)
+        return c_types.items[i].name;
+    }
+  }
+  return "";
 }
 
 exports.getAppTypeName = function (category) {

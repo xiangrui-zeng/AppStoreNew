@@ -12,26 +12,22 @@ function uploadFiles(input, files, callback) {
     }
     var _uploadFn = function (opt) {
         var crsf = $("#_csrf").val();
-        $.ajax({
-            url: "/gridfs/save.json?_csrf=" + crsf,
-            type: "POST",
-            async: false,
-            data: opt.data,
-            dataType: "json",
-            contentType: false,
-            processData: false,
-            success: function (result) {
-                if (result.error) {
+      // 发送文件
+      smart.dopostData("/app/image/save.json", fd,function(err, result){
 
-                    callback(1, input, result);
-                } else {
-                    callback(0, input, result);
-                }
-            },
-            error: function (err) {
-                callback(1, err);
+          if(smart.error(err, i18n["js.common.upload.error"], false)){
+            callback(1, err);
+          } else {
+            if (result.error) {
+
+              callback(1, input, result);
+            } else {
+              callback(0, input, result);
             }
-        });
+          }
+        }
+
+      );
     };
     _uploadFn({data: fd});
 };
@@ -86,27 +82,26 @@ function validateCallback(form, callback, fn,confirmMsg) {
     var f = fn($form.serializeArray());
 
     var csrftoken = $('#_csrf').val();
-    console.log(f);
+    console.log(csrftoken);
     var data =  (fn?fn($form.serializeArray()):{
         "_csrf": csrftoken,
         "form": $form.serializeArray()
     })||{"_csrf":csrftoken};
     console.log(data);
     var _submitFn = function () {
-        $.ajax({
-            type: form.method || 'POST',
-            url: $form.attr("action"),
-            data: data,
-            dataType: "json",
-            cache: false,
-            success: callback || $sw.ajaxDone,
-            error: $sw.ajaxError
-        });
+      smart.dopost($form.attr("action"),data,  function(err, result) {
+        if (err) {
+          alert($form.attr("action")+"?_csrf=");
+          return Alertify.log.info("提交失败");
+        }
+        window.location = "/app/add/step2";
+      });
     }
 
     if (confirmMsg) {
         $alertMsg.confirm(confirmMsg||"确认提交吗？", {okCall: _submitFn});
     } else {
+
         _submitFn();
     }
 

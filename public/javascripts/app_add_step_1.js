@@ -11,14 +11,9 @@ $(function () {
 
 });
 
-
-
 function events(appId) {
 
 }
-
-
-
 
 function render(appId) {
 
@@ -67,42 +62,40 @@ function render(appId) {
         $("#step1").addClass("active");
       }
     });
-
-
-  }function didSendStep1Callback(result) {
-    // 错误信息
-    if(result.error && result.error.code) {
-      $alertMsg.error(result.error.message);
-      return;
-    }
-    console.log("console.log(result);");
-    console.log(result);
-    var appId = result.data._id;
-    console.log("appp id   is   %s", appId);
-    window.location.href = "/app/add/step2?appId=" + appId;
   }
-  ;
-  function didSendFn(data) {
-    var sendData = {};
-    var crsf = $("#_csrf").val();
-    var category = [];
-    for (var i in data) {
-      sendData[data[i].name] = data[i].value;
-      if (data[i].name == 'category') {
-        category.push(data[i].value);
-      }
-      if (data[i].name == 'device') {
-        sendData["require.device"] = data[i].value;
-      }
+};
 
+function didSendStep1Callback(result) {
+  // 错误信息
+  if(result.error && result.error.code) {
+    $alertMsg.error(result.error.message);
+    return;
+  }
+  console.log("console.log(result);");
+  console.log(result);
+  var appId = result.data._id;
+  console.log("appp id   is   %s", appId);
+  window.location.href = "/app/add/step2?appId=" + appId;
+};
+
+function didSendFn(data) {
+  var sendData = {};
+  var crsf = $("#_csrf").val();
+  var category = [];
+  for (var i in data) {
+    sendData[data[i].name] = data[i].value;
+    if (data[i].name == 'category') {
+      category.push(data[i].value);
+    }
+    if (data[i].name == 'device') {
+      sendData["require.device"] = data[i].value;
     }
 
-    sendData["category"] = category;
-    sendData["_csrf"] = crsf;
-    return sendData;
   }
-  ;
 
-}
+  sendData["category"] = category;
+  sendData["_csrf"] = crsf;
+  return sendData;
+};
 
 
