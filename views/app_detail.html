@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+
+    <% include common/required.html %>
+
+    <script src="/javascripts/sw/sw.comment.js"></script>
+    <script src="/javascripts/sw/sw.app.js"></script>
+    <script src="/javascripts/sw/sw.stardetail.js"></script>
+    <link href="/vendor/lightbox/lightbox.css" rel="stylesheet">
+    <link href="/stylesheets/star.css" rel="stylesheet">
+
+</head>
+<body>
+
+<% include common/navbar.html %>
+
+<div class="main">
+
+    <div class="sidebar">
+        <div style="float: left;">
+            <h3 id="app_name">Cross</h3>
+            <hr/>
+            <img id="info_icon_big" src="/images/cross.png">
+            <hr/>
+            <span id="score">
+                <i class="icon-star"></i>
+                <i class="icon-star"></i>
+                <i class="icon-star"></i>
+                <i class="icon-star-half-empty"></i>
+                <i class="icon-star-empty"></i>
+            </span>
+            （<i class="icon-user"></i><span id="commenter">30</span>）
+            <br/>
+            <button id="download" class="btn btn-small btn-success" href="#">下载</button>
+            <button class="btn btn-small btn-success" type="button" id="share">分享</button>
+
+            <div class="itemgroup">
+                <div><label>Ver.</label><div id="version">1.0</div></div>
+                <div><label>更新</label><div id="lastupdate">2013/07/30</div></div>
+                <div><label>Size</label><div id="appsize">1M</div></div>
+                <div><label>機種</label><div id="apptype">iPhone</div></div>
+                <div><label>分類</label><div id="category">金融</div></div>
+            </div>
+        </div>
+    </div>
+
+    <section id="thumbnails">
+        <div class="detail">
+            <ul class="nav nav-tabs" style="height: 37px;">
+                <li class="active"><a href="#1" data-toggle="tab">产品概要</a></li>
+                <li><a href="#2" data-toggle="tab">详细说明</a></li>
+                <li><a href="#3" data-toggle="tab">支持</a></li>
+                <li><a href="#4" data-toggle="tab">注意事項</a></li>
+                <li><a href="#5" data-toggle="tab">事例説明</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="1">
+                    <div class="textarea" id="description"></div>
+                    <div id="gallery"></div>
+                </div>
+                <div class="tab-pane" id="2">
+                    <div class="textarea-large" id="releasenote"></div>
+                </div>
+                <div class="tab-pane" id="3">
+                    <div class="textarea-large" id="support"></div>
+                </div>
+                <div class="tab-pane" id="4">
+                    <div class="textarea-large" id="precautions"></div>
+                </div>
+                <div class="tab-pane" id="5">
+                    <div class="textarea-large" id="customer"></div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="comment">
+            <span><i class="icon-pencil"></i>&nbsp;评论</span>
+            <textarea id="comment_context"></textarea>
+
+            <div id="operationarea">
+                <i class="icon-star-empty icon-large" rank="1"></i>
+                <i class="icon-star-empty icon-large" rank="2"></i>
+                <i class="icon-star-empty icon-large" rank="3"></i>
+                <i class="icon-star-empty icon-large" rank="4"></i>
+                <i class="icon-star-empty icon-large" rank="5"></i>
+                &nbsp;
+                <input type="hidden" id="comment_rank" value="0">
+                <button class="btn btn-small btn-success" type="button" id="comment_commit" disabled="true">　提交　
+                </button>
+            </div>
+
+            <ul id="comment_list">
+            </ul>
+        </div>
+
+
+    </section>
+
+</div>
+
+<footer>
+    <p>Copyright © 2012, Cross Corporation. All Rights Reserved.</p>
+</footer>
+
+<script type="text/template" id="score-template">
+    <$ var f = Math.floor(avg), s = avg - Math.floor(avg); for (var i = 0; i < 5; i++) { $>
+    <$ if (i < f) { $>
+    <i class="icon-star"></i>
+    <$ } else if (i == f && s <= 0.3 ) { $>
+    <i class="icon-star-empty"></i>
+    <$ } else if (i == f && s > 0.3 && s < 0.7 ) { $>
+    <i class="icon-star-half-empty"></i>
+    <$ } else if (i == f && s >= 0.7 ) { $>
+    <i class="icon-star"></i>
+    <$ } else if (i > f) { $>
+    <i class="icon-star-empty"></i>
+    <$ } $>
+    <$ } $>
+</script>
+
+<script type="text/template" id="gallery-template">
+    <img src='/picture/{{imgid}}' />
+</script>
+<script type="text/template" id="comment-template">
+    <li >
+        <img class="portrait" src="/images/user.png">
+        <span>{{createby}}</span>
+        <span>{{rank}}</span>
+        <span style="color: #ccc">{{createat}}</span>
+
+        <p style="500px;word-wrap:break-word; word-break:normal;">{{comment}}</p>
+    </li>
+</script>
+
+<script type="text/template" id="attach-template">
+    <br />
+    <span>
+        <i class="icon-download-alt"></i>下载资料&nbsp;
+        <a href="/file/download.json?_id={{fileid}}">{{filename}}</a>
+    </span>
+</script>
+
+</body>
+</html>

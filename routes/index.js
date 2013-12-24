@@ -134,7 +134,7 @@ exports.guiding = function (app) {
   app.get('/app/list.json', function(req, res){
     application.list(req, res);
   });
-  //存图
+
   app.post('/app/image/save.json', function (req, res) {
     application.saveimage(req, res);
   });
