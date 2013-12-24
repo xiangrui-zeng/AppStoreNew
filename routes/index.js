@@ -6,6 +6,13 @@ var log       = smart.framework.log
   //, categorory = require('/modules/mod_category')
 
 var ctrlapp = require('../controllers/ctrl_app');
+
+var log         = smart.framework.log
+  , user        = require("../apis/user")
+  , download    = require('../apis/download')
+  , file         =require('../apis/file')
+  , application = require('../apis/application');
+
 /*
  * GET home page.
  */
@@ -141,5 +148,10 @@ exports.guiding = function (app) {
   // 获取图片
   app.get('/picture/:id', function (req, res) {
     file.getImage(req, res);
+
+  app.get('/file/download.json', function (req, res) {
+    download.create(req,res,function(){
+    file.download(req, res);
+    });
   });
 };

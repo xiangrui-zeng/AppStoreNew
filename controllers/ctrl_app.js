@@ -1,12 +1,7 @@
 var EventProxy = require('eventproxy');
 var app = require("../modules/mod_app.js")
   , user = smart.ctrl.user
-<<<<<<< Updated upstream
   , file      = smart.ctrl.file
-=======
-
-  
->>>>>>> Stashed changes
   , downloadInfo = require("../modules/mod_download")
   , async = smart.util.async
   , categorory = require('../modules/mod_category')
