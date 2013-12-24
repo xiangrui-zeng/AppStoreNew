@@ -11,6 +11,7 @@ var context              = smart.framework.context
   , response             = smart.framework.response
   , file                 = require("../controllers/ctrl_file");
 
+
 function createErrorSchema(errCode, errMessage, errorDetail) {
   return {
     apiVersion: "1.0"

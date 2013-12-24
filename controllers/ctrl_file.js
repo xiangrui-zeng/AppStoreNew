@@ -12,6 +12,7 @@ var file                   = smart.ctrl.file
   , log                    = smart.framework.log
   , sync                   = smart.util.async;
 
+
 /**
  * 获取图片
  * @param {Object} handler 上下文对象
