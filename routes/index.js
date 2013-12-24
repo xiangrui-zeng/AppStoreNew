@@ -1,4 +1,5 @@
 
+<<<<<<< Updated upstream
 var log       = smart.framework.log
   , user      = require("../apis/user")
   , application = require('../apis/application')
@@ -6,6 +7,15 @@ var log       = smart.framework.log
   //, categorory = require('/modules/mod_category')
 
 var ctrlapp = require('../controllers/ctrl_app');
+=======
+var log         = smart.framework.log
+  , user        = require("../apis/user")
+  , download    = require('../apis/download')
+  , file         =require('../apis/file')
+  , application = require('../apis/application');
+
+
+>>>>>>> Stashed changes
 /*
  * GET home page.
  */
@@ -135,11 +145,25 @@ exports.guiding = function (app) {
     application.list(req, res);
   });
 
+<<<<<<< Updated upstream
   app.post('/app/image/save.json', function (req, res) {
     application.saveimage(req, res);
   });
   // 获取图片
   app.get('/picture/:id', function (req, res) {
     file.getImage(req, res);
+=======
+  //获取图片
+  app.get('/picture/:id', function (req, res) {
+    file.getImage(req, res, function (err, doc) {
+      res.send(doc);
+    });
+  });
+
+  app.get('/file/download.json', function (req, res) {
+    download.create(req,res,function(){
+    file.download(req, res);
+    });
+>>>>>>> Stashed changes
   });
 };
