@@ -94,8 +94,8 @@ exports.getAppsByIds = function(ids_, callback_){
 
 exports.list = function (condition_, options_, callback_) {
   var app = model();
-    console.log(condition_);
-  app.find(condition_)
+    console.log("测试conditions_    "+condition_);
+    app.find(condition_)
     .skip(options_.start || 0)
     .limit(options_.limit || 20)
     .sort(options_.sort)

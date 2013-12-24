@@ -23,7 +23,7 @@ module.exports = {
   },
 
   "app": {
-    "port": 3000
+    "port": 8888
     , "views": "views"
     , "cookieSecret": "smartcore"
     , "sessionSecret": "smartcore"

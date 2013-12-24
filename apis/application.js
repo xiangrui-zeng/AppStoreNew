@@ -303,7 +303,7 @@ exports.list = function (req_, res_) {
     var admin = req_.query.admin ? true : false;
     var category = req_.query.category;
 
-    app.list( category, start, count, function (err, result) {
+    app.list(sort,asc, category, start, count, function (err, result) {
       setDownloadURL(req_, result);
       response.send(res_, err, result);
     });

@@ -1,6 +1,11 @@
 var download = require("../modules/mod_download.js");
+<<<<<<< Updated upstream
 var app = require("../modules/mod_app.js");
 var async = smart.util.async;
+=======
+var app      = require("../modules/mod_app.js");
+var async    = smart.util.async;
+>>>>>>> Stashed changes
 
 exports.create = function (data_, callback_){
   var down_ = data_;

@@ -229,7 +229,7 @@ exports.search = function(uid_, keyword_, start_, count_, category_, callback_){
   });
 };
 
-exports.list = function( category_, start_, count_, callback_){
+exports.list = function(sort_,asc_,category_, start_, count_, callback_){
   var condition = {};
 //  if (admin_) {
 //    condition.$or = [
@@ -255,65 +255,65 @@ exports.list = function( category_, start_, count_, callback_){
       start: start_
     , limit: count_
   };
-//  if (sort_){
-//    options.sort = {};
-//    options.sort[sort_] = asc_ == 1 ? 1 : -1;
-//  }
+  if (sort_){
+    options.sort = {};
+    options.sort[sort_] = asc_ == 1 ? 1 : -1;
+  }
 
-  app.list(condition, options, function(err, result){
+  app.list(condition,options, function(err, result){
     if (err) {
       return callback_(new error.InternalServer(err));
     }
     return callback_(err, result);
   });
 
-//  var tasks = [];
-//  var task_getAppList = function(cb){
-//    app.list(condition, options, function(err, result){
-//      cb(err,result);
-//    });
-//  };
-//  tasks.push(task_getAppList);
-//
-//  var task_getCreator = function(result, cb){
-//    async.forEach(result.items, function(app, cb_){
+  var tasks = [];
+  var task_getAppList = function(cb){
+    app.list(condition,options, function(err, result){
+      cb(err,result);
+    });
+  };
+  tasks.push(task_getAppList);
+
+  var task_getCreator = function(result, cb){
+    async.forEach(result.items, function(app, cb_){
 //      user.at(app.create_user, function(err, creator){
 //        app._doc.creator = creator;
 //        cb_(err);
 //      });
-//    }, function(err){
-//      cb(err, result);
-//    });
-//  };
-//  tasks.push(task_getCreator);
-//
-//  var task_getUpdater = function(result, cb){
-//    async.forEach(result.items, function(app, cb_){
-//      user.at(app.update_user, function(err, updater){
-//        app._doc.updater = updater;
-//        cb_(err);
-//      });
-//    }, function(err){
-//      cb(err, result);
-//    });
-//  };
-//  tasks.push(task_getUpdater);
-//
-//    var task_other = function(result, cb){
-//        async.forEach(result.items, function(app, cb_){
-//            app._doc.appTypeCategory = categorory.getByCode(app.appType); // 追加系统分类
-//            if(app.require && app.require.device)
-//                app._doc.device = devices.getDevice(app.require.device);  // 追加设备
-//            cb_(null, result);
-//        }, function(err){
-//            cb(err, result);
-//        });
-//    };
-//    tasks.push(task_other);
-//
-//  async.waterfall(tasks,function(err,result){
-//    return callback_(err, result);
-//  });
+    }, function(err){
+      cb(err, result);
+    });
+  };
+  tasks.push(task_getCreator);
+
+  var task_getUpdater = function(result, cb){
+    async.forEach(result.items, function(app, cb_){
+      user.at(app.update_user, function(err, updater){
+        app._doc.updater = updater;
+        cb_(err);
+      });
+    }, function(err){
+      cb(err, result);
+    });
+  };
+tasks.push(task_getUpdater);
+
+   var task_other = function(result, cb){
+      async.forEach(result.items, function(app, cb_){
+           app._doc.appTypeCategory = categorory.getByCode(app.appType); // 追加系统分类
+           if(app.require && app.require.device)
+               app._doc.device = devices.getDevice(app.require.device);  // 追加设备
+           cb_(null, result);
+       }, function(err){
+          cb(err, result);
+      });
+   };
+  tasks.push(task_other);
+
+  async.waterfall(tasks,function(err,result){
+    return callback_(err, result);
+ });
 };
 
 /**

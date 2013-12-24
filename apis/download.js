@@ -1,7 +1,14 @@
+<<<<<<< Updated upstream
 var app = require("../controllers/ctrl_app.js")
     , download = require("../controllers/ctrl_download")
     , util = smart.framework.util
     , json = smart.framework.response;
+=======
+var   app      = require("../controllers/ctrl_app.js")
+    , download = require("../controllers/ctrl_download")
+    , util     = smart.framework.util;
+
+>>>>>>> Stashed changes
 
 exports.create = function (req_, res_, callback) {
     var creator = req_.session.user._id||0;
