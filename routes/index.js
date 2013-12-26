@@ -168,4 +168,21 @@ exports.guiding = function (app) {
   app.get('/app/comment/ranktotal.json', function(req, res){
     comment.ranktotal(req, res);
   });
+
+  //进入到全部App一览--按照最新排序
+  app.get("/new/all/list",function(req, res) {
+    res.render("new_all_list", {"title": "new_all_list", user: req.session.user});
+  });
+
+
+  //进入到全部App一览--按照下载排序
+  app.get("/down/all/list",function(req, res) {
+    res.render("down_all_list", {"title": "doown_all_list", user: req.session.user});
+  });
+
+
+  //进入到全部App一览--按照评分排序
+  app.get("/rank/all/list",function(req, res) {
+    res.render("rank_all_list", {"title": "rank_all_list", user: req.session.user});
+  });
 };
