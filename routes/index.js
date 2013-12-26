@@ -153,4 +153,19 @@ exports.guiding = function (app) {
     var app_id = req.params.app_id;
     ctrlapp.renderDetail(req, res, app_id);
   });
+
+
+  //评论和获取评论，评分
+
+  app.post('/app/comment/create.json', function(req, res){
+    comment.create(req, res);
+  });
+
+  app.get('/app/comment/list.json', function(req, res){
+    comment.list(req, res);
+  });
+
+  app.get('/app/comment/ranktotal.json', function(req, res){
+    comment.ranktotal(req, res);
+  });
 };
