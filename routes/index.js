@@ -1,9 +1,10 @@
 
-var log       = smart.framework.log
-  , user      = require("../apis/user")
+var log         = smart.framework.log
+  , user        = require("../apis/user")
   , application = require('../apis/application')
-  , file      = require("../apis/file");
+  , file        = require("../apis/file");
   //, categorory = require('/modules/mod_category')
+var ctrlapp = require('../controllers/ctrl_app');
 
 var ctrlapp = require('../controllers/ctrl_app');
 
@@ -145,5 +146,11 @@ exports.guiding = function (app) {
     download.create(req,res,function(){
     file.download(req, res);
     });
+  });
+
+//进入App_detail画面
+  app.get('/app/:app_id', function (req, res) {
+    var app_id = req.params.app_id;
+    ctrlapp.renderDetail(req, res, app_id);
   });
 };
