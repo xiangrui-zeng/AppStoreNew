@@ -148,4 +148,10 @@ exports.guiding = function (app) {
     var app_id = req.params.app_id;
     ctrlapp.renderDetail(req, res, app_id);
   });
+
+  app.get('/app/check/list', function (req, res) {
+    res.render("app_check_list", {"title": "check_list", user: req.session.user});
+  });
 };
+
+
