@@ -30,8 +30,8 @@
 .main {
   margin: 0 auto;
   width: 1000px;
+  padding-top: 50px;
   /*padding-right: 50px;*/
-
 }
 .filter {
   background-color: #eee;

@@ -31,7 +31,7 @@
 
     <div id="container-demo">
       <div class="bubble">
-        <h4 class="rectangle">App Store</h4>
+        <h4 class="rectangle">StarWall</h4>
         <div class="triangle-l"></div>
         <div class="triangle-r"></div>
 
@@ -39,20 +39,23 @@
           <input type="hidden" id="_csrf" name="_csrf" value="<%= csrftoken %>" />
           <input type="hidden" name="_method" value="post" />
           <p id="detail">
-            <input type="text" id="name" name="name" value="admin" placeholder="Email" />
+            <input type="text" id="name" name="name" value="admin" placeholder="UserID" />
             <input type="password" id="pass" name="pass" value="admin" placeholder="Password" />
           </p>
-          <p style="text-align:center;">
-            <a href="/login">About</a>&nbsp;&nbsp;&nbsp;
-            <a href="#" onclick="javascript:login(); return false;">Login</a>
+          <p>
+            <div style="text-align: center;">
+              <button style="padding-left: 88px;padding-right: 88px;" class="btn" onclick="javascript:login();return false;">Log in</button>
+            </div>
+            <!--a href="/login">About</a>&nbsp;&nbsp;&nbsp;
+            <a href="#" onclick="javascript:login(); return false;">Login</a-->
           </p>
         </form>
 
       </div>    
     </div>
-    
+
     <footer>
-      <p>Copyright © 2012, Cross Corporation. All Rights Reserved.</p>
+      <p>Copyright © 2013, DA Corporation. All Rights Reserved.</p>
     </footer>
   </body>
 </html>

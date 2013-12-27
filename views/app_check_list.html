@@ -1,0 +1,350 @@
+<% include common/head.html %>
+<!-- 加载模板 -->
+<% include common/template_carousel.html %>
+
+<!-- Side bar -->
+<% include common/sidebar.html %>
+<script type="text/javascript" src="/javascripts/app_check_list.js"></script>
+
+<!-- 滚动列表CSS-->
+<style type="text/css">
+  /*
+  .span3 img {
+      border-top: 0px solid #EEE;
+      border-bottom: 0px solid #EEE;
+  }
+  */
+
+  #appModal {
+    width: 980px;
+    height: 550px;
+    margin: 0 0 0 -490px;
+
+  }
+
+  #appModal .modal-body{
+    width: 960px;
+    height: 550px;
+
+  }
+
+  .carousel-image {
+    /* border: 1px solid #EEE; */
+    max-width:100%;
+    max-height:auto;
+    width:100%;
+    height:auto;
+  }
+  .breadcrumb-ext {
+    padding: 1px 5px;
+    width:800px;
+  }
+  .carousel {
+    margin-bottom: 0;
+    padding: 0 40px 30px 40px;
+  }
+  .carousel-control {
+    left: -12px;
+  }
+  .carousel-control.right {
+    right: -12px;
+  }
+  .carousel-indicators {
+    right: 50%;
+    top: auto;
+    bottom: 0px;
+    margin-right: -19px;
+  }
+  .carousel-indicators li {
+    background: #c0c0c0;
+  }
+  .carousel-indicators .active {
+    background: #333333;
+  }
+</style>
+
+<div class="span9">
+  <section id="thumbnails">
+    <div class="breadcrumb breadcrumb-ext">
+      <h4 id="check_app_list">Checking List</h4>
+    </div>
+    <div  style="padding:5px; background:#ffffff;width:800px">
+      <table id="dl_list_table" class="table table-hover">
+        <thead id="dl_list_thead">
+
+        <tr>
+          <!-- 设置title -->
+          <th nowrap="">アイコン</th>  <th nowrap="">App</th>  <th nowrap="">OS</th>  <th nowrap="">要求</th>  <th nowrap="">状態</th>  <th nowrap="">更新情報</th>  <th nowrap="">操作</th>
+        </tr>
+        </thead>
+        <tbody id="dl_list_tbody">
+        <tr><td id="image1" style="min-width:100px;">
+          <img src="/picture/52bbe3a063eb733b05000010" alt="1" style="width:100%;height:auto">
+        </a></td><td style="min-width:150px;">
+          <strong>名称：</strong> 1<br>
+          <strong>バージョン：</strong> 1<br>
+          <strong>サイズ：</strong> 0 <br>
+          <strong>概要：</strong> 1<br>
+        </td><td style="min-width:48px;">
+          <img src="/images/system/ios.png" style="width:48px;height:auto">
+        </td><!-- 需求 -->
+          <td style="min-width:150px;">
+            <strong>OS:</strong> iOS<br>
+            <strong>デバイス：</strong>  手机<br>
+          </td><!-- 状态 -->
+          <td nowrap="">
+
+            未通过
+
+          </td><td nowrap="">
+            <strong>更新者：</strong> temp<br>
+            <strong>更新日時：</strong> 2013/12/23 17:29<br>
+            <strong>作成者：</strong> temp<br>
+            <strong>作成日時：</strong> 2013/12/23 17:29<br>
+          </td><td nowrap="">
+            <button class="btn btn-small btn-success" disabled="">Pass</button> <br/>
+            <button class="btn btn-small btn-success" disabled="" style="margin-top: 5px">Reject</button>
+          </td>
+        </tr>
+
+        <tr><td id="image2" style="min-width:100px;">
+          <img src="/picture/52ba51db31b1a268b5000004" alt="2" style="width:100%;height:auto">
+        </a></td><td style="min-width:150px;">
+          <strong>名称：</strong> 2<br>
+          <strong>バージョン：</strong> 2<br>
+          <strong>サイズ：</strong> 0 <br>
+          <strong>概要：</strong> 2<br>
+        </td><td style="min-width:48px;">
+          <img src="/images/system/android.png" style="width:48px;height:auto">
+        </td><!-- 需求 -->
+          <td style="min-width:150px;">
+            <strong>OS:</strong> Android<br>
+            <strong>デバイス：</strong>  手机<br>
+          </td><!-- 状态 -->
+          <td nowrap="">
+
+            申请中
+
+          </td><td nowrap="">
+            <strong>更新者：</strong> temp<br>
+            <strong>更新日時：</strong> 2013/12/26 17:13<br>
+            <strong>作成者：</strong> temp<br>
+            <strong>作成日時：</strong> 2013/12/26 17:11<br>
+          </td><td nowrap="">
+            <button id="apply" class="btn btn-small btn-success">Pass</button> <br/>
+            <button id="reject" class="btn btn-small btn-success" style="margin-top: 5px">Reject</button>
+          </td>
+        </tr>
+
+        <tr><td id="image3" style="min-width:100px;">
+          <img src="/picture/52bbe3a063eb733b05000010" alt="q" style="width:100%;height:auto">
+        </a></td><td style="min-width:150px;">
+          <strong>名称：</strong> q<br>
+          <strong>バージョン：</strong> q<br>
+          <strong>サイズ：</strong> 0 <br>
+          <strong>概要：</strong> q<br>
+        </td><td style="min-width:48px;">
+          <img src="/images/system/ios.png" style="width:48px;height:auto">
+        </td><!-- 需求 -->
+          <td style="min-width:150px;">
+            <strong>OS:</strong> iOS<br>
+            <strong>デバイス：</strong>  手机<br>
+          </td><!-- 状态 -->
+          <td nowrap="">
+
+            申请中
+
+          </td><td nowrap="">
+            <strong>更新者：</strong> temp<br>
+            <strong>更新日時：</strong> 2013/12/26 17:01<br>
+            <strong>作成者：</strong> temp<br>
+            <strong>作成日時：</strong> 2013/12/24 17:22<br>
+          </td><td nowrap="">
+            <button class="btn btn-small btn-success">Pass</button> <br/>
+            <button class="btn btn-small btn-success" style="margin-top: 5px">Reject</button>
+          </td>
+        </tr>
+
+
+
+        </tbody>
+        <tfoot id="dl_list_foot">
+        <tr>
+          <th colspan="7">
+            <!-- Foot分页 -->
+            <div id="dl_list_foot_pages" class="pagination pagination-right"></div>
+          </th>
+        </tr>
+        </tfoot>
+      </table>
+
+    </div><!--well-->
+  </section>
+  <br><br>
+</div>
+
+<div class="modal fade" id="appModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog" >
+    <div class="modal-content">
+      <div class="modal-header" style="height: 65px;">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <div style="height: 50px; width: 50px; float: left"><img src="/picture/52bbe3a063eb733b05000010" alt="q" style="width:50px;height:50px;"></div>
+        <div style="padding-top: 10px; margin-left:50px;height: 50px; width: auto; float: left "><h3 class="modal-title">Cross!</h3><small>This line of text is meant to be treated as fine print.</small></div>
+        <div style="padding-top: 20px; padding-right: 100px;"><button class="btn btn-default btn-success" style="float: right"><i class="icon-plus icon-large"></i>&nbsp &nbsp Install</button></div>
+      </div>
+      <div class="modal-body" style="overflow-y: hidden" >
+        <!--<img src="/picture/52ba51db31b1a268b5000004" alt="" style="width:100%;height:auto">-->
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#homedetail" data-toggle="tab">Home</a></li>
+          <li><a href="#profile" data-toggle="tab">Profile</a></li>
+          <li><a href="#messages" data-toggle="tab">Messages</a></li>
+          <li><a href="#settings" data-toggle="tab">Settings</a></li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <div class="tab-pane active" id="homedetail">
+            <div style="width: 640px;height: auto;float: left">
+              <img src="/picture/52ba51db31b1a268b5000004" alt=""  style="width:640px;height:400px">
+            </div>
+            <div style="width: 300px;height: auto;float: left; margin-left: 20px;">
+              <dl>
+                <dt>Description lists</dt>
+                <dd>A description list is perfect for defining terms.</dd>
+                <dt>Euismod</dt>
+                <dd>Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.</dd>
+                <dd>Donec id elit non mi porta gravida at eget metus.</dd>
+                <dt>Malesuada porta</dt>
+                <dd>Etiam porta sem malesuada magna mollis euismod.</dd>
+              </dl>
+            </div>
+          </div>
+          <div class="tab-pane" id="profile">
+            <div style="width: 640px;height: auto;float: left;overflow-y: scroll">
+              <dl>
+                <dt>English Spelling and Vocabulary</dt>
+                <dd>Yolaroo ABC is an excellent way for people of all ages to start learning English.
+
+                  Yolaroo ABC makes learning how to read and spell easy.
+
+                  There are 10 great activities to help teach over 147 different English words.
+                  Each activity has a different goal to help the learner.
+
+                  Yolaroo ABC is great for in the classroom or at home.
+                  Teach or learn English.
+
+                  There are 10 apps and activities that are well organized to help teach English.
+
+                  Teach spelling.
+                  Teach ABC alphabet.
+                  Teach English vocabulary.
+
+                  These are the activities included:
+
+                  'Letter Introduction' introduces letters to the learner.
+
+                  'Word Introduction' introduces words and and there letters.
+
+                  'Vocabulary Introduction' introduces the vocabulary.
+
+                  'Picture it' matches the words to letters.
+
+                  'Spelling' introduces spelling of words.
+
+                  'Word Match' is a learning and testing activity to practice picture and word recognition.
+
+                  'Picture Hide' shows four pictures and then hides one picture, then asks the learner to find the missing picture.
+
+                  'Word Hide' shows four words and then hides one word and asks the learner to find the missing word.
+
+                  'Scramble' is a spelling practice and test. Spell the words normally and then scrambled.
+
+                  'Double Match' is a picture memory game that asks the learner to match the pictures to the words as well.</dd>
+
+              </dl>
+            </div>
+            <div style="width: 300px;height: auto;float: left; margin-left: 20px;">
+              <div> <address>
+                <strong>Twitter, Inc.</strong><br>
+                795 Folsom Ave, Suite 600<br>
+                San Francisco, CA 94107<br>
+                <abbr title="Phone">P:</abbr> (123) 456-7890
+              </address>
+
+                <address>
+                  <strong>Full Name</strong><br>
+                  <a href="mailto:#">first.last@example.com</a>
+                </address>
+
+                <address>
+                  <strong>Version</strong><br>
+                  1.0.32.1<br>
+                  <strong>Update Date</strong><br>
+                  2013年12月20日<br>
+                  <strong>Size</strong><br>
+                  11.25KB<br>
+                  <strong>Language</strong><br>
+                  English (UK)<br>
+                </address>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane" id="messages">detail information</div>
+          <div class="tab-pane" id="settings">other information</div>
+        </div>
+      </div>
+      <div class="modal-footer" style="margin: 0 0 0 0">
+        <button type="button" class="btn btn-small" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="applyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog" >
+    <div class="modal-content">
+      <div class="modal-header" style="height: 65px;">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <div style="height: 50px; width: 50px; float: left"><img src="/picture/52bbe3a063eb733b05000010" alt="q" style="width:50px;height:50px;"></div>
+        <div style="padding-top: 10px; margin-left:50px;height: 50px; width: auto; float: left "><h3 class="modal-title">Cross!</h3><small>This line of text is meant to be treated as fine print.</small></div>
+      </div>
+      <div class="modal-body" style="overflow-y: hidden" >
+        <div ><button id="confirmApply" class="btn btn-default btn-success"style="margin-left: 40%"><i class="icon-exclamation-sign icon-large"></i>&nbsp &nbsp Confirm Apply</button></div>
+      </div>
+      <div class="modal-footer" style="margin: 0 0 0 0">
+        <button type="button" class="btn btn-small" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="rejectModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog" >
+    <div class="modal-content">
+      <div class="modal-header" style="height: 65px;">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <div style="height: 50px; width: 50px; float: left"><img src="/picture/52bbe3a063eb733b05000010" alt="q" style="width:50px;height:50px;"></div>
+        <div style="padding-top: 10px; margin-left:50px;height: 50px; width: auto; float: left "><h3 class="modal-title">Cross!</h3><small>This line of text is meant to be treated as fine print.</small></div>
+      </div>
+      <div class="modal-body" style="overflow-y: hidden" >
+        <form role="form">
+          <div class="form-group">
+            <label for="rejectReason">Reject Reason</label>
+            <textarea  class="form-control" id="rejectReason" placeholder="Enter Reason" rows="5" style="width: 510px;"> </textarea>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputFile">ScreenShot Input</label>
+            <input type="file" id="exampleInputFile">
+            <p class="help-block">Example block-level help text here.</p>
+          </div>
+          <div ><button id="confirmReject" type="submit" class="btn btn-default btn-success"><i class="icon-exclamation-sign icon-small"></i>&nbsp &nbsp Confirm Reject</button></div>
+        </form>
+      </div>
+      <div class="modal-footer" style="margin: 0 0 0 0">
+        <button type="button" class="btn btn-small" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<% include common/foot.html %>

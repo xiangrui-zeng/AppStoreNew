@@ -1,23 +1,19 @@
-
-var log       = smart.framework.log
-  , user      = require("../apis/user")
-  , application = require('../apis/application')
-  , file      = require("../apis/file");
-  //, categorory = require('/modules/mod_category')
-
 var ctrlapp = require('../controllers/ctrl_app');
 
 var log         = smart.framework.log
   , user        = require("../apis/user")
   , download    = require('../apis/download')
-  , file         =require('../apis/file')
-  , application = require('../apis/application');
+  , file        = require('../apis/file')
+  , application = require('../apis/application')
+  , apiComment  = require('./api_comment');
 
 /*
  * GET home page.
  */
 
 exports.guiding = function (app) {
+
+  apiComment.guiding(app);
 
   app.get("/",function(req, res) {
     res.render("login", {"title": "login"});
@@ -129,9 +125,9 @@ exports.guiding = function (app) {
   });
 
   // 获取分类一览
-  app.get('/app/category.json', function(req, res){
-    category.getCategory(req, res);
-  });
+//  app.get('/app/category.json', function(req, res){
+//    category.getCategory(req, res);
+//  });
 
   app.get('/app/list.json', function(req, res){
     application.list(req, res);
@@ -150,4 +146,20 @@ exports.guiding = function (app) {
     file.download(req, res);
     });
   });
+
+//进入App_detail画面
+  app.get('/app/:app_id', function (req, res) {
+    var app_id = req.params.app_id;
+    ctrlapp.renderDetail(req, res, app_id);
+  });
+
+  app.get('/app/check/list', function (req, res) {
+    res.render("app_check_list", {"title": "check_list", user: req.session.user});
+  });
+
+  app.get('/detaildemo', function (req, res) {
+    res.render("app_detail_new", {"title": "check_list", user: req.session.user});
+  });
 };
+
+
