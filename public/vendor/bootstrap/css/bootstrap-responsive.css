@@ -230,7 +230,7 @@
             box-sizing: border-box;
   }
   .row-fluid [class*="span"]:first-child {
-    margin-left: 0;
+    margin-left: 0px;
   }
   .row-fluid .controls-row [class*="span"] + [class*="span"] {
     margin-left: 2.564102564102564%;
@@ -252,8 +252,9 @@
     *width: 74.30578286961266%;
   }
   .row-fluid .span8 {
-    width: 65.81196581196582%;
-    *width: 65.75877432260411%;
+    width: 74.811966%;
+    *width: 74.811966%;
+      margin-left: 180px;
   }
   .row-fluid .span7 {
     width: 57.26495726495726%;
@@ -1001,9 +1002,7 @@
     padding: 9px 15px;
     font-weight: bold;
     color: #777777;
-    -webkit-border-radius: 3px;
-       -moz-border-radius: 3px;
-            border-radius: 3px;
+    -webkit-border-radius: 3px;            border-radius: 3px;
   }
   .nav-collapse .btn {
     padding: 4px 10px 4px;

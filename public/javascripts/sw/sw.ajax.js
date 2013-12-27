@@ -87,14 +87,17 @@ function validateCallback(form, callback, fn,confirmMsg) {
     var data =  (fn?fn($form.serializeArray()):{
         "_csrf": csrftoken,
         "form": $form.serializeArray()
+       , "iocnsmall" : $('#icon_small_file_hid').val()
+      , "iocnbig" : $('#icon_big_file_hid').val()
     })||{"_csrf":csrftoken};
-    console.log(data);
+    console.log($form.attr("action"));
     var _submitFn = function () {
+      console.log(data+"33")
       smart.dopost($form.attr("action"),data,  function(err, result) {
         if (err) {
           return Alertify.log.info("提交失败");
         }
-        window.location = "/app/add/step2";
+        callback(result);
       });
     }
 

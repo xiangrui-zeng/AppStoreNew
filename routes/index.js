@@ -55,7 +55,10 @@ exports.guiding = function (app) {
   app.get('/app/add/step1', function (req, res) {
     ctrlapp.renderAppStep(req, res, 1);
   });
-
+  //新加页面 12之间
+  app.get('/app/add/step12',function (req, res){
+    ctrlapp.renderAppStep(req, res, 12);
+  });
   app.get('/app/add/step2', function (req, res) {
     ctrlapp.renderAppStep(req, res, 2);
   });
@@ -75,6 +78,7 @@ exports.guiding = function (app) {
   //上传应用
   app.post('/app/create.json',function(req,res)
   {
+
     application.createApp(req,res);
   });
   //上传数据：创建app第一步信息
