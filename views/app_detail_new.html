@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>应用详细</title>
+  <% include common/required.html %>
+  <link href="/stylesheets/starwall.css" rel="stylesheet">
+  <link href="/stylesheets/default.css" rel="stylesheet">
+
+  <script type="text/javascript">
+    $(function () {
+      $("#appModal").modal("show");
+    });
+  </script>
+
+  <!-- 滚动列表CSS-->
+  <style type="text/css">
+
+    #appModal {
+      width: 980px;
+      height: 550px;
+      margin: 0 0 0 -490px;
+    }
+
+    #appModal .modal-body{
+      width: 960px;
+      height: 550px;
+
+    }
+
+    .sep {
+      height: 15px;
+      width: 1px;
+      display: inline-block;
+      border-left: 1px dotted #a6a6a6;
+      margin: 0 7px;
+      vertical-align: middle;
+    }
+
+  </style>
+
+</head>
+<body>
+
+<div class="main">
+  <div class="container">
+
+<div class="modal fade" id="appModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog" >
+    <div class="modal-content">
+      <div class="modal-header" style="height: 65px;">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <div style="height: 50px; width: 50px; float: left"><img src="/picture/52bbe3a063eb733b05000010" alt="q" style="width:50px;height:50px;"></div>
+        <div style="padding-top: 10px; margin-left:50px;height: 50px; width: auto; float: left ">
+          <h3 class="modal-title">Cross!</h3>
+          <div>
+            <span>
+              <i class="icon-star"></i>
+              <i class="icon-star"></i>
+              <i class="icon-star"></i>
+              <i class="icon-star-half-empty"></i>
+              <i class="icon-star-empty"></i> (320)
+            </span>
+            <span class="sep"></span>
+            <span>社交</span>
+            <span class="sep"></span>
+            <span>iPhone</span>
+            <span class="sep"></span>
+            <span>v1.0</span>
+          </div>
+        </div>
+        <div class="pull-right" style="padding-top: 20px; padding-right: 100px;">
+          <button class="btn btn-default btn-success">
+            <i class="icon-plus"></i>&nbsp 安装
+          </button>
+          <button class="btn btn-default btn-success">
+            <i class="icon-share-alt"></i>&nbsp 分享
+          </button>
+        </div>
+      </div>
+      <div class="modal-body" style="overflow-y: hidden" >
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#homedetail" data-toggle="tab">概要</a></li>
+          <li><a href="#profile" data-toggle="tab">详细</a></li>
+          <li><a href="#messages" data-toggle="tab">系统要求</a></li>
+          <li><a href="#settings" data-toggle="tab">更新履历</a></li>
+          <li><a href="#settings" data-toggle="tab">评价</a></li>
+          <li><a href="#settings" data-toggle="tab">评价</a></li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <div class="tab-pane active" id="homedetail">
+            <div style="width: 640px;height: auto;float: left">
+              <img src="/picture/52ba51db31b1a268b5000004" alt=""  style="width:640px;height:400px">
+            </div>
+            <div style="width: 300px;height: auto;float: left; margin-left: 20px;">
+              <dl>
+                <dt>Description lists</dt>
+                <dd>A description list is perfect for defining terms.</dd>
+                <dt>Euismod</dt>
+                <dd>Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.</dd>
+                <dd>Donec id elit non mi porta gravida at eget metus.</dd>
+                <dt>Malesuada porta</dt>
+                <dd>Etiam porta sem malesuada magna mollis euismod.</dd>
+              </dl>
+            </div>
+          </div>
+          <div class="tab-pane" id="profile">
+            <div style="width: 640px;height: auto;float: left;overflow-y: scroll">
+              <dl>
+                <dt>English Spelling and Vocabulary</dt>
+                <dd>Yolaroo ABC is an excellent way for people of all ages to start learning English.
+
+                  Yolaroo ABC makes learning how to read and spell easy.
+
+                  There are 10 great activities to help teach over 147 different English words.
+                  Each activity has a different goal to help the learner.
+
+                  Yolaroo ABC is great for in the classroom or at home.
+                  Teach or learn English.
+
+                  There are 10 apps and activities that are well organized to help teach English.
+
+                  Teach spelling.
+                  Teach ABC alphabet.
+                  Teach English vocabulary.
+
+                  These are the activities included:
+
+                  'Letter Introduction' introduces letters to the learner.
+
+                  'Word Introduction' introduces words and and there letters.
+
+                  'Vocabulary Introduction' introduces the vocabulary.
+
+                  'Picture it' matches the words to letters.
+
+                  'Spelling' introduces spelling of words.
+
+                  'Word Match' is a learning and testing activity to practice picture and word recognition.
+
+                  'Picture Hide' shows four pictures and then hides one picture, then asks the learner to find the missing picture.
+
+                  'Word Hide' shows four words and then hides one word and asks the learner to find the missing word.
+
+                  'Scramble' is a spelling practice and test. Spell the words normally and then scrambled.
+
+                  'Double Match' is a picture memory game that asks the learner to match the pictures to the words as well.</dd>
+
+              </dl>
+            </div>
+            <div style="width: 300px;height: auto;float: left; margin-left: 20px;">
+              <div> <address>
+                <strong>Twitter, Inc.</strong><br>
+                795 Folsom Ave, Suite 600<br>
+                San Francisco, CA 94107<br>
+                <abbr title="Phone">P:</abbr> (123) 456-7890
+              </address>
+
+                <address>
+                  <strong>Full Name</strong><br>
+                  <a href="mailto:#">first.last@example.com</a>
+                </address>
+
+                <address>
+                  <strong>Version</strong><br>
+                  1.0.32.1<br>
+                  <strong>Update Date</strong><br>
+                  2013年12月20日<br>
+                  <strong>Size</strong><br>
+                  11.25KB<br>
+                  <strong>Language</strong><br>
+                  English (UK)<br>
+                </address>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane" id="messages">detail information</div>
+          <div class="tab-pane" id="settings">other information</div>
+        </div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+  </div>
+
+</div>
+
+</body>
+</html>

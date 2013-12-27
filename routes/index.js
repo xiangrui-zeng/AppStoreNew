@@ -152,6 +152,10 @@ exports.guiding = function (app) {
   app.get('/app/check/list', function (req, res) {
     res.render("app_check_list", {"title": "check_list", user: req.session.user});
   });
+
+  app.get('/detaildemo', function (req, res) {
+    res.render("app_detail_new", {"title": "check_list", user: req.session.user});
+  });
 };
 
 
