@@ -5,75 +5,52 @@
 <input type="hidden" id="userid" name="userid" value="" />
 <input type="hidden" id="timezone" name="timezone" value="" />
 
-<header>
-  <strong>AppStore</strong>
-  <div id="_userbox">
-    <div>
-      <a href="#" id="_userpic"><img src="<%= user.photo ? '/picture/' + user.photo.big : '/images/user.png' %>"></a>
-      <a href="#" id="_username"> </a>
-    </div>
-    <ul>
-      <li><a href="/simplelogout" id="_logout"><i class="icon-signout"></i></a></li>
-    </ul>
-  </div>
-</header>
-<div id="_navbar">
+<div id="_navbar" style="height: 41px;">
   <nav>
-    <ul id="_group1" rel="sam">
-      <li>
-        <a id="home" href="/starwall" style="font-size: 16px;">
-          <i class="icon-home icon-large"></i>
+    <ul id="_group0" rel="sam">
+      <li style="background: -webkit-linear-gradient(top, #ffffff, #f2f2f2);">
+        <a id="starwall" href="/starwall" style="line-height: 37px;font-size: 18px;">
+          <img src="/images/starwall.jpg" style="height: 38px; width: 38px;">
+          <i class="icon-home icon-small"></i>StallWall
         </a>
       </li>
     </ul>
   </nav>
-  <nav id="_search">
-    <input id="search" value="" x-webkit-speech /><div></div>
-  </nav>
+
   <nav>
-    <ul id="_group2" rel="sam">
-      <li><a id="" href="/list/download">已下载</a></li>
+    <ul id="_group1" rel="sam">
+      <li style="background: -webkit-linear-gradient(top, #ffffff, #f2f2f2);width: 60px;">
+        <a id="app" href="/starwall"><i class="icon-star icon-large"></i></a>
       </li>
-    </ul>
-  </nav>
-  <nav>
-    <ul id="" rel="sam">
-      <li><a id="" href="/list/notification">更新</a></li>
+      <li style="background: -webkit-linear-gradient(top, #ffffff, #f2f2f2);width: 60px;">
+        <a id="user" href="/starwall"><i class="icon-user icon-large"></i></a>
       </li>
-    </ul>
-  </nav>
-  <nav>
-    <ul id="" rel="sam">
-      <li><a id="" href="/userlist">用户列表</a></li>
+      <li style="background: -webkit-linear-gradient(top, #ffffff, #f2f2f2);width: 60px;">
+        <a id="admin" href="/starwall"><i class="icon-group icon-large"></i></a>
       </li>
-    </ul>
-  </nav>
-  <nav>
-    <ul id="" rel="sam">
-      <li><a id="" href="/list/manage">管理</a></li>
-      </li>
-    </ul>
-  </nav>
-  <nav>
-    <ul id="" rel="sam">
-      <li><a id="" href="#">视图</a></li>
-      </li>
-    </ul>
-  </nav>
-  <nav>
-    <ul id="" rel="sam">
-      <li><a id="" href="#">报告</a></li>
-      </li>
-    </ul>
-  </nav>
-  <nav>
-    <ul id="" rel="sam">
-      <li><a id="upload" href="/app/add/step1">上传</a></li>
+      <li style="background: -webkit-linear-gradient(top, #ffffff, #f2f2f2);width: 60px;">
+        <a id="data" href="/starwall"><i class="icon-signal icon-large"></i></a>
       </li>
     </ul>
   </nav>
 
+  <nav id="_search">
+    <input id="search" value="" x-webkit-speech /><div></div>
+  </nav>
+  <nav>
+    <ul class="nav" style="float: right;" rel="sam">
+      <li style="background: -webkit-linear-gradient(top, #ffffff, #f2f2f2);width: 40px;">
+        <a href="/usereditor" style="line-height: 37px;">
+          <img src="<%= user.photo ? '/picture/' + user.photo.big : '/images/user.png' %>" style="height: 20px;width: 20px;">
+        </a>
+      </li>
+      <li style="background: -webkit-linear-gradient(top, #ffffff, #f2f2f2);width: 40px;">
+        <a id="_logout" href="/simplelogout"><i class="icon-signout"></i></a>
+      </li>
+    </ul>
+  </nav>
 </div>
+
 
 <div id="_searchresult" class="bucketed">
   <ul class="search">
