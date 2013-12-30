@@ -82,20 +82,7 @@ exports.guiding = function (app) {
     application.createAppStep2(req,res);
   });
 
-  app.post('/app/create/step3.json',function(req,res)
-  {
-    application.createAppStep3(req,res);
-  });
 
-  app.post('/app/create/step4.json',function(req,res)
-  {
-    application.createAppStep4(req,res);
-  });
-
-  app.post('/app/create/step5.json',function(req,res)
-  {
-    application.createAppStep5(req,res);
-  });
   //get**.json
   app.get('/app/info.json',function(req,res){
     application.getAppInfo(req,res);
