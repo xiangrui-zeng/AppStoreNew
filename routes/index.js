@@ -125,9 +125,6 @@ exports.guiding = function (app) {
 //    category.getCategory(req, res);
 //  });
 
-  app.get('/app/list.json', function(req, res){
-    application.list(req, res);
-  });
   //存储图片
   app.post('/app/image/save.json', function (req, res) {
     application.saveimage(req, res);
@@ -151,6 +148,10 @@ exports.guiding = function (app) {
 
   app.get('/app/check/list', function (req, res) {
     res.render("app_check_list", {"title": "check_list", user: req.session.user});
+  });
+
+  app.get('/app/detail/list', function (req, res) {
+    res.render("app_detail_list", {"title": "app_list", user: req.session.user});
   });
 };
 
