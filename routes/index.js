@@ -160,6 +160,10 @@ exports.guiding = function (app) {
   app.get('/detaildemo', function (req, res) {
     res.render("app_detail_new", {"title": "check_list", user: req.session.user});
   });
+  //管理、分类App一览
+  app.get('/list/manage', function (req, res) {
+    res.render(req, res);
+  });
 };
 
 
