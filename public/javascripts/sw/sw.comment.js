@@ -1,3 +1,5 @@
+"use strict";
+
 var $Comment = {
   initialize: function () {
     var self = this;
@@ -20,7 +22,7 @@ var $Comment = {
       self.toggleBtn();
     });
 
-    $('#comment_context').bind('keyup', function(){
+    $('#comment_text').bind('keyup', function(){
       self.toggleBtn();
     });
 
@@ -34,9 +36,10 @@ var $Comment = {
   getComments: function(start,count){
     var self = this;
     // TODO 换成实际的appId和version
-    var appId = app_id;
-    var version = '1.0';
-    smart.doget('/app/comment/list.json?appId='+appId+'&version='+version+'&start='+start+'&count='+count,function(err,data){
+    var appId = appDetail.appId;
+    var version = "1.0";
+    var url = "/app/comment/list.json?appId=" + appId + "&version=" + version + "&start=" + start + "&count=" + count;
+    smart.doget(url, function(err,data){
       self.renderComments(err,data);
     });
   },
@@ -66,12 +69,12 @@ var $Comment = {
         }
       }
 
-
       container.append(_.template(tmpl, {
-          'comment': comment.comment
-        , 'rank': rankHtml
-        , 'createby': comment.user.name.name_zh
-        , 'createat': smart.date(comment.create_date)
+          comment: comment.comment
+        , rank: rankHtml
+        , createBy: comment.user.first
+        , createAt: smart.date(comment.createAt)
+        , version: comment.version
       }));
     });
   },
@@ -84,13 +87,13 @@ var $Comment = {
     var data = {
       appId: appId
       , version: version
-      , comment: $('#comment_context').attr('value')
+      , comment: $('#comment_text').attr('value')
       , rank: $('#comment_rank').attr('value')
     };
 
     var url = '/app/comment/create.json';
     smart.dopost(url, data, function(err, result){
-      $('#comment_context').attr('value','');
+      $('#comment_text').attr('value','');
       $('#comment_rank').attr('value',0);
       self.renderRank(0);
       self.toggleBtn();
@@ -100,7 +103,7 @@ var $Comment = {
 
   toggleBtn: function(){
     var rank = $('#comment_rank').attr('value')
-      , comment = $('#comment_context').attr('value');
+      , comment = $('#comment_text').attr('value');
     if (comment && comment!='') {
       $('#comment_commit').attr('disabled', false);
     } else {
@@ -122,5 +125,9 @@ var $Comment = {
         $(item).addClass('icon-star');
       }
     });
+  },
+
+  clear: function() {
+    $("#comment_list").html("");
   }
 };

@@ -4,6 +4,7 @@ var log         = smart.framework.log
   , user        = require("../apis/user")
   , download    = require('../apis/download')
   , file        = require('../apis/file')
+  , category    = require('../apis/category')
   , application = require('../apis/application')
   , apiComment  = require('./api_comment');
 
@@ -108,7 +109,7 @@ exports.guiding = function (app) {
   });
   //get**.json
   app.get('/app/info.json',function(req,res){
-    application.getAppInfo(req,res);
+    application.getAppInfo(req, res);
   });
 
   app.get('/app/search.json', function(req, res){
@@ -124,9 +125,9 @@ exports.guiding = function (app) {
   });
 
   // 获取分类一览
-//  app.get('/app/category.json', function(req, res){
-//    category.getCategory(req, res);
-//  });
+  app.get('/app/category.json', function(req, res){
+    category.getCategory(req, res);
+  });
 
   //存储图片
   app.post('/app/image/save.json', function (req, res) {
