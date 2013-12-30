@@ -74,7 +74,6 @@ exports.guiding = function (app) {
   //上传应用
   app.post('/app/create.json',function(req,res)
   {
-
     application.createApp(req,res);
   });
   //上传数据：创建app第一步信息
@@ -129,9 +128,6 @@ exports.guiding = function (app) {
 //    category.getCategory(req, res);
 //  });
 
-  app.get('/app/list.json', function(req, res){
-    application.list(req, res);
-  });
   //存储图片
   app.post('/app/image/save.json', function (req, res) {
     application.saveimage(req, res);
@@ -163,6 +159,10 @@ exports.guiding = function (app) {
   //管理、分类App一览
   app.get('/list/manage', function (req, res) {
     res.render(req, res);
+  });
+
+  app.get('/app/detail/list', function (req, res) {
+    res.render("app_detail_list", {"title": "app_list", user: req.session.user});
   });
 };
 
