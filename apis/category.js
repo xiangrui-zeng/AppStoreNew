@@ -1,9 +1,20 @@
-var category = require('../modules/mod_category')
-  , util = smart.framework.util
-  , response  = smart.framework.response;
-//获取种类信息
-exports.getCategory = function (req_, res_) {
+/**
+ * @file 查询分类信息的api
+ * @author lizheng
+ * @copyright Dreamarts Corporation. All Rights Reserved.
+ */
 
- // return res_.send(json.dataSchema(category.getCategories()));
-  response.send(res_, "", category.getCategories());
+"use strict";
+
+var response  = smart.framework.response
+  , category = require("../modules/mod_category");
+
+/**
+ * 查询分类
+ * @param req 请求对象
+ * @param res 响应对象
+ * @returns {*} 无
+ */
+exports.getCategory = function (req_, res_) {
+  response.send(res_, null, category.getCategories());
 };
