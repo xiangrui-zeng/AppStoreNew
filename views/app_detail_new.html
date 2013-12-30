@@ -159,24 +159,25 @@
   <div class="modal-header" >
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <div class="headLeft">
-      <img src="/picture/52bbe3a063eb733b05000010">
+      <img id="appIcon" src="/picture/52bbe3a063eb733b05000010">
     </div>
     <div class="headMiddle">
-      <h3>Cross</h3>
+      <h3 id="appName">Cross</h3>
       <br>
-      <span>v1.0</span>
+      <span id="appVersion">v1.0</span>
       <span class="sep"></span>
-      <span>
+      <span id="appScore">
         <i class="icon-star"></i>
         <i class="icon-star"></i>
         <i class="icon-star"></i>
         <i class="icon-star-half-empty"></i>
-        <i class="icon-star-empty"></i> (320)
+        <i class="icon-star-empty"></i>
+        <span id="userCount">(503)</span>
       </span>
       <span class="sep"></span>
-      <span>社交</span>
+      <span id="appCategory">社交</span>
       <span class="sep"></span>
-      <span>iPhone</span>
+      <span id="devicetType">下载量</span>
     </div>
     <div class="headRight">
       <button class="btn btn-default btn-success">
@@ -220,10 +221,10 @@
         </div>
         <div class="profile-info">
           <div class="itemgroup">
-            <div><label>更新</label><div id="lastupdate">13/12/27</div></div>
-            <div><label>版权所有</label><div id="version">DreamArts</div></div>
-            <div><label>大小</label><div id="appsize">1.6M</div></div>
-            <div><label>下载量</label><div id="appsize">567次</div></div>
+            <div><label>更新</label><div id="lastUpdate">13/12/27</div></div>
+            <div><label>版权所有</label><div id="copyRight">DreamArts</div></div>
+            <div><label>大小</label><div id="appSize">1.6M</div></div>
+            <div><label>下载量</label><div id="downloadCount">567次</div></div>
           </div>
         </div>
       </div>
@@ -343,6 +344,10 @@
     <p>{{comment}}</p>
   </li>
 </script>
+
+<script src="/javascripts/sw/sw.comment.js"></script>
+<script src="/javascripts/sw/sw.app.js"></script>
+<script src="/javascripts/sw/sw.stardetail.js"></script>
 
 </body>
 </html>
