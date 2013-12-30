@@ -47,28 +47,18 @@ exports.guiding = function (app) {
     user.simpleLogout(req, res);
   });
 
+  //新加页面 0
+  app.get('/app/add/select',function (req, res){
+    res.render("app_add_select", {"title": "app_add_select", user: req.session.user});
+  });
   //上传应用第一步
   app.get('/app/add/step1', function (req, res) {
     ctrlapp.renderAppStep(req, res, 1);
-  });
-  //新加页面 12之间
-  app.get('/app/add/step12',function (req, res){
-    ctrlapp.renderAppStep(req, res, 12);
   });
   app.get('/app/add/step2', function (req, res) {
     ctrlapp.renderAppStep(req, res, 2);
   });
 
-  app.get('/app/add/step3', function (req, res) {
-    ctrlapp.renderAppStep(req, res, 3);
-  });
-  app.get('/app/add/step4', function (req, res) {
-    ctrlapp.renderAppStep(req, res, 4);
-  });
-
-  app.get('/app/add/step5', function (req, res) {
-    ctrlapp.renderAppStep(req, res, 5);
-  });
 
   //json的post与get方法
   //上传应用
@@ -161,8 +151,12 @@ exports.guiding = function (app) {
     res.render("app_detail_new", {"title": "check_list", user: req.session.user});
   });
   //管理、分类App一览
-  app.get('/list/manage', function (req, res) {
-    res.render(req, res);
+  app.get('/app/list', function (req, res) {
+    res.render("app_list", {"title": "check_list", user: req.session.user});
+  });
+  //临时测试用
+  app.get('/app/manage', function (req, res) {
+    res.render("app_manage", {"title": "app_manage", user: req.session.user});
   });
 };
 
