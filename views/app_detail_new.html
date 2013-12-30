@@ -36,6 +36,41 @@
       vertical-align: middle;
     }
 
+    .comment {
+      min-height: 200px;
+      background-color: #FAFAFA;
+      width: 675px;
+      padding: 5px;
+    }
+    .comment textarea {
+      width: 650px;
+      height: 80px;
+      margin-left: 5px;
+    }
+    .comment #operationarea {
+      /*width: 995px;*/
+      text-align: right;
+      padding-right: 15px;
+    }
+    .comment #operationarea i {
+      cursor: pointer;
+    }
+    .comment ul {
+      margin-top: 10px;
+      margin-left: 5px;
+    }
+    .comment ul li {
+      list-style-type: none;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #EEF;
+    }
+    .comment ul li .portrait {
+      width: 30px;
+    }
+    .comment ul li div {
+      padding-left: 40px;
+    }
+
   </style>
 
 </head>
@@ -53,6 +88,8 @@
         <div style="padding-top: 10px; margin-left:50px;height: 50px; width: auto; float: left ">
           <h3 class="modal-title">Cross!</h3>
           <div>
+            <span>v1.0</span>
+            <span class="sep"></span>
             <span>
               <i class="icon-star"></i>
               <i class="icon-star"></i>
@@ -64,8 +101,6 @@
             <span>社交</span>
             <span class="sep"></span>
             <span>iPhone</span>
-            <span class="sep"></span>
-            <span>v1.0</span>
           </div>
         </div>
         <div class="pull-right" style="padding-top: 20px; padding-right: 100px;">
@@ -84,8 +119,7 @@
           <li><a href="#profile" data-toggle="tab">详细</a></li>
           <li><a href="#messages" data-toggle="tab">系统要求</a></li>
           <li><a href="#settings" data-toggle="tab">更新履历</a></li>
-          <li><a href="#settings" data-toggle="tab">评价</a></li>
-          <li><a href="#settings" data-toggle="tab">评价</a></li>
+          <li><a href="#comments" data-toggle="tab">评价</a></li>
         </ul>
 
         <!-- Tab panes -->
@@ -151,12 +185,13 @@
               </dl>
             </div>
             <div style="width: 300px;height: auto;float: left; margin-left: 20px;">
-              <div> <address>
-                <strong>Twitter, Inc.</strong><br>
-                795 Folsom Ave, Suite 600<br>
-                San Francisco, CA 94107<br>
-                <abbr title="Phone">P:</abbr> (123) 456-7890
-              </address>
+              <div>
+                <address>
+                  <strong>Twitter, Inc.</strong><br>
+                  795 Folsom Ave, Suite 600<br>
+                  San Francisco, CA 94107<br>
+                  <abbr title="Phone">P:</abbr> (123) 456-7890
+                </address>
 
                 <address>
                   <strong>Full Name</strong><br>
@@ -178,6 +213,54 @@
           </div>
           <div class="tab-pane" id="messages">detail information</div>
           <div class="tab-pane" id="settings">other information</div>
+          <div class="tab-pane" id="comments">
+            <div class="comment">
+              <span><i class="icon-pencil"></i>&nbsp;评论</span>
+              <textarea id="comment_context"></textarea>
+
+              <div id="operationarea">
+                <i class="icon-star-empty icon-large" rank="1"></i>
+                <i class="icon-star-empty icon-large" rank="2"></i>
+                <i class="icon-star-empty icon-large" rank="3"></i>
+                <i class="icon-star-empty icon-large" rank="4"></i>
+                <i class="icon-star-empty icon-large" rank="5"></i>
+                &nbsp;
+                <input type="hidden" id="comment_rank" value="0">
+                <button class="btn btn-small btn-success" type="button" id="comment_commit" disabled="true">　提交　
+                </button>
+              </div>
+
+              <ul id="comment_list">
+                <li>
+                  <img class="portrait" src="/images/user.png">
+                  <span>admin</span>
+                  <span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i></span>
+                  <span style="color: #ccc">2013/03/02 02:01</span>
+
+                  <p style="500px;word-wrap:break-word; word-break:normal;">AAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+                </li>
+
+                <li>
+                  <img class="portrait" src="/images/user.png">
+                  <span>admin</span>
+                  <span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i></span>
+                  <span style="color: #ccc">2013/03/02 02:01</span>
+
+                  <p style="500px;word-wrap:break-word; word-break:normal;">AAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+                </li>
+
+                <li>
+                  <img class="portrait" src="/images/user.png">
+                  <span>admin</span>
+                  <span><i class="icon-star-empty"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i></span>
+                  <span style="color: #ccc">2013/03/02 02:01</span>
+
+                  <p style="500px;word-wrap:break-word; word-break:normal;">AAAAAAAAAAAAAAAAAAAAAAAAAA</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+
         </div>
       </div>
     </div><!-- /.modal-content -->
