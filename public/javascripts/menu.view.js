@@ -24,10 +24,10 @@
      */
     onWindowScroll: function() {
       
-      var offset = 50 - $(document).scrollTop();
-      offset = offset > 0 ? offset : 0;
-      offset = offset > 50 ? 50 : offset;
-
+      //var offset = 50 - $(document).scrollTop();
+      //offset = offset > 0 ? offset : 0;
+      //offset = offset > 50 ? 50 : offset;
+      var offset = 0;
       $("#_navbar").css("top", offset);
       $('#_searchresult').css("top", offset + 38);
       // $('#_findresult').css("top", offset + 28);

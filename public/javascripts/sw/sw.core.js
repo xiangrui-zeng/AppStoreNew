@@ -130,7 +130,7 @@ var $sw = {
 
                 },
                 error: function () {
-                    cosole.log('error');
+                    console.log('error');
                 }
             });
         },

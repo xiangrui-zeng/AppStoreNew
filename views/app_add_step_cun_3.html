@@ -200,9 +200,7 @@
                                          for="required"
                                          generated="true"
                                          class="help-inline setUserList" href="#document-selector" data-toggle="modal">
-                                        <button class="btn">
                                         設定
-                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -224,10 +222,7 @@
                                          generated="true"
                                          class="help-inline setUserList" data="{sds:323,dfdf:343}"
                                          href="#document-selector"
-                                         data-toggle="modal">
-                                        <button class = 'btn'>
-                                            設定
-                                        </button>
+                                         data-toggle="modal">設定
                                     </div>
                                 </div>
                             </div>
@@ -255,10 +250,7 @@
                                          generated="true"
                                          class="help-inline setUserList"
                                          href="#document-selector"
-                                         data-toggle="modal">
-                                    <button class = 'btn'>
-                                        設定
-                                    </button>
+                                         data-toggle="modal">設定
                                     </div>
                                 </div>
                             </div>
@@ -280,9 +272,7 @@
                                          for="required"
                                          generated="true"
                                          class="help-inline setUserList" href="#document-selector" data-toggle="modal">
-                                        <button class = 'btn'>
-                                            設定
-                                        </button>
+                                        設定
                                     </div>
                                 </div>
                             </div>
@@ -374,7 +364,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h3>选择用户</h3>
     </div>
-    <div class="modal-body" style="">
+    <div class="modal-body" style="overflow: scroll">
         <fieldset style="height:300px;overflow: scroll;">
             <table class="table table-hover" style="height:300px;overflow: scroll;">
                 <thead>
@@ -390,8 +380,8 @@
         </fieldset>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" id="setUser">确定</button>
-        <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+        <button class="btn" data-dismiss="modal" aria-hidden="true"><%= i('message.list.button.cancel') %></button>
+        <button class="btn btn-primary" id="setUser"><%= i('message.list.button.select') %></button>
     </div>
 </div>
 <% include common/foot.html %>
