@@ -3,8 +3,6 @@
 <head>
   <title>应用详细</title>
   <% include common/required.html %>
-  <link href="/stylesheets/starwall.css" rel="stylesheet">
-  <link href="/stylesheets/default.css" rel="stylesheet">
 
   <script type="text/javascript">
     $(function () {
@@ -16,18 +14,32 @@
   <style type="text/css">
 
     #appModal {
-      width: 980px;
-      height: 550px;
-      margin: 0 0 0 -490px;
+      width: 825px;
+      height: 520px;
+      margin: 0 0 0 -470px;
     }
 
-    #appModal .modal-body{
-      width: 960px;
-      height: 550px;
-
+    #modal-body {
+      max-height: 430px;
     }
 
-    .sep {
+    .headLeft {
+      vertical-align: top;
+      display: inline-block;
+    }
+
+    .headLeft img {
+      width:50px;
+      height:50px;
+    }
+
+    .headMiddle {
+      display: inline-block;
+      padding-left: 20px;
+      width: 450px;
+    }
+
+    .headMiddle .sep {
       height: 15px;
       width: 1px;
       display: inline-block;
@@ -36,39 +48,106 @@
       vertical-align: middle;
     }
 
-    .comment {
-      min-height: 200px;
-      background-color: #FAFAFA;
-      width: 675px;
-      padding: 5px;
+    .headRight {
+      vertical-align: top;
+      display: inline-block;
+      padding-top: 20px;
     }
-    .comment textarea {
-      width: 650px;
-      height: 80px;
+
+    .profile-image {
+      float: left;
+      width: 580px;
+    }
+
+    .profile-info {
+      float: left;
+      width: 200px;
+      height: 330px;
+      border-left: 1px solid #cccccc;
+      padding-left: 5px;
       margin-left: 5px;
     }
+
+    .itemgroup {
+
+    }
+
+    .itemgroup div label {
+      float: left;
+      width: 50px;
+      text-align: left;
+      margin-left: 10px;
+      font-size: 12px;
+    }
+
+    .itemgroup div div {
+      margin-left: 60px;
+      width: 100px;
+      line-height: 20px;
+      margin-bottom: 5px;
+      font-size: 12px;
+      text-align: right;
+    }
+
+    #gallery {
+      height: 320px;
+      overflow-x: auto;
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    #gallery img {
+      max-height: 300px;
+      margin-left: 10px;
+    }
+
+    .comment {
+      background-color: #FAFAFA;
+      margin-left: 10px;
+      width: 775px;
+      height: 330px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 5px;
+    }
+
+    .comment textarea {
+      width: 735px;
+      height: 40px;
+      margin-left: 5px;
+    }
+
     .comment #operationarea {
-      /*width: 995px;*/
       text-align: right;
       padding-right: 15px;
     }
+
     .comment #operationarea i {
       cursor: pointer;
     }
+
     .comment ul {
       margin-top: 10px;
       margin-left: 5px;
     }
+
     .comment ul li {
       list-style-type: none;
       margin-bottom: 10px;
       border-bottom: 1px solid #EEF;
     }
+
     .comment ul li .portrait {
       width: 30px;
     }
+
     .comment ul li div {
       padding-left: 40px;
+    }
+
+    .comment p {
+      word-wrap:break-word;
+      word-break:normal;
     }
 
   </style>
@@ -76,200 +155,199 @@
 </head>
 <body>
 
-<div class="main">
-  <div class="container">
-
-<div class="modal fade" id="appModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-  <div class="modal-dialog" >
-    <div class="modal-content">
-      <div class="modal-header" style="height: 65px;">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <div style="height: 50px; width: 50px; float: left"><img src="/picture/52bbe3a063eb733b05000010" alt="q" style="width:50px;height:50px;"></div>
-        <div style="padding-top: 10px; margin-left:50px;height: 50px; width: auto; float: left ">
-          <h3 class="modal-title">Cross!</h3>
-          <div>
-            <span>v1.0</span>
-            <span class="sep"></span>
-            <span>
-              <i class="icon-star"></i>
-              <i class="icon-star"></i>
-              <i class="icon-star"></i>
-              <i class="icon-star-half-empty"></i>
-              <i class="icon-star-empty"></i> (320)
-            </span>
-            <span class="sep"></span>
-            <span>社交</span>
-            <span class="sep"></span>
-            <span>iPhone</span>
-          </div>
-        </div>
-        <div class="pull-right" style="padding-top: 20px; padding-right: 100px;">
-          <button class="btn btn-default btn-success">
-            <i class="icon-plus"></i>&nbsp 安装
-          </button>
-          <button class="btn btn-default btn-success">
-            <i class="icon-share-alt"></i>&nbsp 分享
-          </button>
-        </div>
-      </div>
-      <div class="modal-body" style="overflow-y: hidden" >
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs">
-          <li class="active"><a href="#homedetail" data-toggle="tab">概要</a></li>
-          <li><a href="#profile" data-toggle="tab">详细</a></li>
-          <li><a href="#messages" data-toggle="tab">系统要求</a></li>
-          <li><a href="#settings" data-toggle="tab">更新履历</a></li>
-          <li><a href="#comments" data-toggle="tab">评价</a></li>
-        </ul>
-
-        <!-- Tab panes -->
-        <div class="tab-content">
-          <div class="tab-pane active" id="homedetail">
-            <div style="width: 640px;height: auto;float: left">
-              <img src="/picture/52ba51db31b1a268b5000004" alt=""  style="width:640px;height:400px">
-            </div>
-            <div style="width: 300px;height: auto;float: left; margin-left: 20px;">
-              <dl>
-                <dt>Description lists</dt>
-                <dd>A description list is perfect for defining terms.</dd>
-                <dt>Euismod</dt>
-                <dd>Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.</dd>
-                <dd>Donec id elit non mi porta gravida at eget metus.</dd>
-                <dt>Malesuada porta</dt>
-                <dd>Etiam porta sem malesuada magna mollis euismod.</dd>
-              </dl>
-            </div>
-          </div>
-          <div class="tab-pane" id="profile">
-            <div style="width: 640px;height: auto;float: left;overflow-y: scroll">
-              <dl>
-                <dt>English Spelling and Vocabulary</dt>
-                <dd>Yolaroo ABC is an excellent way for people of all ages to start learning English.
-
-                  Yolaroo ABC makes learning how to read and spell easy.
-
-                  There are 10 great activities to help teach over 147 different English words.
-                  Each activity has a different goal to help the learner.
-
-                  Yolaroo ABC is great for in the classroom or at home.
-                  Teach or learn English.
-
-                  There are 10 apps and activities that are well organized to help teach English.
-
-                  Teach spelling.
-                  Teach ABC alphabet.
-                  Teach English vocabulary.
-
-                  These are the activities included:
-
-                  'Letter Introduction' introduces letters to the learner.
-
-                  'Word Introduction' introduces words and and there letters.
-
-                  'Vocabulary Introduction' introduces the vocabulary.
-
-                  'Picture it' matches the words to letters.
-
-                  'Spelling' introduces spelling of words.
-
-                  'Word Match' is a learning and testing activity to practice picture and word recognition.
-
-                  'Picture Hide' shows four pictures and then hides one picture, then asks the learner to find the missing picture.
-
-                  'Word Hide' shows four words and then hides one word and asks the learner to find the missing word.
-
-                  'Scramble' is a spelling practice and test. Spell the words normally and then scrambled.
-
-                  'Double Match' is a picture memory game that asks the learner to match the pictures to the words as well.</dd>
-
-              </dl>
-            </div>
-            <div style="width: 300px;height: auto;float: left; margin-left: 20px;">
-              <div>
-                <address>
-                  <strong>Twitter, Inc.</strong><br>
-                  795 Folsom Ave, Suite 600<br>
-                  San Francisco, CA 94107<br>
-                  <abbr title="Phone">P:</abbr> (123) 456-7890
-                </address>
-
-                <address>
-                  <strong>Full Name</strong><br>
-                  <a href="mailto:#">first.last@example.com</a>
-                </address>
-
-                <address>
-                  <strong>Version</strong><br>
-                  1.0.32.1<br>
-                  <strong>Update Date</strong><br>
-                  2013年12月20日<br>
-                  <strong>Size</strong><br>
-                  11.25KB<br>
-                  <strong>Language</strong><br>
-                  English (UK)<br>
-                </address>
-              </div>
-            </div>
-          </div>
-          <div class="tab-pane" id="messages">detail information</div>
-          <div class="tab-pane" id="settings">other information</div>
-          <div class="tab-pane" id="comments">
-            <div class="comment">
-              <span><i class="icon-pencil"></i>&nbsp;评论</span>
-              <textarea id="comment_context"></textarea>
-
-              <div id="operationarea">
-                <i class="icon-star-empty icon-large" rank="1"></i>
-                <i class="icon-star-empty icon-large" rank="2"></i>
-                <i class="icon-star-empty icon-large" rank="3"></i>
-                <i class="icon-star-empty icon-large" rank="4"></i>
-                <i class="icon-star-empty icon-large" rank="5"></i>
-                &nbsp;
-                <input type="hidden" id="comment_rank" value="0">
-                <button class="btn btn-small btn-success" type="button" id="comment_commit" disabled="true">　提交　
-                </button>
-              </div>
-
-              <ul id="comment_list">
-                <li>
-                  <img class="portrait" src="/images/user.png">
-                  <span>admin</span>
-                  <span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i></span>
-                  <span style="color: #ccc">2013/03/02 02:01</span>
-
-                  <p style="500px;word-wrap:break-word; word-break:normal;">AAAAAAAAAAAAAAAAAAAAAAAAAA</p>
-                </li>
-
-                <li>
-                  <img class="portrait" src="/images/user.png">
-                  <span>admin</span>
-                  <span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i></span>
-                  <span style="color: #ccc">2013/03/02 02:01</span>
-
-                  <p style="500px;word-wrap:break-word; word-break:normal;">AAAAAAAAAAAAAAAAAAAAAAAAAA</p>
-                </li>
-
-                <li>
-                  <img class="portrait" src="/images/user.png">
-                  <span>admin</span>
-                  <span><i class="icon-star-empty"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i></span>
-                  <span style="color: #ccc">2013/03/02 02:01</span>
-
-                  <p style="500px;word-wrap:break-word; word-break:normal;">AAAAAAAAAAAAAAAAAAAAAAAAAA</p>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
+<div id="appModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+  <div class="modal-header" >
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <div class="headLeft">
+      <img id="appIcon" src="/picture/52bbe3a063eb733b05000010">
+    </div>
+    <div class="headMiddle">
+      <h3 id="appName">Cross</h3>
+      <br>
+      <span id="appVersion">v1.0</span>
+      <span class="sep"></span>
+      <span id="appScore">
+        <i class="icon-star"></i>
+        <i class="icon-star"></i>
+        <i class="icon-star"></i>
+        <i class="icon-star-half-empty"></i>
+        <i class="icon-star-empty"></i>
+        <span id="userCount">(503)</span>
+      </span>
+      <span class="sep"></span>
+      <span id="appCategory">社交</span>
+      <span class="sep"></span>
+      <span id="devicetType">下载量</span>
+    </div>
+    <div class="headRight">
+      <button class="btn btn-default btn-success">
+        <i class="icon-plus"></i>&nbsp 安装
+      </button>
+      <button class="btn btn-default btn-success">
+        <i class="icon-share-alt"></i>&nbsp 分享
+      </button>
+    </div>
   </div>
+  <div id="modal-body" class="modal-body" >
+    <ul class="nav nav-tabs">
+      <li class="active">
+        <a href="#profile" data-toggle="tab">概要</a>
+      </li>
+      <li>
+        <a href="#detail" data-toggle="tab">详细</a>
+      </li>
+      <li>
+        <a href="#require" data-toggle="tab">系统要求</a>
+      </li>
+      <li>
+        <a href="#update" data-toggle="tab">更新履历</a>
+      </li>
+      <li>
+        <a href="#comment" data-toggle="tab">评价</a>
+      </li>
+    </ul>
 
+    <div class="tab-content">
+      <div class="tab-pane active" id="profile">
+        <div class="profile-image">
+          <div id="gallery">
+            <img src="/picture/52bbe3a063eb733b05000010">
+            <img src="/picture/52bbe3a063eb733b05000010">
+            <img src="/picture/52bbe3a063eb733b05000010">
+            <img src="/picture/52bbe3a063eb733b05000010">
+            <img src="/picture/52bbe3a063eb733b05000010">
+            <img src="/picture/52bbe3a063eb733b05000010">
+          </div>
+        </div>
+        <div class="profile-info">
+          <div class="itemgroup">
+            <div><label>更新</label><div id="lastUpdate">13/12/27</div></div>
+            <div><label>版权所有</label><div id="copyRight">DreamArts</div></div>
+            <div><label>大小</label><div id="appSize">1.6M</div></div>
+            <div><label>下载量</label><div id="downloadCount">567次</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane" id="detail">
+        详细
+      </div>
+      <div class="tab-pane" id="require">
+        系统要求
+      </div>
+      <div class="tab-pane" id="update">
+        更新履历
+      </div>
+      <div class="tab-pane" id="comment">
+        <div class="comment">
+          <span><i class="icon-pencil"></i>&nbsp;コメントを書く</span>
+          <textarea id="comment_context"></textarea>
+
+          <div id="operationarea">
+            <i class="icon-star-empty icon-large" rank="1"></i>
+            <i class="icon-star-empty icon-large" rank="2"></i>
+            <i class="icon-star-empty icon-large" rank="3"></i>
+            <i class="icon-star-empty icon-large" rank="4"></i>
+            <i class="icon-star-empty icon-large" rank="5"></i>
+            &nbsp;
+            <input type="hidden" id="comment_rank" value="0">
+            <button class="btn btn-small btn-success" type="button" id="comment_commit" disabled="disabled">　コメント　
+            </button>
+          </div>
+
+          <ul id="comment_list">
+            <li>
+              <img class="portrait" src="/images/user.png">
+              <span>temp</span>
+              &nbsp;
+              <span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></span>
+              &nbsp;
+              <span>2013/12/27 16:41</span>
+              <span>( v1.0 )</span>
+              <p>的发送到范德萨</p>
+            </li>
+            <li>
+              <img class="portrait" src="/images/user.png">
+              <span>temp</span>
+              &nbsp;
+              <span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></span>
+              &nbsp;
+              <span>2013/12/27 16:41</span>
+              <span>( v1.0 )</span>
+              <p>的发送到范德萨</p>
+            </li>
+            <li>
+              <img class="portrait" src="/images/user.png">
+              <span>temp</span>
+              &nbsp;
+              <span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></span>
+              &nbsp;
+              <span>2013/12/27 16:41</span>
+              <span>( v1.0 )</span>
+              <p>的发送到范德萨</p>
+            </li>
+            <li>
+              <img class="portrait" src="/images/user.png">
+              <span>temp</span>
+              &nbsp;
+              <span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></span>
+              &nbsp;
+              <span>2013/12/27 16:41</span>
+              <span>( v1.0 )</span>
+              <p>的发送到范德萨</p>
+            </li>
+            <li>
+              <img class="portrait" src="/images/user.png">
+              <span>temp</span>
+              &nbsp;
+              <span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></span>
+              &nbsp;
+              <span>2013/12/27 16:41</span>
+              <span>( v1.0 )</span>
+              <p>的发送到范德萨</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+<script type="text/template" id="score-template">
+  <$ var f = Math.floor(avg), s = avg - Math.floor(avg); for (var i = 0; i < 5; i++) { $>
+  <$ if (i < f) { $>
+  <i class="icon-star"></i>
+  <$ } else if (i == f && s <= 0.3 ) { $>
+  <i class="icon-star-empty"></i>
+  <$ } else if (i == f && s > 0.3 && s < 0.7 ) { $>
+  <i class="icon-star-half-empty"></i>
+  <$ } else if (i == f && s >= 0.7 ) { $>
+  <i class="icon-star"></i>
+  <$ } else if (i > f) { $>
+  <i class="icon-star-empty"></i>
+  <$ } $>
+  <$ } $>
+</script>
+
+<script type="text/template" id="gallery-template">
+  <img src="/picture/{{imgId}}" />
+</script>
+
+<script type="text/template" id="comment-template">
+  <li >
+    <img class="portrait" src="/images/user.png">
+    &nbsp;
+    <span>{{createby}}</span>
+    &nbsp;
+    <span>{{rank}}</span>
+    <span style="color: #ccc">{{createat}}</span>
+    <span>(&nbsp;{{version}}&nbsp;)</span>
+    <p>{{comment}}</p>
+  </li>
+</script>
+
+<script src="/javascripts/sw/sw.comment.js"></script>
+<script src="/javascripts/sw/sw.app.js"></script>
+<script src="/javascripts/sw/sw.stardetail.js"></script>
 
 </body>
 </html>
