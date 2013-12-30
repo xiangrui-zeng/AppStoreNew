@@ -83,6 +83,10 @@ exports.guiding = function (app) {
     application.createAppStep2(req,res);
   });
 
+  //管理、分类App一览
+  app.get('/app/list', function (req, res) {
+    res.render("app_list", {"title": "check_list", user: req.session.user});
+  });
 
   //get**.json
   app.get('/app/info.json',function(req,res){
@@ -134,14 +138,7 @@ exports.guiding = function (app) {
   app.get('/detaildemo', function (req, res) {
     res.render("app_detail_new", {"title": "check_list", user: req.session.user});
   });
-  //管理、分类App一览
-  app.get('/app/list', function (req, res) {
-    res.render("app_list", {"title": "check_list", user: req.session.user});
-  });
-  //临时测试用
-  app.get('/app/manage', function (req, res) {
-    res.render("app_manage", {"title": "app_manage", user: req.session.user});
-  });
+
 
   app.get('/app/detail/list', function (req, res) {
     res.render("app_detail_list", {"title": "app_list", user: req.session.user});
