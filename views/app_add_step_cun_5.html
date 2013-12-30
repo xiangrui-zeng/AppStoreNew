@@ -2,7 +2,7 @@
 
 <!-- Side bar -->
 
-
+<script src="/javascripts/sw/sw.app.js"></script>
 <script type="text/javascript">
     <%
     if (appId != '0') { %>
@@ -18,48 +18,50 @@
                     } else
                         $("#step" + (i) + "").attr("href", "#");
 
-                    $("#step4").addClass("active");
+                    $("#step5").addClass("active");
                 }
-                if(!data.support){
-                    return;
-                }
+                $("#pre_view").attr("href","/app/"+data._id);
+                $("#finish_add").bind('click',function(){
+                    smart.dopost('/app/create/step5.json',{_id:data._id},function(msg){
+                        alert('公開しました');
+                        window.location.href="/starwall";
+                    });
 
-                $("#support").val(data.support);
-                $("#notice").val(data.notice);
-                $("#release_note").val(data.release_note);
-
+                });
             });
         });
 
     <%
     }
     %>
-    function didSendStepCallback(result) {
+    $(function(){
+        $app.initialize();
+    });
+    function didSendStepCallback(result){
         // 错误信息
         if(result.error && result.error.code) {
             $alertMsg.error(result.error.message);
             return;
         }
         console.log("console.log(result);");
-        console.log(result);
-        var appId = result.data._id;
-        console.log("appp id   is   %s", appId);
-        window.location.href = "/app/add/step5?appId=" + appId;
-    }
-    ;
-    function didSendFn(data) {
+        console.log("fsafsdfasdfdsf");
+        alert('添加成功');
+
+        window.location.href = "/starwall";
+
+    };
+    function didSendFn(data){
         var sendData = {};
         var crsf = $("#_csrf").val();
         for (var i in data) {
             sendData[data[i].name] = data[i].value;
-            if (data[i].name == 'appId') {
+            if(data[i].name == 'appId'){
                 sendData["_id"] = data[i].value;
             }
         }
         sendData["_csrf"] = crsf;
         return sendData;
-    }
-    ;
+    };
 
 </script>
 <br>
@@ -71,52 +73,22 @@
         </div>
         <div class="span9 span10_left_line">
 
-
             <div class="span9">
 
-                <form class="required-validate form-horizontal" action="/app/create/step4.json" method="post"
+                <form class="required-validate form-horizontal" action="/app/create/step5.json" method="post"
                       onsubmit="return validateCallback(this,didSendStepCallback,didSendFn,'确认提交吗？')">
                     <input type="hidden" name="appId" value="<%=appId%>"/>
 
                     <div class="widget-box">
                         <div class="widget-content nopadding">
 
-                            <div class="control-group">
-                                <label class="control-label">support</label>
 
-                                <div class="controls">
-`                                </div>
-                            </div>
-                            <div class="control-group">
-                                <label class="control-label">注意事項</label>
-
-                                <div class="controls">
-                                    <textarea class="required" name="notice" id="notice" placeholder="更新时写就行"></textarea>
-                                </div>
-                            </div>
-                            <div class="control-group">
-                                <label class="control-label">release_note</label>
-
-                                <div class="controls">
-                                    <textarea class="required" name="release_note" id="release_note" placeholder="更新时写就行"></textarea>
-                                </div>
-                            </div>
-
-
-
-                            <!--<div class="control-group">-->
-                                <!--<label class="control-label"></label>-->
-
-                                <!--<div class="controls">-->
-                                    <!--<button class="btn btn-small btn-success" type="submit">Next</button>-->
-                                <!--</div>-->
-                            <!--</div>-->
                             <div class="control-group">
                                 <label class="control-label"></label>
 
                                 <div class="controls">
                                     <a id="pre_view" href="#" target="_blank" class="btn btn-large btn-primary">プレビュー</a>
-                                    <a id="finish_add" href="#" class="btn btn-large btn-success">提交审核</a>
+                                    <a id="finish_add" href="#" class="btn btn-large btn-success">公開</a>
                                 </div>
                             </div>
                         </div>
@@ -125,10 +97,11 @@
             </div>
 
 
+
+
         </div>
     </div>
 </div>
-
 
 <!-- This is just a little bit of custom CSS code to enhance things. Feel free to place this in your main CSS file. I've commented to say what each bit does. -->
 <style type="text/css">

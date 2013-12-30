@@ -1,0 +1,30 @@
+<% include common/head.html %>
+
+<div class="span9">
+    <% /* include list/home/new_list.html */ %>
+    <div class="page-header"><h3>管理するアプリ一覧</h3></div>
+    <div id="list_container"></div>
+</div>
+
+<% include common/template_detail_list.html %>
+
+<script type="text/javascript">
+    var list = DetailList.create();
+    $(document).ready(function() {
+        list.init($("#list_container"), {
+            id_prex :  "dl_list"
+            ,str    : {"loading": "Loading........"}
+            ,cols   : [ "icon", "info", "os", "require", "status", "update_info", "option"]
+            ,url    : "/app/list.json?admin=1&sort=name&asc=1"
+        });
+
+        // 初始化加载数据
+        list.load();
+    });
+
+    function loadCategory(code) {
+
+    }
+</script>
+
+<% include common/foot.html %>
