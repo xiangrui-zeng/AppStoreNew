@@ -134,7 +134,8 @@
         <$ var updater = app.updater ? app.updater : app.creator $>
         <$ if(col.name == "icon") { $>
             <td style="min-width:100px;"><a href="/app/{{ app._id }}">
-                <img src="/picture/{{ (app.icon && app.icon.big) ? app.icon.big: '#' }}" alt="{{ _.escape(app.name) }}" style="width:100%;height:auto"/>
+                <img src="/picture/52ba51db31b1a268b5000004" alt="{{ _.escape(app.name) }}" style="width:100%;height:auto"/>
+                <!--<img src="/picture/{{ (app.icon && app.icon.big) ? app.icon.big: '#' }}" alt="{{ _.escape(app.name) }}" style="width:100%;height:auto"/>-->
             </a></td>
         <$ } else if(col.name == "info") { $>
             <td style="min-width:150px;">
@@ -172,30 +173,30 @@
             <td nowrap>
 
                 <$ if($app.canEdit(app)) { $>
-                    <a href="/app/add/step1?appId={{ app._id }}" style="float:left;margin-right:2px;"><button class="btn btn-small btn-success">編集</button></a>
+                    <a href="/app/add/step1?appId={{ app._id }}" style="float:left;margin-right:2px;"><button class="btn btn-small btn-success">編集</button></a>  <br/>
                 <$ } else { $>
-                    <a href="#" style="float:left;margin-right:2px;"><button class="btn btn-small btn-success" disabled>編集</button></a>
+                    <a href="#" style="float:left;margin-right:2px;"><button class="btn btn-small btn-success" disabled>編集</button></a> <br/>
                 <$ } $>
                 <$ if(app.downloadURL) { $>
-                    <a href="{{ _.escape(app.downloadURL) }}" style="float:right;"><button class="btn btn-small btn-success">install</button></a>
+                    <a href="{{ _.escape(app.downloadURL) }}" style="float:right;"><button class="btn btn-small btn-success">install</button></a> <br/>
                 <$ } else { $>
-                    <a href="#" style="float:right;"><button class="btn btn-small btn-success" disabled>install</button></a>
+                    <a href="#" style="float:right;"><button class="btn btn-small btn-success" disabled>install</button></a>  <br/>
                 <$ } $>
             </td>
 
         <$ } else if(col.name == "create_date") { $>
             <td nowrap>  {{ smart.date(app.create_date) }} </td>
         <$ } else if(col.name == "create_user") { $>
-            <td nowrap>  {{ _.escape(app.creator.name.name_zh) }} </td>
+            <td nowrap>  {{ _.escape(app.create_user) }} </td>
         <$ } else if(col.name == "update_date") { $>
             <td nowrap>  {{ smart.date(app.update_date) }} </td>
         <$ } else if(col.name == "update_user") { $>
-            <td nowrap>  {{ _.escape(updater.name.name_zh) }} </td>
+            <td nowrap>  {{ _.escape(app.update_user) }} </td>
         <$ } else if(col.name == "update_info") { $>
             <td nowrap>
-                <strong>更新者：</strong> {{ _.escape(updater.name.name_zh) }}<br>
+                <strong>更新者：</strong> {{ _.escape(updater) }}<br>
                 <strong>更新日時：</strong> {{ smart.date(app.update_date) }}<br>
-                <strong>作成者：</strong> {{ _.escape(app.creator.name.name_zh) }}<br>
+                <strong>作成者：</strong> {{ _.escape(app.creator) }}<br>
                 <strong>作成日時：</strong> {{ smart.date(app.create_date) }}<br>
             </td>
         <$ } else if(col.name == "rank") { $>
