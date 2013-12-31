@@ -5,42 +5,42 @@ var mongo       = smart.util.mongoose
 var App = new schema({
 
       name          : {type: String, description:"名称"}
-    , description   : {type: String, description:"详细信息"}
+    , description   : {type: String, description:"??信息"}
     , release_note  : {type: String, description:"更新信息"}
-    , appType       : {type: String, description:"设备的类型：OS、android、PC "}
+    , appType       : {type: String, description:"??的?型：OS、android、PC "}
     , permission    : {
           admin      : [String]
         , edit       : [String]
         , view       : [String]
         , download   : [String]
-        , description:"权限??"}
+        }
     , icon          : {
         big          : {type: String}
-      , small        : {type: String}, description:"大小图标"}
+      , small        : {type: String}}
     , screenshot      : [String]
     , category        : [String]
     , version         : {type: String, description:"版本"}
-    , downloadId      : {type: String, description:"下载id"}
+    , downloadId      : {type: String, description:"下?id"}
     , plistDownloadId : {type:String, description:"pList"}
-    , open_date       : {type: Date, description:"公开日期"}
-    , expire_date     : {type: Date, description:"过期时间"}
-    , create_date     : {type: Date, description:"创建时间"}
-    , create_user     : {type: String, description:"创建者"}
+    , open_date       : {type: Date, description:"公?日期"}
+    , expire_date     : {type: Date, description:"?期??"}
+    , create_date     : {type: Date, description:"?建??"}
+    , create_user     : {type: String, description:"?建者"}
     , update_date     : {type: Date, description:"更新日期"}
     , update_user     : {type: String, description:"更新者"}
     , copyright       : {type: String, description:"版本"}
     , require         : {
         os: {type: String}
       , device: {type: String}
-      , description:"系统 ios7.0 、设备要求iphone 5S"}
+      }
     , size            : {type: Number, description:"大小size"}
-    , status          : {type: Number, description:"状态： 0、未申请 1、待审核 2、公开中 3、审核未通过 4、无效 ",default:0}
-    , rank            : {type: Number, description:"评分分数",default: 0}
-    , rankcount       : {type: Number, description:"评分次数",default: 0}
-    , bundle_identifier :{type:String, description:"plist  标识"}
+    , status          : {type: Number, description:"状?： 0、未申? 1、待?核 2、公?中 3、?核未通? 4、无效 ",default:0}
+    , rank            : {type: Number, description:"?分分数",default: 0}
+    , rankcount       : {type: Number, description:"?分次数",default: 0}
+    , bundle_identifier :{type:String, description:"plist  ??"}
     , bundle_version  :{type:String, description:"plist"}
-    , kind            :{type:String, description:"种类"}
-    , downloadCount   :{type: Number, description:"下载数量"}
+    , kind            :{type:String, description:"??"}
+    , downloadCount   :{type: Number, description:"下?数量"}
 });
 
 function model() {
@@ -86,7 +86,6 @@ exports.getAppsByIds = function(ids_, callback_){
 
 exports.list = function (condition_, options_, callback_) {
   var app = model();
-    console.log("测试conditions_    "+condition_);
     app.find(condition_)
     .skip(options_.start || 0)
     .limit(options_.limit || 20)
