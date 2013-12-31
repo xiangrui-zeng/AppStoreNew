@@ -4,7 +4,6 @@
 <input type="hidden" id="bright" name="bright" value="" />
 <input type="hidden" id="userid" name="userid" value="" />
 <input type="hidden" id="timezone" name="timezone" value="" />
-
 <div id="_navbar" style="height: 41px;">
   <nav>
     <ul id="_group0" rel="sam">
@@ -16,40 +15,104 @@
       </li>
     </ul>
   </nav>
-
-  <nav>
+  <nav id="sara">
     <ul id="_group1" rel="sam">
-      <li style="background: -webkit-linear-gradient(top, #ffffff, #f2f2f2);width: 60px;">
+      <li style="width: 60px;">
         <a id="app" href="/starwall"><i class="icon-star icon-large"></i></a>
+        <ul id="app_menu" class="pull-left">
+          <div id="app_div" class="popover bottom" style="min-width: 120px;display: block;margin-top: 0px;">
+            <div class="arrow" style="left: 6%;top: -10px;margin-left: 15px;"></div>
+            <li><a href="/starwall">&nbsp;已下载APP</a></li>
+            <li><a href="/starwall">&nbsp;APP上传一览</a></li>
+            <li><a href="/starwall">&nbsp;APP审核一览</a></li>
+            <li><a href="/starwall">&nbsp;APP管理一览</a></li>
+          </div>
+        </ul>
       </li>
-      <li style="background: -webkit-linear-gradient(top, #ffffff, #f2f2f2);width: 60px;">
-        <a id="user" href="/starwall"><i class="icon-user icon-large"></i></a>
-      </li>
-      <li style="background: -webkit-linear-gradient(top, #ffffff, #f2f2f2);width: 60px;">
+      <li style="width: 60px;">
         <a id="admin" href="/starwall"><i class="icon-group icon-large"></i></a>
+        <ul id="admin_menu" class="pull-left">
+          <div class="popover bottom" style="min-width: 120px;display: block;margin-top: 0px;">
+            <div class="arrow" style="left: 6%;top: -10px;margin-left: 15px;"></div>
+            <li><a href="/starwall">&nbsp;用户一览</a></li>
+            <li><a href="/starwall">&nbsp;组织一览</a></li>
+            <li><a href="/starwall">&nbsp;公司一览</a></li>
+          </div>
+        </ul>
       </li>
-      <li style="background: -webkit-linear-gradient(top, #ffffff, #f2f2f2);width: 60px;">
+      <li style="width: 60px;">
         <a id="data" href="/starwall"><i class="icon-signal icon-large"></i></a>
+        <ul id="data_menu" class="pull-left">
+          <div class="popover bottom" style="min-width: 120px;display: block;margin-top: 0px;">
+            <div class="arrow" style="left: 6%;top: -10px;margin-left: 15px;"></div>
+            <li><a href="/starwall">&nbsp;APP分析</a></li>
+            <li><a href="/starwall">&nbsp;用户分析</a></li>
+          </div>
+        </ul>
       </li>
     </ul>
   </nav>
-
   <nav id="_search">
     <input id="search" value="" x-webkit-speech /><div></div>
   </nav>
   <nav>
     <ul class="nav" style="float: right;" rel="sam">
-      <li style="background: -webkit-linear-gradient(top, #ffffff, #f2f2f2);width: 40px;">
-        <a href="/usereditor" style="line-height: 37px;">
-          <img src="<%= user.photo ? '/picture/' + user.photo.big : '/images/user.png' %>" style="height: 20px;width: 20px;">
-        </a>
+      <li style="width: 60px;">
+        <a id="login" href="/usereditor"><img src="<%= user.photo ? '/picture/' + user.photo.big : '/images/user.png' %>" style="height: 20px;width: 20px;"></a>
       </li>
-      <li style="background: -webkit-linear-gradient(top, #ffffff, #f2f2f2);width: 40px;">
-        <a id="_logout" href="/simplelogout"><i class="icon-signout"></i></a>
+      <li style="width: 60px;">
+        <a id="_logout" href="/simplelogout"><i class="icon-signout icon-large"></i></a>
       </li>
     </ul>
   </nav>
 </div>
+
+<script type="text/javascript">
+  var pop_win;
+  var timer ;
+
+  function events(){
+
+    $("#_navbar").bind("mouseleave", function(){
+      if (pop_win) {
+        timer = setTimeout("pop_win.hide();", 500);
+      }
+    });
+
+    $("#app").bind("mouseenter", function(){
+      if (pop_win) {
+        pop_win.hide();
+      }
+      $("#app_menu").show();
+      pop_win = $("#app_menu");
+    });
+    $("#admin").bind("mouseenter", function(){
+      if (pop_win) {
+        pop_win.hide();
+      }
+      $("#admin_menu").show();
+      pop_win = $("#admin_menu");
+    });
+    $("#data").bind("mouseenter", function(){
+      if (pop_win) {
+        pop_win.hide();
+      }
+      $("#data_menu").show();
+      pop_win = $("#data_menu");
+    });
+
+    $("#app_menu").bind("mouseenter", function(){
+      if (timer) { clearTimeout(timer);}
+    });
+    $("#admin_menu").bind("mouseenter", function(){
+      if (timer) { clearTimeout(timer);}
+    });
+    $("#data_menu").bind("mouseenter", function(){
+      if (timer) { clearTimeout(timer);}
+    });
+  }
+  events();
+</script>
 
 
 <div id="_searchresult" class="bucketed">
