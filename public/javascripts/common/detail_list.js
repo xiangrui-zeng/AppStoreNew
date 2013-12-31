@@ -140,7 +140,6 @@ var DetailList = {
                 cols: _this.cols
                 ,apps: apps
             };
-        console.log(apps)
             var tmpl_item = $('#' + this.tmpl_item_id).html();
             var res_item = _.template(tmpl_item, data);
             this.tbody.html(res_item);

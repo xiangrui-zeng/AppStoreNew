@@ -2,8 +2,6 @@
 <!-- 加载模板 -->
 <% include common/template_carousel.html %>
 
-<!-- Side bar -->
-<% include common/sidebar.html %>
 <script type="text/javascript" src="/javascripts/app_check_list.js"></script>
 
 <!-- 滚动列表CSS-->
@@ -62,6 +60,13 @@
     background: #333333;
   }
 </style>
+
+<div class="sidebar">
+  <ul class="col-nav span9 app_add" style="margin-top: 25px">
+    <li><a id="step1" href="#">待审核一览<i class="icon-ok-circle" style="display: none"></i></a></li>
+    <li><a id="step2" href="#">已审核一览<i class="icon-ok-circle" style="display: none"></i></a></li>
+   </ul>
+</div>
 
 <div class="span9">
   <section id="thumbnails">

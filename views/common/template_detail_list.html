@@ -133,8 +133,9 @@
         <$ var device = (app.require && app.require.device) ? app.require.device : ""; $>
         <$ var updater = app.updater ? app.updater : app.creator $>
         <$ if(col.name == "icon") { $>
-            <td style="min-width:100px;"><a href="/app/{{ app._id }}">
-                <img src="/picture/52ba51db31b1a268b5000004" alt="{{ _.escape(app.name) }}" style="width:100%;height:auto"/>
+            <td style="min-width:100px;"><a href="/detaildemo">
+            <!--<td style="min-width:100px;"><a href="/app/{{ app._id }}">-->
+                <img src="/picture/52bbe3a063eb733b05000010" alt="{{ _.escape(app.name) }}" style="width:100%;height:auto"/>
                 <!--<img src="/picture/{{ (app.icon && app.icon.big) ? app.icon.big: '#' }}" alt="{{ _.escape(app.name) }}" style="width:100%;height:auto"/>-->
             </a></td>
         <$ } else if(col.name == "info") { $>
@@ -146,7 +147,8 @@
             </td>
         <$ } else if(col.name == "os") { $>
             <td style="min-width:48px;">
-                <img src="{{ app.appTypeCategory ? _.escape(app.appTypeCategory.icon) : '' }}" style="width:48px;height:auto"/>
+                <img src="/images/system/ios.png" style="width:48px;height:auto"/>
+                <!--<img src="{{ app.appTypeCategory ? _.escape(app.appTypeCategory.icon) : '' }}" style="width:48px;height:auto"/>-->
             </td>
         <$ } else if(col.name == "require") { $>
             <!-- 需求 -->
