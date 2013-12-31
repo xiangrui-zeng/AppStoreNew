@@ -4,156 +4,158 @@
   <title>应用详细</title>
   <% include common/required.html %>
 
+  <input type="hidden" id="timezone" name="timezone" value="GMT+0800">
+
   <script type="text/javascript">
     $(function () {
       $("#appModal").modal("show");
+      //appDetail.show("52ba7ba32d9ac08409000001", false);
     });
   </script>
 
-  <!-- 滚动列表CSS-->
-  <style type="text/css">
-
-    #appModal {
-      width: 825px;
-      height: 520px;
-      margin: 0 0 0 -470px;
-    }
-
-    #modal-body {
-      max-height: 430px;
-    }
-
-    .headLeft {
-      vertical-align: top;
-      display: inline-block;
-    }
-
-    .headLeft img {
-      width:50px;
-      height:50px;
-    }
-
-    .headMiddle {
-      display: inline-block;
-      padding-left: 20px;
-      width: 450px;
-    }
-
-    .headMiddle .sep {
-      height: 15px;
-      width: 1px;
-      display: inline-block;
-      border-left: 1px dotted #a6a6a6;
-      margin: 0 7px;
-      vertical-align: middle;
-    }
-
-    .headRight {
-      vertical-align: top;
-      display: inline-block;
-      padding-top: 20px;
-    }
-
-    .profile-image {
-      float: left;
-      width: 580px;
-    }
-
-    .profile-info {
-      float: left;
-      width: 200px;
-      height: 330px;
-      border-left: 1px solid #cccccc;
-      padding-left: 5px;
-      margin-left: 5px;
-    }
-
-    .itemgroup {
-
-    }
-
-    .itemgroup div label {
-      float: left;
-      width: 50px;
-      text-align: left;
-      margin-left: 10px;
-      font-size: 12px;
-    }
-
-    .itemgroup div div {
-      margin-left: 60px;
-      width: 100px;
-      line-height: 20px;
-      margin-bottom: 5px;
-      font-size: 12px;
-      text-align: right;
-    }
-
-    #gallery {
-      height: 320px;
-      overflow-x: auto;
-      white-space: nowrap;
-      text-align: center;
-    }
-
-    #gallery img {
-      max-height: 300px;
-      margin-left: 10px;
-    }
-
-    .comment {
-      background-color: #FAFAFA;
-      margin-left: 10px;
-      width: 775px;
-      height: 330px;
-      overflow-y: auto;
-      overflow-x: hidden;
-      padding: 5px;
-    }
-
-    .comment textarea {
-      width: 735px;
-      height: 40px;
-      margin-left: 5px;
-    }
-
-    .comment #operationarea {
-      text-align: right;
-      padding-right: 15px;
-    }
-
-    .comment #operationarea i {
-      cursor: pointer;
-    }
-
-    .comment ul {
-      margin-top: 10px;
-      margin-left: 5px;
-    }
-
-    .comment ul li {
-      list-style-type: none;
-      margin-bottom: 10px;
-      border-bottom: 1px solid #EEF;
-    }
-
-    .comment ul li .portrait {
-      width: 30px;
-    }
-
-    .comment ul li div {
-      padding-left: 40px;
-    }
-
-    .comment p {
-      word-wrap:break-word;
-      word-break:normal;
-    }
-
-  </style>
-
 </head>
 <body>
+
+<style type="text/css">
+
+  #appModal {
+    width: 825px;
+    height: 520px;
+    margin: 0 0 0 -470px;
+  }
+
+  #modal-body {
+    max-height: 430px;
+  }
+
+  .headLeft {
+    vertical-align: top;
+    display: inline-block;
+  }
+
+  .headLeft img {
+    width:50px;
+    height:50px;
+  }
+
+  .headMiddle {
+    display: inline-block;
+    padding-left: 20px;
+    width: 450px;
+  }
+
+  .headMiddle .sep {
+    height: 15px;
+    width: 1px;
+    display: inline-block;
+    border-left: 1px dotted #a6a6a6;
+    margin: 0 7px;
+    vertical-align: middle;
+  }
+
+  .headRight {
+    vertical-align: top;
+    display: inline-block;
+    padding-top: 20px;
+  }
+
+  .profile-image {
+    float: left;
+    width: 580px;
+  }
+
+  .profile-info {
+    float: left;
+    width: 200px;
+    height: 330px;
+    border-left: 1px solid #cccccc;
+    padding-left: 5px;
+    margin-left: 5px;
+  }
+
+  .itemgroup {
+
+  }
+
+  .itemgroup div label {
+    float: left;
+    width: 50px;
+    text-align: left;
+    margin-left: 10px;
+    font-size: 12px;
+  }
+
+  .itemgroup div div {
+    margin-left: 60px;
+    width: 100px;
+    line-height: 20px;
+    margin-bottom: 5px;
+    font-size: 12px;
+    text-align: right;
+  }
+
+  #gallery {
+    height: 320px;
+    overflow-x: auto;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  #gallery img {
+    max-height: 300px;
+    margin-left: 10px;
+  }
+
+  .comment {
+    background-color: #FAFAFA;
+    margin-left: 10px;
+    width: 775px;
+    max-height: 330px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 5px;
+  }
+
+  .comment textarea {
+    width: 735px;
+    height: 40px;
+    margin-left: 5px;
+  }
+
+  .comment #operationarea {
+    text-align: right;
+    padding-right: 15px;
+  }
+
+  .comment #operationarea i {
+    cursor: pointer;
+  }
+
+  .comment ul {
+    margin-top: 10px;
+    margin-left: 5px;
+  }
+
+  .comment ul li {
+    list-style-type: none;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #EEF;
+  }
+
+  .comment ul li .portrait {
+    width: 30px;
+  }
+
+  .comment ul li div {
+    padding-left: 40px;
+  }
+
+  .comment p {
+    word-wrap:break-word;
+    word-break:normal;
+  }
+
+</style>
 
 <div id="appModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
   <div class="modal-header" >
@@ -177,7 +179,7 @@
       <span class="sep"></span>
       <span id="appCategory">社交</span>
       <span class="sep"></span>
-      <span id="devicetType">下载量</span>
+      <span id="devicetType">iPhone</span>
     </div>
     <div class="headRight">
       <button class="btn btn-default btn-success">
@@ -193,6 +195,7 @@
       <li class="active">
         <a href="#profile" data-toggle="tab">概要</a>
       </li>
+      <li>
       <li>
         <a href="#detail" data-toggle="tab">详细</a>
       </li>
@@ -240,7 +243,7 @@
       <div class="tab-pane" id="comment">
         <div class="comment">
           <span><i class="icon-pencil"></i>&nbsp;コメントを書く</span>
-          <textarea id="comment_context"></textarea>
+          <textarea id="comment_text"></textarea>
 
           <div id="operationarea">
             <i class="icon-star-empty icon-large" rank="1"></i>
@@ -250,8 +253,7 @@
             <i class="icon-star-empty icon-large" rank="5"></i>
             &nbsp;
             <input type="hidden" id="comment_rank" value="0">
-            <button class="btn btn-small btn-success" type="button" id="comment_commit" disabled="disabled">　コメント　
-            </button>
+            <button class="btn btn-small btn-success" type="button" id="comment_commit" disabled="disabled">コメント</button>
           </div>
 
           <ul id="comment_list">
@@ -335,11 +337,9 @@
 <script type="text/template" id="comment-template">
   <li >
     <img class="portrait" src="/images/user.png">
-    &nbsp;
-    <span>{{createby}}</span>
-    &nbsp;
-    <span>{{rank}}</span>
-    <span style="color: #ccc">{{createat}}</span>
+    <span>{{createBy}}</span>&nbsp;
+    <span>{{rank}}</span>&nbsp;
+    <span>{{createAt}}</span>
     <span>(&nbsp;{{version}}&nbsp;)</span>
     <p>{{comment}}</p>
   </li>

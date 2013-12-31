@@ -297,13 +297,15 @@ exports.createApp = function (req_, res_) {
 };
 
 exports.getAppInfo = function (req_, res_) {
-    var app_id = req_.query.app_id;
-    app.getAppInfoById(app_id, function (err, result) {
 
-      setDownloadURL(req_, result);
-      response.send(res_, err, result);
+  var handler = new context().bind(req_, res_);
 
-    });
+  app.getAppInfoById(handler, function (err, result) {
+
+    setDownloadURL(req_, result);
+    response.send(res_, err, result);
+
+  });
 };
 
 exports.downloadedList = function (req_, res_) {

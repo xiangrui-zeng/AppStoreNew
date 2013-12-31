@@ -4,6 +4,7 @@ var log         = smart.framework.log
   , user        = require("../apis/user")
   , download    = require('../apis/download')
   , file        = require('../apis/file')
+  , category    = require('../apis/category')
   , application = require('../apis/application')
   , apiComment  = require('./api_comment');
 
@@ -82,23 +83,14 @@ exports.guiding = function (app) {
     application.createAppStep2(req,res);
   });
 
-  app.post('/app/create/step3.json',function(req,res)
-  {
-    application.createAppStep3(req,res);
+  //管理、分类App一览
+  app.get('/app/list', function (req, res) {
+    res.render("app_list", {"title": "check_list", user: req.session.user});
   });
 
-  app.post('/app/create/step4.json',function(req,res)
-  {
-    application.createAppStep4(req,res);
-  });
-
-  app.post('/app/create/step5.json',function(req,res)
-  {
-    application.createAppStep5(req,res);
-  });
   //get**.json
   app.get('/app/info.json',function(req,res){
-    application.getAppInfo(req,res);
+    application.getAppInfo(req, res);
   });
 
   app.get('/app/search.json', function(req, res){
@@ -114,9 +106,9 @@ exports.guiding = function (app) {
   });
 
   // 获取分类一览
-//  app.get('/app/category.json', function(req, res){
-//    category.getCategory(req, res);
-//  });
+  app.get('/app/category.json', function(req, res){
+    category.getCategory(req, res);
+  });
 
   //存储图片
   app.post('/app/image/save.json', function (req, res) {
@@ -143,17 +135,11 @@ exports.guiding = function (app) {
     res.render("app_check_list", {"title": "check_list", user: req.session.user});
   });
 
+  //app相信信息 popup by正哥
   app.get('/detaildemo', function (req, res) {
     res.render("app_detail_new", {"title": "check_list", user: req.session.user});
   });
-  //管理、分类App一览
-  app.get('/app/list', function (req, res) {
-    res.render("app_list", {"title": "check_list", user: req.session.user});
-  });
-  //临时测试用
-  app.get('/app/manage', function (req, res) {
-    res.render("app_manage", {"title": "app_manage", user: req.session.user});
-  });
+
 
   app.get('/app/detail/list', function (req, res) {
     res.render("app_detail_list", {"title": "app_list", user: req.session.user});
