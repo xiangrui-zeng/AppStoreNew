@@ -1,133 +1,152 @@
+"use strict";
 
-// 从URL获取应用ID
-var app_id = window.location.href.split("/")[4];
+var appDetail = {
 
-$(function () {
+  appId: null,
+  isPreview: null,
 
-  // 初始化评价框
-  $Comment.initialize();
+  show: function(appId, isPreview) {
+    this.appId = appId;
+    this.isPreview = isPreview;
 
-  // 获取分类，渲染画面
-  smart.doget("/app/category.json", function(err, category){
+    this.clear();
+    this.initialize();
+    $("#appModal").modal("show");
+  },
 
-    var device = [], industrie = [], scale = [];
-    _.each(category.items, function(item){
-      if (item.code == 10000) { // 设备
-        device = item.items;
-      }
-      if (item.code == 20000) { // 业种
-        industrie = item.items;
-      }
-      if (item.code == 30000) { // 规模
-        scale = item.items;
-      }
-    });
+  clear: function() {
+    $Comment.clear();
 
-    rander(device, industrie);
-  });
+    $("#appIcon").attr("src", null);
+    $("#appName").html("");
+    $("#appVersion").html("");
+    $("#appScore i").remove();
+    $("#userCount").html("");
+    $("#appCategory").html("");
+    $("#devicetType").html("");
+    $("#gallery").html("");
+    $("#lastUpdate").html("");
+    $("#copyRight").html("");
+    $("#appSize").html("");
+    $("#downloadCount").html("");
+  },
 
-  // 分享按钮点击事件
-  $("#share").bind("click", function () {
-    location.href = 'mailto:';
-  });
+  initialize: function() {
+    // 初始化评价框
+    $Comment.initialize();
 
-});
+    // 获取分类，渲染画面
+    this.fetchCategory();
+  },
 
-// 用code获取指定的code名称
-function codeName(map, code) {
-  var result = "";
-  _.each(map, function(item){
-    if (item.code == code) {
-      result = item.name;
-    }
-  });
+  fetchCategory: function() {
+    var self = this;
+    smart.doget("/app/category.json", function(err, category){
 
-  return result;
-}
-
-// 填充画面
-function rander(device, industrie) {
-
-  // 获取详细信息，显示
-  smart.doget("/app/info.json?app_id=" + app_id, function(err, star){
-
-    // 侧栏
-    $("#app_name").html(_.escape(star.name));
-    $('#version').html(star.version);
-    $('#lastupdate').html(smart.date(star.update_date).substr(2, 8));
-    $("#info_icon_big").attr("src", "/picture/" + star.icon.big);
-
-    // 应用大小
-    if (star.size) {
-      $('#appsize').html(star.size);
-    } else {
-      $('#appsize').parent().hide();
-    }
-
-    // 设备种类
-    if (star.appType) {
-      $("#apptype").html(codeName(device, star.appType));
-    } else {
-      $("#apptype").parent().hide();
-    }
-
-    // 分类
-    if (star.category && star.category.length > 0) {
-      var category = [];
-      _.each(star.category, function(item){
-        category.push(codeName(industrie, item));
+      var device = [], industry = [];
+      _.each(category.items, function(item){
+        if (item.code === 10000) { // 设备
+          device = item.items;
+        }
+        if (item.code === 20000) { // 业种
+          industry = item.items;
+        }
       });
-      $("#category").html(category.join(","));
-    } else {
-      $("#category").parent().hide();
-    }
 
-    // 产品概要
-    var tmpl = $('#attach-template').html()
-      , descriptionValue = _.escape(star.description).replace(new RegExp('\r?\n', 'g'), '<br />')
-      , description = $('#description');
-    description.html(descriptionValue);
-    if (star.pptfile) {
-      description.append(_.template(tmpl, {fileid: star.pptfile, filename: "説明資料"}));
-    }
+      self.render(device, industry);
+    });
+  },
 
-    // Release Note
-    var releasenoteValue = star.release_note.replace(new RegExp('\r?\n', 'g'), '<br />');
-    $('#releasenote').html(_.escape(releasenoteValue));
+  render: function(device, industry) {
+    var self = this;
 
-    // 支持
-    var supportValue = star.support.replace(new RegExp('\r?\n', 'g'), '<br />');
-    $('#support').html(_.escape(supportValue));
+    // 获取详细信息，显示
+    smart.doget("/app/info.json?app_id=" + self.appId, function(err, app) {
 
-    // 注意事项
-    var precautionsValue = star.notice.replace(new RegExp('\r?\n', 'g'), '<br />');
-    $('#precautions').html(_.escape(precautionsValue));
+      // 头部
+      // 图标
+      $("#appIcon").attr("src", "/picture/" + app.icon.small);
+      // 应用名
+      $("#appName").html(_.escape(app.name));
+      // 版本号
+      $('#appVersion').html("v" + app.version);
+      // 评价等级
+      smart.doget("/app/comment/ranktotal.json?appId=" + self.appId, function(err, rank) {
 
-    // 截图
-    var gallery = $('#gallery');
-    tmpl = $('#gallery-template').html();
-    _.each(star.screenshot, function(imgid){
-      gallery.append(_.template(tmpl, {'imgid': imgid}));
+        var avg = rank ? rank.sum / rank.count : 0
+          , count = rank ? rank.count : 0;
+
+        var tmpl = $("#score-template").html();
+        $("#appScore").html(_.template(tmpl, {"avg": avg}));
+        $("#userCount").html("(" + count + ")");
+      });
+      // 分类
+      if (app.category && app.category.length > 0) {
+        var category = [];
+        _.each(app.category, function(item){
+          category.push(self.codeName(industry, item));
+        });
+        $("#appCategory").html(category.join(","));
+      }
+      // 设备种类
+      $("#devicetType").html(self.codeName(device, app.appType));
+
+      // 概要
+      // 截图
+      var gallery = $("#gallery");
+      var tmpl = $("#gallery-template").html();
+      _.each(app.screenshot, function(imgId){
+        gallery.append(_.template(tmpl, {"imgId": imgId}));
+      });
+
+      // 最终更新日
+      $("#lastUpdate").html(smart.date(app.updateAt).substr(2, 8));
+      // 版权所有
+      // TODO
+      // 应用大小
+      $("#appSize").html(app.size);
+      // 下载量
+      // TODO
+
+//      // 产品概要
+//      var tmpl = $("#attach-template").html()
+//        , descriptionValue = _.escape(app.description).replace(new RegExp("\r?\n", "g"), "<br />")
+//        , description = $("#description");
+//      description.html(descriptionValue);
+//      if (app.pptfile) {
+//        description.append(_.template(tmpl, {fileid: app.pptfile, filename: "説明資料"}));
+//      }
+//
+//      // Release Note
+//      var releasenoteValue = app.release_note.replace(new RegExp("\r?\n", "g"), "<br />");
+//      $("#releasenote").html(_.escape(releasenoteValue));
+//
+//      // 支持
+//      var supportValue = app.support.replace(new RegExp("\r?\n", "g"), "<br />");
+//      $("#support").html(_.escape(supportValue));
+//
+//      // 注意事项
+//      var precautionsValue = app.notice.replace(new RegExp("\r?\n", "g"), "<br />");
+//      $("#precautions").html(_.escape(precautionsValue));
+
+      // 下载按钮
+//      var download = $("#download");
+//      if (app.downloadURL) {
+//        download.attr("href", app.downloadURL);
+//      } else {
+//        download.hide();
+//      }
+    });
+  },
+
+  codeName: function (map, code) {// 获取指定分类的名称
+    var result = "";
+    _.each(map, function (item) {
+      if (item.code === code) {
+        result = item.name;
+      }
     });
 
-    // 下载按钮
-    var download = $("#download");
-    if (star.downloadURL) {
-      download.attr("href", star.downloadURL);
-    } else {
-      download.hide();
-    }
-  });
-
-  // 获取评价等级
-  smart.doget("/app/comment/ranktotal.json?appId=" + app_id, function(err, rank) {
-
-    var avg = rank ? rank.sum / rank.count : 0
-      , count = rank ? rank.count : 0;
-
-    var tmpl = $('#score-template').html();
-    $('#score').html(_.template(tmpl, {'avg': avg}));
-    $('#commenter').html(count);
-
-  });
-}
+    return result;
+  }
+};

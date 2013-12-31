@@ -36,9 +36,6 @@ exports.guiding = function(app){
     application.search(req, res);
   });
 
-  app.get('/app/list.json', function(req, res){
-    application.list(req, res);
-  });
 
   app.get('/app/downloaded/list.json', function(req, res){
     application.downloadedList(req, res);
