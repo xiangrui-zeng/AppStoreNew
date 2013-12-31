@@ -113,36 +113,24 @@ var DetailList = {
                 u += "?";
 
             var category = this.category ? this.category: "";
-            $.ajax({
-                url: u + "&start=" + start + "&count=" + limit + "&category=" + category,
-                type: "GET",
-                async: true,
-                dataType: "json",
-                contentType: false,
-                processData: false,
-                start: start,
-                limit: limit,
-                page: page,
-                success: function (result) {
-                    if (result.error) {
-                        alert(result.error.message)
-                    } else {
-                        _this.load_end({
-                            start: this.start
-                            ,limit: this.limit
-                            ,page: this.page
-                            ,apps: result.data
-                            ,data: result.data
-                            ,isShowTopPages: this.isShowTopPages
-                        });
-                    }
-                },
-                error: function (err) {
-                    alert(err);
-                }
+            var url = u + "&start=" + start + "&count=" + limit + "&category=" + category;
+            smart.doget(url , function(err, result) {
+              if (err) {
+                smart.error(err,i18n["js.common.search.error"],false);
+              } else {
+                _this.load_end({
+                  start: start
+                  ,limit: limit
+                  ,page: page
+                  ,apps: result
+                  ,data: result
+                  ,isShowTopPages: this.isShowTopPages
+                });
+              }
             });
         }
         ,load_end: function(data_) {
+
             var _this = this;
             var apps = data_.apps;
             if(apps.items)
