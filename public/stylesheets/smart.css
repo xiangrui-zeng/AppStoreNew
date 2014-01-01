@@ -1,5 +1,4 @@
 @import "/vendor/bootstrap/css/bootstrap.css";
-
 @import "/vendor/fontawesome/css/font-awesome.css";
 /* 依赖Bootstrap的CSS */
 /* 全局变量 */
@@ -11,7 +10,7 @@ body {
 header {
   height: 90px;
   margin: 0 auto;
-  width: 1040px;
+  width: 980px;
 }
 header strong {
   display: block;
@@ -47,18 +46,15 @@ footer p {
   position: fixed;
   z-index: 1000;
   width: 92%;
-  height: 37px;
-  top: 50px;
-  min-width: 1040px;
+  height: 40px;
+  top: 5px;
+  min-width: 980px;
   margin: 0 auto;
   -webkit-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.1), 0 1px 3px;
   background-image: -webkit-linear-gradient(top, #ffffff, #f2f2f2);
   /*-webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.1), 0 1px 5px;*/
-
   /*-moz-box-shadow: 0 1px 2px rgba(0,0,0,0.2);*/
-
   /* 一级菜单默认式样 */
-
 }
 #_navbar ul {
   display: table;
@@ -69,7 +65,7 @@ footer p {
 #_navbar ul li {
   display: table-cell;
   overflow: hidden;
-  height: 37px;
+  height: 40px;
   text-align: center;
   list-style: none;
   background: -webkit-gradient(radial, 50% 100%, 10, 50% 50%, 90, from(#1a84fb), to(#000000));
@@ -79,7 +75,7 @@ footer p {
   padding-left: 10px;
   padding-right: 10px;
   border-right: 1px solid rgba(150, 150, 150, 0.1);
-  line-height: 37px;
+  line-height: 40px;
   display: block;
   font-weight: bold;
   color: #363636;
@@ -92,14 +88,12 @@ footer p {
 }
 #_navbar ul[rel="sam"] li {
   /* 菜单被选中时的样式 */
-
   /* 鼠标盘旋在菜单时的样式 */
-
 }
 #_navbar ul[rel="sam"] li.active a {
   border-left: 1px solid rgba(255, 255, 255, 0.1);
   border-right: 1px solid rgba(0, 0, 0, 0.1);
-  line-height: 37px;
+  line-height: 40px;
   display: block;
   text-decoration: none;
   color: #FFF;
@@ -115,7 +109,6 @@ footer p {
 #_navbar ul[rel="sam"] li a {
   background: none repeat scroll 0% 0% #f0f0f0;
   /*background-image: -webkit-linear-gradient(top, #F0F0F0, #F2F2F2);*/
-
   background-image: -webkit-linear-gradient(top, #ffffff, #f2f2f2);
 }
 #_navbar ul[rel="sam"] li a:hover {
@@ -124,17 +117,16 @@ footer p {
   text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.4);
 }
 #_group1 {
-  padding-left: 150px;
+  padding-left: 50px;
 }
 #_group2 {
-  padding-left: 150px;
+  padding-left: 50px;
 }
 /* 检索框，及检索框中的放大镜 */
 #_search input {
   float: left;
   margin: 6px 0px 0px 10px;
   /*border-radius: 12px 12px 12px 12px;*/
-
   height: 18px;
   width: 250px;
   padding-left: 22px;
@@ -154,6 +146,7 @@ footer p {
 #_navbar li ul {
   display: none;
   position: absolute;
+  left: inherit;
   padding-left: 0px;
   -webkit-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.1), 0 1px 3px;
 }
@@ -222,7 +215,6 @@ footer p {
       position: relative;
       top: -33px;
     }*/
-
 }
 .bucketed ul.search li.header {
   min-height: 10px;
@@ -258,7 +250,6 @@ footer p {
   background-color: #1a84fb;
   color: #fff;
   /*border-color: #3b5998;*/
-
 }
 .bucketed ul.search .bottom {
   min-height: 20px;
@@ -356,14 +347,12 @@ footer p {
 }
 #_userbox ul {
   /*background: #F1F1F1;*/
-
   background-image: -webkit-linear-gradient(top, #ffffff, #f2f2f2);
   float: left;
   margin: 4px 0 0 20px;
   padding: 0;
   border: 1px solid #DDD;
   /*border-radius: 3px;*/
-
   box-shadow: 0 1px 0 #FAFAFA, inset 0 1px 0 #FAFAFA;
   list-style: none;
 }
@@ -383,7 +372,6 @@ section {
   margin: 0 auto;
   margin-top: 20px;
   /*margin-left: 80px;*/
-
   width: 1000px;
 }
 /* -------------------SideMenu----------------------- */
@@ -416,10 +404,8 @@ section {
   text-decoration: none;
   color: #363636;
   /*font-weight: bold;*/
-
   background: url(/images/folder-icon.png) no-repeat 12px center;
   /* 过长的字符用...截取 */
-
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -444,13 +430,11 @@ section {
   padding-top: 10px;
   padding-bottom: 5px;
   /*padding-left: 10px;*/
-
   text-align: center;
   /*  border: 1px solid rgba(0, 0, 0, 0.1);
   width: 150px;
   height: 100px;
   -webkit-border-radius: 4px;*/
-
 }
 .pic {
   width: 40px;
@@ -529,7 +513,6 @@ section {
 #_popover .content li {
   line-height: 20px;
   /*min-height: 20px;*/
-
 }
 #_popover .content li a {
   display: block;

@@ -89,59 +89,68 @@
                 <%}%>
                 <div class="widget-box">
                     <div class="widget-content nopadding">
+                        <!--<div class="control-group">-->
+                            <!--<label class="control-label">设备</label>-->
+
+                            <!--<div class="controls row-fluid">-->
+                                <!--<div class="span6">-->
+                                    <!--<% if(appTypes && appTypes.items) { %>-->
+                                    <!--<% appTypes.items.forEach(function(c,i) { %>-->
+                                    <!--<label class="radio span3">-->
+                                        <!--<input class="required" type="radio" name="appType" id="appType"-->
+                                               <!--value="<%= c.code %>" <%=i==0?"checked":""%> />-->
+                                        <!--<%= c.name %>-->
+                                    <!--</label>-->
+                                    <!--<% }); %>-->
+                                    <!--<% } %>-->
+                                <!--</div>-->
+
+                            <!--</div>-->
+                        <!--</div>-->
+
                         <div class="control-group">
-                            <label class="control-label">设备</label>
-
-                            <div class="controls row-fluid">
-                                <div class="span6">
-                                    <% if(appTypes && appTypes.items) { %>
-                                    <% appTypes.items.forEach(function(c,i) { %>
-                                    <label class="radio span3">
-                                        <input class="required" type="radio" name="appType" id="appType"
-                                               value="<%= c.code %>" <%=i==0?"checked":""%> />
-                                        <%= c.name %>
-                                    </label>
-                                    <% }); %>
-                                    <% } %>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="control-group">
-                            <label class="control-label">App名称</label>
+                            <label class="control-label">名称</label>
 
                             <div class="controls">
-                                <input class="required" type="text" name="name" id="name" value="">
+                                <input class="required" type="text" name="name" id="name" placeholder="例：捕鱼达人" value="">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">版本</label>
 
                             <div class="controls">
-                                <input class="required" type="text" name="version" id="version">
+                                <input class="required" type="text" name="version" id="version" placeholder="例：1.5.2" >
                             </div>
                         </div>
+                        <!--新加数据项-->
                         <div class="control-group">
-                            <label class="control-label">概要</label>
+                            <label class="control-label">版权</label>
 
                             <div class="controls">
-                                <input class="required" type="text" name="memo" id="memo">
+                                <input class="required" type="text" name="copyright" id="copyright" placeholder="例：触控科技">
                             </div>
                         </div>
+                        <!--<div class="control-group">-->
+                            <!--<label class="control-label">概要</label>-->
+
+                            <!--<div class="controls">-->
+                                <!--<input class="required" type="text" name="memo" id="memo" placeholder="例：简单，策略类游戏">-->
+                            <!--</div>-->
+                        <!--</div>-->
                         <div class="control-group">
-                            <label class="control-label">详细</label>
+                            <label class="control-label">说明</label>
 
                             <div class="controls">
-                                <textarea class="required" name="description" id="description"
-                                          style="resize: none;"></textarea>
+                                <textarea class="required" name="description" id="description" placeholder=
+                                        "应用介绍以及使用方法 "
+                                          style="width: 270px;height: 120px"></textarea>
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="control-label">类别</label>
 
                             <div class="controls">
-                                <select name="category" multiple="multiple">
+                                <select name="category" multiple="multiple" style="height: 120px">
                                     <% if(categoryTypes && categoryTypes.items) { %>
                                     <% categoryTypes.items.forEach(function(c) { %>
                                     <option value="<%= c.code %>"><%= c.name %></option>
@@ -152,25 +161,10 @@
                         </div>
 
                         <div class="control-group">
-                            <label class="control-label">设备</label>
+                            <label class="control-label" >OS版本</label>
 
                             <div class="controls">
-                                <label class="radio">
-                                    <input class="required" type="radio" name="device" value="1" checked/>
-                                    phone
-                                </label>
-                                <label class="radio">
-                                    <input class="required" type="radio" name="device" value="2"/>
-                                    pad
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="control-group">
-                            <label class="control-label">OS版本</label>
-
-                            <div class="controls">
-                                <input class="required" type="text" name="require.os" id="os">
+                                <input class="required" type="text" name="require.os" id="os" placeholder="最低要求系统">
                             </div>
                         </div>
 
@@ -178,29 +172,102 @@
                             <label class="control-label">bundle_identifier</label>
 
                             <div class="controls">
-                                <input class="required" type="text" name="bundle_identifier" id="bundle_identifier">
+                                <input class="required" type="text" name="bundle_identifier" id="bundle_identifier"
+                                       placeholder="确保正确">
                             </div>
                         </div>
+
                         <div class="control-group">
                             <label class="control-label">bundle_version</label>
-
                             <div class="controls">
                                 <input class="required" type="text" name="bundle_version" id="bundle_version">
                             </div>
                         </div>
+
+
                         <div class="control-group">
-                            <label class="control-label">标题</label>
+                            <label class="control-label">公开对象</label>
 
                             <div class="controls">
-                                <input class="required" type="text" name="title" id="title">
+                                <input type="hidden" name="permission.view" id="permission_view_input"/>
+
+                                <div class="user_select_print">
+                                    <ul id="view_user_selected">
+                                        <li>公开对象</li>
+                                    </ul>
+                                </div>
+
+
+                                <div style="margin-left: 15px"
+                                     id="view_set_btn"
+                                     taget="dialogAjax"
+                                     action="/user/list.json"
+                                     render="$app.didAdminSelectRender"
+                                     callback="$app.didAdminSelectCallback"
+                                     for="required"
+                                     generated="true"
+                                     class="help-inline setUserList"
+                                     href="#document-selector"
+                                     data-toggle="modal">
+                                    <button class = 'btn'>
+                                        設定
+                                    </button>
+                                </div>
                             </div>
                         </div>
+                        <!--<div class="control-group">-->
+                            <!--<label class="control-label">设备</label>-->
+
+                            <!--<div class="controls">-->
+                                <!--<label class="radio">-->
+                                    <!--<input class="required" type="radio" name="device" value="1" checked/>-->
+                                    <!--phone-->
+                                <!--</label>-->
+                                <!--<label class="radio">-->
+                                    <!--<input class="required" type="radio" name="device" value="2"/>-->
+                                    <!--pad-->
+                                <!--</label>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <!--<div class="control-group">-->
+                            <!--<label class="control-label">OS版本</label>-->
+
+                            <!--<div class="controls">-->
+                                <!--<input class="required" type="text" name="require.os" id="os">-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <!--<div class="control-group">-->
+                            <!--<label class="control-label">bundle_identifier</label>-->
+
+                            <!--<div class="controls">-->
+                                <!--<input class="required" type="text" name="bundle_identifier" id="bundle_identifier">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="control-group">-->
+                            <!--<label class="control-label">bundle_version</label>-->
+
+                            <!--<div class="controls">-->
+                                <!--<input class="required" type="text" name="bundle_version" id="bundle_version">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="control-group">-->
+                            <!--<label class="control-label">标题</label>-->
+
+                            <!--<div class="controls">-->
+                                <!--<input class="required" type="text" name="title" id="title">-->
+                            <!--</div>-->
+                        <!--</div>-->
 
                         <div class="control-group">
                             <label class="control-label"></label>
 
                             <div class="controls">
-                                <button class="btn btn-small btn-success" type="submit">下一步</button>
+                                <button class="btn btn-small btn-success" type="submit">
+                                    <a href ='/app/add/step2'>
+                                        下一步</a>
+                                    </button>
                             </div>
                         </div>
 
@@ -210,4 +277,31 @@
         </div>
     </div>
 </div>
+
+<div class="modal" id="document-selector" role="dialog" aria-hidden="true" style="display:none;height:400px">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>选择用户</h3>
+    </div>
+    <div class="modal-body" style="">
+        <fieldset style="height:300px;overflow: scroll;">
+            <table class="table table-hover" style="height:300px;overflow: scroll;">
+                <thead>
+                <tr>
+                    <th>id</th>
+                    <th>姓名</th>
+                </tr>
+                </thead>
+                <tbody id="setuserlist" target="ajaxGet" action="/user/list.json" callback="$app.didUserListRender"
+                       render="" style="height:300px;overflow: scroll;">
+                </tbody>
+            </table>
+        </fieldset>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" id="setUser">确定</button>
+        <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+    </div>
+</div>
+
 <% include common/foot.html %>

@@ -4,7 +4,6 @@
   width: 200px;
   text-align: center;
   /**/
-
 }
 .sidebar .itemgroup {
   margin-top: 10px;
@@ -97,7 +96,6 @@ section {
 }
 .comment #operationarea {
   /*width: 995px;*/
-
   text-align: right;
   padding-right: 15px;
 }

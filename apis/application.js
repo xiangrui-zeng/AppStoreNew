@@ -47,33 +47,33 @@ exports.updateAppStep1 = function (req_, res_) {
     var bundle_version = req_.body.bundle_version;
     var title = req_.body.title;
     var editstep = 1;
-    app.findAppInfoById(appId, function (err, docs) {
-        // check编辑权限
-        if(!apputil.isCanEdit(docs, req_.session.user._id))
-          return new error.InternalServer(err);
-
-        docs.name = name;
-        docs.version = version;
-        docs.bundle_identifier = bundle_identifier;
-        docs.bundle_version = bundle_version;
-        docs.title = title;
-        docs.memo = memo;
-        docs.description = description;
-        docs.require = {device: device, os: os};
-        docs.appType = appType;
-        docs.category = category;
-        docs.update_date = new Date();
-        docs.update_user = creator;
-        if (docs.editstep < editstep) {
-            docs.editstep = editstep;
-        }
-        if (!docs.editstep) {
-            docs.editstep = editstep;
-        }
-        docs.save(function (err_, result) {
-          response.send(res, err_, result);
-        });
-    });
+//    app.findAppInfoById(appId, function (err, docs) {
+//        // check编辑权限
+//        if(!apputil.isCanEdit(docs, req_.session.user._id))
+//          return new error.InternalServer(err);
+//
+//        docs.name = name;
+//        docs.version = version;
+//        docs.bundle_identifier = bundle_identifier;
+//        docs.bundle_version = bundle_version;
+//        docs.title = title;
+//        docs.memo = memo;
+//        docs.description = description;
+//        docs.require = {device: device, os: os};
+//        docs.appType = appType;
+//        docs.category = category;
+//        docs.update_date = new Date();
+//        docs.update_user = creator;
+//        if (docs.editstep < editstep) {
+//            docs.editstep = editstep;
+//        }
+//        if (!docs.editstep) {
+//            docs.editstep = editstep;
+//        }
+//        docs.save(function (err_, result) {
+//          response.send(res, err_, result);
+//        });
+//    });
 };
 exports.createAppStep1 = function (req, res) {
     var creator = req.session.user._id;
@@ -101,10 +101,11 @@ exports.createAppStep1 = function (req, res) {
     });
 };
 exports.createAppStep2 = function (req, res) {
+ // console.log("icon_big"+req.body.iconbig);
     var creator = req.session.user._id;
     var appId = req.body._id;
-    var icon_big = req.body['icon.big'];
-    var icon_small = req.body['icon.small'];
+    var icon_big = req.body['iconbig'];
+    var icon_small = req.body['iconsmall'];
     var screenshot = req.body.screenshot;
     var pptfile = req.body.pptfile;
     var video = req.body.video;
@@ -115,42 +116,61 @@ exports.createAppStep2 = function (req, res) {
     console.log(icon_small.length);
     console.log(screenshot.length);
     if (icon_small.length == 0) {
-        return res.send(json.dataSchema({status: 300, error: "没有上传小图标"}));
+       // return res.send(json.dataSchema({status: 300, error: "没有上传小图标"}));
+     // return response.send(json.dataSchema({status: 300, error: "没有上传小图标"}));
     }
     if (icon_big.length == 0) {
-        return res.send(json.dataSchema({status: 300, error: "没有上传大图标"}));
+        //return res.send(json.dataSchema({status: 300, error: "没有上传大图标"}));
+    //  response.send(json.dataSchema({status: 300, error: "没有上传大图标"}));
     }
     if (screenshot.length == 0) {
-        return res.send(json.dataSchema({status: 300, error: "没有上传素材图片"}));
+        //return res.send(json.dataSchema({status: 300, error: "没有上传素材图片"}));
+     // response.send(json.dataSchema({status: 300, error: "没有上传素材图片"}));
     }
 
-    app.findAppInfoById(appId, function (err, docs) {
-        // check编辑权限
-        if(!apputil.isCanEdit(docs, req.session.user._id))
-          return new error.InternalServer(err);
-
-        docs.update_date = new Date();
-        docs.update_user = creator;
-        docs.icon.big = icon_big;
-        docs.icon.small = icon_small;
-        docs.screenshot = screenshot;
-        docs.pptfile = pptfile;
-        docs.video = video;
-        docs.downloadId = downloadId;
-        docs.plistDownloadId = plistDownloadId;
-        console.log(docs.editstep);
-        if (docs.editstep < editstep) {
-            console.log("set step   %s", editstep);
-            docs.editstep = editstep;
-        }
-        if (!docs.editstep) {
-            docs.editstep = editstep;
-        }
-
-        docs.save(function (err_, result) {
-          response.send(res, err, result);
-        });
-    });
+//    app.findAppInfoById(appId, function (err, docs) {
+//        // check编辑权限
+//        if(!apputil.isCanEdit(docs, req.session.user._id))
+//          return new error.InternalServer(err);
+//
+//        docs.update_date = new Date();
+//        docs.update_user = creator;
+//        docs.icon.big = icon_big;
+//        docs.icon.small = icon_small;
+//        docs.screenshot = screenshot;
+//        docs.pptfile = pptfile;
+//        docs.video = video;
+//        docs.downloadId = downloadId;
+//        docs.plistDownloadId = plistDownloadId;
+//        console.log(docs.editstep);
+//        if (docs.editstep < editstep) {
+//            console.log("set step   %s", editstep);
+//            docs.editstep = editstep;
+//        }
+//        if (!docs.editstep) {
+//            docs.editstep = editstep;
+//        }
+//
+//        docs.save(function (err_, result) {
+//          response.send(res, err, result);
+//        });
+//    });
+  var appdocs = {};
+  appdocs.update_date = new Date();
+  appdocs.update_user = creator;
+  appdocs.icon.big = icon_big;
+  console.log("icon_big"+icon_big);
+  appdocs.icon.small = icon_small;
+  appdocs.screenshot = screenshot;
+  appdocs.pptfile = pptfile;
+  appdocs.video = video;
+  appdocs.downloadId = downloadId;
+  appdocs.plistDownloadId = plistDownloadId;
+  appdocs.editstep = editstep;
+  console.log(appdocs.editstep);
+  docs.save(function (err, result) {
+    response.send(res, err, result);
+  });
 };
 
 // uploud image
@@ -193,29 +213,29 @@ exports.createAppStep3 = function (req_, res_) {
     console.log(permission_download);
     console.log(permission_admin);
     var editstep = 3;
-    app.findAppInfoById(appId, function (err, docs) {
-        // check编辑权限
-        if(!apputil.isCanEdit(docs, req_.session.user._id))
-          return new error.InternalServer(err);
-
-        docs.permission.admin = permission_admin;
-        docs.permission.download = permission_download;
-        docs.permission.view = permission_view;
-        docs.permission.edit = permission_edit;
-        docs.update_date = new Date();
-        docs.update_user = creator;
-        if (docs.editstep < editstep) {
-            docs.editstep = editstep;
-        }
-        if (!docs.editstep) {
-            docs.editstep = editstep;
-        }
-        console.log(docs);
-        docs.save(function (err_, result) {
-
-          response.send(res_, err_, result);
-        });
-    });
+//    app.findAppInfoById(appId, function (err, docs) {
+//        // check编辑权限
+//        if(!apputil.isCanEdit(docs, req_.session.user._id))
+//          return new error.InternalServer(err);
+//
+//        docs.permission.admin = permission_admin;
+//        docs.permission.download = permission_download;
+//        docs.permission.view = permission_view;
+//        docs.permission.edit = permission_edit;
+//        docs.update_date = new Date();
+//        docs.update_user = creator;
+//        if (docs.editstep < editstep) {
+//            docs.editstep = editstep;
+//        }
+//        if (!docs.editstep) {
+//            docs.editstep = editstep;
+//        }
+//        console.log(docs);
+//        docs.save(function (err_, result) {
+//
+//          response.send(res_, err_, result);
+//        });
+//    });
 };
 exports.createAppStep4 = function (req_, res_) {
     var creator = req_.session.user._id;
@@ -224,45 +244,45 @@ exports.createAppStep4 = function (req_, res_) {
     var notice = req_.body.notice;
     var release_note = req_.body.release_note;
     var editstep = 4;
-    app.findAppInfoById(appId, function (err, docs) {
-        // check编辑权限
-        if(!apputil.isCanEdit(docs, req_.session.user._id))
-          return new error.InternalServer(err);
-
-        docs.support = support;
-        docs.notice = notice;
-        docs.release_note = release_note;
-        docs.update_date = new Date();
-        docs.update_user = creator;
-        if (docs.editstep < editstep) {
-            docs.editstep = editstep;
-        }
-        if (!docs.editstep) {
-            docs.editstep = editstep;
-        }
-        docs.save(function (err_, result) {
-          response.send(res_, err_, result);
-        });
-    });
+//    app.findAppInfoById(appId, function (err, docs) {
+//        // check编辑权限
+//        if(!apputil.isCanEdit(docs, req_.session.user._id))
+//          return new error.InternalServer(err);
+//
+//        docs.support = support;
+//        docs.notice = notice;
+//        docs.release_note = release_note;
+//        docs.update_date = new Date();
+//        docs.update_user = creator;
+//        if (docs.editstep < editstep) {
+//            docs.editstep = editstep;
+//        }
+//        if (!docs.editstep) {
+//            docs.editstep = editstep;
+//        }
+//        docs.save(function (err_, result) {
+//          response.send(res_, err_, result);
+//        });
+//    });
 };
 exports.createAppStep5 = function (req_, res_) {
     var creator = req_.session.user._id;
     var appId = req_.body._id;
     var editstep = 5;
-    app.findAppInfoById(appId, function (err, docs) {
-        // check编辑权限
-        if(!apputil.isCanEdit(docs, req_.session.user._id))
-            return json.sendError(res_, new starerrors.NoEditError);
-
-        docs.editing = 1;
-        docs.status = 1;
-        docs.editstep = editstep;
-        docs.update_date = new Date();
-        docs.update_user = creator;
-        docs.save(function (err_, result) {
-          response.send(res_, err_, result);
-        });
-    });
+//    app.findAppInfoById(appId, function (err, docs) {
+//        // check编辑权限
+//        if(!apputil.isCanEdit(docs, req_.session.user._id))
+//            return json.sendError(res_, new starerrors.NoEditError);
+//
+//        docs.editing = 1;
+//        docs.status = 1;
+//        docs.editstep = editstep;
+//        docs.update_date = new Date();
+//        docs.update_user = creator;
+//        docs.save(function (err_, result) {
+//          response.send(res_, err_, result);
+//        });
+//    });
 };
 
 
@@ -277,13 +297,15 @@ exports.createApp = function (req_, res_) {
 };
 
 exports.getAppInfo = function (req_, res_) {
-    var app_id = req_.query.app_id;
-    app.getAppInfoById(app_id, function (err, result) {
 
-      setDownloadURL(req_, result);
-      response.send(res_, err, result);
+  var handler = new context().bind(req_, res_);
 
-    });
+  app.getAppInfoById(handler, function (err, result) {
+
+    setDownloadURL(req_, result);
+    response.send(res_, err, result);
+
+  });
 };
 
 exports.downloadedList = function (req_, res_) {
