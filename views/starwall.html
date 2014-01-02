@@ -7,23 +7,42 @@
 <% include common/sidebar.html %>
 <div class="span9">
   <section id="thumbnails">
-    <div class="breadcrumb breadcrumb-ext"><h4 id="title_new_list">新着</h4></div>
+    <div class="breadcrumb breadcrumb-ext">
+        <div >
+            <!--<span style="float: right ">-->
+                    <!--<a href="/app/list" > 更多应用</a>-->
+                <!--</span>-->
+            <span style="float: right " style="margin-bottom: 5px">
+                <div class="btn-group">
+                    <a href="/app/list">
+                        <button type="button" class="btn btn-small ">
+                            <span class="icon-plus"></span>
+                        <span class="sr-only">
+                             更多
+                        </span>
+                        </button>
+                    </a>
+                </div>
+                </span>
+            <h4 id="title_new_list" style="width: 100px;">新着</h4>
+        </div>
+        <!--<div style="float: right ">-->
+            <!--<a href="#" > 更多应用</a>-->
+        <!--</div>-->
+        </h4>
+    </div>
     <div id="container_new_list" style="padding:5px; background:#ffffff;width:800px">
     </div><!--well-->
   </section>
   <br><br>
   <section id=" ">
-    <div class="breadcrumb breadcrumb-ext">
-      <button type="button" class="btn btn-link" style="margin-top:10px;float: right">全部应用</button>
-      <h4 id="title_download_list">おすすめ</h4></div>
+    <div class="breadcrumb breadcrumb-ext"><h4 id="title_download_list">おすすめ</h4></div>
     <div id="container_download_list" style="padding:5px; background:#ffffff;width:800px">
     </div><!--well-->
   </section>
   <br><br>
   <section id="">
-    <div class="breadcrumb breadcrumb-ext">
-      <button type="button" class="btn btn-link" style="margin-top:10px;float: right">全部应用</button>
-      <h4 id="title_rank_list">ランキング</h4></div>
+    <div class="breadcrumb breadcrumb-ext"><h4 id="title_rank_list">ランキング</h4></div>
     <div id="container_comment_list" style="padding:5px; background:#ffffff;width:800px">
     </div><!--well-->
   </section>
