@@ -24,7 +24,7 @@
                     </a>
                 </div>
                 </span>
-                <h4 id="title_new_list" style="width: 100px;">新着</h4>
+                <h4 id="title_new_list">新着</h4>
             </div>
             <!--<div style="float: right ">-->
             <!--<a href="#" > 更多应用</a>-->
@@ -52,7 +52,7 @@
                         </a>
                     </div>
 				</span>
-                <h4 id="title_download_list" style="width: 100px;">おすすめ</h4>
+                <h4 id="title_download_list">おすすめ</h4>
             </div>
             </h4>
         </div>
@@ -76,7 +76,7 @@
                         </a>
                     </div>
 				</span>
-                <h4 id="title_rank_list" style="width: 100px;">おすすめ</h4>
+                <h4 id="title_rank_list">おすすめ</h4>
             </div>
             </h4>
         </div>
@@ -97,7 +97,7 @@
     .carousel-image {
         /* border: 1px solid #EEE; */
         max-width:100%;
-        max-height:auto;
+        max-height:100%;
         width:100%;
         height:auto;
     }
@@ -162,7 +162,7 @@
             return;
 
         // 设置检索title
-        var title_category = '(分类"' + name + '")';
+        var title_category = ' ( ' + name + ' ) ';
 
         $('#title_new_list').html(_.escape(title_new_list + title_category));
         new_list.category = code;
