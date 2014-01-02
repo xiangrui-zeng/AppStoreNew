@@ -6,11 +6,11 @@
 <!-- Side bar -->
 <% include common/sidebar.html %>
 <div class="span9">
-  <section id="thumbnails">
-    <div class="breadcrumb breadcrumb-ext">
-        <div >
-            <!--<span style="float: right ">-->
-                    <!--<a href="/app/list" > 更多应用</a>-->
+    <section id="thumbnails">
+        <div class="breadcrumb breadcrumb-ext">
+            <div >
+                <!--<span style="float: right ">-->
+                <!--<a href="/app/list" > 更多应用</a>-->
                 <!--</span>-->
             <span style="float: right " style="margin-bottom: 5px">
                 <div class="btn-group">
@@ -24,128 +24,124 @@
                     </a>
                 </div>
                 </span>
-            <h4 id="title_new_list" style="width: 100px;">新着</h4>
-        </div>
-        <!--<div style="float: right ">-->
+                <h4 id="title_new_list" style="width: 100px;">新着</h4>
+            </div>
+            <!--<div style="float: right ">-->
             <!--<a href="#" > 更多应用</a>-->
-        <!--</div>-->
-        </h4>
-    </div>
-    <div id="container_new_list" style="padding:5px; background:#ffffff;width:800px">
-    </div><!--well-->
-  </section>
-  <br><br>
-  <section id=" ">
-    <div class="breadcrumb breadcrumb-ext">
-      <button type="button" class="btn btn-link" style="margin-top:10px;float: right">全部应用</button>
-      <h4 id="title_download_list">おすすめ</h4></div>
-    <div id="container_download_list" style="padding:5px; background:#ffffff;width:800px">
-    </div><!--well-->
-  </section>
-  <br><br>
-  <section id="">
-    <div class="breadcrumb breadcrumb-ext">
-      <button type="button" class="btn btn-link" style="margin-top:10px;float: right">全部应用</button>
-      <h4 id="title_rank_list">ランキング</h4></div>
-    <div id="container_comment_list" style="padding:5px; background:#ffffff;width:800px">
-    </div><!--well-->
-  </section>
-  <br><br>
+            <!--</div>-->
+            </h4>
+        </div>
+        <div id="container_new_list" style="padding:5px; background:#ffffff;width:800px">
+        </div><!--well-->
+    </section>
+    <br><br>
+    <section id=" ">
+        <div class="breadcrumb breadcrumb-ext"><h4 id="title_download_list">おすすめ</h4></div>
+        <div id="container_download_list" style="padding:5px; background:#ffffff;width:800px">
+        </div><!--well-->
+    </section>
+    <br><br>
+    <section id="">
+        <div class="breadcrumb breadcrumb-ext"><h4 id="title_rank_list">ランキング</h4></div>
+        <div id="container_comment_list" style="padding:5px; background:#ffffff;width:800px">
+        </div><!--well-->
+    </section>
+    <br><br>
 </div>
 
 <!-- 滚动列表CSS-->
 <style type="text/css">
-  /*
-  .span3 img {
-      border-top: 0px solid #EEE;
-      border-bottom: 0px solid #EEE;
-  }
-  */
-  .carousel-image {
-    /* border: 1px solid #EEE; */
-    max-width:100%;
-    max-height:auto;
-    width:100%;
-    height:auto;
-  }
-  .breadcrumb-ext {
-    padding: 1px 5px;
-    width:800px;
-  }
-  .carousel {
-    margin-bottom: 0;
-    padding: 0 40px 30px 40px;
-  }
-  .carousel-control {
-    left: -12px;
-  }
-  .carousel-control.right {
-    right: -12px;
-  }
-  .carousel-indicators {
-    right: 50%;
-    top: auto;
-    bottom: 0px;
-    margin-right: -19px;
-  }
-  .carousel-indicators li {
-    background: #c0c0c0;
-  }
-  .carousel-indicators .active {
-    background: #333333;
-  }
+    /*
+    .span3 img {
+        border-top: 0px solid #EEE;
+        border-bottom: 0px solid #EEE;
+    }
+    */
+    .carousel-image {
+        /* border: 1px solid #EEE; */
+        max-width:100%;
+        max-height:auto;
+        width:100%;
+        height:auto;
+    }
+    .breadcrumb-ext {
+        padding: 1px 5px;
+        width:800px;
+    }
+    .carousel {
+        margin-bottom: 0;
+        padding: 0 40px 30px 40px;
+    }
+    .carousel-control {
+        left: -12px;
+    }
+    .carousel-control.right {
+        right: -12px;
+    }
+    .carousel-indicators {
+        right: 50%;
+        top: auto;
+        bottom: 0px;
+        margin-right: -19px;
+    }
+    .carousel-indicators li {
+        background: #c0c0c0;
+    }
+    .carousel-indicators .active {
+        background: #333333;
+    }
 </style>
 
 <script type="text/javascript">
-  var new_list = Carousel.create();
-  var download_list = Carousel.create();
-  var comment_list = Carousel.create();
+    var new_list = Carousel.create();
+    var download_list = Carousel.create();
+    var comment_list = Carousel.create();
 
-  var title_new_list = "新着";
-  var title_download_list = "おすすめ";
-  var title_rank_list = "ランキング";
+    var title_new_list = "新着";
+    var title_download_list = "おすすめ";
+    var title_rank_list = "ランキング";
 
-  var is_loading = false;
-  $(document).ready(function() {
-    var crsf = $("#_csrf").val();
+    var is_loading = false;
+    $(document).ready(function() {
+        var crsf = $("#_csrf").val();
 
-    // 新着一览
-    new_list.init($("#container_new_list"), { name: "new_list" ,url: new_list.get_new_list_url() });
-    new_list.load();//(test_detail_list_data);
+        // 新着一览
+        new_list.init($("#container_new_list"), { name: "new_list" ,url: new_list.get_new_list_url() });
+        new_list.load();//(test_detail_list_data);
 
-    // 下载最多一览
-    download_list.init($("#container_download_list"), { name: "download_list" ,url: new_list.get_download_list_url() });
-    download_list.load();
+        // 下载最多一览
+        download_list.init($("#container_download_list"), { name: "download_list" ,url: new_list.get_download_list_url() });
+        download_list.load();
 
-    // 评价最高一览
-    comment_list.init($("#container_comment_list"), { name: "comment_list" ,url: new_list.get_comment_list_url() });
-    comment_list.load();
+        // 评价最高一览
+        comment_list.init($("#container_comment_list"), { name: "comment_list" ,url: new_list.get_comment_list_url() });
+        comment_list.load();
 
-    is_loading = true;
-  });
+        is_loading = true;
+    });
 
-  function filterCategory(code, name) {
-    if(is_loading == false || !code || !name)
-      return;
+    function filterCategory(code, name) {
+        if(is_loading == false || !code || !name)
+            return;
 
-    // 设置检索title
-    var title_category = '(分类"' + name + '")';
+        // 设置检索title
+        var title_category = '(分类"' + name + '")';
 
-    $('#title_new_list').html(_.escape(title_new_list + title_category));
-    new_list.category = code;
-    new_list.category_name = name;
-    new_list.load();
+        $('#title_new_list').html(_.escape(title_new_list + title_category));
+        new_list.category = code;
+        new_list.category_name = name;
+        new_list.load();
 
-    $('#title_download_list').html(_.escape(title_download_list + title_category));
-    download_list.category = code;
-    download_list.category_name = name;
-    download_list.load();
+        $('#title_download_list').html(_.escape(title_download_list + title_category));
+        download_list.category = code;
+        download_list.category_name = name;
+        download_list.load();
 
-    $('#title_rank_list').html(_.escape(title_rank_list + title_category));
-    comment_list.category = code;
-    comment_list.category_name = name;
-    comment_list.load();
-  }
+        $('#title_rank_list').html(_.escape(title_rank_list + title_category));
+        comment_list.category = code;
+        comment_list.category_name = name;
+        comment_list.load();
+    }
 </script>
 
 <% include common/foot.html %>

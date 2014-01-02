@@ -1,3 +1,4 @@
+
 <% include common/head.html %>
 <br>
 <br>
@@ -21,160 +22,124 @@
             <a href="#comment" data-toggle="tab">更新信息</a>
         </li>
     </ul>
-    </div>
-    <div class="tab-content">
-        <div class="tab-pane active" id="profile">
-            <div class="span9">
-                <!--added-->
-                <div class="controls">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                            IOS <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href ='/app/add/step1'>phone</a></li>
-                            <li><a href ='/app/add/step1'>pad</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                            Android <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href ='#'>phone</a></li>
-                            <li><a href ='#'>pad</a></li>
-                        </ul>
-                    </div>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                            PC Web <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href ='#'>IOS</a></li>
-                            <li><a href ='#'>Win</a></li>
-                        </ul>
-                    </div>
-
+</div>
+<div class="tab-content">
+    <div class="tab-pane active" id="profile">
+        <div class="span9">
+            <!--added-->
+            <div class="controls">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        IOS <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href ='/app/add/step1'>phone</a></li>
+                        <li><a href ='/app/add/step1'>pad</a></li>
+                    </ul>
                 </div>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        Android <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href ='#'>phone</a></li>
+                        <li><a href ='#'>pad</a></li>
+                    </ul>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        PC Web <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href ='#'>IOS</a></li>
+                        <li><a href ='#'>Win</a></li>
+                    </ul>
+                </div>
+
             </div>
         </div>
-        <div class="tab-pane" id="detail">
-            详细
-        </div>
-        <div class="tab-pane" id="require">
-            系统要求
-        </div>
-        <div class="tab-pane" id="update">
-            更新履历
-        </div>
-        <div class="tab-pane" id="comment">
-            <div class="comment">
-                <span><i class="icon-pencil"></i>&nbsp;コメントを書く</span>
-                <textarea id="comment_text"></textarea>
+    </div>
+    <div class="tab-pane" id="detail">
+        详细
+    </div>
+    <div class="tab-pane" id="require">
+        系统要求
+    </div>
+    <div class="tab-pane" id="update">
+        更新履历
+    </div>
+    <div class="tab-pane" id="comment">
+        <div class="comment">
+            <span><i class="icon-pencil"></i>&nbsp;コメントを書く</span>
+            <textarea id="comment_text"></textarea>
 
-                <div id="operationarea">
-                    <i class="icon-star-empty icon-large" rank="1"></i>
-                    <i class="icon-star-empty icon-large" rank="2"></i>
-                    <i class="icon-star-empty icon-large" rank="3"></i>
-                    <i class="icon-star-empty icon-large" rank="4"></i>
-                    <i class="icon-star-empty icon-large" rank="5"></i>
+            <div id="operationarea">
+                <i class="icon-star-empty icon-large" rank="1"></i>
+                <i class="icon-star-empty icon-large" rank="2"></i>
+                <i class="icon-star-empty icon-large" rank="3"></i>
+                <i class="icon-star-empty icon-large" rank="4"></i>
+                <i class="icon-star-empty icon-large" rank="5"></i>
+                &nbsp;
+                <input type="hidden" id="comment_rank" value="0">
+                <button class="btn btn-small btn-success" type="button" id="comment_commit" disabled="disabled">コメント</button>
+            </div>
+
+            <ul id="comment_list">
+                <li>
+                    <img class="portrait" src="/images/user.png">
+                    <span>temp</span>
                     &nbsp;
-                    <input type="hidden" id="comment_rank" value="0">
-                    <button class="btn btn-small btn-success" type="button" id="comment_commit" disabled="disabled">コメント</button>
-                </div>
-
-                <ul id="comment_list">
-                    <li>
-                        <img class="portrait" src="/images/user.png">
-                        <span>temp</span>
-                        &nbsp;
-                        <span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></span>
-                        &nbsp;
-                        <span>2013/12/27 16:41</span>
-                        <span>( v1.0 )</span>
-                        <p>的发送到范德萨</p>
-                    </li>
-                    <li>
-                        <img class="portrait" src="/images/user.png">
-                        <span>temp</span>
-                        &nbsp;
-                        <span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></span>
-                        &nbsp;
-                        <span>2013/12/27 16:41</span>
-                        <span>( v1.0 )</span>
-                        <p>的发送到范德萨</p>
-                    </li>
-                    <li>
-                        <img class="portrait" src="/images/user.png">
-                        <span>temp</span>
-                        &nbsp;
-                        <span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></span>
-                        &nbsp;
-                        <span>2013/12/27 16:41</span>
-                        <span>( v1.0 )</span>
-                        <p>的发送到范德萨</p>
-                    </li>
-                    <li>
-                        <img class="portrait" src="/images/user.png">
-                        <span>temp</span>
-                        &nbsp;
-                        <span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></span>
-                        &nbsp;
-                        <span>2013/12/27 16:41</span>
-                        <span>( v1.0 )</span>
-                        <p>的发送到范德萨</p>
-                    </li>
-                    <li>
-                        <img class="portrait" src="/images/user.png">
-                        <span>temp</span>
-                        &nbsp;
-                        <span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></span>
-                        &nbsp;
-                        <span>2013/12/27 16:41</span>
-                        <span>( v1.0 )</span>
-                        <p>的发送到范德萨</p>
-                    </li>
-                </ul>
-            </div>
+                    <span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></span>
+                    &nbsp;
+                    <span>2013/12/27 16:41</span>
+                    <span>( v1.0 )</span>
+                    <p>的发送到范德萨</p>
+                </li>
+                <li>
+                    <img class="portrait" src="/images/user.png">
+                    <span>temp</span>
+                    &nbsp;
+                    <span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></span>
+                    &nbsp;
+                    <span>2013/12/27 16:41</span>
+                    <span>( v1.0 )</span>
+                    <p>的发送到范德萨</p>
+                </li>
+                <li>
+                    <img class="portrait" src="/images/user.png">
+                    <span>temp</span>
+                    &nbsp;
+                    <span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></span>
+                    &nbsp;
+                    <span>2013/12/27 16:41</span>
+                    <span>( v1.0 )</span>
+                    <p>的发送到范德萨</p>
+                </li>
+                <li>
+                    <img class="portrait" src="/images/user.png">
+                    <span>temp</span>
+                    &nbsp;
+                    <span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></span>
+                    &nbsp;
+                    <span>2013/12/27 16:41</span>
+                    <span>( v1.0 )</span>
+                    <p>的发送到范德萨</p>
+                </li>
+                <li>
+                    <img class="portrait" src="/images/user.png">
+                    <span>temp</span>
+                    &nbsp;
+                    <span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></span>
+                    &nbsp;
+                    <span>2013/12/27 16:41</span>
+                    <span>( v1.0 )</span>
+                    <p>的发送到范德萨</p>
+                </li>
+            </ul>
         </div>
     </div>
-
-
-            <!--<div class="span9">-->
-                <!--&lt;!&ndash;added&ndash;&gt;-->
-                <!--<div class="controls">-->
-                    <!--<div class="btn-group">-->
-                        <!--<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">-->
-                            <!--IOS <span class="caret"></span>-->
-                        <!--</button>-->
-                        <!--<ul class="dropdown-menu" role="menu">-->
-                            <!--<li><a href ='/app/add/step1'>phone</a></li>-->
-                            <!--<li><a href ='/app/add/step1'>pad</a></li>-->
-                        <!--</ul>-->
-                    <!--</div>-->
-
-                    <!--<div class="btn-group">-->
-                        <!--<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">-->
-                            <!--Android <span class="caret"></span>-->
-                        <!--</button>-->
-                        <!--<ul class="dropdown-menu" role="menu">-->
-                            <!--<li><a href ='#'>phone</a></li>-->
-                            <!--<li><a href ='#'>pad</a></li>-->
-                        <!--</ul>-->
-                    <!--</div>-->
-                    <!--<div class="btn-group">-->
-                        <!--<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">-->
-                            <!--PC Web <span class="caret"></span>-->
-                        <!--</button>-->
-                        <!--<ul class="dropdown-menu" role="menu">-->
-                            <!--<li><a href ='#'>IOS</a></li>-->
-                            <!--<li><a href ='#'>Win</a></li>-->
-                        <!--</ul>-->
-                    <!--</div>-->
-
-                <!--</div>-->
-            <!--</div>-->
+</div>
 
 <!-- This is just a little bit of custom CSS code to enhance things. Feel free to place this in your main CSS file. I've commented to say what each bit does. -->
 <style type="text/css">

@@ -119,6 +119,7 @@ exports.guiding = function (app) {
     file.getImage(req, res);
   });
 
+
   app.get('/file/download.json', function (req, res) {
     download.create(req,res,function(){
     file.download(req, res);
