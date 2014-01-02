@@ -1,6 +1,6 @@
 <div class="sidebar">
 
-  <ul class="col-nav span3">
+  <!--ul class="col-nav span3">
       <li>
           <a href="#apptypes" data-toggle="collapse" class="accordion-toggle">
             <span class="label label-inverse pull-right">3 </span>设备类别
@@ -36,6 +36,23 @@
               </li>
           </ul>
       </li>
-  </ul>
+  </ul-->
+  <ul class="col-nav span3" id="category_list">
 
+  </ul>
 </div>
+
+<script type="text/template" id="template_category_list">
+  <li>
+    <a href="#{{code}}" data-toggle="collapse" class="accordion-toggle">
+      <span class="label label-inverse pull-right">{{count}} </span>{{name}}
+    </a>
+  </li>
+  <li id="{{code}}" class="in collapse">
+    <ul>
+      <li>
+        {{item}}
+      </li>
+    </ul>
+  </li>
+</script>
