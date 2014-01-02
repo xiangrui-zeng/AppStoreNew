@@ -28,7 +28,7 @@ var App = new schema({
     , create_user     : {type: String, description:"创建者"}
     , update_date     : {type: Date, description:"更新日期"}
     , update_user     : {type: String, description:"更新者"}
-    , copyright       : {type: String, description:"版本"}
+    , copyright       : {type: String, description:"版权"}
     , require         : {
         os: {type: String}
       , device: {type: String}
