@@ -4,8 +4,17 @@
     <!--<% /* include list/home/new_list.html */ %>-->
 
     <div >
-            <span style="float: right ">
-                    <a href="/app/add/select" > 上传新应用</a>
+        <span style="float: right" style="margin-bottom: 5px">
+            <div class="btn-group">
+                <a href="/app/add/step1">
+                    <button type="button" class="btn btn-small btn-primary">
+                        <span class="icon-plus"></span>
+                        <span class="sr-only">
+                            上传新应用
+                            </span>
+                        </button>
+                    </a>
+                </div>
                 </span>
         <h3 class="page-header" style="width: auto;">应用一览</h3>
     </div>
@@ -21,11 +30,13 @@
 
 <tr>
     <!-- 设置title -->
-    <th nowrap="">アイコン</th>  <th nowrap="" style="width: 200px">App</th>  <th nowrap="" style="margin-left: 300px">OS</th>  <th nowrap="">要求</th>  <th nowrap="">状態</th>  <th nowrap="">更新情報</th>  <th nowrap="">操作</th>
+    <th nowrap="">アイコン</th>  <th nowrap="" style="width: 200px">App</th>
+    <th nowrap="" style="margin-left: 300px">OS</th>
+    <th nowrap="">要求</th>  <th nowrap="">状態</th>
+    <th nowrap="">更新情報</th>  <th nowrap="">操作</th>
 </tr>
 </thead>
 <tbody id="dl_list_tbody">
-
 
 <tr><td style="min-width:100px;"><a href="/detaildemo">
     <img src="/picture/#" alt="1" style="width:100%;height:auto">

@@ -2,11 +2,7 @@
 
 <!-- Side bar -->
 
-
 <script type="text/javascript" src="/javascripts/app_add_step_1.js"></script>
-
-
-
 
 <!-- This is just a little bit of custom CSS code to enhance things. Feel free to place this in your main CSS file. I've commented to say what each bit does. -->
 <style type="text/css">
@@ -89,37 +85,30 @@
                 <%}%>
                 <div class="widget-box">
                     <div class="widget-content nopadding">
-                        <!--<div class="control-group">-->
-                            <!--<label class="control-label">设备</label>-->
+                        <div class="control-group">
+                            <label class="control-label">系统OS</label>
 
-                            <!--<div class="controls row-fluid">-->
-                                <!--<div class="span6">-->
-                                    <!--<% if(appTypes && appTypes.items) { %>-->
-                                    <!--<% appTypes.items.forEach(function(c,i) { %>-->
-                                    <!--<label class="radio span3">-->
-                                        <!--<input class="required" type="radio" name="appType" id="appType"-->
-                                               <!--value="<%= c.code %>" <%=i==0?"checked":""%> />-->
-                                        <!--<%= c.name %>-->
-                                    <!--</label>-->
-                                    <!--<% }); %>-->
-                                    <!--<% } %>-->
-                                <!--</div>-->
+                            <div class="controls row-fluid">
+                                <div class="span6">
+                                    <% if(appTypes && appTypes.items) { %>
+                                    <% appTypes.items.forEach(function(c,i) { %>
+                                    <label class="radio span3">
+                                        <input class="required" type="radio" name="appType" id="appType"
+                                               value="<%= c.code %>" <%=i==0?"checked":""%> />
+                                        <%= c.name %>
+                                    </label>
+                                    <% }); %>
+                                    <% } %>
+                                </div>
 
-                            <!--</div>-->
-                        <!--</div>-->
+                            </div>
+                        </div>
 
                         <div class="control-group">
                             <label class="control-label">名称</label>
 
                             <div class="controls">
                                 <input class="required" type="text" name="name" id="name" placeholder="例：捕鱼达人" value="">
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label">版本</label>
-
-                            <div class="controls">
-                                <input class="required" type="text" name="version" id="version" placeholder="例：1.5.2" >
                             </div>
                         </div>
                         <!--新加数据项-->
@@ -161,6 +150,23 @@
                         </div>
 
                         <div class="control-group">
+                            <label class="control-label">版本</label>
+
+                            <div class="controls">
+                                <input class="required" type="text" name="version" id="version" placeholder="例：1.5.2" >
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">更新说明</label>
+
+                            <div class="controls">
+                                <textarea class="required" name="update_description" id="update_description" placeholder=
+                                        "更新信息说明"
+                                        style="width: 270px;height: 100px"></textarea>
+                                </div>
+                            </div>
+
+                        <div class="control-group">
                             <label class="control-label" >OS版本</label>
 
                             <div class="controls">
@@ -168,6 +174,13 @@
                             </div>
                         </div>
 
+                        <div class="control-group">
+                            <label class="control-label" >设备要求</label>
+
+                            <div class="controls">
+                                <input class="required" type="text" name="require.os" id="device" placeholder="最低设备要求">
+                            </div>
+                        </div>
                         <div class="control-group">
                             <label class="control-label">bundle_identifier</label>
 
@@ -215,50 +228,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!--<div class="control-group">-->
-                            <!--<label class="control-label">设备</label>-->
-
-                            <!--<div class="controls">-->
-                                <!--<label class="radio">-->
-                                    <!--<input class="required" type="radio" name="device" value="1" checked/>-->
-                                    <!--phone-->
-                                <!--</label>-->
-                                <!--<label class="radio">-->
-                                    <!--<input class="required" type="radio" name="device" value="2"/>-->
-                                    <!--pad-->
-                                <!--</label>-->
-                            <!--</div>-->
-                        <!--</div>-->
-
-                        <!--<div class="control-group">-->
-                            <!--<label class="control-label">OS版本</label>-->
-
-                            <!--<div class="controls">-->
-                                <!--<input class="required" type="text" name="require.os" id="os">-->
-                            <!--</div>-->
-                        <!--</div>-->
-
-                        <!--<div class="control-group">-->
-                            <!--<label class="control-label">bundle_identifier</label>-->
-
-                            <!--<div class="controls">-->
-                                <!--<input class="required" type="text" name="bundle_identifier" id="bundle_identifier">-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="control-group">-->
-                            <!--<label class="control-label">bundle_version</label>-->
-
-                            <!--<div class="controls">-->
-                                <!--<input class="required" type="text" name="bundle_version" id="bundle_version">-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="control-group">-->
-                            <!--<label class="control-label">标题</label>-->
-
-                            <!--<div class="controls">-->
-                                <!--<input class="required" type="text" name="title" id="title">-->
-                            <!--</div>-->
-                        <!--</div>-->
 
                         <div class="control-group">
                             <label class="control-label"></label>
