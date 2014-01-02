@@ -1,7 +1,6 @@
 
 $(function () {
   'use strict';
-
   var appId = "";
   render(appId);
   events(appId);

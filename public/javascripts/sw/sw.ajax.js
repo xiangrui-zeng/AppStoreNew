@@ -73,10 +73,8 @@ function ajaxTodoCallback(btn, opt, callback, confirmMsg) {
 };
 
 function validateCallback(form, callback, fn,confirmMsg) {
-    // console.log('validateCallback : %s',$form.valid());
-    // return false;
+
     var $form = $(form);
-    // console.log(!$form.valid());
     if (!$form.valid()) {
         return false;
     }
@@ -92,7 +90,6 @@ function validateCallback(form, callback, fn,confirmMsg) {
     })||{"_csrf":csrftoken};
     console.log($form.attr("action"));
     var _submitFn = function () {
-      console.log(data+"33")
       smart.dopost($form.attr("action"),data,  function(err, result) {
         if (err) {
           return Alertify.log.info("提交失败");
