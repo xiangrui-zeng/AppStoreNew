@@ -339,8 +339,8 @@ exports.list = function (req_, res_) {
     var count = Number(util.checkString(req_.query.count));
     var sort = util.checkString(req_.query.sort);
     var asc = Number(util.checkString(req_.query.asc));
-    var uid = req_.session.user._id;
-    var admin = req_.query.admin ? true : false;
+    //var uid = req_.session.user._id;
+    //var admin = req_.query.admin ? true : false;
     var category = req_.query.category;
 
     app.list(sort,asc, category, start, count, function (err, result) {
@@ -348,68 +348,3 @@ exports.list = function (req_, res_) {
       response.send(res_, err, result);
     });
 };
-
-exports.getPlist = function (req_, res_) {
-    console.log(req_.host);
-    var app_id = req_.params.app_id;
-    app.getAppInfoById(app_id, function (err, result) {
-        if (err) {
-          return new error.InternalServer(err);
-        } else {
-            var url = "http://"+req_.host+":3000/file/download.json?_id="+result.downloadId+"&amp;app_id="+app_id+"&amp;flag=phone";
-            var bundle_identifier = result.bundle_identifier;
-            var bundle_version = result.bundle_version;
-            var kind = result.kind;
-            var title = result.title;
-
-            res_.setHeader('Content-Type', "text/xml");
-            res_.send("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\
-<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\
-<plist version=\"1.0\">\
-<dict>\
-<key>items</key>\
-<array>\
-<dict>\
-<key>assets</key>\
-<array>\
-<dict>\
-<key>kind</key>\
-<string>software-package</string>\
-<key>url</key>"
-+"<string>"
-+url
-+"</string>"
-+"</dict>\
-<dict>\
-<key>kind</key>\
-<string>display-image</string>\
-<key>needs-shine</key>\
-<true/>\
-<key>url</key>\
-<string>http://3g.momo.im/down/ICON.PNG</string>\
-</dict>\
-<dict>\
-<key>kind</key>\
-<string>full-size-image</string>\
-<key>url</key><string>http://3g.momo.im/down/ICON@2x.PNG</string>\
-</dict>\
-</array><key>metadata</key>\
-<dict>\
-<key>bundle-identifier</key>               \
-<string>"+bundle_identifier+"</string>     \
-<key>bundle-version</key>                  \
-<string>"+bundle_version+"</string>                       \
-<key>kind</key>                            \
-<string>software</string>                  \
-<key>title</key>                           \
-<string>"+title+"</string>                     \
-</dict>\
-</dict>\
-</array>\
-</dict>\
-</plist>");
-            return;
-        }
-    });
-
-}
