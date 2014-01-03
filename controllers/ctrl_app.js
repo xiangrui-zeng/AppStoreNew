@@ -219,7 +219,7 @@ exports.search = function(uid_, keyword_, start_, count_, category_, callback_){
   });
 };
 
-exports.list = function(sort_,asc_,category_, start_, count_, callback_){
+exports.list = function(sort_,asc_,category_, start_, count_, status_,callback_){
   var condition = {};
 //  if (admin_) {
 //    condition.$or = [
@@ -239,6 +239,10 @@ exports.list = function(sort_,asc_,category_, start_, count_, callback_){
         condition.appType = category_;
       else
         condition.category = { $elemMatch: {$in: [category_]} };
+  }
+  if(status_)
+  {
+    condition.status = status_;
   }
 
   var options = {

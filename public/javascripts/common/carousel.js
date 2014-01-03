@@ -27,17 +27,20 @@ var Carousel = {
         ,getTmpl: function(id) {
             return $('#' + id).html();
         }
+//      新发布应用
         ,get_new_list_url: function() {
             var crsf = $("#_csrf").val();
-            return "/app/list.json?_csrf=" + crsf + "&start=0&sort=update_date";
+            return "/app/list.json?_csrf=" + crsf + "&start=0&sort=update_date&status=2";
         }
+//      下载排行
         ,get_download_list_url: function() {
             var crsf = $("#_csrf").val();
-            return "/app/list.json?_csrf=" + crsf + "&start=0&sort=downloadCount";
+            return "/app/list.json?_csrf=" + crsf + "&start=0&sort=downloadCount&status=2";
         }
+//      评价排行
         ,get_comment_list_url: function() {
             var crsf = $("#_csrf").val();
-            return "/app/list.json?_csrf=" + crsf + "&start=0&sort=rank";
+            return "/app/list.json?_csrf=" + crsf + "&start=0&sort=rank&status=2";
         }
         ,load: function(data){
             var _this = this;
