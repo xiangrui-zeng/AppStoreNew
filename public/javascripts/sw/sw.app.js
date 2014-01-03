@@ -315,7 +315,7 @@ var $app = {
     },
     didUploadPPTFile: function (status, input, fid) {
         console.log(fid);
-        var fid = fid.data[0].name;
+        var fid = fid.data[0]._id;
         $("#pptfile_hid").val(fid);
         $("#pptfile_hid").attr("readonly", "readonly");
         $("#pptfile_hid").after(fid);
