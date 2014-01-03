@@ -110,7 +110,7 @@ exports.update = function(code, appId, update, callback) {
 
   var App = model(code);
 
-  App.findByIdAndUpdate(appId, update, function(err, result) {
+  App.findByIdAndUpdate(appId+"", update, function(err, result) {
     callback(err, result);
   });
 };

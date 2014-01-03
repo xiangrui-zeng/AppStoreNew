@@ -454,8 +454,9 @@ var $app = {
 
     },
     didUploadSmallFile: function (status, input, fid) {
-        console.log(fid);
+        console.log(fid+"dsdsdsdsds");
         var fid = fid.data[0]._id;
+      console.log(fid)
         $("#icon_small_file_hid").val(fid);
         $("#icon_small_img").css("display", "block");
         $("#icon_small_btn").css("display", "none");
