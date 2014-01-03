@@ -69,21 +69,27 @@
         );
     });
 </script>
-<br>
-<br>
+
 <div class="container-fluid top_line">
     <div class="row-fluid">
-        <div class="span3">
+        <!--div class="span3">
             <% include common/app_add_sidebar.html %>
-        </div>
-        <div class="span9 span10_left_line">
+        </div-->
 
+        <div class="offset1 tabbable tabs-left">
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#1" data-toggle="tab">基本情報</a></li>
+          <li><a href="#2" data-toggle="tab">ファイル</a></li>
+        </ul>
+
+        <div class="tab-content">
+          <div class="tab-pane active" id="1">
             <form class="required-validate form-horizontal" action="/app/create/step1.json" method="post"
                   onsubmit="return validateCallback(this,didSendStep1Callback,didSendFn,'确认提交吗？')">
               <input type="hidden" name="appId" id="appId" value="" >
               <% if (appId != '0') { %>
                 <input type="hidden" name="_id" value=""/>
-                <%}%>
+              <%}%>
                 <div class="widget-box">
                     <div class="widget-content nopadding">
                         <div class="control-group">
@@ -95,7 +101,7 @@
                                     <% appTypes.items.forEach(function(c,i) { %>
                                     <label class="radio span3">
                                         <input class="required" type="radio" name="appType" id="appType"
-                                               value="<%= c.code %>" <%=i==0?"checked":""%> />
+                                               value="<%= c.code %>" <%= i==0?"checked":""%>/>
                                         <%= c.name %>
                                     </label>
                                     <% }); %>
@@ -240,6 +246,9 @@
                     </div>
                 </div>
             </form>
+
+          </div>
+        </div>
         </div>
     </div>
 </div>
