@@ -174,18 +174,18 @@
             <td nowrap >
 
                 <$ if($app.canEdit(app)) { $>
-                    <a href="/app/add/step1?appId={{ app._id }}" style="float:left;margin-right:2px;margin-top: 4px"><button class="btn btn-small btn-success" operation="edit">編集</button></a>  <br/>
+                    <a href="/app/add/step1?appId={{ app._id }}" style="float:left;margin-right:2px;margin-top: 4px"><button class="btn btn-small btn-success" operation="edit">編 集</button></a>  <br/>
                 <$ } $>
                 <$ if(app.downloadURL) { $>
-                    <a href="{{ _.escape(app.downloadURL) }}" style="float:right;margin-top: 4px"><button class="btn btn-small btn-success" appId="{{ app._id }}" operation="install">install</button></a> <br/>
+                    <a href="{{ _.escape(app.downloadURL) }}" style="float:left;margin-right:2px;margin-top: 4px"><button class="btn btn-small btn-success" appId="{{ app._id }}" operation="install">安 装</button></a> <br/>
                 <$ } $>
                 <$ if(app.status == 0) { $>
-                    <a href="#" style="float:left;margin-right:2px;margin-top: 4px"><button class="btn btn-small btn-success" appId="{{ app._id }}" operation="apply">申请</button></a>  <br/>
+                    <a href="#" style="float:left;margin-right:2px;margin-top: 4px"><button class="btn btn-small btn-success" appId="{{ app._id }}" operation="apply">申 请</button></a>  <br/>
                 <$ } else if(app.status == 1) { $>
-                    <a href="#" style="float:left;margin-right:2px;margin-top: 4px"><button class="btn btn-small btn-success" appId="{{ app._id }}" operation="allow">审核通过</button></a> <br/>
-                    <a href="#" style="float:left;margin-right:2px;margin-top: 4px"><button class="btn btn-small btn-success" appId="{{ app._id }}" operation="deny">审核不通过</button></a> <br/>
+                    <a href="#" style="float:left;margin-right:2px;margin-top: 4px"><button class="btn btn-small btn-success" appId="{{ app._id }}" operation="allow">通 过</button></a> <br/>
+                    <a href="#" style="float:left;margin-right:2px;margin-top: 4px"><button class="btn btn-small btn-success" appId="{{ app._id }}" operation="deny">拒 绝</button></a> <br/>
                 <$ } else if(app.status == 2) { $>
-                    <a href="#" style="float:left;margin-right:2px;margin-top: 4px"><button class="btn btn-small btn-success" appId="{{ app._id }}" operation="stop">无效</button></a> <br/>
+                    <a href="#" style="float:left;margin-right:2px;margin-top: 4px"><button class="btn btn-small btn-success" appId="{{ app._id }}" operation="stop">无 效</button></a> <br/>
                 <$ }else { $>
                    <a href="#" style="float:left;margin-right:2px;margin-top: 4px"><button class="btn btn-small btn-success hidden">未通过</button></a> <br/>
                 <$ } $>
