@@ -127,17 +127,33 @@ exports.guiding = function (app) {
     });
   });
 
-//进入App_detail画面
-  app.get('/app/:app_id', function (req, res) {
-    var app_id = req.params.app_id;
-    ctrlapp.renderDetail(req, res, app_id);
+  app.post("/app/checkApply.json", function(req, res){
+    application.checkApply(req, res);
   });
+
+  app.post("/app/appAllow.json", function(req, res){
+    application.checkAllow(req, res);
+  });
+
+  app.post("/app/checkDeny.json", function(req, res){
+    application.checkDeny(req, res);
+  });
+
+  app.post("/app/checkStop.json", function(req, res){
+    application.checkStop(req, res);
+  });
+
+////进入App_detail画面
+//  app.get('/app/:app_id', function (req, res) {
+//    var app_id = req.params.app_id;
+//    ctrlapp.renderDetail(req, res, app_id);
+//  });
 
   app.get('/app/check/list', function (req, res) {
     res.render("app_check_list", {"title": "check_list", user: req.session.user});
   });
 
-  //app相信信息 popup by正哥
+  //app详细信息 popup by正哥
   app.get('/detaildemo', function (req, res) {
     res.render("app_detail_new", {"title": "check_list", user: req.session.user});
   });
