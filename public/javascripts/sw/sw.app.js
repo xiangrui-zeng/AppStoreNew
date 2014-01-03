@@ -502,11 +502,11 @@ var $app = {
         window.location.href = "/app/" + msg.data._id;
     }
     , osImagePath: function(os) {
-         if($sw.string.equalsIgnoreCase("ios", os)) {
+         if($sw.string.equalsIgnoreCase("10001", os)) {
              return "/images/system/ios.png";
-         } else if($sw.string.equalsIgnoreCase("android", os)) {
+         } else if($sw.string.equalsIgnoreCase("10002", os)) {
              return "/images/system/android.png";
-         } else if($sw.string.equalsIgnoreCase("web", os)) {
+         } else if($sw.string.equalsIgnoreCase("10003", os)) {
              return "";// TODO:
          } else if($sw.string.equalsIgnoreCase("wp", os)) {
              return "";// TODO:
