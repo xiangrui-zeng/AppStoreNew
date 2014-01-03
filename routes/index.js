@@ -152,7 +152,7 @@ exports.guiding = function (app) {
     res.render("app_check_list", {"title": "check_list", user: req.session.user});
   });
 
-  //app相信信息 popup by正哥
+  //app详细信息 popup by正哥
   app.get('/detaildemo', function (req, res) {
     res.render("app_detail_new", {"title": "check_list", user: req.session.user});
   });

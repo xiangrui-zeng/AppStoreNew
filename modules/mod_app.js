@@ -55,14 +55,14 @@ exports.create = function (app_, callback_) {
         callback_(err, result);
     });
 };
-
+//更新评分
 exports.updateRank = function (appId, rank, callback_) {
     var app = model();
     app.findByIdAndUpdate(appId, { rank: rank }, function (err, result) {
         callback_(err, result);
     });
 };
-
+//更新下载数量
 exports.updateDownloadCount = function(appId_, dlCount_, callback_) {
   var app = model();
   app.findByIdAndUpdate(appId_, { downloadCount: dlCount_ }, function (err, result) {
