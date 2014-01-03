@@ -84,38 +84,15 @@ exports.getAppInfoById = function (handler, callback_) {
     proxy3.fail(callback_);
     proxy4.fail(callback_);
 
-    docs.permission.admin.forEach(function (id, i) {
-      var tempHandler = new context().create(handler.uid, handler.code, handler.lang);
-      tempHandler.addParams("uid", id);
-      user.get(tempHandler, function (err, user) {
-        admin_list.push({id: id, name: user.first});
-        proxy1.emit('admin_ready');
-      });
-    });
-    docs.permission.edit.forEach(function (id, i) {
-      var tempHandler = new context().create(handler.uid, handler.code, handler.lang);
-      tempHandler.addParams("uid", id);
-      user.get(tempHandler, function (err, user) {
-        edit_list.push({id: id, name: user.first});
-        proxy2.emit('edit_ready');
-      });
-    });
-    docs.permission.view.forEach(function (id, i) {
-      var tempHandler = new context().create(handler.uid, handler.code, handler.lang);
-      tempHandler.addParams("uid", id);
-      user.get(tempHandler, function (err, user) {
-        view_list.push({id: id, name: user.first});
-        proxy3.emit('view_ready');
-      });
-    });
-    docs.permission.download.forEach(function (id, i) {
-      var tempHandler = new context().create(handler.uid, handler.code, handler.lang);
-      tempHandler.addParams("uid", id);
-      user.get(tempHandler, function (err, user) {
-        download_list.push({id: id, name: user.first});
-        proxy4.emit('download_ready');
-      });
-    });
+    //获取允许下载列表
+//    docs.permission.download.forEach(function (id, i) {
+//      var tempHandler = new context().create(handler.uid, handler.code, handler.lang);
+//      tempHandler.addParams("uid", id);
+//      user.get(tempHandler, function (err, user) {
+//        download_list.push({id: id, name: user.first});
+//        proxy4.emit('download_ready');
+//      });
+//    });
   });
 
 
@@ -434,21 +411,5 @@ function _renderAppStep(req, res, step, appId) {
         res.render('app_add_step_2', {
             title: "star", bright: "home", user: req.session.user, appId: appId
         });
-    } else if (step == 3) {
-        res.render('app_add_step_3', {
-            title: "star", bright: "home", user: req.session.user, appId: appId
-        });
-    } else if (step == 4) {
-        res.render('app_add_step_4', {
-            title: "star", bright: "home", user: req.session.user, appId: appId
-        });
-    } else if (step == 5) {
-        res.render('app_add_step_5', {
-            title: "star", bright: "home", user: req.session.user, appId: appId
-        });
-    }else if (step == 12) {
-        res.render('app_add_step_12', {
-            title: "star", bright: "home", user: req.session.user, appId: appId
-      });
     }
-};
+}

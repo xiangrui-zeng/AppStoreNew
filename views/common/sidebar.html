@@ -1,41 +1,21 @@
 <div class="sidebar">
 
-  <ul class="col-nav span3">
-      <li>
-          <a href="#apptypes" data-toggle="collapse" class="accordion-toggle">
-            <span class="label label-inverse pull-right">3 </span>设备类别
-          </a>
-      </li>
-      <li id="apptypes" class="in collapse">
-          <ul>
-              <li>
-                  <a href="javascript:filterCategory(10001, '设备/iOS');"> <i class="pull-right icon-apple"></i>iOS</a>
-                  <a href="javascript:filterCategory(10002, '设备/Android');"> <i class="pull-right icon-android"></i>Android</a>
-                  <a href="javascript:filterCategory(10003, '设备/PC Web');"> <i class="pull-right icon-desktop"></i>Web</a>
-              </li>
-          </ul>
-      </li>
-      <li>
-          <a href="#business" data-toggle="collapse" class="accordion-toggle">
-            <span class="label label-inverse pull-right">10</span>业务类别
-          </a>
-      </li>
-      <li id="business" class="in collapse">
-          <ul>
-              <li>
-                  <a href="javascript:filterCategory(20001, '业务类别/贩卖/零售');"> <i class="pull-right icon-yen"></i>贩卖/零售</a>
-                  <a href="javascript:filterCategory(20002, '业务类别/制造');"> <i class="pull-right icon-tags"></i>制造</a>
-                  <a href="javascript:filterCategory(20003, '业务类别/政府部门/事业单位');"> <i class="pull-right icon-building"></i>政府/事业单位</a>
-                  <a href="javascript:filterCategory(20004, '业务类别/金融');"> <i class="pull-right icon-dollar"></i>金融</a>
-                  <a href="javascript:filterCategory(20005, '业务类别/运输');"> <i class="pull-right icon-truck"></i>运输</a>
-                  <a href="javascript:filterCategory(20006, '业务类别/服务');"> <i class="pull-right icon-thumbs-up"></i>服务</a>
-                  <a href="javascript:filterCategory(20007, '业务类别/信息・通信/广播');"> <i class="pull-right icon-bullhorn"></i>信息・通信/广播</a>
-                  <a href="javascript:filterCategory(20008, '业务类别/电器・煤气');"> <i class="pull-right icon-fire"></i>电器・煤气</a>
-                  <a href="javascript:filterCategory(20009, '业务类别/教育');"> <i class="pull-right icon-book"></i>教育</a>
-                  <a href="javascript:filterCategory(20010, '业务类别/其它');"> <i class="pull-right icon-bookmark"></i>其它</a>
-              </li>
-          </ul>
-      </li>
-  </ul>
+  <ul class="col-nav span3" id="category_list">
 
+  </ul>
 </div>
+
+<script type="text/template" id="template_category_list">
+  <li>
+    <a href="#{{code}}" data-toggle="collapse" class="accordion-toggle">
+      <span class="label label-inverse pull-right">{{count}} </span>{{name}}
+    </a>
+  </li>
+  <li id="{{code}}" class="in collapse">
+    <ul>
+      <li>
+        {{item}}
+      </li>
+    </ul>
+  </li>
+</script>

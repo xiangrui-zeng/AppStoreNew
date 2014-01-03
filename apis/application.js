@@ -37,10 +37,10 @@ exports.updateAppStep1 = function (req_, res_) {
     var appId = req_.body._id;
     var name = req_.body.name;
     var version = req_.body.version;
-    var memo = req_.body.memo;
+    //var memo = req_.body.memo;
     var description = req_.body.description;
-    var device = req_.body['require.device'];
-    var os = req_.body['require.os'];
+    var device = req_.require.device;
+    var os = req_.require.os;
     var appType = req_.body.appType;
     var category = req_.body.category;
     var bundle_identifier = req_.body.bundle_identifier;
@@ -76,25 +76,28 @@ exports.updateAppStep1 = function (req_, res_) {
 //    });
 };
 exports.createAppStep1 = function (req, res) {
-    var creator = req.session.user._id;
+    var creator = req.session.user._id;//创建者
     var data = util.checkObject(req.body);
-    data.require = {
-        device: req.body['require.device'],
-        os: req.body['require.os']
+    data.require = {                  //require 两项
+        device: data.require_device,
+        os: data.require_os
     };
+  data.rank = 0;
+  data.rankcount = 0;
+  data.downloadCount = 0;
     data.create_user = creator;
-    data.editstep = 1;
-    data.editing = 0;
-    data.status = -1;
-    data.category = req.body.category;
-    data.permission = {
+    data.editstep = 1;              //编辑步骤
+    data.editing = 0;               //?
+    data.status = 0;                //状态 默认为0：未申请
+    data.category = req.body.category;   //类别
+    data.permission = {                  //权限
         admin: [creator],
         edit: [creator],
         view: [creator],
         download: [creator]
 
     };
-    data.update_date = new Date();
+    data.update_date = new Date();       //更新时间 当前时间
     data.update_user = creator;
     app.create(data, function (err, result) {
       response.send(res, err, result);
@@ -107,10 +110,10 @@ exports.createAppStep2 = function (req, res) {
     var icon_big = req.body['iconbig'];
     var icon_small = req.body['iconsmall'];
     var screenshot = req.body.screenshot;
-    var pptfile = req.body.pptfile;
-    var video = req.body.video;
+    //var pptfile = req.body.pptfile;
+    //var video = req.body.video;
     var downloadId = req.body.downloadId;
-    var plistDownloadId = req.body.plistDownloadId;
+    //var plistDownloadId = req.body.plistDownloadId;
     var editstep = 2;
     console.log(icon_big.length);
     console.log(icon_small.length);
@@ -335,8 +338,8 @@ exports.list = function (req_, res_) {
     var count = Number(util.checkString(req_.query.count));
     var sort = util.checkString(req_.query.sort);
     var asc = Number(util.checkString(req_.query.asc));
-    var uid = req_.session.user._id;
-    var admin = req_.query.admin ? true : false;
+    //var uid = req_.session.user._id;
+    //var admin = req_.query.admin ? true : false;
     var category = req_.query.category;
 
     app.list(sort,asc, category, start, count, function (err, result) {

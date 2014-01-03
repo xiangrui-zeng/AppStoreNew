@@ -29,6 +29,7 @@ var App = new schema({
     , update_date     : {type: Date, description:"更新日期"}
     , update_user     : {type: String, description:"更新者"}
     , copyright       : {type: String, description:"版权"}
+    , editstep        : {type:Number,description:"编辑进行的状态"}
     , require         : {
         os: {type: String}
       , device: {type: String}
@@ -41,6 +42,7 @@ var App = new schema({
     , bundle_version  :{type:String, description:"plist"}
     , kind            :{type:String, description:"种类"}
     , downloadCount   :{type: Number, description:"下载数量"}
+    , notice          :{type: String, description:"审核信息"}
 });
 
 function model() {
