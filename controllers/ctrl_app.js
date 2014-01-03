@@ -254,6 +254,7 @@ exports.list = function(sort_,asc_,category_, start_, count_, callback_){
     if (err) {
       return callback_(new error.InternalServer(err));
     }
+    console.log(result)
     return callback_(err, result);
   });
 
@@ -267,8 +268,10 @@ exports.list = function(sort_,asc_,category_, start_, count_, callback_){
 
   var task_getCreator = function(result, cb){
     async.forEach(result.items, function(app, cb_){
-//      user.at(app.create_user, function(err, creator){
-//        app._doc.creator = creator;
+//      var tmphandler = new context().create(app.create_user, "","");
+//      tmphandler.addParams("uid", app.create_user);
+//      user.get(tmphandler, function(err, creator){
+//        app._doc.creator = creator.userName;
 //        cb_(err);
 //      });
     }, function(err){
@@ -279,10 +282,13 @@ exports.list = function(sort_,asc_,category_, start_, count_, callback_){
 
   var task_getUpdater = function(result, cb){
     async.forEach(result.items, function(app, cb_){
-      user.at(app.update_user, function(err, updater){
-        app._doc.updater = updater;
-        cb_(err);
-      });
+//      var tmphandler = new context().create(app.update_user, "","");
+//      tmphandler.addParams("uid", app.update_user);
+//      console.log("====="+tmphandler)
+//      user.get(tmphandler, function(err, updater){
+//        app._doc.updater = updater.userName;
+//        cb_(err);
+//      });
     }, function(err){
       cb(err, result);
     });
@@ -353,6 +359,47 @@ exports.renderAppStep = function(req, res, step) {
         _renderAppStep(req, res, step, appId);
     }
 };
+
+exports.checkApply = function (handler, callback) {
+  var session_uid = handler.uid
+    , appId = handler.params.app
+    , code        = "";
+  app_apply = { status:  1}
+  app.update(code, appId, app_apply, function (err, result) {
+    callback(err, result);
+  });
+}
+
+exports.checkAllow = function (handler, callback) {
+  var session_uid = handler.uid
+    , appId = handler.params.app
+    , code        = "";
+  app_allow = { status:  2}
+  app.update(code, appId, app_allow, function (err, result) {
+    callback(err, result);
+  });
+}
+
+exports.checkDeny = function (handler, callback) {
+  var session_uid = handler.uid
+    , appId = handler.params.app
+    , code        = "";
+  app_Deny = { status:  3}
+  app.update(code, appId, app_Deny, function (err, result) {
+    callback(err, result);
+  });
+}
+
+exports.checkStop = function (handler, callback) {
+  var session_uid = handler.uid
+    , appId = handler.params.app
+    , code        = "";
+  app_stop = { status:  4}
+  app.update(code, appId, app_stop, function (err, result) {
+    callback(err, result);
+  });
+}
+
 function _renderAppStep(req, res, step, appId) {
     if (step == 1) {
         res.render('app_add_step_1', {

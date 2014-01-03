@@ -52,19 +52,19 @@ var $app = {
     viewDidload: function () {
         var that = this;
 
-        $("#admin_set_btn").bind("click", function () {
-            $("#setuserlist").html('');
-            ajaxGetCallback($("#admin_set_btn"), {}, that.didAdminSelectRender);
-        });
-        $("#edit_set_btn").bind("click", function () {
-            $("#setuserlist").html('');
-            ajaxGetCallback($("#edit_set_btn"), {}, that.didEditSelectRender);
-
-        });
-        $("#view_set_btn").bind("click", function () {
-            $("#setuserlist").html('');
-            ajaxGetCallback($("#view_set_btn"), {}, that.didViewSelectRender);
-        });
+//        $("#admin_set_btn").bind("click", function () {
+//            $("#setuserlist").html('');
+//            ajaxGetCallback($("#admin_set_btn"), {}, that.didAdminSelectRender);
+//        });
+//        $("#edit_set_btn").bind("click", function () {
+//            $("#setuserlist").html('');
+//            ajaxGetCallback($("#edit_set_btn"), {}, that.didEditSelectRender);
+//
+//        });
+//        $("#view_set_btn").bind("click", function () {
+//            $("#setuserlist").html('');
+//            ajaxGetCallback($("#view_set_btn"), {}, that.didViewSelectRender);
+//        });
         $("#download_set_btn").bind("click", function () {
             $("#setuserlist").html('');
             ajaxGetCallback($("#download_set_btn"), {}, that.didDownloadSelectRender);
@@ -79,6 +79,7 @@ var $app = {
             src.attr("accept", "");
             src.trigger('click');
         });
+      //plist文件
         $("#plistfile_btn").bind("click", function () {
             $("#plistfile_file").bind("change", function (e) {
                 uploadFiles('didUploadPPTFile', e.target.files, that.didUploadPlistFile);
@@ -109,6 +110,7 @@ var $app = {
             src.attr("multiple", "multiple");
             src.trigger('click');
         });
+      //
         $("#app_file_btn").bind("click", function () {
             console.log("app_file_btn");
             $("#app_file").bind("change", function (e) {
@@ -513,13 +515,8 @@ var $app = {
     }
     , canEdit: function(app) {
          var uid = smart.uid();
-         if(this.canManage(app))
-            return true;
-
          // 编辑权限
-         if(uid && app && app.permission && app.permission.edit) {
-             var result = _.find(app.permission.edit, function(uid_){ return uid == uid_; } );
-             if(result)
+         if(app.permission.edit == uid && app.status!=1 && app.status!=4) {
                 return true;
          }
          return false;

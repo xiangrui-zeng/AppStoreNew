@@ -23,7 +23,7 @@ var App = new schema({
     , downloadId      : {type: String, description:"下载id"}
     , plistDownloadId : {type:String, description:"pList"}
     , open_date       : {type: Date, description:"公开日期"}
-    , expire_date     : {type: Date, description:"过期时间"}
+    , expire_date       : {type: Date, description:"过期时间"}
     , create_date     : {type: Date, description:"创建时间"}
     , create_user     : {type: String, description:"创建者"}
     , update_date     : {type: Date, description:"更新日期"}
@@ -55,14 +55,14 @@ exports.create = function (app_, callback_) {
         callback_(err, result);
     });
 };
-
+//更新评分
 exports.updateRank = function (appId, rank, callback_) {
     var app = model();
     app.findByIdAndUpdate(appId, { rank: rank }, function (err, result) {
         callback_(err, result);
     });
 };
-
+//更新下载数量
 exports.updateDownloadCount = function(appId_, dlCount_, callback_) {
   var app = model();
   app.findByIdAndUpdate(appId_, { downloadCount: dlCount_ }, function (err, result) {
@@ -97,4 +97,20 @@ exports.list = function (condition_, options_, callback_) {
         callback_(err,{total:count,items:result});
       });
     });
+};
+
+/**
+ * 更新状态
+ * @param code 数据库标识
+ * @param appId 文档标识
+ * @param app更新状态
+ * @param callback 返回更新后的状态
+ */
+exports.update = function(code, appId, update, callback) {
+
+  var App = model(code);
+
+  App.findByIdAndUpdate(appId, update, function(err, result) {
+    callback(err, result);
+  });
 };
