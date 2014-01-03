@@ -10,7 +10,7 @@
         $(function () {
             smart.doget('/app/info.json?app_id=<%=appId%>', function (err, data) {
                 console.log(data.editstep);
-                for (var i = 1; i <= 5; i++) {
+                for (var i = 1; i <= 2; i++) {
                     if (data.editstep >= i) {
                         $("#step" + (i) + "").attr("href", "/app/add/step" + (i) + "?appId=" + data._id);
                         $("#step" + (i) + "").css("background-image","url(/images/check.png)");
@@ -21,8 +21,8 @@
 
                     $("#step2").addClass("active");
                 }
-                if(data.appType == '10001')
-                    $("#plist_group").css("display","block");
+//                if(data.appType == '10001')
+//                    $("#plist_group").css("display","block");
                 if (!data.icon || data.icon.big.length == 0) {
                     return;
                 }
@@ -59,12 +59,11 @@
                     $($("#image_show img").eq(i)[0]).attr("src", '/picture/' + data.screenshot[i]);
                 }
                 $("#image_big_file_hid").val(fids);
-                $("#video").val(data.video);
+//                $("#video").val(data.video);
                 $("#pptfile_hid").val(data.downloadId);
-
             });
-        });
 
+        });
     <%
     }
     %>
@@ -84,9 +83,10 @@
 
         var appId = result.data._id;
         console.log("appp id   is   %s", appId);
-        window.location.href = "/app/add/step3?appId=" + appId;
+        //成功保存后跳转到上传列表
+        window.location.href = "/app/list?appId=" + appId;
     }
-    ;
+
     function didSendFn(data) {
         var sendData = {};
         var crsf = $("#_csrf").val();
@@ -103,7 +103,6 @@
         sendData["_csrf"] = crsf;
         return sendData;
     }
-    ;
 
 </script>
 <br>
@@ -134,17 +133,7 @@
                                     <span id="pptfile_span" for="required" generated="true" class="help-inline" style="">ipaファイルをアップロード</span>
                                 </div>
                             </div>
-                        <!--<div class="control-group" id="plist_group" style="display: none">-->
-                                <!--<label class="control-label">plist</label>-->
 
-                                <!--<div class="controls">-->
-                                    <!--<input type="hidden" id="plistfile_hid" name="plistDownloadId"/>-->
-                                    <!--<input type="file" id="plistfile_file" name="plistfile_file" style="display: none"-->
-                                           <!--value=""/>-->
-                                    <!--<button id="plistfile_btn" class="btn" onclick="return false;">アップロード</button>-->
-                                    <!--<span id="plistfile_span" for="required" generated="true" class="help-inline" style="">plistファイルをアップロード</span>-->
-                                <!--</div>-->
-                            <!--</div>-->
                             <div class="control-group">
                                 <label class="control-label">アイコン（小）</label>
 
@@ -166,8 +155,7 @@
                                     <input type="hidden" id="icon_big_file_hid" name="icon.big"/>
                                     <input type="file" id="icon_big_file" style="display: none" accept="image/*">
                                     <button id="icon_big_btn" class="btn" onclick="return false;">アップロード</button>
-                        <span id="icon_big_span" for="required" generated="true" class="help-inline"
-                              style="">アイコン（大）200px X 200px</span>
+                                    <span id="icon_big_span" for="required" generated="true" class="help-inline"style="">アイコン（大）200px X 200px</span>
                                 </div>
                             </div>
                             <div class="control-group">
@@ -178,8 +166,8 @@
                                     <input type="hidden" id="image_big_file_hid" name="screenshot"/>
                                     <input type="file" id="image_big_file" style="display: none" accept="image/*">
                                     <button id="image_big_btn" class="btn" onclick="return false;">アップロード</button>
-                        <span id="image_big_span" for="required" generated="true" class="help-inline"
-                              style="">キャプチャーをアップロード</span>
+                                    <span id="image_big_span" for="required" generated="true" class="help-inline"
+                                          style="">キャプチャーをアップロード</span>
                                 </div>
                             </div>
                             <div class="control-group">
@@ -201,14 +189,25 @@
                                 </div>
                             </div>
 
+                            <!--<div class="control-group">-->
+                                <!--<label class="control-label"></label>-->
+                                <!--<div class="controls">-->
+                                    <!--&lt;!&ndash;<a id="pre_view" href="/app/list" class="btn btn-large btn-primary" type="submit">&ndash;&gt;-->
+                                    <!--<a id="pre_view"  class="btn btn-large btn-primary" type="submit">-->
+                                        <!--保存-->
+                                    <!--</a>-->
+
+                                <!--</div>-->
+                            <!--</div>-->
                             <div class="control-group">
                                 <label class="control-label"></label>
-                                <div class="controls">
-                                    <a id="pre_view" href="/app/list" class="btn btn-large btn-primary"
-                                            type="submit">
-                                        保存
-                                    </a>
 
+                                <div class="controls">
+                                    <button class="btn btn-success" type="submit">
+                                        <!--<a href ='/app/add/step2'>-->
+                                        保存
+                                        <!--</a>-->
+                                    </button>
                                 </div>
                             </div>
 
