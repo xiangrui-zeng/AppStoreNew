@@ -163,4 +163,5 @@ var DetailList = {
                 return false;
             });
         }
+
     }}};

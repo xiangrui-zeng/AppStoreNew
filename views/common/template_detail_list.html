@@ -128,61 +128,66 @@
     <$ _.each(apps, function(app) { $>
     <tr>
         <$ _.each(cols, function(col) { $>
-        <$ var os = (app.require && app.require.os) ? app.require.os : ""; $>
+        <$ var os = (app.require && app.require.os) ? app.require.os : "No require"; $>
         <$ var osPath = "#"; $> app.appType ? $app.osImagePath(app.appType) : '#'; $>
-        <$ var device = (app.require && app.require.device) ? app.require.device : ""; $>
-        <$ var updater = app.updater ? app.updater : app.creator $>
+        <$ var device = (app.require && app.require.device) ? app.require.device : "No require"; $>
+        <$ var updater = app.update_user ? app.update_user : app.create_user $>
         <$ if(col.name == "icon") { $>
             <td style="min-width:100px;"><a href="/detaildemo">
             <!--<td style="min-width:100px;"><a href="/app/{{ app._id }}">-->
-                <img src="/picture/52bbe3a063eb733b05000010" alt="{{ _.escape(app.name) }}" style="width:100%;height:auto"/>
-                <!--<img src="/picture/{{ (app.icon && app.icon.big) ? app.icon.big: '#' }}" alt="{{ _.escape(app.name) }}" style="width:100%;height:auto"/>-->
+                <!--<img src="/picture/52bbe3a063eb733b05000010" alt="{{ _.escape(app.name) }}" style="width:100%;height:auto"/>-->
+                <img src="/picture/{{ (app.icon && app.icon.big) ? app.icon.big: '#' }}" alt="{{ _.escape(app.name) }}" style="width:100%;height:auto"/>
             </a></td>
         <$ } else if(col.name == "info") { $>
             <td style="min-width:150px;">
                 <strong>名称：</strong> {{ _.escape(app.name) }}<br>
                 <strong>バージョン：</strong> {{ _.escape(app.version) }}<br>
                 <strong>サイズ：</strong> {{ $sw.string.bytesToSize(app.size) }} <br>
-                <strong>概要：</strong> {{ _.escape(app.memo) }}<br>
             </td>
         <$ } else if(col.name == "os") { $>
             <td style="min-width:48px;">
-                <img src="/images/system/ios.png" style="width:48px;height:auto"/>
+                <img src="{{(app.appType ? $app.osImagePath(app.appType) : '#')}}" style="width:48px;height:auto"/>
                 <!--<img src="{{ app.appTypeCategory ? _.escape(app.appTypeCategory.icon) : '' }}" style="width:48px;height:auto"/>-->
             </td>
         <$ } else if(col.name == "require") { $>
             <!-- 需求 -->
             <td style="min-width:150px;">
-                <strong>OS:</strong> {{ app.appTypeCategory ? _.escape(app.appTypeCategory.name) : "" }}<br>
-                    <strong>デバイス：</strong>  {{ app.device ? _.escape(app.device.name) : "" }}<br>
+                <strong>OS:</strong> {{ (app.require && app.require.os) ? app.require.os : "No require" }}<br>
+                    <strong>デバイス：</strong>  {{ (app.require && app.require.device) ? app.require.device : "No require" }}<br>
             </td>
         <$ } else if(col.name == "status") { $>
             <!-- 状态 -->
             <td nowrap>
                 <$ if(app.status == 0) { $>
-                未公開
+                未申请
                 <$ } else if(app.status == 1) { $>
-                社内公開
+                待审核
                 <$ } else if(app.status == 2) { $>
-                社外限定公開
+                公开中
                 <$ } else if(app.status == 3) { $>
-                社外公開
+                审核未通过
                 <$ } else { $>
                 無効
                 <$ } $>
             </td>
         <$ } else if(col.name == "option") { $>
-            <td nowrap>
+            <td nowrap >
 
                 <$ if($app.canEdit(app)) { $>
-                    <a href="/app/add/step1?appId={{ app._id }}" style="float:left;margin-right:2px;"><button class="btn btn-small btn-success">編集</button></a>  <br/>
-                <$ } else { $>
-                    <a href="#" style="float:left;margin-right:2px;"><button class="btn btn-small btn-success" disabled>編集</button></a> <br/>
+                    <a href="/app/add/step1?appId={{ app._id }}" style="float:left;margin-right:2px;margin-top: 4px"><button class="btn btn-small btn-success" operation="edit">編集</button></a>  <br/>
                 <$ } $>
                 <$ if(app.downloadURL) { $>
-                    <a href="{{ _.escape(app.downloadURL) }}" style="float:right;"><button class="btn btn-small btn-success">install</button></a> <br/>
-                <$ } else { $>
-                    <a href="#" style="float:right;"><button class="btn btn-small btn-success" disabled>install</button></a>  <br/>
+                    <a href="{{ _.escape(app.downloadURL) }}" style="float:right;margin-top: 4px"><button class="btn btn-small btn-success" appId="{{ app._id }}" operation="install">install</button></a> <br/>
+                <$ } $>
+                <$ if(app.status == 0) { $>
+                    <a href="#" style="float:left;margin-right:2px;margin-top: 4px"><button class="btn btn-small btn-success" appId="{{ app._id }}" operation="apply">申请</button></a>  <br/>
+                <$ } else if(app.status == 1) { $>
+                    <a href="#" style="float:left;margin-right:2px;margin-top: 4px"><button class="btn btn-small btn-success" appId="{{ app._id }}" operation="allow">审核通过</button></a> <br/>
+                    <a href="#" style="float:left;margin-right:2px;margin-top: 4px"><button class="btn btn-small btn-success" appId="{{ app._id }}" operation="deny">审核不通过</button></a> <br/>
+                <$ } else if(app.status == 2) { $>
+                    <a href="#" style="float:left;margin-right:2px;margin-top: 4px"><button class="btn btn-small btn-success" appId="{{ app._id }}" operation="stop">无效</button></a> <br/>
+                <$ }else { $>
+                   <a href="#" style="float:left;margin-right:2px;margin-top: 4px"><button class="btn btn-small btn-success hidden">未通过</button></a> <br/>
                 <$ } $>
             </td>
 
@@ -196,9 +201,9 @@
             <td nowrap>  {{ _.escape(app.update_user) }} </td>
         <$ } else if(col.name == "update_info") { $>
             <td nowrap>
-                <strong>更新者：</strong> {{ _.escape(updater) }}<br>
+                <strong>更新者：</strong> {{ _.escape(app.update_user) }}<br>
                 <strong>更新日時：</strong> {{ smart.date(app.update_date) }}<br>
-                <strong>作成者：</strong> {{ _.escape(app.creator) }}<br>
+                <strong>作成者：</strong> {{ _.escape(app.create_user) }}<br>
                 <strong>作成日時：</strong> {{ smart.date(app.create_date) }}<br>
             </td>
         <$ } else if(col.name == "rank") { $>

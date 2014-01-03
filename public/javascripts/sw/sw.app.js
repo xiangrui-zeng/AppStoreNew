@@ -513,13 +513,8 @@ var $app = {
     }
     , canEdit: function(app) {
          var uid = smart.uid();
-         if(this.canManage(app))
-            return true;
-
          // 编辑权限
-         if(uid && app && app.permission && app.permission.edit) {
-             var result = _.find(app.permission.edit, function(uid_){ return uid == uid_; } );
-             if(result)
+         if(app.permission.edit == uid && app.status!=1 && app.status!=4) {
                 return true;
          }
          return false;

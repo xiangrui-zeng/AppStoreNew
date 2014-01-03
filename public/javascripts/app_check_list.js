@@ -29,6 +29,54 @@ $(function () {
 
 function events() {
 
+  $("#check_list_container").on("click", "a", function(event){
+    var operation = $(event.target).attr("operation")
+      , app_id = $(event.target).attr("appId");
+    if (operation == "allow") {
+      smart.dopost("/app/appAllow.json", {app: app_id}, function(err, result){
+        if (err) {
+          Alertify.log.error(i18n["js.public.error.device.operation"]); console.log(err);
+        } else {
+          Alertify.log.info(i18n["js.public.info.device.allow"]);
+          render(0, 15);
+        }
+      });
+    }
+
+    if (operation == "apply") {
+      smart.dopost("/app/checkApply.json", {app: app_id}, function(err, result){
+        if (err) {
+          Alertify.log.error(i18n["js.public.error.device.operation"]); console.log(err);
+        } else {
+          Alertify.log.info(i18n["js.public.info.device.allow"]);
+          render(0, 15);
+        }
+      });
+    }
+
+    if (operation == "deny") {
+      smart.dopost("/app/checkDeny.json", {app: app_id}, function(err, result){
+        if (err) {
+          Alertify.log.error(i18n["js.public.error.device.operation"]); console.log(err);
+        } else {
+          Alertify.log.info(i18n["js.public.info.device.allow"]);
+          render(0, 15);
+        }
+      });
+    }
+
+    if (operation == "stop") {
+      smart.dopost("/app/checkStop.json", {app: app_id}, function(err, result){
+        if (err) {
+          Alertify.log.error(i18n["js.public.error.device.operation"]); console.log(err);
+        } else {
+          Alertify.log.info(i18n["js.public.info.device.allow"]);
+          render(0, 15);
+        }
+      });
+    }
+
+  });
 
 }
 

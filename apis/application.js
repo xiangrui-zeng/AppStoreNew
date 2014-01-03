@@ -345,6 +345,46 @@ exports.list = function (req_, res_) {
     });
 };
 
+exports.checkApply = function(req, res) {
+  var handler = new context().bind(req, res);
+  log.operation("begin: apply an app.", handler.uid);
+
+  app.checkApply (handler, function(err, result) {
+    log.operation("finish: apply an app.", handler.uid);
+    response.send(res, err, result);
+  });
+}
+
+exports.checkAllow = function(req, res) {
+  var handler = new context().bind(req, res);
+  log.operation("begin: allow an app.", handler.uid);
+
+  app.checkAllow (handler, function(err, result) {
+    log.operation("finish: allow an app.", handler.uid);
+    response.send(res, err, result);
+  });
+}
+
+exports.checkDeny = function(req, res) {
+  var handler = new context().bind(req, res);
+  log.operation("begin: Deny an app.", handler.uid);
+
+  app.checkDeny (handler, function(err, result) {
+    log.operation("finish: Deny an app.", handler.uid);
+    response.send(res, err, result);
+  });
+}
+
+exports.checkStop = function(req, res) {
+  var handler = new context().bind(req, res);
+  log.operation("begin: Stop an app.", handler.uid);
+
+  app.checkStop (handler, function(err, result) {
+    log.operation("finish: Stop an app.", handler.uid);
+    response.send(res, err, result);
+  });
+}
+
 exports.getPlist = function (req_, res_) {
     console.log(req_.host);
     var app_id = req_.params.app_id;
