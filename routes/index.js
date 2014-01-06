@@ -89,7 +89,8 @@ exports.guiding = function (app) {
   });
 
   //get**.json
-  app.get('/app/info.json',function(req,res){
+  app.get('/app/info.json',function(req, res){
+
     application.getAppInfo(req, res);
   });
 
