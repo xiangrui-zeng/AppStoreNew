@@ -69,9 +69,11 @@
 
 <div class="sidebar">
   <ul class="col-nav span9 app_add" style="margin-top: 25px">
-    <li><a id="step1" href="#">待审核一览<i class="icon-ok-circle" style="display: none"></i></a></li>
-    <li><a id="step2" href="#">已审核一览<i class="icon-ok-circle" style="display: none"></i></a></li>
-   </ul>
+    <li><a id="checking" href="#" onclick="checking()">待审核一览<i class="icon-ok-circle" style="display: none"></i></a></li>
+    <li><a id="passed" href="#" onclick="passed()">已通过一览<i class="icon-ok-circle" style="display: none"></i></a></li>
+    <li><a id="rejected" href="#" onclick="rejected()">未通过一览<i class="icon-ok-circle" style="display: none"></i></a></li>
+    <li><a id="unvaild" href="#" onclick="unvalid()">无效一览<i class="icon-ok-circle" style="display: none"></i></a></li>
+  </ul>
 </div>
 
 <div class="span9">
@@ -150,12 +152,18 @@
             <label for="rejectReason">Reject Reason</label>
             <textarea  class="form-control" id="rejectReason" placeholder="Enter Reason" rows="5" style="width: 510px;"> </textarea>
           </div>
-          <div class="form-group">
-            <label for="exampleInputFile">ScreenShot Input</label>
-            <input type="file" id="exampleInputFile">
-            <p class="help-block">Example block-level help text here.</p>
+          <div class="control-group">
+            <label class="control-label">キャプチャー</label>
+            <div class="controls">
+              <img id="image_big_img" style="display:none;width:50px;height:50px;" src=""/>
+              <input type="hidden" id="image_big_file_hid" name="screenshot"/>
+              <input type="file" id="image_big_file" style="display: none" accept="image/*">
+              <button id="image_big_btn" class="btn" onclick="return false;">アップロード</button>
+                                    <span id="image_big_span" for="required" generated="true" class="help-inline"
+                                          style="">キャプチャーをアップロード</span>
+            </div>
           </div>
-          <div ><button id="confirmReject" type="submit" class="btn btn-default btn-success"><i class="icon-exclamation-sign icon-small"></i>&nbsp &nbsp Confirm Reject</button></div>
+          <div ><button id="confirmReject" class="btn btn-default btn-success"><i class="icon-exclamation-sign icon-small"></i>&nbsp &nbsp Confirm Reject</button></div>
         </form>
       </div>
     </div><!-- /.modal-content -->
@@ -163,18 +171,79 @@
 </div><!-- /.modal -->
 
 <script type="text/javascript">
+
   var list = DetailList.create();
   $(document).ready(function() {
     list.init($("#check_list_container"), {
       id_prex :  "dl_list"
       ,str    : {"loading": "Loading........"}
       ,cols   : [ "icon", "info", "os", "require", "status", "update_info", "option"]
-      ,url    : "/app/list.json?admin=1&sort=name&asc=1"
+      ,url    : "/app/list.json?admin=1&sort=name&asc=1&status=1"
     });
 
     // 初始化加载数据
     list.load();
   });
+
+  function checking(){
+    $("#check_list_container").empty();
+    $(document).ready(function() {
+      list.init($("#check_list_container"), {
+        id_prex :  "dl_list"
+        ,str    : {"loading": "Loading........"}
+        ,cols   : [ "icon", "info", "os", "require", "status", "update_info", "option"]
+        ,url    : "/app/list.json?admin=1&sort=name&asc=1&status=1"
+      });
+
+      // 初始化加载数据
+      list.load();
+    });
+  }
+
+  function passed(){
+    $("#check_list_container").empty();
+    $(document).ready(function() {
+      list.init($("#check_list_container"), {
+        id_prex :  "dl_list"
+        ,str    : {"loading": "Loading........"}
+        ,cols   : [ "icon", "info", "os", "require", "status", "update_info", "option"]
+        ,url    : "/app/list.json?admin=1&sort=name&asc=1&status=2"
+      });
+
+      // 初始化加载数据
+      list.load();
+    });
+  }
+
+  function rejected(){
+    $("#check_list_container").empty();
+    $(document).ready(function() {
+      list.init($("#check_list_container"), {
+        id_prex :  "dl_list"
+        ,str    : {"loading": "Loading........"}
+        ,cols   : [ "icon", "info", "os", "require", "status", "update_info", "option"]
+        ,url    : "/app/list.json?admin=1&sort=name&asc=1&status=3"
+      });
+
+      // 初始化加载数据
+      list.load();
+    });
+  }
+
+  function unvalid(){
+    $("#check_list_container").empty();
+    $(document).ready(function() {
+      list.init($("#check_list_container"), {
+        id_prex :  "dl_list"
+        ,str    : {"loading": "Loading........"}
+        ,cols   : [ "icon", "info", "os", "require", "status", "update_info", "option"]
+        ,url    : "/app/list.json?admin=1&sort=name&asc=1&status=4"
+      });
+
+      // 初始化加载数据
+      list.load();
+    });
+  }
 
   function loadCategory(code) {
 

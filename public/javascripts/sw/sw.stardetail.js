@@ -26,7 +26,7 @@ var appDetail = {
     $("#devicetType").html("");
     $("#gallery").html("");
     $("#lastUpdate").html("");
-    $("#copyRight").html("");
+    $("#copyright").html("");
     $("#appSize").html("");
     $("#downloadCount").html("");
   },
@@ -71,15 +71,9 @@ var appDetail = {
       // 版本号
       $('#appVersion').html("v" + app.version);
       // 评价等级
-      smart.doget("/app/comment/ranktotal.json?appId=" + self.appId, function(err, rank) {
-
-        var avg = rank ? rank.sum / rank.count : 0
-          , count = rank ? rank.count : 0;
-
-        var tmpl = $("#score-template").html();
-        $("#appScore").html(_.template(tmpl, {"avg": avg}));
-        $("#userCount").html("(" + count + ")");
-      });
+      var tmpl = $("#score-template").html();
+      $("#appScore").html(_.template(tmpl, {"avg": app.rank/(app.rankcount === 0 ? 1 : app.rankcount)}));
+      $("#userCount").html("(" + app.rankcount + ")");
       // 分类
       if (app.category && app.category.length > 0) {
         var category = [];
@@ -102,21 +96,15 @@ var appDetail = {
       // 最终更新日
       $("#lastUpdate").html(smart.date(app.updateAt).substr(2, 8));
       // 版权所有
-      // TODO
+      $("#copyright").html(app.copyright);
       // 应用大小
       $("#appSize").html(app.size);
       // 下载量
-      // TODO
+      $("#downloadCount").html(app.downloadCount);
 
-//      // 产品概要
-//      var tmpl = $("#attach-template").html()
-//        , descriptionValue = _.escape(app.description).replace(new RegExp("\r?\n", "g"), "<br />")
-//        , description = $("#description");
-//      description.html(descriptionValue);
-//      if (app.pptfile) {
-//        description.append(_.template(tmpl, {fileid: app.pptfile, filename: "説明資料"}));
-//      }
-//
+      // Release Note
+      $("#detailContent").html(_.escape(app.description).replace(new RegExp("\r?\n", "g"), "<br />"));
+
 //      // Release Note
 //      var releasenoteValue = app.release_note.replace(new RegExp("\r?\n", "g"), "<br />");
 //      $("#releasenote").html(_.escape(releasenoteValue));
