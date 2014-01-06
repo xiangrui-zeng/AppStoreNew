@@ -38,11 +38,12 @@ var App = new schema({
     , status          : {type: Number, description:"状态： 0、未申? 1、待审核 2、公开中 3、审核未通过 4、无效 ",default:0}
     , rank            : {type: Number, description:"评分分数",default: 0}
     , rankcount       : {type: Number, description:"评分次数",default: 0}
-    , bundle_identifier :{type:String, description:"plist  标识"}
-    , bundle_version  :{type:String, description:"plist"}
-    , kind            :{type:String, description:"种类"}
-    , downloadCount   :{type: Number, description:"下载数量"}
-    , notice          :{type: String, description:"审核信息"}
+    , bundle_identifier : {type:String, description:"plist  标识"}
+    , bundle_version  : {type:String, description:"plist"}
+    , kind            : {type:String, description:"种类"}
+    , downloadCount   : {type: Number, description:"下载数量"}
+    , notice          : {type: String, description:"审核信息"}
+    , noticeimage     : [String]
 });
 
 function model() {

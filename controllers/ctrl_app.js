@@ -443,7 +443,12 @@ exports.checkDeny = function (handler, callback) {
   var session_uid = handler.uid
     , appId = handler.params.app
     , code        = "";
-  app_Deny = { status:  3}
+  var data = handler.params;
+  var app_Deny = {
+    status:  3
+  , notice: data.notice
+  , noticeimage: data.noticeimage
+  }
   app.update(code, appId, app_Deny, function (err, result) {
     callback(err, result);
   });
