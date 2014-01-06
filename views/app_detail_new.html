@@ -8,8 +8,8 @@
 
   <script type="text/javascript">
     $(function () {
-      $("#appModal").modal("show");
-      //appDetail.show("52ba7ba32d9ac08409000001", false);
+      //$("#appModal").modal("show");
+      appDetail.show("52c65e6e6089aaa01f000011", false);
     });
   </script>
 
@@ -106,6 +106,13 @@
     margin-left: 10px;
   }
 
+  .textarea-large {
+    background-color: white;
+    height: 350px;
+    overflow-y: auto;
+    word-break: break-all;
+  }
+
   .comment {
     background-color: #FAFAFA;
     margin-left: 10px;
@@ -161,7 +168,7 @@
   <div class="modal-header" >
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <div class="headLeft">
-      <img id="appIcon" src="/picture/52bbe3a063eb733b05000010">
+      <img id="appIcon" src="/picture/52c65f756089aaa01f000036">
     </div>
     <div class="headMiddle">
       <h3 id="appName">Cross</h3>
@@ -174,8 +181,8 @@
         <i class="icon-star"></i>
         <i class="icon-star-half-empty"></i>
         <i class="icon-star-empty"></i>
-        <span id="userCount">(503)</span>
       </span>
+      <span id="userCount">(503)</span>
       <span class="sep"></span>
       <span id="appCategory">社交</span>
       <span class="sep"></span>
@@ -214,31 +221,34 @@
       <div class="tab-pane active" id="profile">
         <div class="profile-image">
           <div id="gallery">
-            <img src="/picture/52bbe3a063eb733b05000010">
-            <img src="/picture/52bbe3a063eb733b05000010">
-            <img src="/picture/52bbe3a063eb733b05000010">
-            <img src="/picture/52bbe3a063eb733b05000010">
-            <img src="/picture/52bbe3a063eb733b05000010">
-            <img src="/picture/52bbe3a063eb733b05000010">
+            <img src="/picture/52c65f756089aaa01f000036">
+            <img src="/picture/52c65f756089aaa01f000036">
+            <img src="/picture/52c65f756089aaa01f000036">
+            <img src="/picture/52c65f756089aaa01f000036">
+            <img src="/picture/52c65f756089aaa01f000036">
+            <img src="/picture/52c65f756089aaa01f000036">
           </div>
         </div>
         <div class="profile-info">
           <div class="itemgroup">
             <div><label>更新</label><div id="lastUpdate">13/12/27</div></div>
-            <div><label>版权所有</label><div id="copyRight">DreamArts</div></div>
+            <div><label>版权所有</label><div id="copyright">DreamArts</div></div>
             <div><label>大小</label><div id="appSize">1.6M</div></div>
             <div><label>下载量</label><div id="downloadCount">567次</div></div>
           </div>
         </div>
       </div>
       <div class="tab-pane" id="detail">
-        详细
+        <div id="detailContent" class="textarea-large">
+        </div>
       </div>
       <div class="tab-pane" id="require">
-        系统要求
+        <div id="requireContent" class="textarea-large">
+        </div>
       </div>
       <div class="tab-pane" id="update">
-        更新履历
+        <div id="updateContent" class="textarea-large">
+        </div>
       </div>
       <div class="tab-pane" id="comment">
         <div class="comment">

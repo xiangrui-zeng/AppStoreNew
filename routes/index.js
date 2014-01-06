@@ -89,8 +89,14 @@ exports.guiding = function (app) {
     res.render("app_list", {"title": "check_list", user: req.session.user});
   });
 
+  //管理、分类App一览
+  app.get('/app/upload/list', function (req, res) {
+    res.render("app_upload_list", {"title": "check_list", user: req.session.user});
+  });
+
   //get**.json
-  app.get('/app/info.json',function(req,res){
+  app.get('/app/info.json',function(req, res){
+
     application.getAppInfo(req, res);
   });
 

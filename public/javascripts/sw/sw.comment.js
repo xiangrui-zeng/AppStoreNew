@@ -9,20 +9,20 @@ var $Comment = {
   viewDidload: function(){
     var self = this;
 
-    $('#operationarea i').bind("mouseenter", function(){
+    $("#operationarea i").bind("mouseenter", function(){
       self.renderRank($(event.target).attr("rank"));
     });
 
-    $('#operationarea i').bind("mouseleave", function(){
-      self.renderRank($('#comment_rank').attr("value"));
+    $("#operationarea i").bind("mouseleave", function(){
+      self.renderRank($("#comment_rank").attr("value"));
     });
 
-    $('#operationarea i').bind("click", function(){
-      $('#comment_rank').attr("value", $(event.target).attr("rank"));
+    $("#operationarea i").bind("click", function(){
+      $("#comment_rank").attr("value", $(event.target).attr("rank"));
       self.toggleBtn();
     });
 
-    $('#comment_text').bind('keyup', function(){
+    $("#comment_text").bind("keyup", function(){
       self.toggleBtn();
     });
 
@@ -45,8 +45,7 @@ var $Comment = {
   },
 
   renderComments:function(err, data){
-    var self = this
-      , tmpl = $('#comment-template').html()
+    var tmpl = $("#comment-template").html()
       , container = $("#comment_list");
 
     var comments = data.items;
@@ -55,17 +54,19 @@ var $Comment = {
 
     _.each(comments, function(comment){
       var rank = comment.rank;
-      if(rank>5)
+      if(rank>5) {
         rank = 5;
-      if(rank<0)
+      }
+      if(rank<0) {
         rank = 0;
+      }
 
-      var rankHtml = '';
+      var rankHtml = "";
       for (var i = 0; i < 5; i++) {
         if (i<rank){
-          rankHtml += '<i class="icon-star"></i>';
+          rankHtml += "<i class='icon-star'></i>";
         } else {
-          rankHtml += '<i class="icon-star-empty"></i>';
+          rankHtml += "<i class='icon-star-empty'></i>";
         }
       }
 
@@ -75,26 +76,26 @@ var $Comment = {
         , createBy: comment.user.first
         , createAt: smart.date(comment.createAt)
         , version: comment.version
-      }));
+        }));
     });
   },
 
   postComment: function(){
     var self = this;
     // TODO 换成实际的appId和version
-    var appId = app_id;
-    var version = '1.0';
+    var appId = appDetail.appId;
+    var version = "1.0";
     var data = {
-      appId: appId
+        appId: appId
       , version: version
-      , comment: $('#comment_text').attr('value')
-      , rank: $('#comment_rank').attr('value')
-    };
+      , comment: $("#comment_text").attr("value")
+      , rank: $("#comment_rank").attr("value")
+      };
 
-    var url = '/app/comment/create.json';
+    var url = "/app/comment/create.json";
     smart.dopost(url, data, function(err, result){
-      $('#comment_text').attr('value','');
-      $('#comment_rank').attr('value',0);
+      $("#comment_text").attr("value","");
+      $("#comment_rank").attr("value",0);
       self.renderRank(0);
       self.toggleBtn();
       self.getComments(0, 20);
@@ -102,27 +103,30 @@ var $Comment = {
   },
 
   toggleBtn: function(){
-    var rank = $('#comment_rank').attr('value')
-      , comment = $('#comment_text').attr('value');
-    if (comment && comment!='') {
-      $('#comment_commit').attr('disabled', false);
+    var rank = $("#comment_rank").attr("value")
+      , comment = $("#comment_text").attr("value");
+    if (comment && comment !== "") {
+      $("#comment_commit").attr("disabled", false);
     } else {
-      $('#comment_commit').attr('disabled', true);
+      $("#comment_commit").attr("disabled", true);
     }
   },
 
   renderRank: function(rank){
-    if(rank>5)
-        rank = 5;
-      if(rank<0)
-        rank = 0;
-    _.each($('#operationarea i'), function(item){
-      if($(item).attr('rank')>rank){
-        $(item).removeClass('icon-star');
-        $(item).addClass('icon-star-empty');
+    if (rank > 5) {
+      rank = 5;
+    }
+    if (rank < 0) {
+      rank = 0;
+    }
+
+    _.each($("#operationarea i"), function (item) {
+      if ($(item).attr("rank") > rank) {
+        $(item).removeClass("icon-star");
+        $(item).addClass("icon-star-empty");
       } else {
-        $(item).removeClass('icon-star-empty');
-        $(item).addClass('icon-star');
+        $(item).removeClass("icon-star-empty");
+        $(item).addClass("icon-star");
       }
     });
   },
