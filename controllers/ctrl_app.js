@@ -41,61 +41,11 @@ exports.addimage = function(handler, callback) {
 };
 
 exports.getAppInfoById = function (handler, callback_) {
-
   var params = handler.params;
-
   app.find(params.app_id, function (err, docs) {
-    var proxy = new EventProxy();
-    var proxy1 = new EventProxy();
-    var proxy2 = new EventProxy();
-    var proxy3 = new EventProxy();
-    var proxy4 = new EventProxy();
-    var admin_list = [];
-    var edit_list = [];
-    var view_list = [];
-    var download_list = [];
-    var app_info = docs;
     console.log(docs);
-    proxy.after('permission_ready', 4, function () {
-      return callback_(null, app_info);
-    });
-    proxy1.after('admin_ready', docs.permission.admin.length, function () {
-      app_info.admin_list = admin_list;
-      proxy.emit('permission_ready');
-    });
-
-    proxy2.after('edit_ready', docs.permission.edit.length, function () {
-      app_info.edit_list = edit_list;
-      proxy.emit('permission_ready');
-    });
-
-    proxy3.after('view_ready', docs.permission.view.length, function () {
-      app_info.view_list = view_list;
-      proxy.emit('permission_ready');
-    });
-
-    proxy4.after('download_ready', docs.permission.download.length, function () {
-      app_info.download_list = download_list;
-      proxy.emit('permission_ready');
-    });
-    proxy.fail(callback_);
-    proxy1.fail(callback_);
-    proxy2.fail(callback_);
-    proxy3.fail(callback_);
-    proxy4.fail(callback_);
-
-    //获取允许下载列表
-//    docs.permission.download.forEach(function (id, i) {
-//      var tempHandler = new context().create(handler.uid, handler.code, handler.lang);
-//      tempHandler.addParams("uid", id);
-//      user.get(tempHandler, function (err, user) {
-//        download_list.push({id: id, name: user.first});
-//        proxy4.emit('download_ready');
-//      });
-//    });
+    callback_(err,docs);
   });
-
-
 };
 
 exports.downloadedList = function(uid_, callback_){
@@ -233,7 +183,6 @@ exports.list = function(sort_,asc_,category_, start_, count_, status_,callback_)
 //          , {'status': 1}           // 1、社内公开
 //      ];
 //  }
-
   if(category_) {
       if(categorory.isAppTypes(category_))
         condition.appType = category_;
@@ -375,7 +324,6 @@ exports.update = function (handler, callback) {
     , pptfile = handler.params.pptfile
     , downloadId = handler.params.downloadId
     , editstep = 2
-    , plistdownloadId = handler.params.plistDownloadId;
   var app_update = {
     update_date : new Date()
    ,update_user : create_user
