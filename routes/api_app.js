@@ -5,28 +5,10 @@ var application = require('../api/application')
   , category = require('../api/category');
 
 exports.guiding = function(app){
-//  app.post('/app/create.json', function(req, res){
-//    application.createApp(req, res);
-//  });
-//  app.post('/app/create/step1.json', function(req, res){
-//    application.createAppStep1(req, res);
-//  });
-//  app.post('/app/update/step1.json', function(req, res){
-//    application.updateAppStep1(req, res);
-//  });
-//
-//  app.post('/app/create/step2.json', function(req, res){
-//    application.createAppStep2(req, res);
-//  });
-
-  app.get('/app/info.json',function(req,res){
-    application.getAppInfo(req,res);
-  });
 
   app.get('/app/search.json', function(req, res){
     application.search(req, res);
   });
-
 
   app.get('/app/downloaded/list.json', function(req, res){
     application.downloadedList(req, res);

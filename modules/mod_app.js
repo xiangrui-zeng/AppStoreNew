@@ -51,10 +51,10 @@ function model() {
 }
 
 exports.create = function (app_, callback_) {
-    var app = model();
-    new app(app_).save(function (err, result) {
-        callback_(err, result);
-    });
+  var app = model();
+  new app(app_).save(function (err, result) {
+    callback_(err, result);
+  });
 };
 //更新评分
 exports.updateRank = function (appId, rank, rankCount, callback_) {
@@ -64,7 +64,7 @@ exports.updateRank = function (appId, rank, rankCount, callback_) {
     });
 };
 //更新下载数量
-exports.updateDownloadCount = function(appId_, dlCount_, callback_) {
+exports.updateDownloadCount = function (appId_, dlCount_, callback_) {
   var app = model();
   app.findByIdAndUpdate(appId_, { downloadCount: dlCount_ }, function (err, result) {
     callback_(err, result);
@@ -78,23 +78,23 @@ exports.find = function (appId, callback_) {
     });
 };
 
-exports.getAppsByIds = function(ids_, callback_){
+exports.getAppsByIds = function (ids_, callback_) {
   var app = model();
 
-  app.find({'_id': {$in: ids_}}).exec(function(err, result){
+  app.find({'_id': {$in: ids_}}).exec(function (err, result) {
     callback_(err, result);
   });
 };
 
 exports.list = function (condition_, options_, callback_) {
   var app = model();
-    app.find(condition_)
+  app.find(condition_)
     .skip(options_.start || 0)
     .limit(options_.limit || 20)
     .sort({update_date: -1})
-    .exec(function(err, result){
-      app.count(condition_).exec(function(err, count){
-        callback_(err,{total:count,items:result});
+    .exec(function (err, result) {
+      app.count(condition_).exec(function (err, count) {
+        callback_(err, {total: count, items: result});
       });
     });
 };
@@ -106,11 +106,11 @@ exports.list = function (condition_, options_, callback_) {
  * @param app更新状态
  * @param callback 返回更新后的状态
  */
-exports.update = function(code, appId, update, callback) {
+exports.update = function (code, appId, update, callback) {
 
   var App = model(code);
 
-  App.findByIdAndUpdate(appId+"", update, function(err, result) {
+  App.findByIdAndUpdate(appId, update, function (err, result) {
     callback(err, result);
   });
 };
