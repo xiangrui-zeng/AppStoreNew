@@ -177,42 +177,18 @@ exports.search = function(uid_, keyword_, start_, count_, category_, callback_){
     });
   };
   tasks.push(task_getAppList);
-
-  var task_getCreator = function(result, cb){
-    async.forEach(result.items, function(app, cb_){
-      user.at(app.create_user, function(err, creator){
-        app._doc.creator = creator;
-        cb_(err);
-      });
-    }, function(err){
-      cb(err, result);
-    });
+  var task_other = function(result, cb){
+	async.forEach(result.items, function(app, cb_){
+		app._doc.appTypeCategory = categorory.getByCode(app.appType); // 追加系统分类
+		if(app.require && app.require.device)
+			app._doc.device = devices.getDevice(app.require.device);  // 追加设备
+		cb_(null, result);
+	}, function(err){
+		cb(err, result);
+	});
   };
-  tasks.push(task_getCreator);
+  tasks.push(task_other);
 
-  var task_getUpdater = function(result, cb){
-    async.forEach(result.items, function(app, cb_){
-      user.at(app.update_user, function(err, updater){
-        app._doc.updater = updater;
-        cb_(err);
-      });
-    }, function(err){
-      cb(err, result);
-    });
-  };
-  tasks.push(task_getUpdater);
-
-    var task_other = function(result, cb){
-        async.forEach(result.items, function(app, cb_){
-            app._doc.appTypeCategory = categorory.getByCode(app.appType); // 追加系统分类
-            if(app.require && app.require.device)
-                app._doc.device = devices.getDevice(app.require.device);  // 追加设备
-            cb_(null, result);
-        }, function(err){
-            cb(err, result);
-        });
-    };
-    tasks.push(task_other);
 
   async.waterfall(tasks,function(err,result){
     return callback_(err, result);

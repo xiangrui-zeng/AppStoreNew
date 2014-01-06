@@ -6,6 +6,7 @@ var log         = smart.framework.log
   , file        = require('../apis/file')
   , category    = require('../apis/category')
   , application = require('../apis/application')
+  , categorory  = require('../modules/mod_category')
   , apiComment  = require('./api_comment');
 
 /*
@@ -160,6 +161,15 @@ exports.guiding = function (app) {
 
   app.get('/app/detail/list', function (req, res) {
     res.render("app_detail_list", {"title": "app_list", user: req.session.user});
+  });
+
+  // 检索结果一览
+  app.get('/list/search', function (req, res) {
+    res.render("list_search", { title: "检索结果一览", bright: "home", user: req.session.user
+      ,keywords: req.query.keywords
+      ,categories: categorory.getCategories()
+      ,apptypes: categorory.getAppTypes()
+      });
   });
 };
 
