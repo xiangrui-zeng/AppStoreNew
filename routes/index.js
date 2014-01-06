@@ -90,7 +90,12 @@ exports.guiding = function (app) {
 
   //管理、分类App一览
   app.get('/app/upload/list', function (req, res) {
-    res.render("app_upload_list", {"title": "check_list", user: req.session.user});
+    res.render("app_upload_list", {"title": "upload_list", user: req.session.user});
+  });
+
+  //管理、分类App一览
+  app.get('/app/manage/list', function (req, res) {
+    res.render("app_manage_list", {"title": "manage_list", user: req.session.user});
   });
 
   //get**.json
