@@ -57,9 +57,9 @@ exports.create = function (app_, callback_) {
     });
 };
 //更新评分
-exports.updateRank = function (appId, rank, callback_) {
+exports.updateRank = function (appId, rank, rankCount, callback_) {
     var app = model();
-    app.findByIdAndUpdate(appId, { rank: rank }, function (err, result) {
+    app.findByIdAndUpdate(appId, { rank: rank, rankcount: rankCount }, function (err, result) {
         callback_(err, result);
     });
 };
@@ -73,7 +73,6 @@ exports.updateDownloadCount = function(appId_, dlCount_, callback_) {
 
 exports.find = function (appId, callback_) {
     var app = model();
-    console.log("exports.find = funct   %s",appId);
     app.findOne({_id:appId}, function (err, result) {
         callback_(err, result);
     });

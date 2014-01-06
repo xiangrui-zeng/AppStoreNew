@@ -43,15 +43,16 @@ exports.add = function (handler, callback){
   };
   tasks.push(taskCreateComment);
 
-  var taskGetRankAvg = function(cb){
-    modComment.getRankAvg(params.appId, function(err, rank){
+  var taskGetRank = function(cb){
+    modComment.getRankTotal(params.appId, function(err, rank){
       cb(err, rank);
     });
   };
-  tasks.push(taskGetRankAvg);
+  tasks.push(taskGetRank);
 
   var taskUpdateAppRank = function(rank, cb){
-    modApp.updateRank(params.appId, rank.rankAvg, function(err){
+    var averageRank = rank.count === 0 ? 0 : (rank.sum/rank.count).toFixed(1) * 1;
+    modApp.updateRank(params.appId, averageRank, rank.count, function(err){
       cb(err);
     });
   };
@@ -86,9 +87,6 @@ exports.getList = function(handler, callback){
       , version: params.version
       };
     modComment.getList(condition, params.start, params.limit, function(err, result){
-
-      console.log("getCommentList=" + JSON.stringify(result));
-
       cb(err, result);
     });
   };

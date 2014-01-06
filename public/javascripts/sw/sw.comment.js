@@ -27,7 +27,9 @@ var $Comment = {
     });
 
     $("#comment_commit").bind("click", function(){
-      self.postComment();
+      if(!appDetail.isPreview) {
+        self.postComment();
+      }
     });
 
     self.getComments(0, 20);
@@ -35,9 +37,8 @@ var $Comment = {
 
   getComments: function(start,count){
     var self = this;
-    // TODO 换成实际的appId和version
     var appId = appDetail.appId;
-    var version = "1.0";
+    var version = appDetail.appVersion;
     var url = "/app/comment/list.json?appId=" + appId + "&version=" + version + "&start=" + start + "&count=" + count;
     smart.doget(url, function(err,data){
       self.renderComments(err,data);
@@ -82,9 +83,8 @@ var $Comment = {
 
   postComment: function(){
     var self = this;
-    // TODO 换成实际的appId和version
     var appId = appDetail.appId;
-    var version = "1.0";
+    var version = appDetail.appVersion;
     var data = {
         appId: appId
       , version: version

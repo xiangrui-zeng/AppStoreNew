@@ -4,12 +4,13 @@
   <title>应用详细</title>
   <% include common/required.html %>
 
-  <input type="hidden" id="timezone" name="timezone" value="GMT+0800">
+  <input type="hidden" id="_csrf" name="_csrf" value="<%= csrftoken %>" />
+  <input type="hidden" id="userid" name="userid" value="<%= user._id %>" />
+  <input type="hidden" id="timezone" name="timezone" value="<%= user.timezone %>" />
 
   <script type="text/javascript">
     $(function () {
-      //$("#appModal").modal("show");
-      appDetail.show("52c65e6e6089aaa01f000011", false);
+      appDetail.show("52c65e6e6089aaa01f000011", true);
     });
   </script>
 
@@ -168,33 +169,28 @@
   <div class="modal-header" >
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <div class="headLeft">
-      <img id="appIcon" src="/picture/52c65f756089aaa01f000036">
+      <img id="appIcon" src="">
     </div>
     <div class="headMiddle">
-      <h3 id="appName">Cross</h3>
+      <h3 id="appName"></h3>
       <br>
-      <span id="appVersion">v1.0</span>
+      <span id="appVersion"></span>
       <span class="sep"></span>
       <span id="appScore">
-        <i class="icon-star"></i>
-        <i class="icon-star"></i>
-        <i class="icon-star"></i>
-        <i class="icon-star-half-empty"></i>
-        <i class="icon-star-empty"></i>
       </span>
-      <span id="userCount">(503)</span>
+      <span id="userCount"></span>
       <span class="sep"></span>
-      <span id="appCategory">社交</span>
+      <span id="appCategory"></span>
       <span class="sep"></span>
-      <span id="devicetType">iPhone</span>
+      <span id="devicetType"></span>
     </div>
     <div class="headRight">
-      <button class="btn btn-default btn-success">
+      <a id="downloadBtn" class="btn btn-default btn-success">
         <i class="icon-plus"></i>&nbsp 安装
-      </button>
-      <button class="btn btn-default btn-success">
+      </a>
+      <a id="shareBtn" class="btn btn-default btn-success">
         <i class="icon-share-alt"></i>&nbsp 分享
-      </button>
+      </a>
     </div>
   </div>
   <div id="modal-body" class="modal-body" >
@@ -221,20 +217,14 @@
       <div class="tab-pane active" id="profile">
         <div class="profile-image">
           <div id="gallery">
-            <img src="/picture/52c65f756089aaa01f000036">
-            <img src="/picture/52c65f756089aaa01f000036">
-            <img src="/picture/52c65f756089aaa01f000036">
-            <img src="/picture/52c65f756089aaa01f000036">
-            <img src="/picture/52c65f756089aaa01f000036">
-            <img src="/picture/52c65f756089aaa01f000036">
           </div>
         </div>
         <div class="profile-info">
           <div class="itemgroup">
-            <div><label>更新</label><div id="lastUpdate">13/12/27</div></div>
-            <div><label>版权所有</label><div id="copyright">DreamArts</div></div>
-            <div><label>大小</label><div id="appSize">1.6M</div></div>
-            <div><label>下载量</label><div id="downloadCount">567次</div></div>
+            <div><label>更新</label><div id="lastUpdate"></div></div>
+            <div><label>版权所有</label><div id="copyright"></div></div>
+            <div><label>大小</label><div id="appSize"></div></div>
+            <div><label>下载量</label><div id="downloadCount"></div></div>
           </div>
         </div>
       </div>
@@ -267,56 +257,6 @@
           </div>
 
           <ul id="comment_list">
-            <li>
-              <img class="portrait" src="/images/user.png">
-              <span>temp</span>
-              &nbsp;
-              <span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></span>
-              &nbsp;
-              <span>2013/12/27 16:41</span>
-              <span>( v1.0 )</span>
-              <p>的发送到范德萨</p>
-            </li>
-            <li>
-              <img class="portrait" src="/images/user.png">
-              <span>temp</span>
-              &nbsp;
-              <span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></span>
-              &nbsp;
-              <span>2013/12/27 16:41</span>
-              <span>( v1.0 )</span>
-              <p>的发送到范德萨</p>
-            </li>
-            <li>
-              <img class="portrait" src="/images/user.png">
-              <span>temp</span>
-              &nbsp;
-              <span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></span>
-              &nbsp;
-              <span>2013/12/27 16:41</span>
-              <span>( v1.0 )</span>
-              <p>的发送到范德萨</p>
-            </li>
-            <li>
-              <img class="portrait" src="/images/user.png">
-              <span>temp</span>
-              &nbsp;
-              <span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></span>
-              &nbsp;
-              <span>2013/12/27 16:41</span>
-              <span>( v1.0 )</span>
-              <p>的发送到范德萨</p>
-            </li>
-            <li>
-              <img class="portrait" src="/images/user.png">
-              <span>temp</span>
-              &nbsp;
-              <span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></span>
-              &nbsp;
-              <span>2013/12/27 16:41</span>
-              <span>( v1.0 )</span>
-              <p>的发送到范德萨</p>
-            </li>
           </ul>
         </div>
       </div>
@@ -353,6 +293,14 @@
     <span>(&nbsp;{{version}}&nbsp;)</span>
     <p>{{comment}}</p>
   </li>
+</script>
+
+<script type="text/template" id="require-template">
+  <h5>系统要求</h5>
+  {{requireOS}}
+  <br><br>
+  <h5>硬件要求</h5>
+  {{requireDevice}}
 </script>
 
 <script src="/javascripts/sw/sw.comment.js"></script>

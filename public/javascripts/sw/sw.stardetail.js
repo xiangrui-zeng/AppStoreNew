@@ -3,6 +3,7 @@
 var appDetail = {
 
   appId: null,
+  appVersion: null,
   isPreview: null,
 
   show: function(appId, isPreview) {
@@ -15,8 +16,6 @@ var appDetail = {
   },
 
   clear: function() {
-    $Comment.clear();
-
     $("#appIcon").attr("src", null);
     $("#appName").html("");
     $("#appVersion").html("");
@@ -29,17 +28,10 @@ var appDetail = {
     $("#copyright").html("");
     $("#appSize").html("");
     $("#downloadCount").html("");
+    $Comment.clear();
   },
 
   initialize: function() {
-    // 初始化评价框
-    $Comment.initialize();
-
-    // 获取分类，渲染画面
-    this.fetchCategory();
-  },
-
-  fetchCategory: function() {
     var self = this;
     smart.doget("/app/category.json", function(err, category){
 
@@ -63,6 +55,8 @@ var appDetail = {
     // 获取详细信息，显示
     smart.doget("/app/info.json?app_id=" + self.appId, function(err, app) {
 
+      self.appVersion = app.version;
+
       // 头部
       // 图标
       $("#appIcon").attr("src", "/picture/" + app.icon.small);
@@ -71,8 +65,8 @@ var appDetail = {
       // 版本号
       $('#appVersion').html("v" + app.version);
       // 评价等级
-      var tmpl = $("#score-template").html();
-      $("#appScore").html(_.template(tmpl, {"avg": app.rank/(app.rankcount === 0 ? 1 : app.rankcount)}));
+      var scoreTmpl = $("#score-template").html();
+      $("#appScore").html(_.template(scoreTmpl, {"avg": app.rank/(app.rankcount === 0 ? 1 : app.rankcount)}));
       $("#userCount").html("(" + app.rankcount + ")");
       // 分类
       if (app.category && app.category.length > 0) {
@@ -88,9 +82,9 @@ var appDetail = {
       // 概要
       // 截图
       var gallery = $("#gallery");
-      var tmpl = $("#gallery-template").html();
+      var galleryTmpl = $("#gallery-template").html();
       _.each(app.screenshot, function(imgId){
-        gallery.append(_.template(tmpl, {"imgId": imgId}));
+        gallery.append(_.template(galleryTmpl, {"imgId": imgId}));
       });
 
       // 最终更新日
@@ -101,29 +95,26 @@ var appDetail = {
       $("#appSize").html(app.size);
       // 下载量
       $("#downloadCount").html(app.downloadCount);
-
-      // Release Note
+      // 详细信息
       $("#detailContent").html(_.escape(app.description).replace(new RegExp("\r?\n", "g"), "<br />"));
+      // 系统要求
+      var requireInfo = _.template($("#require-template").html(), {
+          requireOS: _.escape(app.require.os)
+        , requireDevice: _.escape(app.require.device)
+        });
+      $("#requireContent").html(requireInfo);
+      // 更新履历
+      $("#updateContent").html(_.escape(app.release_note).replace(new RegExp("\r?\n", "g"), "<br />"));
 
-//      // Release Note
-//      var releasenoteValue = app.release_note.replace(new RegExp("\r?\n", "g"), "<br />");
-//      $("#releasenote").html(_.escape(releasenoteValue));
-//
-//      // 支持
-//      var supportValue = app.support.replace(new RegExp("\r?\n", "g"), "<br />");
-//      $("#support").html(_.escape(supportValue));
-//
-//      // 注意事项
-//      var precautionsValue = app.notice.replace(new RegExp("\r?\n", "g"), "<br />");
-//      $("#precautions").html(_.escape(precautionsValue));
+      // 初始化评价框
+      $Comment.initialize();
 
-      // 下载按钮
-//      var download = $("#download");
-//      if (app.downloadURL) {
-//        download.attr("href", app.downloadURL);
-//      } else {
-//        download.hide();
-//      }
+      if(!self.isPreview) {
+        // 安装按钮
+        $("#downloadBtn").attr("href", app.downloadURL);
+        // 分享按钮
+        $("#shareBtn").attr("href", "mailto:");
+      }
     });
   },
 
