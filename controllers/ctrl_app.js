@@ -219,7 +219,7 @@ exports.search = function(uid_, keyword_, start_, count_, category_, callback_){
   });
 };
 
-exports.list = function(sort_,asc_,category_, start_, count_, callback_){
+exports.list = function(sort_,asc_,category_, start_, count_, status_,callback_){
   var condition = {};
 //  if (admin_) {
 //    condition.$or = [
@@ -239,6 +239,10 @@ exports.list = function(sort_,asc_,category_, start_, count_, callback_){
         condition.appType = category_;
       else
         condition.category = { $elemMatch: {$in: [category_]} };
+  }
+  if(status_)
+  {
+    condition.status = status_;
   }
 
   var options = {
@@ -359,6 +363,38 @@ exports.renderAppStep = function(req, res, step) {
         _renderAppStep(req, res, step, appId);
     }
 };
+
+exports.update = function (handler, callback) {
+  var session_uid = handler.uid
+    , appId = handler.params._id
+    , code  = handler.params.code
+    , create_user = handler.uid
+    , icon_big = handler.params['icon.big']
+    , icon_small = handler.params['icon.small']
+    , screenshot = handler.params.screenshot
+    , pptfile = handler.params.pptfile
+    , downloadId = handler.params.downloadId
+    , editstep = 2
+    , plistdownloadId = handler.params.plistDownloadId;
+  var app_update = {
+    update_date : new Date()
+   ,update_user : create_user
+   , icon :{
+      big: icon_big
+      ,small :icon_small
+
+    }
+  , screenshot : screenshot
+  , pptfile : pptfile
+  , downloadId : downloadId
+  , editstep : editstep
+  , plistDownloadId : ""
+  };
+
+  app.update(code, appId, app_update, function (err, result) {
+    callback(err, result);
+  });
+}
 
 exports.checkApply = function (handler, callback) {
   var session_uid = handler.uid

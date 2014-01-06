@@ -105,79 +105,13 @@ exports.createAppStep1 = function (req, res) {
 };
 //
 exports.createAppStep2 = function (req, res) {
-  // console.log("icon_big"+req.body.iconbig);
-  var creator = req.session.user._id;
-  var appId = req.body._id;
-  var icon_big = req.body['iconbig'];
-  var icon_small = req.body['iconsmall'];
-  var screenshot = req.body.screenshot;
-  var pptfile = req.body.pptfile;
-  //var video = req.body.video;
-  var downloadId = req.body.downloadId;
-  //var plistDownloadId = req.body.plistDownloadId;
-  var editstep = 2;
-  console.log(icon_big.length);
-  console.log(icon_small.length);
-  console.log(screenshot.length);
-  if (icon_small.length == 0) {
-    //return res.send(json.dataSchema({status: 300, error: "没有上传小图标"}));
-    // return response.send(json.dataSchema({status: 300, error: "没有上传小图标"}));
-  }
-  if (icon_big.length == 0) {
-    //return res.send(json.dataSchema({status: 300, error: "没有上传大图标"}));
-    //  response.send(json.dataSchema({status: 300, error: "没有上传大图标"}));
-  }
-  if (screenshot.length == 0) {
-    //return res.send(json.dataSchema({status: 300, error: "没有上传素材图片"}));
-    // response.send(json.dataSchema({status: 300, error: "没有上传素材图片"}));
-  }
-  app.findAppInfoById(appId, function (err, docs) {
-    // check编辑权限
-    if (!apputil.isCanEdit(docs, req_.session.user._id))
-      return json.sendError(res_, new starerrors.NoEditError);
+  var handler = new context().bind(req, res);
+  log.operation("begin: create an app step2.", handler.uid);
 
-    docs.update_date = new Date();
-    docs.update_user = creator;
-    docs.icon.big = icon_big;
-    docs.icon.small = icon_small;
-    docs.screenshot = screenshot;
-    docs.pptfile = pptfile;
-    docs.video = video;
-    docs.downloadId = downloadId;
-    docs.plistDownloadId = plistDownloadId;
-    console.log(docs.editstep);
-    if (docs.editstep < editstep) {
-      console.log("set step   %s", editstep);
-      docs.editstep = editstep;
-    }
-    if (!docs.editstep) {
-      docs.editstep = editstep;
-    }
-
-    docs.save(function (err_, result) {
-      if (err_) {
-        return res_.send(json.errorSchema(err_.code, err_.message));
-      } else {
-        return res_.send(json.dataSchema(result));
-      }
-    });
+  app.update (handler, function(err, result) {
+    log.operation("finish: create an app step2.", handler.uid);
+    response.send(res, err, result);
   });
-//  var appdocs = {};
-//  appdocs.update_date = new Date();
-//  appdocs.update_user = creator;
-//  appdocs.icon.big = icon_big;
-//  console.log("icon_big" + icon_big);
-//  appdocs.icon.small = icon_small;
-//  appdocs.screenshot = screenshot;
-//  appdocs.pptfile = pptfile;
-//  appdocs.video = video;
-//  appdocs.downloadId = downloadId;
-//  appdocs.plistDownloadId = plistDownloadId;
-//  appdocs.editstep = editstep;
-//  console.log(appdocs.editstep);
-//  docs.save(function (err, result) {
-//    response.send(res, err, result);
-//  });
 };
 
 // uploud image
@@ -201,7 +135,6 @@ exports.saveimage = function (req, res) {
   handler.addParams("files", tmpFiles);
 
   app.addimage(handler, function (err, result) {
-    console.log(result + "_______________________________")
     log.operation("finish: upload an item.", handler.uid);
     response.send(res, err, result);
   });
@@ -346,8 +279,9 @@ exports.list = function (req_, res_) {
   //var uid = req_.session.user._id;
   //var admin = req_.query.admin ? true : false;
   var category = req_.query.category;
+  var status = req_.query.status;
 
-  app.list(sort, asc, category, start, count, function (err, result) {
+  app.list(sort, asc, category, start, count, status ,function (err, result) {
     setDownloadURL(req_, result);
     response.send(res_, err, result);
   });

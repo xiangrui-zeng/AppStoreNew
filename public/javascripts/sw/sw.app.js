@@ -315,7 +315,7 @@ var $app = {
     },
     didUploadPPTFile: function (status, input, fid) {
         console.log(fid);
-        var fid = fid.data[0].name;
+        var fid = fid.data[0]._id;
         $("#pptfile_hid").val(fid);
         $("#pptfile_hid").attr("readonly", "readonly");
         $("#pptfile_hid").after(fid);
@@ -454,8 +454,9 @@ var $app = {
 
     },
     didUploadSmallFile: function (status, input, fid) {
-        console.log(fid);
+        console.log(fid+"dsdsdsdsds");
         var fid = fid.data[0]._id;
+      console.log(fid)
         $("#icon_small_file_hid").val(fid);
         $("#icon_small_img").css("display", "block");
         $("#icon_small_btn").css("display", "none");
@@ -501,11 +502,11 @@ var $app = {
         window.location.href = "/app/" + msg.data._id;
     }
     , osImagePath: function(os) {
-         if($sw.string.equalsIgnoreCase("ios", os)) {
+         if($sw.string.equalsIgnoreCase("10001", os)) {
              return "/images/system/ios.png";
-         } else if($sw.string.equalsIgnoreCase("android", os)) {
+         } else if($sw.string.equalsIgnoreCase("10002", os)) {
              return "/images/system/android.png";
-         } else if($sw.string.equalsIgnoreCase("web", os)) {
+         } else if($sw.string.equalsIgnoreCase("10003", os)) {
              return "";// TODO:
          } else if($sw.string.equalsIgnoreCase("wp", os)) {
              return "";// TODO:

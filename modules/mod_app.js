@@ -91,7 +91,7 @@ exports.list = function (condition_, options_, callback_) {
     app.find(condition_)
     .skip(options_.start || 0)
     .limit(options_.limit || 20)
-    .sort(options_.sort)
+    .sort({update_date: -1})
     .exec(function(err, result){
       app.count(condition_).exec(function(err, count){
         callback_(err,{total:count,items:result});
@@ -110,7 +110,7 @@ exports.update = function(code, appId, update, callback) {
 
   var App = model(code);
 
-  App.findByIdAndUpdate(appId, update, function(err, result) {
+  App.findByIdAndUpdate(appId+"", update, function(err, result) {
     callback(err, result);
   });
 };

@@ -81,7 +81,7 @@ function validateCallback(form, callback, fn,confirmMsg) {
     var f = fn($form.serializeArray());
 
     var csrftoken = $('#_csrf').val();
-    console.log(csrftoken);
+    console.log(fn($form.serializeArray()));
     var data =  (fn?fn($form.serializeArray()):{
         "_csrf": csrftoken,
         "form": $form.serializeArray()
