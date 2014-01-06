@@ -280,8 +280,9 @@ exports.list = function (req_, res_) {
   //var admin = req_.query.admin ? true : false;
   var category = req_.query.category;
   var status = req_.query.status;
+  var create_user = req_.query.create_user;
 
-  app.list(sort, asc, category, start, count, status ,function (err, result) {
+  app.list(sort, asc, category, start, count, status , create_user, function (err, result) {
     setDownloadURL(req_, result);
     response.send(res_, err, result);
   });

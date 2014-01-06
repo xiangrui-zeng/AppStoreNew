@@ -58,7 +58,6 @@ function events() {
             Alertify.log.error(i18n["js.public.error.device.operation"]); console.log(err);
           } else {
             Alertify.log.info(i18n["js.public.info.device.allow"]);
-            render(0, 15);
           }
         });
       });

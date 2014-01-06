@@ -219,7 +219,7 @@ exports.search = function(uid_, keyword_, start_, count_, category_, callback_){
   });
 };
 
-exports.list = function(sort_,asc_,category_, start_, count_, status_,callback_){
+exports.list = function(sort_,asc_,category_, start_, count_, status_, create_user_,callback_){
   var condition = {};
 //  if (admin_) {
 //    condition.$or = [
@@ -240,6 +240,11 @@ exports.list = function(sort_,asc_,category_, start_, count_, status_,callback_)
       else
         condition.category = { $elemMatch: {$in: [category_]} };
   }
+  if(create_user_)
+  {
+    condition.create_user = create_user_;
+  }
+
   if(status_)
   {
     condition.status = status_;
@@ -397,28 +402,25 @@ exports.update = function (handler, callback) {
 }
 
 exports.checkApply = function (handler, callback) {
-  var session_uid = handler.uid
-    , appId = handler.params.app
+  var appId = handler.params.app
     , code        = "";
-  app_apply = { status:  1}
+  var app_apply = { status:  1}
   app.update(code, appId, app_apply, function (err, result) {
     callback(err, result);
   });
 }
 
 exports.checkAllow = function (handler, callback) {
-  var session_uid = handler.uid
-    , appId = handler.params.app
+  var appId = handler.params.app
     , code        = "";
-  app_allow = { status:  2}
+  var app_allow = { status:  2}
   app.update(code, appId, app_allow, function (err, result) {
     callback(err, result);
   });
 }
 
 exports.checkDeny = function (handler, callback) {
-  var session_uid = handler.uid
-    , appId = handler.params.app
+  var appId = handler.params.app
     , code        = "";
   var data = handler.params;
   var app_Deny = {
@@ -432,10 +434,9 @@ exports.checkDeny = function (handler, callback) {
 }
 
 exports.checkStop = function (handler, callback) {
-  var session_uid = handler.uid
-    , appId = handler.params.app
+  var appId = handler.params.app
     , code        = "";
-  app_stop = { status:  4}
+  var app_stop = { status:  4}
   app.update(code, appId, app_stop, function (err, result) {
     callback(err, result);
   });
