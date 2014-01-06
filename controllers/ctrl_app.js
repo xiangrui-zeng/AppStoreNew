@@ -60,22 +60,22 @@ exports.getAppInfoById = function (handler, callback_) {
       return callback_(null, app_info);
     });
     proxy1.after('admin_ready', docs.permission.admin.length, function () {
-      app_info.admin_list = admin_list;
+      app_info._doc.admin_list = admin_list;
       proxy.emit('permission_ready');
     });
 
     proxy2.after('edit_ready', docs.permission.edit.length, function () {
-      app_info.edit_list = edit_list;
+      app_info._doc.edit_list = edit_list;
       proxy.emit('permission_ready');
     });
 
     proxy3.after('view_ready', docs.permission.view.length, function () {
-      app_info.view_list = view_list;
+      app_info._doc.view_list = view_list;
       proxy.emit('permission_ready');
     });
 
     proxy4.after('download_ready', docs.permission.download.length, function () {
-      app_info.download_list = download_list;
+      app_info._doc.download_list = download_list;
       proxy.emit('permission_ready');
     });
     proxy.fail(callback_);
@@ -84,15 +84,38 @@ exports.getAppInfoById = function (handler, callback_) {
     proxy3.fail(callback_);
     proxy4.fail(callback_);
 
-    //获取允许下载列表
-//    docs.permission.download.forEach(function (id, i) {
-//      var tempHandler = new context().create(handler.uid, handler.code, handler.lang);
-//      tempHandler.addParams("uid", id);
-//      user.get(tempHandler, function (err, user) {
-//        download_list.push({id: id, name: user.first});
-//        proxy4.emit('download_ready');
-//      });
-//    });
+    docs.permission.admin.forEach(function (id) {
+      var tempHandler = new context().create(handler.uid, handler.code, handler.lang);
+      tempHandler.addParams("uid", id);
+      user.get(tempHandler, function (err, user) {
+        admin_list.push({id: id, name: user.first});
+        proxy1.emit('admin_ready');
+      });
+    });
+    docs.permission.edit.forEach(function (id) {
+      var tempHandler = new context().create(handler.uid, handler.code, handler.lang);
+      tempHandler.addParams("uid", id);
+      user.get(tempHandler, function (err, user) {
+        edit_list.push({id: id, name: user.first});
+        proxy2.emit('edit_ready');
+      });
+    });
+    docs.permission.view.forEach(function (id) {
+      var tempHandler = new context().create(handler.uid, handler.code, handler.lang);
+      tempHandler.addParams("uid", id);
+      user.get(tempHandler, function (err, user) {
+        view_list.push({id: id, name: user.first});
+        proxy3.emit('view_ready');
+      });
+    });
+    docs.permission.download.forEach(function (id) {
+      var tempHandler = new context().create(handler.uid, handler.code, handler.lang);
+      tempHandler.addParams("uid", id);
+      user.get(tempHandler, function (err, user) {
+        download_list.push({id: id, name: user.first});
+        proxy4.emit('download_ready');
+      });
+    });
   });
 
 
