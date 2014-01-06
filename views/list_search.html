@@ -1,0 +1,45 @@
+<% include common/head.html %>
+
+<!-- Side bar -->
+<% include common/sidebar.html %>
+
+<div class="span9">
+    <div class="page-header">
+      <h3 id="search_title">"<%= keywords %>"的检索结果</h3>
+    </div>
+    <%  include view_search.html  %>
+</div>
+
+<% include common/template_detail_list.html %>
+
+<script type="text/javascript">
+    var list = DetailList.create();
+    var is_loading = false;
+    var search_title_string = '"<%= keywords %>"的检索结果';
+    $(document).ready(function() {
+        list.init($("#list_container"), {
+            id_prex :  "dl_list"
+            ,str    : {"loading": "加载中........"}
+            ,cols   : [ "icon", "info", "os", "require", "status", "update_info", "option"]
+            ,url    : "/app/search.json?keywords=<%= keywords %>&sort=name"
+        });
+
+        // 初始化加载数据
+        list.load();
+        is_loading = true;
+    });
+
+    function filterCategory(code, name) {
+        if(is_loading == false || !code || !name)
+            return;
+
+        // 设置检索title
+        $('#search_title').html(_.escape(search_title_string + '(分类"' + name + '")'));
+
+        list.category = code;
+        list.category_name = name;
+        list.load();
+    }
+</script>
+
+<% include common/foot.html %>

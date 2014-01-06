@@ -47,55 +47,55 @@ var Categories = {
 
 //获取Categories
 exports.getCategories = function () {
-    return Categories;
+  return Categories;
 }
 
 //获取Categories中的code类型
 exports.getByCode = function (code) {
-    return _getByByCode(exports.getCategories(), code);
+  return _getByByCode(exports.getCategories(), code);
 }
 
 function _getByByCode(category, code) {
-    if (category.code == code)
-        return category;
+  if (category.code == code)
+    return category;
 
-    if (!category.items)
-        return null;
-
-    for (var i in category.items) {
-        var result = _getByByCode(category.items[i], code);
-        if (result)
-            return result;
-    }
-
+  if (!category.items)
     return null;
+
+  for (var i in category.items) {
+    var result = _getByByCode(category.items[i], code);
+    if (result)
+      return result;
+  }
+
+  return null;
 }
 
 exports.getAppTypes = function () {
-    return exports.getByCode(10000);
+  return exports.getByCode(10000);
 }
 exports.getCategoryTypes = function () {
-    console.log("getCategoryTypes");
-    return exports.getByCode(20000);
+  console.log("getCategoryTypes");
+  return exports.getByCode(20000);
 }
 
 exports.isAppTypes = function (category) {
-    var code = category;
-    var c_types = exports.getAppTypes();
-    for (var i in c_types.items) {
-        if(c_types.items[i].code == code)
-            return true;
-    }
+  var code = category;
+  var c_types = exports.getAppTypes();
+  for (var i in c_types.items) {
+    if (c_types.items[i].code == code)
+      return true;
+  }
 
-    return false;
+  return false;
 }
 
 exports.getAppTypeName = function (category) {
-  if(category) {
+  if (category) {
     var code = category;
     var c_types = exports.getAppTypes();
     for (var i in c_types.items) {
-      if(c_types.items[i].code == code)
+      if (c_types.items[i].code == code)
         return c_types.items[i].name;
     }
   }
@@ -103,13 +103,13 @@ exports.getAppTypeName = function (category) {
 }
 
 exports.getAppTypeName = function (category) {
-    if(category) {
-        var code = category;
-        var c_types = exports.getAppTypes();
-        for (var i in c_types.items) {
-            if(c_types.items[i].code == code)
-                return c_types.items[i].name;
-        }
+  if (category) {
+    var code = category;
+    var c_types = exports.getAppTypes();
+    for (var i in c_types.items) {
+      if (c_types.items[i].code == code)
+        return c_types.items[i].name;
     }
-    return "";
+  }
+  return "";
 }
