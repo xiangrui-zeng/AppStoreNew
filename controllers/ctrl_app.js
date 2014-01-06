@@ -418,13 +418,14 @@ exports.checkAllow = function (handler, callback) {
 
 exports.checkDeny = function (handler, callback) {
   var session_uid = handler.uid
-    , appId = handler.params.data.app
+    , appId = handler.params.app
     , code        = "";
-  var data = handler.params.data;
+  var data = handler.params;
   var app_Deny = {
     status:  3
   , notice: data.notice
-  , noticeimage: data.noticeimage}
+  , noticeimage: data.noticeimage
+  }
   app.update(code, appId, app_Deny, function (err, result) {
     callback(err, result);
   });

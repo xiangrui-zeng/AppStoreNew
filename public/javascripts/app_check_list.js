@@ -11,10 +11,29 @@ $(function () {
 
 function events() {
 
+  var tmpimage = [];
   $("#image_big_btn").bind("click", function () {
     $("#image_big_file").bind("change", function (e) {
       if (e.target.files.length < 7) {
-        uploadFiles('didUploadSmallFile', e.target.files, that.didUploadImageFile);
+        if (!e.target.files || e.target.files.length <= 0) {
+          return false;
+        }
+        var fd = new FormData();
+        for (var i = 0; i < e.target.files.length; i++) {
+          fd.append("files", e.target.files[i]);
+        }
+        // 发送文件
+        smart.dopostData("/app/image/save.json", fd,function(err, result){
+            if(err){
+              callback(1, err);
+            } else {
+              for (var i = 0; i < result.data.length; i++) {
+                tmpimage[i] = result.data[i]._id;
+              }
+            }
+          }
+
+        );
       } else {
         alert('上传图片不要超过6张');
       }
@@ -59,10 +78,10 @@ function events() {
     if (operation == "deny") {
       $("#rejectModal").modal("show");
       $("#confirmReject").bind("click",function(){
-        $("#rejectModal").modal("hiden");
+        $("#rejectModal").modal("hide");
         var data = {
            "notice" : $('#rejectReason').val()
-         , "noticeimage" : $('#image_big_file_hid').val()
+         , "noticeimage" : tmpimage
          , "app" : app_id
         }
         smart.dopost("/app/checkDeny.json", data, function(err, result){
