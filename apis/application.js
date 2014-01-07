@@ -35,18 +35,36 @@ function setDownloadURL(req, app_info) {
 exports.updateAppStep1 = function (req_, res_) {
   var creator = req_.session.user._id;
   var appId = req_.body._id;
+  var appType = req_.body.appType;
   var name = req_.body.name;
+  var copyright = req_.body.copyright;
   var version = req_.body.version;
+  var release_note = req_body.release_note;
   //var memo = req_.body.memo;
   var description = req_.body.description;
   var device = req_.require.device;
   var os = req_.require.os;
-  var appType = req_.body.appType;
   var category = req_.body.category;
   var bundle_identifier = req_.body.bundle_identifier;
   var bundle_version = req_.body.bundle_version;
   var title = req_.body.title;
   var editstep = 1;
+//  app.findAppInfoById(appId,function(err,docs){
+//    docs.name = name;
+//    docs.appType = appType;
+//    docs.copyright = copyright;
+//    docs.description = description;
+//    dosc.category = category;
+//    dosc.version = version;
+//    dosc.release_note = release_note;
+//    dosc.os = os;
+//    dosc.device = device;
+//    dosc.bundle_identifier = bundle_identifier;
+//    dosc.bundle_version = bundle_version;
+//    docs.save(function (err_, result) {
+//          response.send(res, err_, result);
+//        });
+//  });
 //    app.findAppInfoById(appId, function (err, docs) {
 //        // check编辑权限
 //        if(!apputil.isCanEdit(docs, req_.session.user._id))
@@ -237,15 +255,11 @@ exports.createApp = function (req_, res_) {
   });
 };
 
-exports.getAppInfo = function (req_, res_) {
-
-  var handler = new context().bind(req_, res_);
-
+exports.getAppInfo = function (req, res) {
+  var handler = new context().bind(req, res);
   app.getAppInfoById(handler, function (err, result) {
-
-    setDownloadURL(req_, result);
-    response.send(res_, err, result);
-
+//    setDownloadURL(req_, result);    留后用
+    response.send(res, err, result);
   });
 };
 
@@ -258,17 +272,17 @@ exports.downloadedList = function (req_, res_) {
   });
 };
 
+/**
+ * @file 查询apis
+ * @author chenda
+ * @copyright Dreamarts Corporation. All Rights Reserved.
+ */
 exports.search = function (req_, res_) {
-  var start = Number(util.checkString(req_.query.start));
-  var count = Number(util.checkString(req_.query.count));
-  var uid = req_.session.user._id;
-  var keywords = req_.query.keywords;
-  var category = req_.query.category;
-
-  app.search(uid, keywords, start, count, category, function (err, result) {
-    setDownloadURL(req_, result);
-    response.send(res_, err, result);
-  });
+	var handler = new context().bind(req_,res_);
+	app.search(handler, function(err, result) {
+		log.operation("finish : search app list",handler.uid);
+		response.send(res_,err,result);
+	});
 };
 
 exports.list = function (req_, res_) {
@@ -280,8 +294,9 @@ exports.list = function (req_, res_) {
   //var admin = req_.query.admin ? true : false;
   var category = req_.query.category;
   var status = req_.query.status;
+  var create_user = req_.query.create_user;
 
-  app.list(sort, asc, category, start, count, status ,function (err, result) {
+  app.list(sort, asc, category, start, count, status , create_user, function (err, result) {
     setDownloadURL(req_, result);
     response.send(res_, err, result);
   });
@@ -326,7 +341,7 @@ exports.checkStop = function(req, res) {
     response.send(res, err, result);
   });
 }
-
+//获取plist文件
 exports.getPlist = function (req_, res_) {
     console.log(req_.host);
     var app_id = req_.params.app_id;

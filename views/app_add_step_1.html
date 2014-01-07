@@ -7,67 +7,67 @@
 
 <!-- This is just a little bit of custom CSS code to enhance things. Feel free to place this in your main CSS file. I've commented to say what each bit does. -->
 <style type="text/css">
-        /* Removes the default 20px margin and creates some padding space for the indicators and controls */
-    .carousel {
-        margin-bottom: 0;
-        padding: 0 40px 30px 40px;
-    }
+  /* Removes the default 20px margin and creates some padding space for the indicators and controls */
+  .carousel {
+    margin-bottom: 0;
+    padding: 0 40px 30px 40px;
+  }
 
-        /* Reposition the controls slightly */
-    .carousel-control {
-        left: -12px;
-    }
+  /* Reposition the controls slightly */
+  .carousel-control {
+    left: -12px;
+  }
 
-    .carousel-control.right {
-        right: -12px;
-    }
+  .carousel-control.right {
+    right: -12px;
+  }
 
-        /* Changes the position of the indicators */
-    .carousel-indicators {
-        right: 50%;
-        top: auto;
-        bottom: 0px;
-        margin-right: -19px;
-    }
+  /* Changes the position of the indicators */
+  .carousel-indicators {
+    right: 50%;
+    top: auto;
+    bottom: 0px;
+    margin-right: -19px;
+  }
 
-        /* Changes the colour of the indicators */
-    .carousel-indicators li {
-        background: #c0c0c0;
-    }
+  /* Changes the colour of the indicators */
+  .carousel-indicators li {
+    background: #c0c0c0;
+  }
 
-    .carousel-indicators .active {
-        background: #333333;
-    }
+  .carousel-indicators .active {
+    background: #333333;
+  }
 
-    .desc {
-        display: none;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background: rgba(128, 0, 0, 0.4);
-        width: 100%;
-        height: 100%;
-        color: #fff !important;
-    }
+  .desc {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(128, 0, 0, 0.4);
+    width: 100%;
+    height: 100%;
+    color: #fff !important;
+  }
 </style>
 
 <script type="text/javascript">
-    $(document).ready(function () {
-        $('#myCarousel').carousel({
-            interval: 10000
-        })
+  $(document).ready(function () {
+    $('#myCarousel').carousel({
+      interval: 10000
+    })
 
-        $("[rel='tooltip']").tooltip();
+    $("[rel='tooltip']").tooltip();
 
-        $('#item1').hover(
-                function () {
-                    $(this).find('.desc').slideDown(250); //.fadeIn(250)
-                },
-                function () {
-                    $(this).find('.desc').slideUp(250); //.fadeOut(205)
-                }
-        );
-    });
+    $('#item1').hover(
+      function () {
+        $(this).find('.desc').slideDown(250); //.fadeIn(250)
+      },
+      function () {
+        $(this).find('.desc').slideUp(250); //.fadeOut(205)
+      }
+    );
+  });
 </script>
 
 <div class="container-fluid top_line">
@@ -108,175 +108,171 @@
                                     <% } %>
                                 </div>
 
-                            </div>
-                        </div>
+            <div class="control-group">
+              <label class="control-label">名称</label>
 
-                        <div class="control-group">
-                            <label class="control-label">名称</label>
+              <div class="controls">
+                <input class="required" type="text" name="name" id="name" placeholder="例：捕鱼达人">
+              </div>
+            </div>
+            <!--新加数据项-->
+            <div class="control-group">
+              <label class="control-label">版权</label>
 
-                            <div class="controls">
-                                <input class="required" type="text" name="name" id="name" placeholder="例：捕鱼达人">
-                            </div>
-                        </div>
-                        <!--新加数据项-->
-                        <div class="control-group">
-                            <label class="control-label">版权</label>
+              <div class="controls">
+                <input class="required" type="text" name="copyright" id="copyright" placeholder="例：触控科技">
+              </div>
+            </div>
 
-                            <div class="controls">
-                                <input class="required" type="text" name="copyright" id="copyright" placeholder="例：触控科技">
-                            </div>
-                        </div>
+            <div class="control-group">
+              <label class="control-label">说明</label>
 
-                        <div class="control-group">
-                            <label class="control-label">说明</label>
+              <div class="controls">
+                <textarea class="required" name="description" id="description" placeholder=
+                  "应用介绍以及使用方法 "
+                          style="width: 270px;height: 120px"></textarea>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">类别</label>
 
-                            <div class="controls">
-                                <textarea class="required" name="description" id="description" placeholder=
-                                        "应用介绍以及使用方法 "
-                                          style="width: 270px;height: 120px"></textarea>
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label">类别</label>
+              <div class="controls">
+                <select name="category" multiple="multiple" style="height: 120px">
+                  <% if(categoryTypes && categoryTypes.items) { %>
+                  <% categoryTypes.items.forEach(function(c) { %>
+                  <option value="<%= c.code %>"><%= c.name %></option>
+                  <% }); %>
+                  <% } %>
+                </select>
+              </div>
+            </div>
 
-                            <div class="controls">
-                                <select name="category" multiple="multiple" style="height: 120px">
-                                    <% if(categoryTypes && categoryTypes.items) { %>
-                                    <% categoryTypes.items.forEach(function(c) { %>
-                                    <option value="<%= c.code %>"><%= c.name %></option>
-                                    <% }); %>
-                                    <% } %>
-                                </select>
-                            </div>
-                        </div>
+            <div class="control-group">
+              <label class="control-label">版本</label>
 
-                        <div class="control-group">
-                            <label class="control-label">版本</label>
+              <div class="controls">
+                <input class="required" type="text" name="version" id="version" placeholder="例：1.5.2">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">更新说明</label>
 
-                            <div class="controls">
-                                <input class="required" type="text" name="version" id="version" placeholder="例：1.5.2" >
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label">更新说明</label>
+              <div class="controls">
+                <textarea class="required" name="release_note" id="release_note" placeholder=
+                  "更新信息说明"
+                          style="width: 270px;height: 100px"></textarea>
+              </div>
+            </div>
 
-                            <div class="controls">
-                                <textarea class="required" name="release_note" id="release_note" placeholder=
-                                        "更新信息说明"
-                                        style="width: 270px;height: 100px"></textarea>
-                                </div>
-                            </div>
+            <div class="control-group">
+              <label class="control-label">OS版本</label>
 
-                        <div class="control-group">
-                            <label class="control-label" >OS版本</label>
+              <div class="controls">
+                <input class="required" type="text" name="require_os" id="require_os" placeholder="最低要求系统">
+              </div>
+            </div>
 
-                            <div class="controls">
-                                <input class="required" type="text" name="require_os" id="require_os" placeholder="最低要求系统">
-                            </div>
-                        </div>
+            <div class="control-group">
+              <label class="control-label">设备要求</label>
 
-                        <div class="control-group">
-                            <label class="control-label" >设备要求</label>
+              <div class="controls">
+                <input class="required" type="text" name="require_device" id="require_device" placeholder="最低设备要求">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">bundle_identifier</label>
 
-                            <div class="controls">
-                                <input class="required" type="text" name="require_device" id="require_device" placeholder="最低设备要求">
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label">bundle_identifier</label>
+              <div class="controls">
+                <input class="required" type="text" name="bundle_identifier" id="bundle_identifier"
+                       placeholder="IOS应用必须">
+              </div>
+            </div>
 
-                            <div class="controls">
-                                <input class="required" type="text" name="bundle_identifier" id="bundle_identifier"
-                                       placeholder="IOS应用必须">
-                            </div>
-                        </div>
+            <div class="control-group">
+              <label class="control-label">bundle_version</label>
 
-                        <div class="control-group">
-                            <label class="control-label">bundle_version</label>
-                            <div class="controls">
-                                <input class="required" type="text" name="bundle_version" id="bundle_version"
-                                       placeholder="IOS应用必须">
-                            </div>
-                        </div>
+              <div class="controls">
+                <input class="required" type="text" name="bundle_version" id="bundle_version"
+                       placeholder="IOS应用必须">
+              </div>
+            </div>
 
 
-                        <div class="control-group">
-                            <label class="control-label">公开对象</label>
+            <div class="control-group">
+              <label class="control-label">公开对象</label>
 
-                            <div class="controls">
-                                <input type="hidden" name="permission.view" id="permission_view_input"/>
+              <div class="controls">
+                <input type="hidden" name="permission.view" id="permission_view_input"/>
 
-                                <div class="user_select_print" style="width: 203px">
-                                    <ul id="view_user_selected">
-                                        <li>公开对象</li>
-                                    </ul>
-                                </div>
-
-
-                                <div style="margin-left: 15px"
-                                     id="view_set_btn"
-                                     taget="dialogAjax"
-                                     action="/user/list.json"
-                                     render="$app.didAdminSelectRender"
-                                     callback="$app.didAdminSelectCallback"
-                                     for="required"
-                                     generated="true"
-                                     class="help-inline setUserList"
-                                     href="#document-selector"
-                                     data-toggle="modal">
-                                    <button class = 'btn'>
-                                        設定
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="control-group">
-                            <label class="control-label"></label>
-
-                            <div class="controls">
-                                <button class="btn btn-small btn-success" type="submit">
-                                    <!--<a href ='/app/add/step2'>-->
-                                        下一步
-                                    <!--</a>-->
-                                    </button>
-                            </div>
-                        </div>
-
-                    </div>
+                <div class="user_select_print" style="width: 203px">
+                  <ul id="view_user_selected">
+                    <li>公开对象</li>
+                  </ul>
                 </div>
-            </form>
+
+
+                <div style="margin-left: 15px"
+                     id="view_set_btn"
+                     taget="dialogAjax"
+                     action="/user/list.json"
+                     render="$app.didAdminSelectRender"
+                     callback="$app.didAdminSelectCallback"
+                     for="required"
+                     generated="true"
+                     class="help-inline setUserList"
+                     href="#document-selector"
+                     data-toggle="modal">
+                  <button class='btn'>
+                    設定
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label"></label>
+
+              <div class="controls">
+                <button class="btn btn-small btn-success" type="submit">
+                  <!--<a href ='/app/add/step2'>-->
+                  下一步
+                  <!--</a>-->
+                </button>
+              </div>
+            </div>
 
           </div>
         </div>
-        </div>
+      </form>
+      </div>
     </div>
+  </div>
 </div>
 
 <div class="modal" id="document-selector" role="dialog" aria-hidden="true" style="display:none;height:400px">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3>选择用户</h3>
-    </div>
-    <div class="modal-body" style="">
-        <fieldset style="height:300px;overflow: scroll;">
-            <table class="table table-hover" style="height:300px;overflow: scroll;">
-                <thead>
-                <tr>
-                    <th>id</th>
-                    <th>姓名</th>
-                </tr>
-                </thead>
-                <tbody id="setuserlist" target="ajaxGet" action="/user/list.json" callback="$app.didUserListRender"
-                       render="" style="height:300px;overflow: scroll;">
-                </tbody>
-            </table>
-        </fieldset>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary" id="setUser">确定</button>
-        <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
-    </div>
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3>选择用户</h3>
+  </div>
+  <div class="modal-body" style="">
+    <fieldset style="height:300px;overflow: scroll;">
+      <table class="table table-hover" style="height:300px;overflow: scroll;">
+        <thead>
+        <tr>
+          <th>id</th>
+          <th>姓名</th>
+        </tr>
+        </thead>
+        <tbody id="setuserlist" target="ajaxGet" action="/user/list.json" callback="$app.didUserListRender"
+               render="" style="height:300px;overflow: scroll;">
+        </tbody>
+      </table>
+    </fieldset>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" id="setUser">确定</button>
+    <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+  </div>
 </div>
 
 <% include common/foot.html %>

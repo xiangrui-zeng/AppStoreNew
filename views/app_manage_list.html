@@ -2,7 +2,6 @@
 <!-- 加载模板 -->
 <% include common/template_carousel.html %>
 
-<script type="text/javascript" src="/javascripts/app_check_list.js"></script>
 
 <script>
   var i18n = {
@@ -69,17 +68,8 @@
 
 <div class="span9">
   <section id="thumbnails">
-    <span style="float: right" style="margin-bottom: 5px">
-        <a href="/app/add/step1">
-          <button type="button" class="btn btn-small btn-primary">
-            <span class="icon-plus"></span>
-              <span class="sr-only">
-                 上传新应用
-              </span>
-          </button>
-         </a>
-    </span>
-    <h3 class="page-header" style="width: auto;">应用一览</h3>
+
+    <h3 class="page-header" style="width: auto;">已上传一览</h3>
     <div id="check_list_container" style="padding:5px; background:#ffffff;width:800px">
     </div><!--well-->
     <% include common/template_detail_list.html %>
@@ -96,7 +86,7 @@
       id_prex :  "dl_list"
       ,str    : {"loading": "Loading........"}
       ,cols   : [ "icon", "info", "os", "require", "status", "update_info", "option"]
-      ,url    : "/app/list.json?admin=1&sort=name&asc=1&status=2"
+      ,url    : "/app/list.json?admin=1&sort=name&asc=1"
     });
 
     // 初始化加载数据

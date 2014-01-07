@@ -1,7 +1,7 @@
 
 $(function () {
   'use strict';
-  var appId = "";
+  var appId = $("#appId").val();
   render(appId);
   events(appId);
 
@@ -12,27 +12,27 @@ function events(appId) {
 }
 
 function render(appId) {
-  if (appId != 0) {
-    //第一步除了公开对象权限设置
+  if (appId != '0') {
     smart.doget("/app/info.json?app_id="+appId, function (err, data) {
-      console.log(data);
-      $("#name").val(data.name);
-      $("#bundle_version").val(data.bundle_version);
-      $("#bundle_identifier").val(data.bundle_identifier);
-      $("#copyright").val(data.copyright);
-      $("#description").val(data.description);
-      $("#version").val(data.version);
-      $("#release_note").val(release_note);
-      $("#require_os").val(data.require.os);
-      $("#require_device").val(data.require.deveice);
+    $("#appType").val(data.appType);
+    $("#name").val(data.name);
+    $("#copyright").val(data.copyright);
+    $("#description").val(data.description);
+    $("#version").val(data.version);
+    $("#release_note").val(data.release_note);
+    $("#category").val(data.category);
+    $("#bundle_version").val(data.bundle_version);
+    $("#bundle_identifier").val(data.bundle_identifier);
+    $("#require_os").val(data.require.os);
+    $("#require_device").val(data.require.device);
 
-      //device 例：phone、pad 暂时没有这数据段
-      $device = $("input[name=device]");
-      for (var i = 0; i < $device.length; i++) {
-        if ($($device[i]).val() == data.require.device) {
-          $($device[i]).attr("checked", "checked");
-        }
-      }
+      //device 例：phone、pad 暂时没有这数据段  先留着  l
+//      $device = $("input[name=device]");
+//      for (var i = 0; i < $device.length; i++) {
+//        if ($($device[i]).val() == data.require.device) {
+//          $($device[i]).attr("checked", "checked");
+//        }
+//      }
       //选择应用类别
       $select = $("select[name=category] option");
       for (var i = 0; i < $select.length; i++) {
@@ -57,8 +57,6 @@ function render(appId) {
           $("#step" + (i) + "").attr("href", "/app/add/step" + (i) + "?appId=" + data._id);
           $("#step" + (i) + "").css("background-image", "url(/images/check.png)");
           $("#step" + (i) + "").css("background-repeat", "no-repeat");
-
-
         } else {
           $("#step" + (i) + "").attr("href", "#");
         }
@@ -94,10 +92,7 @@ function render(appId) {
           $("#permission_download_input").val(new_chk_value_id);
           $(this).remove();
         });
-
       });
-
-
     });
   }
 };

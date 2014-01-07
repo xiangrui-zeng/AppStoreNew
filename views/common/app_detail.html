@@ -1,170 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>应用详细</title>
-  <% include common/required.html %>
-
-  <input type="hidden" id="_csrf" name="_csrf" value="<%= csrftoken %>" />
-  <input type="hidden" id="userid" name="userid" value="<%= user._id %>" />
-  <input type="hidden" id="timezone" name="timezone" value="<%= user.timezone %>" />
-
-  <script type="text/javascript">
-    $(function () {
-      appDetail.show("52c65e6e6089aaa01f000011", true);
-    });
-  </script>
-
-</head>
-<body>
-
-<style type="text/css">
-
-  #appModal {
-    width: 825px;
-    height: 520px;
-    margin: 0 0 0 -470px;
-  }
-
-  #modal-body {
-    max-height: 430px;
-  }
-
-  .headLeft {
-    vertical-align: top;
-    display: inline-block;
-  }
-
-  .headLeft img {
-    width:50px;
-    height:50px;
-  }
-
-  .headMiddle {
-    display: inline-block;
-    padding-left: 20px;
-    width: 450px;
-  }
-
-  .headMiddle .sep {
-    height: 15px;
-    width: 1px;
-    display: inline-block;
-    border-left: 1px dotted #a6a6a6;
-    margin: 0 7px;
-    vertical-align: middle;
-  }
-
-  .headRight {
-    vertical-align: top;
-    display: inline-block;
-    padding-top: 20px;
-  }
-
-  .profile-image {
-    float: left;
-    width: 580px;
-  }
-
-  .profile-info {
-    float: left;
-    width: 200px;
-    height: 330px;
-    border-left: 1px solid #cccccc;
-    padding-left: 5px;
-    margin-left: 5px;
-  }
-
-  .itemgroup {
-
-  }
-
-  .itemgroup div label {
-    float: left;
-    width: 50px;
-    text-align: left;
-    margin-left: 10px;
-    font-size: 12px;
-  }
-
-  .itemgroup div div {
-    margin-left: 60px;
-    width: 100px;
-    line-height: 20px;
-    margin-bottom: 5px;
-    font-size: 12px;
-    text-align: right;
-  }
-
-  #gallery {
-    height: 320px;
-    overflow-x: auto;
-    white-space: nowrap;
-    text-align: center;
-  }
-
-  #gallery img {
-    max-height: 300px;
-    margin-left: 10px;
-  }
-
-  .textarea-large {
-    background-color: white;
-    height: 350px;
-    overflow-y: auto;
-    word-break: break-all;
-  }
-
-  .comment {
-    background-color: #FAFAFA;
-    margin-left: 10px;
-    width: 775px;
-    max-height: 330px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding: 5px;
-  }
-
-  .comment textarea {
-    width: 735px;
-    height: 40px;
-    margin-left: 5px;
-  }
-
-  .comment #operationarea {
-    text-align: right;
-    padding-right: 15px;
-  }
-
-  .comment #operationarea i {
-    cursor: pointer;
-  }
-
-  .comment ul {
-    margin-top: 10px;
-    margin-left: 5px;
-  }
-
-  .comment ul li {
-    list-style-type: none;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #EEF;
-  }
-
-  .comment ul li .portrait {
-    width: 30px;
-  }
-
-  .comment ul li div {
-    padding-left: 40px;
-  }
-
-  .comment p {
-    word-wrap:break-word;
-    word-break:normal;
-  }
-
-</style>
-
 <div id="appModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
   <div class="modal-header" >
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -220,7 +53,7 @@
           </div>
         </div>
         <div class="profile-info">
-          <div class="itemgroup">
+          <div class="itemTable">
             <div><label>更新</label><div id="lastUpdate"></div></div>
             <div><label>版权所有</label><div id="copyright"></div></div>
             <div><label>大小</label><div id="appSize"></div></div>
@@ -229,15 +62,15 @@
         </div>
       </div>
       <div class="tab-pane" id="detail">
-        <div id="detailContent" class="textarea-large">
+        <div id="detailContent" class="textarea-big">
         </div>
       </div>
       <div class="tab-pane" id="require">
-        <div id="requireContent" class="textarea-large">
+        <div id="requireContent" class="textarea-big">
         </div>
       </div>
       <div class="tab-pane" id="update">
-        <div id="updateContent" class="textarea-large">
+        <div id="updateContent" class="textarea-big">
         </div>
       </div>
       <div class="tab-pane" id="comment">
@@ -290,7 +123,7 @@
     <span>{{createBy}}</span>&nbsp;
     <span>{{rank}}</span>&nbsp;
     <span>{{createAt}}</span>
-    <span>(&nbsp;{{version}}&nbsp;)</span>
+    <span>(&nbsp;v{{version}}&nbsp;)</span>
     <p>{{comment}}</p>
   </li>
 </script>
@@ -304,8 +137,5 @@
 </script>
 
 <script src="/javascripts/sw/sw.comment.js"></script>
-<script src="/javascripts/sw/sw.app.js"></script>
 <script src="/javascripts/sw/sw.stardetail.js"></script>
 
-</body>
-</html>

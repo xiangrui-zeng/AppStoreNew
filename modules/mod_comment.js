@@ -38,24 +38,6 @@ exports.add = function(comment, callback){
 };
 
 /**
- * 获取平均评分
- * @param {String} appId 应用标识
- * @param {Function} callback 回调函数，返回平均评分
- */
-exports.getRankAvg = function(appId, callback){
-  var comment = model();
-  comment.aggregate([
-    { $match: {appId: appId}},
-    { $group: {
-      _id: "$appId",
-      rankAvg: { $avg: "$rank"}
-    }}
-  ], function(err, result){
-    callback(err, result ? result[0] : {});
-  });
-};
-
-/**
  * 获取评价的总和及评价人数（用于计算平均评价值）
  * @param {String} appId 应用标识
  * @param {Function} callback 回调函数，返回评价的总和及评价人数
