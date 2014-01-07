@@ -295,8 +295,7 @@ exports.renderAppStep = function(req, res, step) {
 };
 
 exports.update = function (handler, callback) {
-  var session_uid = handler.uid
-    , appId = handler.params._id
+  var appId = handler.params.appId
     , code  = handler.params.code
     , create_user = handler.uid
     , icon_big = handler.params['icon.big']
@@ -305,6 +304,7 @@ exports.update = function (handler, callback) {
     , pptfile = handler.params.pptfile
     , downloadId = handler.params.downloadId
     , editstep = 2
+    , size = handler.params.pptfile_size
   var app_update = {
     update_date : new Date()
    ,update_user : create_user
@@ -315,6 +315,7 @@ exports.update = function (handler, callback) {
     }
   , screenshot : screenshot
   , pptfile : pptfile
+  , size : size
   , downloadId : downloadId
   , editstep : editstep
   , plistDownloadId : ""
