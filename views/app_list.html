@@ -3,6 +3,10 @@
 <% include common/app_detail.html %>
 <% include common/template_carousel.html %>
 
+<% if(title == "app_list") { %>
+  <% include common/sidebar.html %>
+<% } %>
+
 <script type="text/javascript" src="/javascripts/app_check_list.js"></script>
 
 <script>
@@ -80,7 +84,7 @@
           </button>
          </a>
     </span>
-    <h3 class="page-header" style="width: auto;">应用一览</h3>
+    <h3 class="page-header" id ="app_view_title" style="width: auto;">应用一览</h3>
     <div id="check_list_container" style="padding:5px; background:#ffffff;width:800px">
     </div><!--well-->
     <% include common/template_detail_list.html %>
@@ -99,7 +103,8 @@
     condition = ""
   }
 
-  var list = DetailList.create();
+  var list       = DetailList.create();
+  var is_loading = false;
   $(document).ready(function() {
     list.init($("#check_list_container"), {
       id_prex :  "dl_list"
@@ -110,10 +115,29 @@
 
     // 初始化加载数据
     list.load();
+	  is_loading = true;
   });
-
-  function loadCategory(code) {
-
+  var title_category  = ' ( ' + name + ' ) ';
+  var app_view_string = "应用一览";
+//  留用
+//  var big_title       = title_new_list;
+//  console.log("title_new_list:"+title_new_list);
+//  if(type == title_new_list){
+//	  big_title = "新着";
+//  }else if(type == title_download_list){
+//	  big_title = "おすすめ";
+//  }else if(type == title_rank_list){
+//	  big_title = "ランキング";
+//  }
+  function filterCategory(code, name) {
+	  if(is_loading == false || !code || !name){
+		  return;
+	  }
+	  // 设置检索title
+	  $('#app_view_title').html(_.escape(app_view_string + '(分类"' + name + '")' ));
+	  list.category = code;
+	  list.category_name = name;
+	  list.load();
   }
 </script>
 
