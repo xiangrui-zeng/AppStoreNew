@@ -45,6 +45,10 @@ var Categories = {
   ]
 };
 
+function model() {
+  return conn.model("", "categorys", Categories )
+}
+
 //获取Categories
 exports.getCategories = function () {
   return Categories;
@@ -112,4 +116,15 @@ exports.getAppTypeName = function (category) {
     }
   }
   return "";
+}
+
+exports.getAppNumArry = function (code, condition, callback) {
+  var category = model(code);
+  category.find(condition)
+    .exec(function (err, result) {
+      category.count(condition).exec(function (err, count) {
+        callback(err, {total: count, items: result});
+      });
+    });
+
 }
