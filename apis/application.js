@@ -272,17 +272,17 @@ exports.downloadedList = function (req_, res_) {
   });
 };
 
+/**
+ * @file 查询apis
+ * @author chenda
+ * @copyright Dreamarts Corporation. All Rights Reserved.
+ */
 exports.search = function (req_, res_) {
-  var start = Number(util.checkString(req_.query.start));
-  var count = Number(util.checkString(req_.query.count));
-  var uid = req_.session.user._id;
-  var keywords = req_.query.keywords;
-  var category = req_.query.category;
-
-  app.search(uid, keywords, start, count, category, function (err, result) {
-    setDownloadURL(req_, result);
-    response.send(res_, err, result);
-  });
+	var handler = new context().bind(req_,res_);
+	app.search(handler, function(err, result) {
+		log.operation("finish : search app list",handler.uid);
+		response.send(res_,err,result);
+	});
 };
 
 exports.list = function (req_, res_) {
