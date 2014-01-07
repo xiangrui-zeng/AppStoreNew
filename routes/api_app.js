@@ -10,17 +10,17 @@ exports.guiding = function(app){
   // html
   // 下载一览
   app.get('/app/list', function (req, res) {
-    res.render("app_list", {"title": "check_list", user: req.session.user});
+    res.render("app_list", {"title": "app_list", user: req.session.user});
   });
 
   // 上传一览
   app.get('/app/upload/list', function (req, res) {
-    res.render("app_upload_list", {"title": "upload_list", user: req.session.user});
+    res.render("app_list", {"title": "upload_list", user: req.session.user});
   });
 
   // 管理一览
   app.get('/app/manage/list', function (req, res) {
-    res.render("app_manage_list", {"title": "manage_list", user: req.session.user});
+    res.render("app_list", {"title": "manage_list", user: req.session.user});
   });
 
   // 审核一览
@@ -45,8 +45,6 @@ exports.guiding = function(app){
   app.get('/list/search', function (req, res) {
     res.render("list_search", { title: "检索结果一览", bright: "home", user: req.session.user
       ,keywords: req.query.keywords
-      ,categories: categorory.getCategories()
-      ,apptypes: categorory.getAppTypes()
     });
   });
 

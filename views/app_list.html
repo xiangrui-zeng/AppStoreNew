@@ -90,6 +90,14 @@
 
 
 <script type="text/javascript">
+  var condition = "";
+  if("<%= title %>" == "app_list"){
+    condition = "status=2"
+  } else if("<%= title %>" == "app_upload_list") {
+    condition = "create_user="+smart.uid()
+  } else if("<%= title %>" == "app_upload_list") {
+    condition = ""
+  }
 
   var list = DetailList.create();
   $(document).ready(function() {
@@ -97,7 +105,7 @@
       id_prex :  "dl_list"
       ,str    : {"loading": "Loading........"}
       ,cols   : [ "icon", "info", "os", "require", "status", "update_info", "option"]
-      ,url    : "/app/list.json?admin=1&sort=name&asc=1&status=2"
+      ,url    : "/app/list.json?admin=1&sort=name&asc=1&"+condition
     });
 
     // 初始化加载数据

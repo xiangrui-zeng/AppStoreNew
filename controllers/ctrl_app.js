@@ -287,7 +287,6 @@ exports.update = function (handler, callback) {
     , screenshot = handler.params.screenshot
     , pptfile = handler.params.pptfile
     , downloadId = handler.params.downloadId
-    , editstep = 2
     , size = handler.params.pptfile_size
   var app_update = {
     update_date : new Date()

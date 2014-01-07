@@ -7,6 +7,7 @@
 "use strict";
 
 var response  = smart.framework.response
+  , handler   = smart.framework.context
   , category = require("../modules/mod_category");
 
 /**
