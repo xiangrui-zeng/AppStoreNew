@@ -133,7 +133,7 @@
         <$ var device = (app.require && app.require.device) ? app.require.device : "No require"; $>
         <$ var updater = app.update_user ? app.update_user : app.create_user $>
         <$ if(col.name == "icon") { $>
-            <td style="min-width:100px;"><a href="/detaildemo">
+            <td style="min-width:100px;"><a href="#" onclick="javascript:appDetail.show('{{ app._id }}', false);return false;">
             <!--<td style="min-width:100px;"><a href="/app/{{ app._id }}">-->
                 <!--<img src="/picture/52bbe3a063eb733b05000010" alt="{{ _.escape(app.name) }}" style="width:100%;height:auto"/>-->
                 <img src="/picture/{{ (app.icon && app.icon.big) ? app.icon.big: '#' }}" alt="{{ _.escape(app.name) }}" style="width:100%;height:auto"/>
