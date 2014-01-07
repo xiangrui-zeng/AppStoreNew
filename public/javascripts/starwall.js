@@ -360,6 +360,9 @@ var smart = {
     reader.readAsDataURL(file);
   },
 
+  // 默认分页大小
+  DEFAULT_PAGE_SIZE: 20,
+
   pagination: function(total, limit, curpage, containerid, pagefunc) {
     if(total > limit){
       var pageContainer = $("#"+containerid)
@@ -574,3 +577,54 @@ Date.prototype.Format = function (fmt) { //author: meizz
   return fmt;
 }
 
+/**
+ * 代替Radio的按钮组合
+ * @param id 字符串
+ * @param value
+ * @constructor
+ */
+var ButtonGroup = function(id, value, clickCallback) {
+  this.id = $("#" + id);
+  this.value = value;
+
+  // append event
+  var self = this;
+  this.id.on("click", "button", function(){
+    self.value = $(this).attr("value");
+    self.init();
+
+    if (clickCallback) {
+      clickCallback(this.value);
+    }
+  });
+};
+
+ButtonGroup.prototype.init = function(initCallback) {
+
+  // set default value
+  this.id.attr("value", this.value);
+
+  var child = this.id.children()
+    , self = this;
+
+  _.each(child, function(item){
+    if (self.value == $(item).attr("value")) {
+      $(item).addClass("btn-info");
+      $(item).removeClass("btn-white");
+      $(item).attr("active", "on");
+    } else {
+      $(item).removeClass("btn-info");
+      $(item).addClass("btn-white");
+      $(item).removeAttr("active");
+    }
+  });
+
+  if (initCallback) {
+    initCallback(self.value);
+  }
+};
+
+ButtonGroup.prototype.set = function(value) {
+  this.value = value;
+  this.init();
+};

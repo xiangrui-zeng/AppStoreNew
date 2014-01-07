@@ -84,8 +84,12 @@ exports.getList = function(handler, callback){
   var taskGetComments = function(cb){
     var condition = {
         appId: params.appId
-      , version: params.version
       };
+    if(params.range === "current") {
+      condition.version = params.version;
+    } else {
+      condition.version = {$lt: params.version};
+    }
     modComment.getList(condition, params.start, params.limit, function(err, result){
       cb(err, result);
     });

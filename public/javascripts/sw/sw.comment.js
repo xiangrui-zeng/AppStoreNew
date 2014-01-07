@@ -32,16 +32,25 @@ var $Comment = {
       }
     });
 
-    self.getComments(0, 20);
+    new ButtonGroup("commentRange", "current", function() {
+      self.getComments(1);
+    }).init();
+
+    self.getComments(1);
   },
 
-  getComments: function(start,count){
+  getComments: function(pageNum){
     var self = this;
     var appId = appDetail.appId;
     var version = appDetail.appVersion;
-    var url = "/app/comment/list.json?appId=" + appId + "&version=" + version + "&start=" + start + "&count=" + count;
-    smart.doget(url, function(err,data){
-      self.renderComments(err,data);
+    var url = "/app/comment/list.json?appId=" + appId + "&version=" + version +
+      "&start=" + ((pageNum - 1) * smart.DEFAULT_PAGE_SIZE) + "&count=" +
+      smart.DEFAULT_PAGE_SIZE + "&range=" + $("#commentRange").attr("value");
+    smart.doget(url, function(err, data){
+      self.renderComments(err, data);
+      smart.pagination(data.totalItems, smart.DEFAULT_PAGE_SIZE, pageNum, "pagination", function(pageNum) {
+        self.getComments(pageNum);
+      });
     });
   },
 
@@ -98,7 +107,7 @@ var $Comment = {
       $("#comment_rank").attr("value",0);
       self.renderRank(0);
       self.toggleBtn();
-      self.getComments(0, 20);
+      self.getComments(1);
     });
   },
 
