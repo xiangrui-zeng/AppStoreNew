@@ -29,6 +29,7 @@ exports.add = function (handler, callback){
   comment.comment = params.comment;
   comment.rank = params.rank;
   comment.version = params.version;
+  comment.valid = 1;
   comment.createAt = new Date();
   comment.createBy = uid;
   comment.updateAt = comment.createAt;
@@ -111,7 +112,7 @@ exports.getList = function(handler, callback){
   };
   tasks.push(taskGetUsers);
 
-  async.waterfall(tasks,function(err, result){
+  async.waterfall(tasks, function(err, result){
 
     if (err) {
       log.error(err, handler.uid);

@@ -35,3 +35,25 @@ exports.getImage = function(handler, callback) {
     }
   });
 };
+
+/**
+ * 获取文件
+ * @param {Object} handler 上下文对象
+ * @param {Function} callback 返回图片
+ */
+exports.getFile = function(handler, callback) {
+
+  var uid = handler.uid
+    , fileInfoId = handler.params.id;
+
+  handler.addParams("fileInfoId", fileInfoId);
+
+  file.get(handler, function(err, result) {
+    if (err) {
+      log.error(err, uid);
+      return callback(new errors.NotFound("js.ctr.common.system.error"));
+    } else {
+      return callback(err, result);
+    }
+  });
+};

@@ -92,3 +92,21 @@ exports.getDownloadURL = function(req_, app_) {
     var url_ = protocol + "://" + host + port + "/download/" + app_id + "/"+uid+"/app.plist";
     return "itms-services://?action=download-manifest&url=" + url_;
 }
+
+/**
+ * 获取客户端IP
+ * @param req 请求对象
+ * @returns {String} 客户端IP
+ */
+function getClientIp(req) {
+  var ipAddress;
+  var forwardedIpsStr = req.header("x-forwarded-for");
+  if (forwardedIpsStr) {
+    var forwardedIps = forwardedIpsStr.split(",");
+    ipAddress = forwardedIps[0];
+  }
+  if (!ipAddress) {
+    ipAddress = req.connection.remoteAddress;
+  }
+  return ipAddress;
+}
