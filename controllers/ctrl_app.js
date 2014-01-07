@@ -105,46 +105,30 @@ exports.downloadedList = function(uid_, callback_){
   });
 };
 
-exports.search = function(uid_, keyword_, start_, count_, category_, callback_){
-  var condition = {"name": new RegExp("^.*" + keyword_.toLowerCase() + ".*$", "i")};
-  var options = {
-      start: start_
-    , limit: count_
-    , sort: {update_date:-1}
+/**
+ * @file 查询ctrl
+ * @author chenda
+ * @copyright Dreamarts Corporation. All Rights Reserved.
+ */
+exports.search = function(handler, callback){
+	var category  = handler.params.category
+		 ,keywords  = handler.params.keywords;
+	var condition = {"name": new RegExp("^.*" + keywords.toLowerCase() + ".*$", "i")};
+	var options   = {
+      start: handler.params.start
+     ,limit: handler.params.count
+     ,sort: {update_date:-1}
   };
-
-  if(category_) {
-      if(categorory.isAppTypes(category_))
-          condition.appType = category_;
-      else
-          condition.category = { $elemMatch: {$in: [category_]} };
-  }
-
-  var tasks = [];
-  var task_getAppList = function(cb){
-    app.list(condition, options, function(err, result){
-      cb(err,result);
-    });
-  };
-  tasks.push(task_getAppList);
-  var task_other = function(result, cb){
-	async.forEach(result.items, function(app, cb_){
-		app._doc.appTypeCategory = categorory.getByCode(app.appType); // 追加系统分类
-		if(app.require && app.require.device)
-			app._doc.device = devices.getDevice(app.require.device);  // 追加设备
-		cb_(null, result);
-	}, function(err){
-		cb(err, result);
+	if(category) {
+		if(categorory.isAppTypes(category))
+			condition.appType = category;
+		else
+			condition.category = { $elemMatch: {$in: [category]} };
+	}
+	app.list(condition,options, function(err, result){
+		return callback(err, result);
 	});
-  };
-  tasks.push(task_other);
-
-
-  async.waterfall(tasks,function(err,result){
-    return callback_(err, result);
-  });
-};
-
+}
 exports.list = function(sort_,asc_,category_, start_, count_, status_, create_user_,callback_){
   var condition = {};
 //  if (admin_) {

@@ -13,6 +13,7 @@ var appDetail = {
     this.clear();
     this.initialize();
     $("#appModal").modal("show");
+    $("#profileTab").tab("show");
   },
 
   clear: function() {
@@ -114,6 +115,11 @@ var appDetail = {
         $("#downloadBtn").attr("href", app.downloadURL);
         // 分享按钮
         $("#shareBtn").attr("href", "mailto:");
+      } else {
+        // 安装按钮
+        $("#downloadBtn").attr("href", undefined);
+        // 分享按钮
+        $("#shareBtn").attr("href", undefined);
       }
     });
   },

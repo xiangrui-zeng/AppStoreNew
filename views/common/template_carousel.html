@@ -33,7 +33,7 @@
     <div class="thumbnail" id="{{ id_item }}" style="position: relative;">
 
       <div class="caption">
-        <a href="/app/{{ app._id }}">
+        <a href="#" onclick="javascript:appDetail.show('{{ app._id }}', false);return false;" >
           <$ var pic = (app.icon && app.icon.big) ? app.icon.big: ""$>
           <img data-src="holder.js/260x180" alt="{{ app.name }}" src="/picture/{{ pic }}"  class="carousel-image" >
         </a>
