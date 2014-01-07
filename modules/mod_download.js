@@ -1,38 +1,60 @@
+/**
+ * @file 存取下载履历的module
+ * @author lizheng
+ * @copyright Dreamarts Corporation. All Rights Reserved.
+ */
+
+"use strict";
+
 var mongo       = smart.util.mongoose
   , conn        = smart.framework.connection
   , schema      = mongo.Schema;
 
-
 var Download = new schema({
-      app_id       : { type: String }
-    , create_at    : { type: Date, default: Date.now }
-    , ip           : { type: String }
-    , create_user  : { type: String }
-    , type         : { type: String }
-    , device       : { type: String }
-});
+    appId        : { type: String,  description: "应用标识" }
+  , valid        : { type: Number,  description: "删除 0:无效 1:有效", default:1 }
+  , createAt     : { type : Date,   description: "创建时间" }
+  , createBy     : { type : String, description: "创建者" }
+  , updateAt     : { type : Date,   description: "最终修改时间" }
+  , updateBy     : { type : String, description: "最终修改者" }
+  });
 
-function model() {
-  return conn.model("", "download", Download);
+function model(code) {
+  return conn.model(code, "Download", Download);
 }
 
-exports.create = function (down_, callback_) {
-    var app = model();
-    new app(down_).save(function (err, result) {
-        callback_(err, result);
-    });
+/**
+ * 添加下载履历
+ * @param {Object} download 下载履历
+ * @param {Function} callback 回调函数，返回新添加的下载履历
+ */
+exports.add = function (download, callback) {
+  var Download = model();
+  new Download(download).save(function (err, result) {
+    callback(err, result);
+  });
 };
 
-exports.count = function(app_id, callback_){
-    var app = model();
-    app.count({app_id: app_id}).exec(function(err, count){
-        callback_(err,count);
-    });
+/**
+ * 获取某个App的下载次数
+ * @param {String} appId 应用标识
+ * @param {Function} callback 回调函数，返回下载次数
+ */
+exports.countByApp = function (appId, callback) {
+  var download = model();
+  download.count({appId: appId}).exec(function (err, count) {
+    callback(err, count);
+  });
 };
 
-exports.appIdsByUser = function(uid_, callback_){
-    var download = model();
-    download.find({create_user:uid_}).distinct('app_id',function(err,ids){
-        callback_(err, ids);
-    });
+/**
+ * 获取某个用户下载过的App
+ * @param {String} uid 用户标识
+ * @param {Function} callback 回调函数，返回下载过的App
+ */
+exports.appIdsByUser = function (uid, callback) {
+  var download = model();
+  download.find({createBy: uid}).distinct("appId", function (err, ids) {
+    callback(err, ids);
+  });
 };

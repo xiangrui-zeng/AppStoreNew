@@ -11,7 +11,9 @@ var async       = smart.util.async
   , errors      = smart.framework.errors
   , log         = smart.framework.log
   , ctrlApp     = require("../controllers/ctrl_app")
-  , ctrlFile    = require("../controllers/ctrl_file");
+  , ctrlFile    = require("../controllers/ctrl_file")
+  , modApp      = require("../modules/mod_app")
+  , modDownload = require("../modules/mod_download");
 
 /**
  * 下载Plist
@@ -120,6 +122,41 @@ exports.getIpaFile = function (handler, callback) {
  * @param {Function} callback 回调函数，返回下载履历
  */
 exports.addHistory = function (handler, callback){
-  // TODO
-  callback();
+
+  var params = handler.params;
+
+  var tasks = [];
+
+  // 添加下载履历
+  var taskAddDownloadInfo = function(cb){
+    var download = {};
+    download.appId = params.app_id;
+    download.valid = 1;
+    download.createAt = new Date();
+    download.createBy = handler.uid.toString();
+    download.updateAt = download.createAt;
+    download.updateBy = download.createBy;
+
+    modDownload.add(download, function(err, result) {
+      cb(err, result);
+    });
+  };
+  tasks.push(taskAddDownloadInfo);
+
+  // 更新下载次数
+  var taskUpdateDownloadCount = function(result, cb){
+    modDownload.countByApp(params.app_id, function(err, count){
+      if(err) {
+        return cb(err);
+      }
+      modApp.updateDownloadCount(params.app_id, count, function(err){
+        cb(err, result);
+      });
+    });
+  };
+  tasks.push(taskUpdateDownloadCount);
+
+  async.waterfall(tasks,function(err, result){
+    return callback(err, result);
+  });
 };
