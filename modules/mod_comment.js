@@ -15,6 +15,7 @@ var Comment = new schema({
   , comment      : { type : String, description: "评论内容" }
   , rank         : { type : Number, description: "评分" }
   , version      : { type : String, description: "应用版本" }
+  , valid        : { type: Number,  description: "删除 0:无效 1:有效", default:1 }
   , createAt     : { type : Date,   description: "创建时间" }
   , createBy     : { type : String, description: "创建者" }
   , updateAt     : { type : Date,   description: "最终修改时间" }
