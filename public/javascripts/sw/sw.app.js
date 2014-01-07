@@ -313,9 +313,13 @@ var $app = {
             });
         });
     },
-    didUploadPPTFile: function (status, input, fid) {
+    didUploadPPTFile: function (status, input, file) {
         console.log(fid);
-        var fid = fid.data[0]._id;
+        var fid = file.data[0]._id;
+        var size = file.data[0].length;
+
+        $("#pptfile_size").val(size);
+
         $("#pptfile_hid").val(fid);
         $("#pptfile_hid").attr("readonly", "readonly");
         $("#pptfile_hid").after(fid);
