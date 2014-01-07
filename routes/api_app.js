@@ -45,8 +45,6 @@ exports.guiding = function(app){
   app.get('/list/search', function (req, res) {
     res.render("list_search", { title: "检索结果一览", bright: "home", user: req.session.user
       ,keywords: req.query.keywords
-      ,categories: categorory.getCategories()
-      ,apptypes: categorory.getAppTypes()
     });
   });
 
