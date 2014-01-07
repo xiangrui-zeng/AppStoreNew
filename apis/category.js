@@ -16,7 +16,6 @@ var response  = smart.framework.response
  * @param res 响应对象
  * @returns {*} 无
  */
-exports.getCategory = function (req, res) {
-  handler = new conte
+exports.getCategory = function (req_, res_) {
   response.send(res_, null, category.getCategories());
 };
