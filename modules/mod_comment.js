@@ -64,7 +64,7 @@ exports.getList = function (condition, start, limit, callback) {
   comment.find(condition)
     .skip(start || 0)
     .limit(limit || 20)
-    .sort({update_date: -1})
+    .sort({updateAt: -1})
     .exec(function (err, result) {
       comment.count(condition).exec(function (err, count) {
         callback(err, {totalItems: count, items: result});

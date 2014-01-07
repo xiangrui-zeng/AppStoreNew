@@ -35,11 +35,11 @@ var Categories = {
       ,code: 30000
        ,name: "規模"
       ,items: [
-          {  id: undefined, code: "30001" ,name: "2000人以下" }
-          ,{ id: undefined, code: "30002" ,name: "1000人以下" }
-          ,{ id: undefined, code: "30003" ,name: "500人以下" }
-          ,{ id: undefined, code: "30004" ,name: "100人以下" }
-          ,{ id: undefined, code: "30005" ,name: "50人以下" }
+          {  id: undefined, code: "30001" ,name: "1000~2000" }
+          ,{ id: undefined, code: "30002" ,name: "500~1000" }
+          ,{ id: undefined, code: "30003" ,name: "100~500" }
+          ,{ id: undefined, code: "30004" ,name: "50~100" }
+          ,{ id: undefined, code: "30005" ,name: "~50" }
       ]
     }
   ]
