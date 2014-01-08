@@ -1,21 +1,26 @@
-var app = require("../controllers/ctrl_app.js")
-  , util = smart.framework.util
+
+"use strict";
+
+var util      = smart.framework.util
   , response  = smart.framework.response
   , context   = smart.framework.context
   , log       = smart.framework.log
-  , apputil = require("../core/apputil.js")
+  , app       = require("../controllers/ctrl_app.js")
+  , apputil   = require("../core/apputil.js");
 
-function setDownloadURL(req, app_info) {
+
+function setDownloadURL(req, appInfo) {
   // 现在API里有返回数据组，有返回json格式的。
   var list;
-  if (util.isArray(app_info)) // 数组
-    list = app_info;
-  else if (app_info.items)   // json数组
-    list = app_info.items;
-  else if (app_info._doc)
-    list = [ app_info ];
-  else if (app_info.data)
-    list = [ app_info.data ];
+  if (util.isArray(appInfo)) { // 数组
+    list = appInfo;
+  } else if (appInfo.items) { // json数组
+    list = appInfo.items;
+  } else if (appInfo._doc) {
+    list = [ appInfo ];
+  } else if (appInfo.data) {
+    list = [ appInfo.data ];
+  }
 
   for (var i = 0; i < list.length; i++) {
     var app_ = list[i];
@@ -30,39 +35,28 @@ function setDownloadURL(req, app_info) {
     }
   }
 }
-
+//还需要调整 by yt
 exports.updateAppStep1 = function (req_, res_) {
-  var creator = req_.session.user._id;
-  var appId = req_.body._id;
-  var appType = req_.body.appType;
-  var name = req_.body.name;
-  var copyright = req_.body.copyright;
-  var version = req_.body.version;
-  var release_note = req_body.release_note;
-  var description = req_.body.description;
-  var device = req_.require.device;
-  var os = req_.require.os;
-  var category = req_.body.category;
-  var bundle_identifier = req_.body.bundle_identifier;
-  var bundle_version = req_.body.bundle_version;
-  var title = req_.body.title;
-//  app.findAppInfoById(appId,function(err,docs){
-//    docs.name = name;
-//    docs.appType = appType;
-//    docs.copyright = copyright;
-//    docs.description = description;
-//    dosc.category = category;
-//    dosc.version = version;
-//    dosc.release_note = release_note;
-//    dosc.os = os;
-//    dosc.device = device;
-//    dosc.bundle_identifier = bundle_identifier;
-//    dosc.bundle_version = bundle_version;
-//    docs.save(function (err_, result) {
-//          response.send(res, err_, result);
-//        });
-//  });
-//    }
+  var handler = new context().bind(req_, res_);
+  console.log(handler+"???????");
+  var creator = handler.session.uid;
+  var appId = handler.params.app;
+  var appType = handler.params.appType;
+  var name = handler.params.name;
+  var copyright = handler.params.copyright;
+  var version = handler.params.version;
+  var release_note = handler.params.release_note;
+  var description = handler.params.description;
+  var device = handler.params.device_device;
+  var os = handler.params.require_os;
+  var category = handler.body.category;
+  var bundle_identifier = handler.params.bundle_identifier;
+  var bundle_version = handler.params.bundle_version;
+  var title = handler.body.title;
+  var permission_download =handler.params.permission.download;
+  app.create(data, function (err, result) {
+    response.send(res, err, result);
+  });
 }
 exports.createAppStep1 = function (req, res) {
   var creator = req.session.user._id;//创建者
@@ -107,6 +101,7 @@ exports.createAppStep2 = function (req, res) {
 exports.saveimage = function (req, res) {
   var handler = new context().bind(req, res);
   log.operation("begin: upload an item.", handler.uid);
+  // 文件个数判断 引入0.1.34版本后的smartcore 此处逻辑可删除
   var params = handler.params
     , files = params.files;
   var tmpFiles = [];
@@ -129,92 +124,6 @@ exports.saveimage = function (req, res) {
   });
 };
 
-exports.createAppStep3 = function (req_, res_) {
-  var creator = req_.session.user._id;
-  var appId = req_.body._id;
-
-  var permission_edit = req_.body['permission.edit'];
-  var permission_view = req_.body['permission.view'];
-  var permission_download = req_.body['permission.download'];
-  var permission_admin = req_.body['permission.admin'];
-  console.log(permission_view);
-  console.log(permission_edit);
-  console.log(permission_download);
-  console.log(permission_admin);
-  var editstep = 3;
-//    app.findAppInfoById(appId, function (err, docs) {
-//        // check编辑权限
-//        if(!apputil.isCanEdit(docs, req_.session.user._id))
-//          return new error.InternalServer(err);
-//
-//        docs.permission.admin = permission_admin;
-//        docs.permission.download = permission_download;
-//        docs.permission.view = permission_view;
-//        docs.permission.edit = permission_edit;
-//        docs.update_date = new Date();
-//        docs.update_user = creator;
-//        if (docs.editstep < editstep) {
-//            docs.editstep = editstep;
-//        }
-//        if (!docs.editstep) {
-//            docs.editstep = editstep;
-//        }
-//        console.log(docs);
-//        docs.save(function (err_, result) {
-//
-//          response.send(res_, err_, result);
-//        });
-//    });
-};
-exports.createAppStep4 = function (req_, res_) {
-  var creator = req_.session.user._id;
-  var appId = req_.body._id;
-  var support = req_.body.support;
-  var notice = req_.body.notice;
-  var release_note = req_.body.release_note;
-  var editstep = 4;
-//    app.findAppInfoById(appId, function (err, docs) {
-//        // check编辑权限
-//        if(!apputil.isCanEdit(docs, req_.session.user._id))
-//          return new error.InternalServer(err);
-//
-//        docs.support = support;
-//        docs.notice = notice;
-//        docs.release_note = release_note;
-//        docs.update_date = new Date();
-//        docs.update_user = creator;
-//        if (docs.editstep < editstep) {
-//            docs.editstep = editstep;
-//        }
-//        if (!docs.editstep) {
-//            docs.editstep = editstep;
-//        }
-//        docs.save(function (err_, result) {
-//          response.send(res_, err_, result);
-//        });
-//    });
-};
-exports.createAppStep5 = function (req_, res_) {
-  var creator = req_.session.user._id;
-  var appId = req_.body._id;
-  var editstep = 5;
-//    app.findAppInfoById(appId, function (err, docs) {
-//        // check编辑权限
-//        if(!apputil.isCanEdit(docs, req_.session.user._id))
-//            return json.sendError(res_, new starerrors.NoEditError);
-//
-//        docs.editing = 1;
-//        docs.status = 1;
-//        docs.editstep = editstep;
-//        docs.update_date = new Date();
-//        docs.update_user = creator;
-//        docs.save(function (err_, result) {
-//          response.send(res_, err_, result);
-//        });
-//    });
-};
-
-
 exports.createApp = function (req_, res_) {
   var creator = req_.session.user._id;
   var data = util.checkObject(req_.body);
@@ -234,10 +143,11 @@ exports.getAppInfo = function (req, res) {
   });
 };
 
-exports.downloadedList = function (req_, res_) {
+exports.downloadedList = function (req, res) {
   var uid = req_.session.user._id;
+  var handler = new context().bind(req, res);
 
-  app.downloadedList(uid, function (err, result) {
+  app.downloadedList(handler, function (err, result) {
     setDownloadURL(req_, result);
     response.send(res_, err, result);
   });
@@ -278,7 +188,7 @@ exports.checkApply = function(req, res) {
     log.operation("finish: apply an app.", handler.uid);
     response.send(res, err, result);
   });
-}
+};
 
 exports.checkAllow = function(req, res) {
   var handler = new context().bind(req, res);
@@ -288,7 +198,7 @@ exports.checkAllow = function(req, res) {
     log.operation("finish: allow an app.", handler.uid);
     response.send(res, err, result);
   });
-}
+};
 
 exports.checkDeny = function(req, res) {
   var handler = new context().bind(req, res);
@@ -298,7 +208,7 @@ exports.checkDeny = function(req, res) {
     log.operation("finish: Deny an app.", handler.uid);
     response.send(res, err, result);
   });
-}
+};
 
 exports.checkStop = function(req, res) {
   var handler = new context().bind(req, res);
@@ -308,7 +218,7 @@ exports.checkStop = function(req, res) {
     log.operation("finish: Stop an app.", handler.uid);
     response.send(res, err, result);
   });
-}
+};
 //获取plist文件
 exports.getPlist = function (req_, res_) {
     console.log(req_.host);
@@ -320,8 +230,8 @@ exports.getPlist = function (req_, res_) {
             var url = "http://"+req_.host+":3000/file/download.json?_id="+result.downloadId+"&amp;app_id="+app_id+"&amp;flag=phone";
             var bundle_identifier = result.bundle_identifier;
             var bundle_version = result.bundle_version;
-            var kind = result.kind;
-            var title = result.title;
+            var kind = "software";
+            var title = result.name;
 
             res_.setHeader('Content-Type', "text/xml");
             res_.send("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\

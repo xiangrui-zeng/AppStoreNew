@@ -1,22 +1,25 @@
+
+"use strict";
+
 var mongo       = smart.util.mongoose
   , conn        = smart.framework.connection
   , schema      = mongo.Schema;
 
 var App = new schema({
 
-      name          : {type: String, description:"名称"}
-    , description   : {type: String, description:"详细信息"}
-    , release_note  : {type: String, description:"更新信息"}
-    , appType       : {type: String, description:"设备的类型：OS、android、PC "}
-    , permission    : {
-          admin      : [String]
-        , edit       : [String]
-        , view       : [String]
-        , download   : [String]
-        }
+    name          : {type: String, description:"名称"}
+  , description   : {type: String, description:"详细信息"}
+  , release_note  : {type: String, description:"更新信息"}
+  , appType       : {type: String, description:"设备的类型：OS、android、PC "}
+  , permission    : {
+        admin      : [String]
+      , edit       : [String]
+      , view       : [String]
+      , download   : [String]
+      }
     , icon          : {
-        big          : {type: String}
-      , small        : {type: String}}
+        big          : { type: String }
+      , small        : { type: String }  }
     , screenshot      : [String]
     , category        : [String]
     , version         : {type: String, description:"版本"}
@@ -40,7 +43,7 @@ var App = new schema({
     , rankcount       : {type: Number, description:"评分次数",default: 0}
     , bundle_identifier : {type:String, description:"plist  标识"}
     , bundle_version  : {type:String, description:"plist"}
-    , kind            : {type:String, description:"种类"}
+    , kind            : {type:String, description:"plist种类  固定的",default: "software"}
     , downloadCount   : {type: Number, description:"下载数量"}
     , notice          : {type: String, description:"审核信息"}
     , noticeimage     : [String]
@@ -114,7 +117,7 @@ exports.update = function (code, appId, update, callback) {
 
   var App = model(code);
 
-  App.findByIdAndUpdate(appId, update, function (err, result) {
+  App.findByIdAndUpdate(appId+"", update, function (err, result) {
     callback(err, result);
   });
 };
