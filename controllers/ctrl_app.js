@@ -14,9 +14,11 @@ var context       = smart.framework.context
   , starerrors    = require("../core/starerrors.js")
   , apputil       = require("../core/apputil.js");
 
-exports.create = function (handler, callback_){
-  var creator = handler.uid;//创建者
-  var data = util.checkObject(handler.params);
+//创建App 第一步
+exports.create = function (handler, callback) {
+
+  var creator = handler.req.session.user._id;//创建者
+  var data = handler.params;
   data.require = {                  //require 两项
     device: data.require_device,
     os: data.require_os
@@ -24,10 +26,10 @@ exports.create = function (handler, callback_){
   data.rank = 0;
   data.rankcount = 0;
   data.downloadCount = 0;
-  data.createBy = creator;
+  data.create_user = creator;
   data.editstep = 1;              //编辑步骤
   data.editing = 0;               //?
-  data.status = 0;
+  data.status = 0;                //状态 默认为0：未申请
   data.category = handler.params.category;   //类别
   data.permission = {                  //权限
     admin: [creator],
@@ -36,16 +38,14 @@ exports.create = function (handler, callback_){
     download: [creator]
 
   };
-  data.updateAt = new Date();       //更新时间 当前时间
-  data.updateBy = creator;
-  var date = Date.now();
-  var app_ = data;
-  app_.createAt = date;
-  app_.updateAt = date;
+  var date = new Date();
+  data.create_date = date;
+  data.update_date = date;       //更新时间 当前时间
+  data.update_user = creator;
 
-  app.create(app_, function(err, result){
+  app.create(data, function (err, result) {
     err = err ? new error.InternalServer(err) : null;
-    return callback_(err, result);
+    return callback(err, result);
   });
 };
 exports.findAppInfoById = function (appId, callback_) {
@@ -168,7 +168,7 @@ exports.search = function(handler, callback){
 exports.list = function(handler, callback){
   var sort        = handler.params.sort
     , category    = handler.params.category
-    , createBy = handler.params.createBy
+    , createBy    = handler.params.createBy
     , status      = handler.params.status
     , asc         = handler.params.asc;
 	var condition   = {};
@@ -270,6 +270,38 @@ exports.renderAppStep = function(req, res, step) {
         _renderAppStep(req, res, step, appId);
     }
 };
+// 更新变为两步
+//exports.updatestep1 = function (handler, callback) {
+//  var appId = handler.params.appId
+//    , code  = handler.params.code
+//    , create_user = handler.uid
+//    , icon_big = handler.params['icon.big']
+//    , icon_small = handler.params['icon.small']
+//    , screenshot = handler.params.screenshot
+//    , pptfile = handler.params.pptfile
+//    , downloadId = handler.params.downloadId
+//    , size = handler.params.pptfile_size
+//    , editstep = handler.params.editstep
+//  var app_update = {
+//    update_date : new Date()
+//    ,update_user : create_user
+//    , icon :{
+//      big: icon_big
+//      ,small :icon_small
+//
+//    }
+//    , screenshot : screenshot
+//    , pptfile : pptfile
+//    , size : size
+//    , downloadId : downloadId
+//    , editstep : editstep
+//    , plistDownloadId : ""
+//  };
+//
+//  app.update(code, appId, app_update, function (err, result) {
+//    callback(err, result);
+//  });
+//}
 
 exports.update = function (handler, callback) {
   var appId = handler.params.appId

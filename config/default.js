@@ -48,6 +48,7 @@ module.exports = {
       , "^\/login.*"
       , "^\/register.*"
       , "^\/archive"
+      , "^\/download.*"
     ]
   }
 
