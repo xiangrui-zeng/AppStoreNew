@@ -14,35 +14,6 @@ var context       = smart.framework.context
   , starerrors    = require("../core/starerrors.js")
   , apputil       = require("../core/apputil.js");
 
-exports.create = function (handler, callback_){
-  var creator = handler.uid;//创建者
-  var data = util.checkObject(handler.params);
-  data.require = {                  //require 两项
-    device: data.require_device,
-    os: data.require_os
-  };
-  data.rank = 0;
-  data.rankcount = 0;
-  data.downloadCount = 0;
-  data.createBy = creator;
-  data.editstep = 1;              //编辑步骤
-  data.editing = 0;               //?
-  data.status = 0;
-  data.category = handler.params.category;   //类别
-  data.permission = {                  //权限
-    admin: [creator],
-    edit: [creator],
-    view: [creator],
-    download: [creator]
-
-  };
-  data.updateAt = new Date();       //更新时间 当前时间
-  data.updateBy = creator;
-  var date = Date.now();
-  var app_ = data;
-  app_.createAt = date;
-  app_.updateAt = date;
-
 //创建App 第一步
 exports.create = function (handler, callback) {
 
