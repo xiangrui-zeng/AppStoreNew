@@ -3,27 +3,22 @@
   height: 520px;
   margin: 0 0 0 -470px;
 }
-
 #modal-body {
   max-height: 430px;
 }
-
 .headLeft {
   vertical-align: top;
   display: inline-block;
 }
-
 .headLeft img {
-  width:50px;
-  height:50px;
+  width: 50px;
+  height: 50px;
 }
-
 .headMiddle {
   display: inline-block;
   padding-left: 20px;
   width: 450px;
 }
-
 .headMiddle .sep {
   height: 15px;
   width: 1px;
@@ -32,18 +27,15 @@
   margin: 0 7px;
   vertical-align: middle;
 }
-
 .headRight {
   vertical-align: top;
   display: inline-block;
   padding-top: 20px;
 }
-
 .profile-image {
   float: left;
   width: 580px;
 }
-
 .profile-info {
   float: left;
   width: 200px;
@@ -52,11 +44,6 @@
   padding-left: 5px;
   margin-left: 5px;
 }
-
-.itemTable {
-
-}
-
 .itemTable div label {
   float: left;
   width: 50px;
@@ -64,7 +51,6 @@
   margin-left: 10px;
   font-size: 12px;
 }
-
 .itemTable div div {
   margin-left: 60px;
   width: 100px;
@@ -73,26 +59,22 @@
   font-size: 12px;
   text-align: right;
 }
-
 #gallery {
   height: 320px;
   overflow-x: auto;
   white-space: nowrap;
   text-align: center;
 }
-
 #gallery img {
   max-height: 300px;
   margin-left: 10px;
 }
-
 .textarea-big {
   background-color: white;
   height: 350px;
   overflow-y: auto;
   word-break: break-all;
 }
-
 .comment {
   background-color: #FAFAFA;
   margin-left: 10px;
@@ -102,54 +84,43 @@
   overflow-x: hidden;
   padding: 5px;
 }
-
 .comment textarea {
   width: 735px;
   height: 40px;
   margin-left: 5px;
 }
-
 .comment #operationarea {
   text-align: right;
   padding-right: 15px;
 }
-
 .comment #operationarea i {
   cursor: pointer;
 }
-
 .comment ul {
   margin-top: 10px;
   margin-left: 5px;
 }
-
 .comment ul li {
   list-style-type: none;
   margin-bottom: 10px;
   border-bottom: 1px solid #EEF;
 }
-
 .comment ul li .portrait {
   width: 30px;
 }
-
 .comment ul li div {
   padding-left: 40px;
 }
-
 .comment p {
-  word-wrap:break-word;
-  word-break:normal;
+  word-wrap: break-word;
+  word-break: normal;
 }
-
 #pagination {
   margin: 0;
 }
-
 #pagination ul {
   margin: 0;
 }
-
 #pagination ul li {
   margin: 0;
 }
