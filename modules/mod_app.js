@@ -54,25 +54,25 @@ var App = new schema({
 function model() {
   return conn.model("", "app", App);
 }
-
-exports.create = function (app_, callback_) {
+//创建app
+exports.create = function (app, callback) {
   var App = model();
-  new App(app_).save(function (err, result) {
-    callback_(err, result);
+  new App(app).save(function (err, result) {
+    callback(err, result);
   });
 };
 //更新评分
-exports.updateRank = function (appId, rank, rankCount, callback_) {
+exports.updateRank = function (appId, rank, rankCount, callback) {
   var app = model();
   app.findByIdAndUpdate(appId, { rank: rank, rankcount: rankCount }, function (err, result) {
-    callback_(err, result);
+    callback(err, result);
   });
 };
 //更新下载数量
-exports.updateDownloadCount = function (appId_, dlCount_, callback_) {
+exports.updateDownloadCount = function (appId, dlCount, callback) {
   var app = model();
-  app.findByIdAndUpdate(appId_, { downloadCount: dlCount_ }, function (err, result) {
-    callback_(err, result);
+  app.findByIdAndUpdate(appId, { downloadCount: dlCount}, function (err, result) {
+    callback(err, result);
   });
 };
 /**
@@ -80,18 +80,22 @@ exports.updateDownloadCount = function (appId_, dlCount_, callback_) {
  * @param {String} appId 应用标识
  * @param {Function} callback 回调函数，返回app信息
  */
-exports.find = function (appId, callback_) {
+exports.find = function (appId,callback) {
   var app = model();
   app.findOne({_id: appId}, function (err, result) {
-    callback_(err, result);
+    callback(err, result);
   });
 };
-
-exports.getAppsByIds = function (ids_, callback_) {
+/**
+ * 通过appId获取app
+ * @param {String} appId 应用标识
+ * @param {Function} callback 回调函数，返回app信息
+ */
+exports.getAppsByIds = function (ids, callback) {
   var app = model();
 
-  app.find({"_id": {$in: ids_}}).exec(function (err, result) {
-    callback_(err, result);
+  app.find({"_id": {$in: ids}}).exec(function (err, result) {
+    callback(err, result);
   });
 };
 /**
