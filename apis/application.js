@@ -109,7 +109,11 @@ exports.saveimage = function (req, res) {
     response.send(res, err, result);
   });
 };
-
+/**
+ * apis 获取app信息
+ * @param req 请求对象
+ * @param res 响应对象
+ */
 exports.getAppInfo = function (req, res) {
   var handler = new context().bind(req, res);
   app.getAppInfoById(handler, function (err, result) {
@@ -128,9 +132,9 @@ exports.downloadedList = function (req, res) {
 };
 
 /**
- * @file 查询apis
- * @author chenda
- * @copyright Dreamarts Corporation. All Rights Reserved.
+ * apis查找方法
+ * @param req 请求对象
+ * @param res 响应对象
  */
 exports.search = function (req, res) {
 	var handler = new context().bind(req,res);
@@ -141,9 +145,9 @@ exports.search = function (req, res) {
 };
 
 /**
- * @file list apis
- * @author chenda
- * @copyright Dreamarts Corporation. All Rights Reserved.
+ * apis中list方法
+ * @param req 请求对象
+ * @param res 响应对象
  */
 exports.list = function (req, res) {
   var handler = new context().bind(req,res);
