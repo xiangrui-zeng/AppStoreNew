@@ -1,12 +1,11 @@
-
 "use strict";
 
-var util      = smart.framework.util
-  , response  = smart.framework.response
-  , context   = smart.framework.context
-  , log       = smart.framework.log
-  , app       = require("../controllers/ctrl_app.js")
-  , apputil   = require("../core/apputil.js");
+var util = smart.framework.util
+  , response = smart.framework.response
+  , context = smart.framework.context
+  , log = smart.framework.log
+  , app = require("../controllers/ctrl_app.js")
+  , apputil = require("../core/apputil.js");
 
 
 function setDownloadURL(req, appInfo) {
@@ -36,10 +35,12 @@ function setDownloadURL(req, appInfo) {
   }
 }
 //还需要调整 by yt
-exports.updateAppStep1 = function (req_, res_) {
-  var handler = new context().bind(req_, res_);
-  console.log(handler+"???????");
-  var creator = handler.session.uid;
+exports.updateAppStep1 = function (req, res) {
+
+  var handler = new context().bind(req, res);
+  console.log(handler + "???????");
+
+  var creator = handler.uid;
   var appId = handler.params.app;
   var appType = handler.params.appType;
   var name = handler.params.name;
@@ -49,49 +50,29 @@ exports.updateAppStep1 = function (req_, res_) {
   var description = handler.params.description;
   var device = handler.params.device_device;
   var os = handler.params.require_os;
-  var category = handler.body.category;
+  var category = handler.params.category;
   var bundle_identifier = handler.params.bundle_identifier;
   var bundle_version = handler.params.bundle_version;
-  var title = handler.body.title;
-  var permission_download =handler.params.permission.download;
+  var permission_download = handler.params.permission.download;
   app.create(data, function (err, result) {
     response.send(res, err, result);
   });
 }
 exports.createAppStep1 = function (req, res) {
-  var creator = req.session.user._id;//创建者
-  var data = util.checkObject(req.body);
-  data.require = {                  //require 两项
-    device: data.require_device,
-    os: data.require_os
-  };
-  data.rank = 0;
-  data.rankcount = 0;
-  data.downloadCount = 0;
-  data.create_user = creator;
-  data.editstep = 1;              //编辑步骤
-  data.editing = 0;               //?
-  data.status = 0;                //状态 默认为0：未申请
-  data.category = req.body.category;   //类别
-  data.permission = {                  //权限
-    admin: [creator],
-    edit: [creator],
-    view: [creator],
-    download: [creator]
 
-  };
-  data.update_date = new Date();       //更新时间 当前时间
-  data.update_user = creator;
-  app.create(data, function (err, result) {
+  var handler = new context().bind(req, res);
+
+  app.create(handler, function (err, result) {
     response.send(res, err, result);
   });
+
 };
 //
 exports.createAppStep2 = function (req, res) {
   var handler = new context().bind(req, res);
   log.operation("begin: create an app step2.", handler.uid);
 
-  app.update (handler, function(err, result) {
+  app.update(handler, function (err, result) {
     log.operation("finish: create an app step2.", handler.uid);
     response.send(res, err, result);
   });
@@ -159,11 +140,11 @@ exports.downloadedList = function (req, res) {
  * @copyright Dreamarts Corporation. All Rights Reserved.
  */
 exports.search = function (req_, res_) {
-	var handler = new context().bind(req_,res_);
-	app.search(handler, function(err, result) {
-		log.operation("finish : search app list",handler.uid);
-		response.send(res_,err,result);
-	});
+  var handler = new context().bind(req_, res_);
+  app.search(handler, function (err, result) {
+    log.operation("finish : search app list", handler.uid);
+    response.send(res_, err, result);
+  });
 };
 
 /**
@@ -172,69 +153,69 @@ exports.search = function (req_, res_) {
  * @copyright Dreamarts Corporation. All Rights Reserved.
  */
 exports.list = function (req_, res_) {
-  var handler = new context().bind(req_,res_);
-	log.operation("finish : list app ",handler.uid);
-	app.list(handler,function(err, result){
-		setDownloadURL(req_, result);
-		response.send(res_, err, result);
-	})
+  var handler = new context().bind(req_, res_);
+  log.operation("finish : list app ", handler.uid);
+  app.list(handler, function (err, result) {
+    setDownloadURL(req_, result);
+    response.send(res_, err, result);
+  })
 };
 
-exports.checkApply = function(req, res) {
+exports.checkApply = function (req, res) {
   var handler = new context().bind(req, res);
   log.operation("begin: apply an app.", handler.uid);
 
-  app.checkApply (handler, function(err, result) {
+  app.checkApply(handler, function (err, result) {
     log.operation("finish: apply an app.", handler.uid);
     response.send(res, err, result);
   });
 };
 
-exports.checkAllow = function(req, res) {
+exports.checkAllow = function (req, res) {
   var handler = new context().bind(req, res);
   log.operation("begin: allow an app.", handler.uid);
 
-  app.checkAllow (handler, function(err, result) {
+  app.checkAllow(handler, function (err, result) {
     log.operation("finish: allow an app.", handler.uid);
     response.send(res, err, result);
   });
 };
 
-exports.checkDeny = function(req, res) {
+exports.checkDeny = function (req, res) {
   var handler = new context().bind(req, res);
   log.operation("begin: Deny an app.", handler.uid);
 
-  app.checkDeny (handler, function(err, result) {
+  app.checkDeny(handler, function (err, result) {
     log.operation("finish: Deny an app.", handler.uid);
     response.send(res, err, result);
   });
 };
 
-exports.checkStop = function(req, res) {
+exports.checkStop = function (req, res) {
   var handler = new context().bind(req, res);
   log.operation("begin: Stop an app.", handler.uid);
 
-  app.checkStop (handler, function(err, result) {
+  app.checkStop(handler, function (err, result) {
     log.operation("finish: Stop an app.", handler.uid);
     response.send(res, err, result);
   });
 };
 //获取plist文件
 exports.getPlist = function (req_, res_) {
-    console.log(req_.host);
-    var app_id = req_.params.app_id;
-    app.getAppInfoById(app_id, function (err, result) {
-        if (err) {
-          return new error.InternalServer(err);
-        } else {
-            var url = "http://"+req_.host+":3000/file/download.json?_id="+result.downloadId+"&amp;app_id="+app_id+"&amp;flag=phone";
-            var bundle_identifier = result.bundle_identifier;
-            var bundle_version = result.bundle_version;
-            var kind = "software";
-            var title = result.name;
+  console.log(req_.host);
+  var app_id = req_.params.app_id;
+  app.getAppInfoById(app_id, function (err, result) {
+    if (err) {
+      return new error.InternalServer(err);
+    } else {
+      var url = "http://" + req_.host + ":3000/file/download.json?_id=" + result.downloadId + "&amp;app_id=" + app_id + "&amp;flag=phone";
+      var bundle_identifier = result.bundle_identifier;
+      var bundle_version = result.bundle_version;
+      var kind = "software";
+      var title = result.name;
 
-            res_.setHeader('Content-Type', "text/xml");
-            res_.send("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\
+      res_.setHeader('Content-Type', "text/xml");
+      res_.send("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\
 <!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\
 <plist version=\"1.0\">\
 <dict>\
@@ -247,10 +228,10 @@ exports.getPlist = function (req_, res_) {
 <key>kind</key>\
 <string>software-package</string>\
 <key>url</key>"
-+"<string>"
-+url
-+"</string>"
-+"</dict>\
+        + "<string>"
+        + url
+        + "</string>"
+        + "</dict>\
 <dict>\
 <key>kind</key>\
 <string>display-image</string>\
@@ -267,20 +248,20 @@ exports.getPlist = function (req_, res_) {
 </array><key>metadata</key>\
 <dict>\
 <key>bundle-identifier</key>               \
-<string>"+bundle_identifier+"</string>     \
+<string>" + bundle_identifier + "</string>     \
 <key>bundle-version</key>                  \
-<string>"+bundle_version+"</string>                       \
+<string>" + bundle_version + "</string>                       \
 <key>kind</key>                            \
 <string>software</string>                  \
 <key>title</key>                           \
-<string>"+title+"</string>                     \
+<string>" + title + "</string>                     \
 </dict>\
 </dict>\
 </array>\
 </dict>\
 </plist>");
-            return;
-        }
-    });
+      return;
+    }
+  });
 
 }
