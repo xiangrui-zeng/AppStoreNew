@@ -1,9 +1,8 @@
-"use strict";
-
 var user        = require("../apis/user")
-  , apiApp      = require("./api_app")
-  , apiFile     = require("./api_file")
-  , apiComment  = require("./api_comment")
+  , apiApp      = require('./api_app')
+  , apiFile     = require('./api_file')
+  , apiComment  = require('./api_comment')
+  , apiAnalyze  = require("./api_analyze")
   , apiDownload = require("./api_download");
 
 /*
@@ -20,6 +19,9 @@ exports.guiding = function (app) {
 
   // comment
   apiComment.guiding(app);
+
+  // analyze
+  apiAnalyze.guiding(app);
 
   // download
   apiDownload.guiding(app);
