@@ -264,6 +264,38 @@ exports.renderAppStep = function(req, res, step) {
         _renderAppStep(req, res, step, appId);
     }
 };
+// 更新变为两步
+//exports.updatestep1 = function (handler, callback) {
+//  var appId = handler.params.appId
+//    , code  = handler.params.code
+//    , create_user = handler.uid
+//    , icon_big = handler.params['icon.big']
+//    , icon_small = handler.params['icon.small']
+//    , screenshot = handler.params.screenshot
+//    , pptfile = handler.params.pptfile
+//    , downloadId = handler.params.downloadId
+//    , size = handler.params.pptfile_size
+//    , editstep = handler.params.editstep
+//  var app_update = {
+//    update_date : new Date()
+//    ,update_user : create_user
+//    , icon :{
+//      big: icon_big
+//      ,small :icon_small
+//
+//    }
+//    , screenshot : screenshot
+//    , pptfile : pptfile
+//    , size : size
+//    , downloadId : downloadId
+//    , editstep : editstep
+//    , plistDownloadId : ""
+//  };
+//
+//  app.update(code, appId, app_update, function (err, result) {
+//    callback(err, result);
+//  });
+//}
 
 exports.update = function (handler, callback) {
   var appId = handler.params.appId
@@ -275,6 +307,7 @@ exports.update = function (handler, callback) {
     , pptfile = handler.params.pptfile
     , downloadId = handler.params.downloadId
     , size = handler.params.pptfile_size
+//    , editstep = handler.params.editstep
   var app_update = {
     update_date : new Date()
    ,update_user : create_user
@@ -287,7 +320,7 @@ exports.update = function (handler, callback) {
   , pptfile : pptfile
   , size : size
   , downloadId : downloadId
-  , editstep : editstep
+//  , editstep : editstep
   , plistDownloadId : ""
   };
 

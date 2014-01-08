@@ -198,26 +198,20 @@
               <label class="control-label">公开对象</label>
 
               <div class="controls">
-                <input type="hidden" name="permission.view" id="permission_view_input"/>
+                <input type="hidden" name="permission.download" id="permission_download_input"/>
 
                 <div class="user_select_print" style="width: 203px">
-                  <ul id="view_user_selected">
+                  <ul id="download_user_selected">
                     <li>公开对象</li>
                   </ul>
                 </div>
 
 
-                <div style="margin-left: 15px"
-                     id="view_set_btn"
-                     taget="dialogAjax"
-                     action="/user/list.json"
-                     render="$app.didAdminSelectRender"
-                     callback="$app.didAdminSelectCallback"
+                <div style="margin-left: 15px" id="download_set_btn" action="/user/list.json"
+                     data="{ }"
                      for="required"
                      generated="true"
-                     class="help-inline setUserList"
-                     href="#document-selector"
-                     data-toggle="modal">
+                     class="help-inline setUserList" href="#document-selector" data-toggle="modal">
                   <button class='btn'>
                     設定
                   </button>
