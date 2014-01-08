@@ -541,7 +541,7 @@ var $app = {
     , canManage: function(app) {
         var uid = smart.uid();
         // 创建者
-        if(uid && app && app.create_user == uid)
+        if(uid && app && app.createBy == uid)
             return true;
         // 管理者权限
         if(uid && app && app.permission && app.permission.admin) {

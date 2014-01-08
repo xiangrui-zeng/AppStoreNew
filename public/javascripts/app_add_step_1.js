@@ -19,10 +19,10 @@ function render(appId) {
     $("#copyright").val(data.copyright);
     $("#description").val(data.description);
     $("#version").val(data.version);
-    $("#release_note").val(data.release_note);
+    $("#releaseNote").val(data.releaseNote);
     $("#category").val(data.category);
-    $("#bundle_version").val(data.bundle_version);
-    $("#bundle_identifier").val(data.bundle_identifier);
+    $("#bundleVersion").val(data.bundleVersion);
+    $("#bundleIdentifier").val(data.bundleIdentifier);
     $("#require_os").val(data.require.os);
     $("#require_device").val(data.require.device);
 

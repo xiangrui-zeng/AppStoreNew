@@ -80,7 +80,7 @@ function events() {
       $("#confirmReject").bind("click", function () {
         $("#rejectModal").modal("hide");
         var data = {
-          "notice": $('#rejectReason').val(), "noticeimage": tmpimage, "app": app_id
+          "noticeMessage": $('#rejectReason').val(), "noticeImage": tmpimage, "app": app_id
         }
         smart.dopost("/app/checkDeny.json", data, function (err, result) {
           if (err) {

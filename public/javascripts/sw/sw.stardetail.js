@@ -105,7 +105,7 @@ var appDetail = {
         });
       $("#requireContent").html(requireInfo);
       // 更新履历
-      $("#updateContent").html(_.escape(app.release_note).replace(new RegExp("\r?\n", "g"), "<br />"));
+      $("#updateContent").html(_.escape(app.releaseNote).replace(new RegExp("\r?\n", "g"), "<br />"));
 
       // 初始化评价框
       $Comment.initialize();
