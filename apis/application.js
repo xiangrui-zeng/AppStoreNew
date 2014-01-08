@@ -37,7 +37,6 @@ function setDownloadURL(req, appInfo) {
 }
 //还需要调整 by yt
 exports.updateAppStep1 = function (req, res) {
-
   var handler = new context().bind(req, res);
   console.log(handler + "???????");
 
@@ -58,7 +57,7 @@ exports.updateAppStep1 = function (req, res) {
   app.create(data, function (err, result) {
     response.send(res, err, result);
   });
-}
+};
 
 //APP上传第一步
 exports.createAppStep1 = function (req, res) {
@@ -157,7 +156,11 @@ exports.list = function (req, res) {
 		response.send(res, err, result);
 	});
 };
-
+/**
+ * apis中app申请
+ * @param req 请求对象
+ * @param res 响应对象
+ */
 exports.checkApply = function(req, res) {
   var handler = new context().bind(req, res);
   log.operation("begin: apply an app.", handler.uid);
@@ -167,7 +170,11 @@ exports.checkApply = function(req, res) {
     response.send(res, err, result);
   });
 };
-
+/**
+ * apis中app审核通过
+ * @param req 请求对象
+ * @param res 响应对象
+ */
 exports.checkAllow = function(req, res) {
   var handler = new context().bind(req, res);
   log.operation("begin: allow an app.", handler.uid);
@@ -177,7 +184,11 @@ exports.checkAllow = function(req, res) {
     response.send(res, err, result);
   });
 };
-
+/**
+ * apis中app拒绝通过
+ * @param req 请求对象
+ * @param res 响应对象
+ */
 exports.checkDeny = function(req, res) {
   var handler = new context().bind(req, res);
   log.operation("begin: Deny an app.", handler.uid);
@@ -187,7 +198,11 @@ exports.checkDeny = function(req, res) {
     response.send(res, err, result);
   });
 };
-
+/**
+ * apis中app无效
+ * @param req 请求对象
+ * @param res 响应对象
+ */
 exports.checkStop = function(req, res) {
   var handler = new context().bind(req, res);
   log.operation("begin: Stop an app.", handler.uid);

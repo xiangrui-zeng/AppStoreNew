@@ -48,11 +48,16 @@ exports.create = function (handler, callback) {
     return callback(err, result);
   });
 };
-exports.findAppInfoById = function (appId, callback_) {
+/**
+ * 根据appId查找app信息
+ * @param {Object} handler 上下文对象
+ * @param {Function} callback 回调函数，返回app信息
+ */
+exports.findAppInfoById = function (appId, callback) {
   console.log(appId);
   app.find(appId, function (err, docs) {
     console.log(docs);
-    callback_(err, docs);
+    callback(err, docs);
   });
 };
 
@@ -216,6 +221,7 @@ exports.list = function(handler, callback){
 
   var taskGetCreator = function(result, cb){
     async.forEach(result.items, function(app, cb_){
+
     }, function(err){
       cb(err, result);
     });
@@ -224,21 +230,22 @@ exports.list = function(handler, callback){
 
   var taskGetUpdater = function(result, cb){
     async.forEach(result.items, function(app, cb_){
+
     }, function(err){
       cb(err, result);
     });
   };
   tasks.push(taskGetUpdater);
 
-  var taskOther = function(result, cb){
-    async.forEach(result.items, function(app, cb_){
+  var taskOther = function(result, callbk){
+    async.forEach(result.items, function(app, cb){
       app._doc.appTypeCategory = categorory.getByCode(app.appType); // 追加系统分类
       if(app.require && app.require.device) {
         app._doc.device = devices.getDevice(app.require.device);  // 追加设备
       }
-      cb_(null, result);
+      cb(null, result);
     }, function(err){
-      cb(err, result);
+      callbk(err, result);
     });
   };
   tasks.push(taskOther);
@@ -256,74 +263,46 @@ exports.list = function(handler, callback){
  * @param step
  */
 exports.renderAppStep = function(req, res, step) {
-    var appId = req.query.appId || '0';
-    if(req.query.appId) {// 编辑
-        exports.findAppInfoById(appId, function(err, app) {
-            if(err)
-                return starerrors.render(req, res, err);
-
-            // 编辑权限check
-            if(!apputil.isCanEdit(app, req.session.user._id))
-                return starerrors.render(req, res, new starerrors.NoEditError);
-
-            // 正常跳转
-            _renderAppStep(req, res, step, appId);
-        });
-    }else {// 追加
-        // 正常跳转
-        _renderAppStep(req, res, step, appId);
-    }
+  var appId = req.query.appId || "0";
+  if(req.query.appId) {// 编辑
+    exports.findAppInfoById(appId, function(err, app) {
+      if(err){
+        return starerrors.render(req, res, err);
+      }
+      // 编辑权限check
+      if(!apputil.isCanEdit(app, req.session.user._id)){
+        return starerrors.render(req, res, new starerrors.NoEditError);
+      }
+      // 正常跳转
+      _renderAppStep(req, res, step, appId);
+    });
+  }else {// 追加
+  // 正常跳转
+    _renderAppStep(req, res, step, appId);
+  }
 };
-// 更新变为两步
-//exports.updatestep1 = function (handler, callback) {
-//  var appId = handler.params.appId
-//    , code  = handler.params.code
-//    , create_user = handler.uid
-//    , icon_big = handler.params['icon.big']
-//    , icon_small = handler.params['icon.small']
-//    , screenshot = handler.params.screenshot
-//    , pptfile = handler.params.pptfile
-//    , downloadId = handler.params.downloadId
-//    , size = handler.params.pptfile_size
-//    , editstep = handler.params.editstep
-//  var app_update = {
-//    update_date : new Date()
-//    ,update_user : create_user
-//    , icon :{
-//      big: icon_big
-//      ,small :icon_small
-//
-//    }
-//    , screenshot : screenshot
-//    , pptfile : pptfile
-//    , size : size
-//    , downloadId : downloadId
-//    , editstep : editstep
-//    , plistDownloadId : ""
-//  };
-//
-//  app.update(code, appId, app_update, function (err, result) {
-//    callback(err, result);
-//  });
-//}
-
+/**
+ * update
+ * @param {Object} handler 上下文对象
+ * @param {Function} callback 回调函数，返回app信息
+ */
 exports.update = function (handler, callback) {
   var appId = handler.params.appId
     , code  = handler.params.code
     , createBy = handler.uid
-    , icon_big = handler.params['icon.big']
-    , icon_small = handler.params['icon.small']
+    , icon_big = handler.params["icon.big"]
+    , icon_small = handler.params["icon.small"]
     , screenshot = handler.params.screenshot
     , pptfile = handler.params.pptfile
     , downloadId = handler.params.downloadId
-    , size = handler.params.pptfile_size
+    , size = handler.params.pptfile_size;
 //    , editstep = handler.params.editstep
   var app_update = {
     updateAt : new Date()
    ,updateBy : createBy
-   , icon :{
+  , icon :{
       big: icon_big
-      ,small :icon_small
+     ,small :icon_small
 
     }
   , screenshot : screenshot
@@ -337,8 +316,8 @@ exports.update = function (handler, callback) {
   app.update(code, appId, app_update, function (err, result) {
     callback(err, result);
   });
-}
-
+};
+//申请
 exports.checkApply = function (handler, callback) {
   var appId = handler.params.app
     , code        = "";
@@ -346,8 +325,8 @@ exports.checkApply = function (handler, callback) {
   app.update(code, appId, appApply, function (err, result) {
     callback(err, result);
   });
-}
-
+};
+//通过
 exports.checkAllow = function (handler, callback) {
   var appId = handler.params.app
     , code        = "";
@@ -355,8 +334,8 @@ exports.checkAllow = function (handler, callback) {
   app.update(code, appId, appAllow, function (err, result) {
     callback(err, result);
   });
-}
-
+};
+//拒绝
 exports.checkDeny = function (handler, callback) {
   var appId = handler.params.app
     , code        = "";
@@ -370,7 +349,7 @@ exports.checkDeny = function (handler, callback) {
     callback(err, result);
   });
 };
-
+//无效
 exports.checkStop = function (handler, callback) {
   var appId = handler.params.app
     , code        = "";
@@ -381,15 +360,15 @@ exports.checkStop = function (handler, callback) {
 };
 
 function _renderAppStep(req, res, step, appId) {
-    if (step == 1) {
-        res.render('app_add_step_1', {
-            title: "star", bright: "home", user: req.session.user, appId: appId
-            ,appTypes: categorory.getAppTypes()
-            ,categoryTypes: categorory.getCategoryTypes()
-        });
-    } else if (step == 2) {
-        res.render('app_add_step_2', {
-            title: "star", bright: "home", user: req.session.user, appId: appId
-        });
-    }
+  if (step === 1) {
+    res.render('app_add_step_1', {
+      title: "star", bright: "home", user: req.session.user, appId: appId
+     ,appTypes: categorory.getAppTypes()
+     ,categoryTypes: categorory.getCategoryTypes()
+    });
+  } else if (step === 2) {
+    res.render('app_add_step_2', {
+      title: "star", bright: "home", user: req.session.user, appId: appId
+    });
+  }
 }
