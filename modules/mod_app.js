@@ -1,22 +1,25 @@
+
+"use strict";
+
 var mongo       = smart.util.mongoose
   , conn        = smart.framework.connection
   , schema      = mongo.Schema;
 
 var App = new schema({
 
-      name          : {type: String, description:"名称"}
-    , description   : {type: String, description:"详细信息"}
-    , release_note  : {type: String, description:"更新信息"}
-    , appType       : {type: String, description:"设备的类型：OS、android、PC "}
-    , permission    : {
-          admin      : [String]
-        , edit       : [String]
-        , view       : [String]
-        , download   : [String]
-        }
+    name          : {type: String, description:"名称"}
+  , description   : {type: String, description:"详细信息"}
+  , release_note  : {type: String, description:"更新信息"}
+  , appType       : {type: String, description:"设备的类型：OS、android、PC "}
+  , permission    : {
+        admin      : [String]
+      , edit       : [String]
+      , view       : [String]
+      , download   : [String]
+      }
     , icon          : {
-        big          : {type: String}
-      , small        : {type: String}}
+        big          : { type: String }
+      , small        : { type: String }  }
     , screenshot      : [String]
     , category        : [String]
     , version         : {type: String, description:"版本"}
@@ -51,17 +54,17 @@ function model() {
 }
 
 exports.create = function (app_, callback_) {
-  var app = model();
-  new app(app_).save(function (err, result) {
+  var App = model();
+  new App(app_).save(function (err, result) {
     callback_(err, result);
   });
 };
 //更新评分
 exports.updateRank = function (appId, rank, rankCount, callback_) {
-    var app = model();
-    app.findByIdAndUpdate(appId, { rank: rank, rankcount: rankCount }, function (err, result) {
-        callback_(err, result);
-    });
+  var app = model();
+  app.findByIdAndUpdate(appId, { rank: rank, rankcount: rankCount }, function (err, result) {
+    callback_(err, result);
+  });
 };
 //更新下载数量
 exports.updateDownloadCount = function (appId_, dlCount_, callback_) {
@@ -72,16 +75,16 @@ exports.updateDownloadCount = function (appId_, dlCount_, callback_) {
 };
 
 exports.find = function (appId, callback_) {
-    var app = model();
-    app.findOne({_id:appId}, function (err, result) {
-        callback_(err, result);
-    });
+  var app = model();
+  app.findOne({_id: appId}, function (err, result) {
+    callback_(err, result);
+  });
 };
 
 exports.getAppsByIds = function (ids_, callback_) {
   var app = model();
 
-  app.find({'_id': {$in: ids_}}).exec(function (err, result) {
+  app.find({"_id": {$in: ids_}}).exec(function (err, result) {
     callback_(err, result);
   });
 };

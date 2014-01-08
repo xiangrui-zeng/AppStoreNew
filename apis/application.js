@@ -1,11 +1,12 @@
+
 "use strict";
 
-var util = smart.framework.util
-  , response = smart.framework.response
-  , context = smart.framework.context
-  , log = smart.framework.log
-  , app = require("../controllers/ctrl_app.js")
-  , apputil = require("../core/apputil.js");
+var util      = smart.framework.util
+  , response  = smart.framework.response
+  , context   = smart.framework.context
+  , log       = smart.framework.log
+  , app       = require("../controllers/ctrl_app.js")
+  , apputil   = require("../core/apputil.js");
 
 
 function setDownloadURL(req, appInfo) {
@@ -58,16 +59,20 @@ exports.updateAppStep1 = function (req, res) {
     response.send(res, err, result);
   });
 }
-exports.createAppStep1 = function (req, res) {
 
+//APP上传第一步
+exports.createAppStep1 = function (req, res) {
   var handler = new context().bind(req, res);
+  log.operation("begin: create an app step1.", handler.uid);
 
   app.create(handler, function (err, result) {
+    log.operation("finish: create an app step1.", handler.uid);
     response.send(res, err, result);
   });
 
 };
-//
+
+//APP上传第二步
 exports.createAppStep2 = function (req, res) {
   var handler = new context().bind(req, res);
   log.operation("begin: create an app step2.", handler.uid);
@@ -105,17 +110,6 @@ exports.saveimage = function (req, res) {
   });
 };
 
-exports.createApp = function (req_, res_) {
-  var creator = req_.session.user._id;
-  var data = util.checkObject(req_.body);
-  data.create_user = creator;
-  data.update_user = creator;
-  console.log(req_.body);
-  app.create(data, function (err, result) {
-    response.send(res_, err, result);
-  });
-};
-
 exports.getAppInfo = function (req, res) {
   var handler = new context().bind(req, res);
   app.getAppInfoById(handler, function (err, result) {
@@ -125,12 +119,11 @@ exports.getAppInfo = function (req, res) {
 };
 
 exports.downloadedList = function (req, res) {
-  var uid = req_.session.user._id;
   var handler = new context().bind(req, res);
 
   app.downloadedList(handler, function (err, result) {
-    setDownloadURL(req_, result);
-    response.send(res_, err, result);
+    setDownloadURL(req, result);
+    response.send(res, err, result);
   });
 };
 
@@ -139,12 +132,12 @@ exports.downloadedList = function (req, res) {
  * @author chenda
  * @copyright Dreamarts Corporation. All Rights Reserved.
  */
-exports.search = function (req_, res_) {
-  var handler = new context().bind(req_, res_);
-  app.search(handler, function (err, result) {
-    log.operation("finish : search app list", handler.uid);
-    response.send(res_, err, result);
-  });
+exports.search = function (req, res) {
+	var handler = new context().bind(req,res);
+	app.search(handler, function(err, result) {
+		log.operation("finish : search app list",handler.uid);
+		response.send(res,err,result);
+	});
 };
 
 /**
@@ -152,50 +145,50 @@ exports.search = function (req_, res_) {
  * @author chenda
  * @copyright Dreamarts Corporation. All Rights Reserved.
  */
-exports.list = function (req_, res_) {
-  var handler = new context().bind(req_, res_);
-  log.operation("finish : list app ", handler.uid);
-  app.list(handler, function (err, result) {
-    setDownloadURL(req_, result);
-    response.send(res_, err, result);
-  })
+exports.list = function (req, res) {
+  var handler = new context().bind(req,res);
+
+	app.list(handler,function(err, result){
+		setDownloadURL(req, result);
+		response.send(res, err, result);
+	});
 };
 
-exports.checkApply = function (req, res) {
+exports.checkApply = function(req, res) {
   var handler = new context().bind(req, res);
   log.operation("begin: apply an app.", handler.uid);
 
-  app.checkApply(handler, function (err, result) {
+  app.checkApply (handler, function(err, result) {
     log.operation("finish: apply an app.", handler.uid);
     response.send(res, err, result);
   });
 };
 
-exports.checkAllow = function (req, res) {
+exports.checkAllow = function(req, res) {
   var handler = new context().bind(req, res);
   log.operation("begin: allow an app.", handler.uid);
 
-  app.checkAllow(handler, function (err, result) {
+  app.checkAllow (handler, function(err, result) {
     log.operation("finish: allow an app.", handler.uid);
     response.send(res, err, result);
   });
 };
 
-exports.checkDeny = function (req, res) {
+exports.checkDeny = function(req, res) {
   var handler = new context().bind(req, res);
   log.operation("begin: Deny an app.", handler.uid);
 
-  app.checkDeny(handler, function (err, result) {
+  app.checkDeny (handler, function(err, result) {
     log.operation("finish: Deny an app.", handler.uid);
     response.send(res, err, result);
   });
 };
 
-exports.checkStop = function (req, res) {
+exports.checkStop = function(req, res) {
   var handler = new context().bind(req, res);
   log.operation("begin: Stop an app.", handler.uid);
 
-  app.checkStop(handler, function (err, result) {
+  app.checkStop (handler, function(err, result) {
     log.operation("finish: Stop an app.", handler.uid);
     response.send(res, err, result);
   });
