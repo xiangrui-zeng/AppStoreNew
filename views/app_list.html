@@ -96,7 +96,7 @@
   if("<%= title %>" == "app_list"){
     condition = "status=2"
   } else if("<%= title %>" == "app_upload_list") {
-    condition = "create_user="+smart.uid()
+    condition = "createBy="+smart.uid()
   } else if("<%= title %>" == "app_upload_list") {
     condition = ""
   }

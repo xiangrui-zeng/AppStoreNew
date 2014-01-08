@@ -45,13 +45,13 @@ exports.updateAppStep1 = function (req_, res_) {
   var name = handler.params.name;
   var copyright = handler.params.copyright;
   var version = handler.params.version;
-  var release_note = handler.params.release_note;
+  var releaseNote = handler.params.releaseNote;
   var description = handler.params.description;
   var device = handler.params.device_device;
   var os = handler.params.require_os;
   var category = handler.body.category;
-  var bundle_identifier = handler.params.bundle_identifier;
-  var bundle_version = handler.params.bundle_version;
+  var bundleIdentifier = handler.params.bundleIdentifier;
+  var bundleVersion = handler.params.bundleVersion;
   var title = handler.body.title;
   var permission_download =handler.params.permission.download;
   app.create(data, function (err, result) {
@@ -200,8 +200,8 @@ exports.getPlist = function (req_, res_) {
           return new error.InternalServer(err);
         } else {
             var url = "http://"+req_.host+":3000/file/download.json?_id="+result.downloadId+"&amp;app_id="+app_id+"&amp;flag=phone";
-            var bundle_identifier = result.bundle_identifier;
-            var bundle_version = result.bundle_version;
+            var bundleIdentifier = result.bundleIdentifier;
+            var bundleVersion = result.bundleVersion;
             var kind = "software";
             var title = result.name;
 
@@ -239,9 +239,9 @@ exports.getPlist = function (req_, res_) {
 </array><key>metadata</key>\
 <dict>\
 <key>bundle-identifier</key>               \
-<string>"+bundle_identifier+"</string>     \
+<string>"+bundleIdentifier+"</string>     \
 <key>bundle-version</key>                  \
-<string>"+bundle_version+"</string>                       \
+<string>"+bundleVersion+"</string>                       \
 <key>kind</key>                            \
 <string>software</string>                  \
 <key>title</key>                           \
