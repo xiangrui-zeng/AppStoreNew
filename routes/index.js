@@ -1,7 +1,8 @@
 var user        = require("../apis/user")
   , apiApp      = require('./api_app')
   , apiFile     = require('./api_file')
-  , apiComment  = require('./api_comment');
+  , apiComment  = require('./api_comment')
+  , apiAnalyze  = require("./api_analyze");
 
 /*
  * GET home page.
@@ -17,6 +18,9 @@ exports.guiding = function (app) {
 
   // comment
   apiComment.guiding(app);
+
+  // analyze
+  apiAnalyze.guiding(app);
 
   // 登陆
   app.get('/simplelogin', function (req, res) {
