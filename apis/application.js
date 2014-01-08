@@ -116,7 +116,7 @@ exports.saveimage = function (req, res) {
 exports.getAppInfo = function (req, res) {
   var handler = new context().bind(req, res);
   app.getAppInfoById(handler, function (err, result) {
-//    setDownloadURL(req_, result);    留后用
+    setDownloadURL(req, result);
     response.send(res, err, result);
   });
 };
