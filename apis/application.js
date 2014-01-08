@@ -35,69 +35,42 @@ function setDownloadURL(req, appInfo) {
     }
   }
 }
-
+//还需要调整 by yt
 exports.updateAppStep1 = function (req_, res_) {
-  var creator = req_.session.user._id;
-  var appId = req_.body._id;
-  var appType = req_.body.appType;
-  var name = req_.body.name;
-  var copyright = req_.body.copyright;
-  var version = req_.body.version;
-  var release_note = req_body.release_note;
-  var description = req_.body.description;
-  var device = req_.require.device;
-  var os = req_.require.os;
-  var category = req_.body.category;
-  var bundle_identifier = req_.body.bundle_identifier;
-  var bundle_version = req_.body.bundle_version;
-  var title = req_.body.title;
-//  app.findAppInfoById(appId,function(err,docs){
-//    docs.name = name;
-//    docs.appType = appType;
-//    docs.copyright = copyright;
-//    docs.description = description;
-//    dosc.category = category;
-//    dosc.version = version;
-//    dosc.release_note = release_note;
-//    dosc.os = os;
-//    dosc.device = device;
-//    dosc.bundle_identifier = bundle_identifier;
-//    dosc.bundle_version = bundle_version;
-//    docs.save(function (err_, result) {
-//          response.send(res, err_, result);
-//        });
-//  });
-//    }
-}
-exports.createAppStep1 = function (req, res) {
-  var creator = req.session.user._id;//创建者
-  var data = util.checkObject(req.body);
-  data.require = {                  //require 两项
-    device: data.require_device,
-    os: data.require_os
-  };
-  data.rank = 0;
-  data.rankcount = 0;
-  data.downloadCount = 0;
-  data.create_user = creator;
-  data.editstep = 1;              //编辑步骤
-  data.editing = 0;               //?
-  data.status = 0;                //状态 默认为0：未申请
-  data.category = req.body.category;   //类别
-  data.permission = {                  //权限
-    admin: [creator],
-    edit: [creator],
-    view: [creator],
-    download: [creator]
-
-  };
-  data.update_date = new Date();       //更新时间 当前时间
-  data.update_user = creator;
+  var handler = new context().bind(req_, res_);
+  console.log(handler+"???????");
+  var creator = handler.session.uid;
+  var appId = handler.params.app;
+  var appType = handler.params.appType;
+  var name = handler.params.name;
+  var copyright = handler.params.copyright;
+  var version = handler.params.version;
+  var releaseNote = handler.params.releaseNote;
+  var description = handler.params.description;
+  var device = handler.params.device_device;
+  var os = handler.params.require_os;
+  var category = handler.body.category;
+  var bundleIdentifier = handler.params.bundleIdentifier;
+  var bundleVersion = handler.params.bundleVersion;
+  var title = handler.body.title;
+  var permission_download =handler.params.permission.download;
   app.create(data, function (err, result) {
     response.send(res, err, result);
   });
+}
+
+//APP上传第一步
+exports.createAppStep1 = function (req, res) {
+  var handler = new context().bind(req, res);
+  log.operation("begin: create an app step1.", handler.uid);
+
+  app.create(handler, function (err, result) {
+    log.operation("finish: create an app step1.", handler.uid);
+    response.send(res, err, result);
+  });
 };
-//
+
+//APP上传第二步
 exports.createAppStep2 = function (req, res) {
   var handler = new context().bind(req, res);
   log.operation("begin: create an app step2.", handler.uid);
@@ -135,103 +108,6 @@ exports.saveimage = function (req, res) {
   });
 };
 
-exports.createAppStep3 = function (req_, res_) {
-  var creator = req_.session.user._id;
-  var appId = req_.body._id;
-
-  var permission_edit = req_.body['permission.edit'];
-  var permission_view = req_.body['permission.view'];
-  var permission_download = req_.body['permission.download'];
-  var permission_admin = req_.body['permission.admin'];
-  console.log(permission_view);
-  console.log(permission_edit);
-  console.log(permission_download);
-  console.log(permission_admin);
-  var editstep = 3;
-//    app.findAppInfoById(appId, function (err, docs) {
-//        // check编辑权限
-//        if(!apputil.isCanEdit(docs, req_.session.user._id))
-//          return new error.InternalServer(err);
-//
-//        docs.permission.admin = permission_admin;
-//        docs.permission.download = permission_download;
-//        docs.permission.view = permission_view;
-//        docs.permission.edit = permission_edit;
-//        docs.update_date = new Date();
-//        docs.update_user = creator;
-//        if (docs.editstep < editstep) {
-//            docs.editstep = editstep;
-//        }
-//        if (!docs.editstep) {
-//            docs.editstep = editstep;
-//        }
-//        console.log(docs);
-//        docs.save(function (err_, result) {
-//
-//          response.send(res_, err_, result);
-//        });
-//    });
-};
-exports.createAppStep4 = function (req_, res_) {
-  var creator = req_.session.user._id;
-  var appId = req_.body._id;
-  var support = req_.body.support;
-  var notice = req_.body.notice;
-  var release_note = req_.body.release_note;
-  var editstep = 4;
-//    app.findAppInfoById(appId, function (err, docs) {
-//        // check编辑权限
-//        if(!apputil.isCanEdit(docs, req_.session.user._id))
-//          return new error.InternalServer(err);
-//
-//        docs.support = support;
-//        docs.notice = notice;
-//        docs.release_note = release_note;
-//        docs.update_date = new Date();
-//        docs.update_user = creator;
-//        if (docs.editstep < editstep) {
-//            docs.editstep = editstep;
-//        }
-//        if (!docs.editstep) {
-//            docs.editstep = editstep;
-//        }
-//        docs.save(function (err_, result) {
-//          response.send(res_, err_, result);
-//        });
-//    });
-};
-exports.createAppStep5 = function (req_, res_) {
-  var creator = req_.session.user._id;
-  var appId = req_.body._id;
-  var editstep = 5;
-//    app.findAppInfoById(appId, function (err, docs) {
-//        // check编辑权限
-//        if(!apputil.isCanEdit(docs, req_.session.user._id))
-//            return json.sendError(res_, new starerrors.NoEditError);
-//
-//        docs.editing = 1;
-//        docs.status = 1;
-//        docs.editstep = editstep;
-//        docs.update_date = new Date();
-//        docs.update_user = creator;
-//        docs.save(function (err_, result) {
-//          response.send(res_, err_, result);
-//        });
-//    });
-};
-
-
-exports.createApp = function (req_, res_) {
-  var creator = req_.session.user._id;
-  var data = util.checkObject(req_.body);
-  data.create_user = creator;
-  data.update_user = creator;
-  console.log(req_.body);
-  app.create(data, function (err, result) {
-    response.send(res_, err, result);
-  });
-};
-
 exports.getAppInfo = function (req, res) {
   var handler = new context().bind(req, res);
   app.getAppInfoById(handler, function (err, result) {
@@ -241,12 +117,11 @@ exports.getAppInfo = function (req, res) {
 };
 
 exports.downloadedList = function (req, res) {
-  var uid = req_.session.user._id;
   var handler = new context().bind(req, res);
 
   app.downloadedList(handler, function (err, result) {
-    setDownloadURL(req_, result);
-    response.send(res_, err, result);
+    setDownloadURL(req, result);
+    response.send(res, err, result);
   });
 };
 
@@ -255,11 +130,11 @@ exports.downloadedList = function (req, res) {
  * @author chenda
  * @copyright Dreamarts Corporation. All Rights Reserved.
  */
-exports.search = function (req_, res_) {
-	var handler = new context().bind(req_,res_);
+exports.search = function (req, res) {
+	var handler = new context().bind(req,res);
 	app.search(handler, function(err, result) {
 		log.operation("finish : search app list",handler.uid);
-		response.send(res_,err,result);
+		response.send(res,err,result);
 	});
 };
 
@@ -268,13 +143,13 @@ exports.search = function (req_, res_) {
  * @author chenda
  * @copyright Dreamarts Corporation. All Rights Reserved.
  */
-exports.list = function (req_, res_) {
-  var handler = new context().bind(req_,res_);
-	log.operation("finish : list app ",handler.uid);
+exports.list = function (req, res) {
+  var handler = new context().bind(req,res);
+
 	app.list(handler,function(err, result){
-		setDownloadURL(req_, result);
-		response.send(res_, err, result);
-	})
+		setDownloadURL(req, result);
+		response.send(res, err, result);
+	});
 };
 
 exports.checkApply = function(req, res) {
@@ -325,10 +200,10 @@ exports.getPlist = function (req_, res_) {
           return new error.InternalServer(err);
         } else {
             var url = "http://"+req_.host+":3000/file/download.json?_id="+result.downloadId+"&amp;app_id="+app_id+"&amp;flag=phone";
-            var bundle_identifier = result.bundle_identifier;
-            var bundle_version = result.bundle_version;
-            var kind = result.kind;
-            var title = result.title;
+            var bundleIdentifier = result.bundleIdentifier;
+            var bundleVersion = result.bundleVersion;
+            var kind = "software";
+            var title = result.name;
 
             res_.setHeader('Content-Type', "text/xml");
             res_.send("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\
@@ -364,9 +239,9 @@ exports.getPlist = function (req_, res_) {
 </array><key>metadata</key>\
 <dict>\
 <key>bundle-identifier</key>               \
-<string>"+bundle_identifier+"</string>     \
+<string>"+bundleIdentifier+"</string>     \
 <key>bundle-version</key>                  \
-<string>"+bundle_version+"</string>                       \
+<string>"+bundleVersion+"</string>                       \
 <key>kind</key>                            \
 <string>software</string>                  \
 <key>title</key>                           \

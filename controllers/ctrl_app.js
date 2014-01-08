@@ -1,34 +1,59 @@
 
 "use strict";
-var EventProxy = require('eventproxy');
-var app = require("../modules/mod_app.js")
-  , context  = smart.framework.context
-  , user = smart.ctrl.user
-  , file      = smart.ctrl.file
-  , downloadInfo = require("../modules/mod_download")
-  , async = smart.util.async
-  , categorory = require('../modules/mod_category')
-  , devices = require('../modules/mod_device');
-var error = smart.framework.error;
-var starerrors = require('../core/starerrors.js');
-var apputil = require('../core/apputil.js');
-exports.create = function (data_, callback_){
+
+var context       = smart.framework.context
+  , user          = smart.ctrl.user
+  , file          = smart.ctrl.file
+  , async         = smart.util.async
+  , error         = smart.framework.error
+  , util          = smart.framework.util
+  , app           = require("../modules/mod_app.js")
+  , downloadInfo  = require("../modules/mod_download")
+  , categorory    = require("../modules/mod_category")
+  , devices       = require("../modules/mod_device")
+  , starerrors    = require("../core/starerrors.js")
+  , apputil       = require("../core/apputil.js");
+
+exports.create = function (handler, callback_){
+  var creator = handler.uid;//创建者
+  var data = util.checkObject(handler.params);
+  data.require = {                  //require 两项
+    device: data.require_device,
+    os: data.require_os
+  };
+  data.rank = 0;
+  data.rankcount = 0;
+  data.downloadCount = 0;
+  data.createBy = creator;
+  data.editstep = 1;              //编辑步骤
+  data.editing = 0;               //?
+  data.status = 0;
+  data.category = handler.params.category;   //类别
+  data.permission = {                  //权限
+    admin: [creator],
+    edit: [creator],
+    view: [creator],
+    download: [creator]
+
+  };
+  data.updateAt = new Date();       //更新时间 当前时间
+  data.updateBy = creator;
   var date = Date.now();
-  var app_ = data_;
-  app_.create_date = date;
-  app_.update_date = date;
+  var app_ = data;
+  app_.createAt = date;
+  app_.updateAt = date;
 
   app.create(app_, function(err, result){
     err = err ? new error.InternalServer(err) : null;
     return callback_(err, result);
   });
 };
-exports.findAppInfoById = function (app_id_, callback_) {
-    console.log(app_id_);
-    app.find(app_id_, function (err, docs) {
-        console.log(docs);
-        callback_(err, docs);
-    });
+exports.findAppInfoById = function (appId, callback_) {
+  console.log(appId);
+  app.find(appId, function (err, docs) {
+    console.log(docs);
+    callback_(err, docs);
+  });
 };
 
 exports.addimage = function(handler, callback) {
@@ -50,57 +75,59 @@ exports.getAppInfoById = function (handler, callback) {
   });
 };
 
-exports.downloadedList = function(uid_, callback_){
+exports.downloadedList = function(handler, callback_){
+  var uid_ = handler.uid;
   var tasks = [];
-  var task_getAppIds = function(cb){
+  var taskGetAppIds = function(cb){
     downloadInfo.appIdsByUser(uid_,function(err, ids){
       cb(err,ids);
     });
   };
-  tasks.push(task_getAppIds);
+  tasks.push(taskGetAppIds);
 
-  var task_getApps = function(ids, cb){
+  var taskGetApps = function(ids, cb){
     app.getAppsByIds(ids, function(err, result){
       cb(err, result);
     });
   };
-  tasks.push(task_getApps);
+  tasks.push(taskGetApps);
 
-    var task_getCreator = function(result, cb){
-        async.forEach(result, function(app, cb_){
-            user.at(app.create_user, function(err, creator){
-                app._doc.creator = creator;
-                cb_(err);
-            });
-        }, function(err){
-            cb(err, result);
-        });
-    };
-    tasks.push(task_getCreator);
+  var taskGetCreator = function (result, cb) {
+    async.forEach(result, function (app, cb_) {
+      user.at(app.createBy, function (err, creator) {
+        app._doc.creator = creator;
+        cb_(err);
+      });
+    }, function (err) {
+      cb(err, result);
+    });
+  };
+  tasks.push(taskGetCreator);
 
-    var task_getUpdater = function(result, cb){
-        async.forEach(result, function(app, cb_){
-            user.at(app.update_user, function(err, updater){
-                app._doc.updater = updater;
-                cb_(err);
-            });
-        }, function(err){
-            cb(err, result);
-        });
-    };
-    tasks.push(task_getUpdater);
+  var taskGetUpdater = function (result, cb) {
+    async.forEach(result, function (app, cb_) {
+      user.at(app.updateBy, function (err, updater) {
+        app._doc.updater = updater;
+        cb_(err);
+      });
+    }, function (err) {
+      cb(err, result);
+    });
+  };
+  tasks.push(taskGetUpdater);
 
-    var task_other = function(result, cb){
-        async.forEach(result, function(app, cb_){
-            app._doc.appTypeCategory = categorory.getByCode(app.appType); // 追加系统分类
-            if(app.require && app.require.device)
-                app._doc.device = devices.getDevice(app.require.device);  // 追加设备
-            cb_(null, result);
-        }, function(err){
-            cb(err, result);
-        });
-    };
-    tasks.push(task_other);
+  var taskOther = function (result, cb) {
+    async.forEach(result, function (app, cb_) {
+      app._doc.appTypeCategory = categorory.getByCode(app.appType); // 追加系统分类
+      if (app.require && app.require.device){
+        app._doc.device = devices.getDevice(app.require.device);  // 追加设备
+      }
+      cb_(null, result);
+    }, function (err) {
+      cb(err, result);
+    });
+  };
+  tasks.push(taskOther);
 
   async.waterfall(tasks,function(err,result){
     return callback_(err, result);
@@ -114,23 +141,24 @@ exports.downloadedList = function(uid_, callback_){
  */
 exports.search = function(handler, callback){
 	var category  = handler.params.category
-		 ,keywords  = handler.params.keywords;
+		, keywords  = handler.params.keywords;
 	var condition = {"name": new RegExp("^.*" + keywords.toLowerCase() + ".*$", "i")};
 	var options   = {
       start: handler.params.start
-     ,limit: handler.params.count
-     ,sort: {update_date:-1}
-  };
+    , limit: handler.params.count
+    , sort: {updateAt:-1}
+    };
 	if(category) {
-		if(categorory.isAppTypes(category))
+		if(categorory.isAppTypes(category)) {
 			condition.appType = category;
-		else
+    } else {
 			condition.category = { $elemMatch: {$in: [category]} };
+    }
 	}
 	app.list(condition,options, function(err, result){
 		return callback(err, result);
 	});
-}
+};
 
 /**
  * @file list ctrl
@@ -139,20 +167,21 @@ exports.search = function(handler, callback){
  */
 exports.list = function(handler, callback){
   var sort        = handler.params.sort
-	   ,category    = handler.params.category
-	   ,create_user = handler.params.create_user
-	   ,status      = handler.params.status
-	   ,asc         = handler.params.asc;
+    , category    = handler.params.category
+    , createBy = handler.params.createBy
+    , status      = handler.params.status
+    , asc         = handler.params.asc;
 	var condition   = {};
 
 	if(category){
-    if(categorory.isAppTypes(category))
+    if(categorory.isAppTypes(category)) {
       condition.appType = category;
-    else
+    } else {
       condition.category = { $elemMatch: {$in: [category]} };
+    }
   }
-  if(create_user){
-    condition.create_user = create_user;
+  if (createBy) {
+    condition.createBy = createBy;
   }
   if(status){
     condition.status = status;
@@ -161,81 +190,61 @@ exports.list = function(handler, callback){
   var options = {
       start: handler.params.start
     , limit: handler.params.limit
-  };
+    };
   if (sort){
     options.sort = {};
-    options.sort[sort] = asc == 1 ? 1 : -1;
+    options.sort[sort] = asc === 1 ? 1 : -1;
   }
-	  app.list(condition,options, function(err, result){
-      if (err) {
-        return callback(new error.InternalServer(err));
-      }
-      return callback(err, result);
+  app.list(condition, options, function (err, result) {
+    if (err) {
+      return callback(new error.InternalServer(err));
+    }
+    return callback(err, result);
   });
 
 	var tasks = [];
-  var task_getAppList = function(cb){
+  var taskGetAppList = function(cb){
     app.list(condition,options, function(err, result){
       cb(err,result);
     });
   };
-  tasks.push(task_getAppList);
+  tasks.push(taskGetAppList);
 
-  var task_getCreator = function(result, cb){
+  var taskGetCreator = function(result, cb){
     async.forEach(result.items, function(app, cb_){
     }, function(err){
       cb(err, result);
     });
   };
-  tasks.push(task_getCreator);
+  tasks.push(taskGetCreator);
 
-  var task_getUpdater = function(result, cb){
+  var taskGetUpdater = function(result, cb){
     async.forEach(result.items, function(app, cb_){
     }, function(err){
       cb(err, result);
     });
   };
-  tasks.push(task_getUpdater);
+  tasks.push(taskGetUpdater);
 
-  var task_other = function(result, cb){
+  var taskOther = function(result, cb){
     async.forEach(result.items, function(app, cb_){
       app._doc.appTypeCategory = categorory.getByCode(app.appType); // 追加系统分类
-      if(app.require && app.require.device)
+      if(app.require && app.require.device) {
         app._doc.device = devices.getDevice(app.require.device);  // 追加设备
-        cb_(null, result);
-       }, function(err){
-          cb(err, result);
-      });
-   };
-  tasks.push(task_other);
+      }
+      cb_(null, result);
+    }, function(err){
+      cb(err, result);
+    });
+  };
+  tasks.push(taskOther);
 
   async.waterfall(tasks,function(err,result){
     return callback(err, result);
-});
+  });
 };
 
-/**
- * 渲染详细画面
- * @param req
- * @param res
- * @param app_id
- */
-exports.renderDetail = function(req, res, app_id) {
-    exports.findAppInfoById(app_id, function(err, app) {
-        if(err)
-           return starerrors.render(req, res, err);
-        // 阅览权限check
-        if(!apputil.isCanView(app, req.session.user._id))
-            return starerrors.render(req, res, new starerrors.NoViewError);
-        // 正常跳转
-        res.render("app_detail", {
-            app_id: app_id,
-            title: "star", bright: "home",
-            user: req.session.user,
-            app: app
-         });
-    });
-};
+
 /**
  * 渲染追加或编辑画面
  * @param req
@@ -265,16 +274,17 @@ exports.renderAppStep = function(req, res, step) {
 exports.update = function (handler, callback) {
   var appId = handler.params.appId
     , code  = handler.params.code
-    , create_user = handler.uid
+    , createBy = handler.uid
     , icon_big = handler.params['icon.big']
     , icon_small = handler.params['icon.small']
     , screenshot = handler.params.screenshot
     , pptfile = handler.params.pptfile
     , downloadId = handler.params.downloadId
     , size = handler.params.pptfile_size
+//    , editstep = handler.params.editstep
   var app_update = {
-    update_date : new Date()
-   ,update_user : create_user
+    updateAt : new Date()
+   ,updateBy : createBy
    , icon :{
       big: icon_big
       ,small :icon_small
@@ -284,7 +294,7 @@ exports.update = function (handler, callback) {
   , pptfile : pptfile
   , size : size
   , downloadId : downloadId
-  , editstep : editstep
+//  , editstep : editstep
   , plistDownloadId : ""
   };
 
@@ -296,8 +306,8 @@ exports.update = function (handler, callback) {
 exports.checkApply = function (handler, callback) {
   var appId = handler.params.app
     , code        = "";
-  var app_apply = { status:  1}
-  app.update(code, appId, app_apply, function (err, result) {
+  var appApply = { status: 1 };
+  app.update(code, appId, appApply, function (err, result) {
     callback(err, result);
   });
 }
@@ -305,8 +315,8 @@ exports.checkApply = function (handler, callback) {
 exports.checkAllow = function (handler, callback) {
   var appId = handler.params.app
     , code        = "";
-  var app_allow = { status:  2}
-  app.update(code, appId, app_allow, function (err, result) {
+  var appAllow = { status:  2} ;
+  app.update(code, appId, appAllow, function (err, result) {
     callback(err, result);
   });
 }
@@ -315,24 +325,24 @@ exports.checkDeny = function (handler, callback) {
   var appId = handler.params.app
     , code        = "";
   var data = handler.params;
-  var app_Deny = {
+  var appDeny = {
     status:  3
-  , notice: data.notice
-  , noticeimage: data.noticeimage
-  }
-  app.update(code, appId, app_Deny, function (err, result) {
+  , noticeMessage: data.noticeMessage
+  , noticeImage: data.noticeImage
+  };
+  app.update(code, appId, appDeny, function (err, result) {
     callback(err, result);
   });
-}
+};
 
 exports.checkStop = function (handler, callback) {
   var appId = handler.params.app
     , code        = "";
-  var app_stop = { status:  4}
-  app.update(code, appId, app_stop, function (err, result) {
+  var appStop = { status:  4 };
+  app.update(code, appId, appStop, function (err, result) {
     callback(err, result);
   });
-}
+};
 
 function _renderAppStep(req, res, step, appId) {
     if (step == 1) {

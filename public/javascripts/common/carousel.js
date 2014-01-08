@@ -30,7 +30,7 @@ var Carousel = {
 //      新发布应用
         ,get_new_list_url: function() {
             var crsf = $("#_csrf").val();
-            return "/app/list.json?_csrf=" + crsf + "&start=0&sort=update_date&status=2";
+            return "/app/list.json?_csrf=" + crsf + "&start=0&sort=updateAt&status=2";
         }
 //      下载排行
         ,get_download_list_url: function() {

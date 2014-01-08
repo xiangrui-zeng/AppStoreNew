@@ -1,130 +1,125 @@
+/**
+ * @file 存取分类信息的module
+ * @author lizheng
+ * @copyright Dreamarts Corporation. All Rights Reserved.
+ */
+
+"use strict";
+
 var Categories = {
-  id: undefined
-  ,code: 0
-  ,name: "root"
-  ,items: [
+  code: 0,
+  name: "root",
+  items: [
     {
-      id: undefined
-      ,code: 10000
-      ,name: "デバイス"
-      ,items: [
-        {  id: undefined, code: "10001" ,name: "iOS", icon:"icon-apple"}
-        ,{ id: undefined, code: "10002" ,name: "Android", icon:"icon-android" }
-        ,{ id: undefined, code: "10003" ,name: "Web", icon:"icon-desktop" }
+      code: 10000,
+      name: "デバイス",
+      items: [
+        { code: "10001", name: "iOS", icon: "icon-apple"},
+        { code: "10002", name: "Android", icon: "icon-android" },
+        { code: "10003", name: "Web", icon: "icon-desktop" }
+      ]
+    },
+    {
+      code: 20000,
+      name: "業種",
+      items: [
+        { code: "20001", name: "販売", icon: "icon-yen" },           // 贩卖/零售"
+        { code: "20002", name: "制造", icon: "icon-tags" },          // 制造
+        { code: "20003", name: "政府", icon: "icon-building" },      // 政府部门/事业单位
+        { code: "20004", name: "金融", icon: "icon-dollar" },        // 金融
+        { code: "20005", name: "運輸", icon: "icon-truck" },         // 运输
+        { code: "20006", name: "サービス", icon: "icon-thumbs-up" }, // 服务
+        { code: "20007", name: "通信", icon: "icon-bullhorn" },     //信息・通信/广播
+        { code: "20008", name: "電気", icon: "icon-fire" },         // 电器煤气
+        { code: "20009", name: "教育", icon: "icon-book"},          // 教育
+        { code: "20010", name: "その他", icon: "icon-bookmark" }    // 其他
       ]
     }
-    ,{
-      id: undefined
-      ,code: 20000
-       ,name: "業種"
-      ,items: [
-        {  id: undefined, code: "20001" ,name: "販売", icon:"icon-yen" } // 贩卖/零售"
-        ,{ id: undefined, code: "20002" ,name: "制造", icon:"icon-tags" }  // 制造
-        ,{ id: undefined, code: "20003" ,name: "政府", icon:"icon-building" } // 政府部门/事业单位
-        ,{ id: undefined, code: "20004" ,name: "金融", icon:"icon-dollar" } // 金融
-        ,{ id: undefined, code: "20005" ,name: "運輸", icon:"icon-truck" } // 运输
-        ,{ id: undefined, code: "20006" ,name: "サービス", icon:"icon-thumbs-up" } // 服务
-        ,{ id: undefined, code: "20007" ,name: "通信", icon:"icon-bullhorn" } //信息・通信/广播
-        ,{ id: undefined, code: "20008" ,name: "電気", icon:"icon-fire" } // 电器煤气
-        ,{ id: undefined, code: "20009" ,name: "教育", icon:"icon-book"} // 教育
-        ,{ id: undefined, code: "20010" ,name: "その他", icon:"icon-bookmark" } // 其他
-      ]
-    }
-     ,{
-      id: undefined
-      ,code: 30000
-       ,name: "規模"
-      ,items: [
-          {  id: undefined, code: "30001" ,name: "1000~2000" }
-          ,{ id: undefined, code: "30002" ,name: "500~1000" }
-          ,{ id: undefined, code: "30003" ,name: "100~500" }
-          ,{ id: undefined, code: "30004" ,name: "50~100" }
-          ,{ id: undefined, code: "30005" ,name: "~50" }
+    ,
+    {
+      code: 30000,
+      name: "規模",
+      items: [
+        { code: "30001", name: "1000~2000" },
+        { code: "30002", name: "500~1000" },
+        { code: "30003", name: "100~500" },
+        { code: "30004", name: "50~100" },
+        { code: "30005", name: "~50" }
       ]
     }
   ]
 };
 
-function model() {
-  return conn.model("", "categorys", Categories )
-}
-
-//获取Categories
-exports.getCategories = function () {
-  return Categories;
-}
-
-//获取Categories中的code类型
-exports.getByCode = function (code) {
-  return _getByByCode(exports.getCategories(), code);
-}
-
-function _getByByCode(category, code) {
-  if (category.code == code)
+/**
+ * 根据分类编码获取分类信息
+ * @param {Object} category 分类对象
+ * @param {String} code 分类编码
+ * @return {Object} 分类信息
+ */
+function _getByCode(category, code) {
+  if (category.code === code) {
     return category;
+  }
 
-  if (!category.items)
+  if (!category.items) {
     return null;
+  }
 
-  for (var i in category.items) {
-    var result = _getByByCode(category.items[i], code);
-    if (result)
+  for (var i = 0; i < category.items.length; i++) {
+    var result = _getByCode(category.items[i], code);
+    if (result) {
       return result;
+    }
   }
 
   return null;
 }
 
+/**
+ * 获取分类信息
+ * @return {Object} 分类信息
+ */
+exports.getCategories = function () {
+  return Categories;
+};
+
+/**
+ * 根据分类编码获取分类信息
+ * @param {Object} code 分类编码
+ * @return {Object} 分类信息
+ */
+exports.getByCode = function (code) {
+  return _getByCode(exports.getCategories(), code);
+};
+
+/**
+ * 获取设备分类信息
+ * @return {Object} 设备分类信息
+ */
 exports.getAppTypes = function () {
   return exports.getByCode(10000);
-}
-exports.getCategoryTypes = function () {
-  console.log("getCategoryTypes");
-  return exports.getByCode(20000);
-}
+};
 
-exports.isAppTypes = function (category) {
-  var code = category;
-  var c_types = exports.getAppTypes();
-  for (var i in c_types.items) {
-    if (c_types.items[i].code == code)
+/**
+ * 获取業種分类信息
+ * @return {Object} 業種分类信息
+ */
+exports.getCategoryTypes = function () {
+  return exports.getByCode(20000);
+};
+
+/**
+ * 检查某个分类是否是设备分类
+ * @param {Object} code 分类编码
+ * @return {Boolean} 業種分类信息
+ */
+exports.isAppTypes = function (code) {
+  var types = exports.getAppTypes();
+  for (var i = 0; i < types.items.length; i++) {
+    if (types.items[i].code === code) {
       return true;
+    }
   }
 
   return false;
-}
-
-exports.getAppTypeName = function (category) {
-  if (category) {
-    var code = category;
-    var c_types = exports.getAppTypes();
-    for (var i in c_types.items) {
-      if (c_types.items[i].code == code)
-        return c_types.items[i].name;
-    }
-  }
-  return "";
-}
-
-exports.getAppTypeName = function (category) {
-  if (category) {
-    var code = category;
-    var c_types = exports.getAppTypes();
-    for (var i in c_types.items) {
-      if (c_types.items[i].code == code)
-        return c_types.items[i].name;
-    }
-  }
-  return "";
-}
-
-exports.getAppNumArry = function (code, condition, callback) {
-  var category = model(code);
-  category.find(condition)
-    .exec(function (err, result) {
-      category.count(condition).exec(function (err, count) {
-        callback(err, {total: count, items: result});
-      });
-    });
-
-}
+};

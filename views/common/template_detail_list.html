@@ -8,10 +8,10 @@
         ,{name: "os", title: "OS"}
         ,{name: "require", title: "要求"}
         ,{name: "status", title: "状態"}
-        ,{name: "create_date", title: "作成日時"}
-        ,{name: "create_user", title: "作成者"}
-        ,{name: "update_date", title: "更新日時"}
-        ,{name: "update_user", title: "更新者"}
+        ,{name: "createAt", title: "作成日時"}
+        ,{name: "createBy", title: "作成者"}
+        ,{name: "updateAt", title: "更新日時"}
+        ,{name: "updateBy", title: "更新者"}
         ,{name: "update_info", title: "更新情報"}
         ,{name: "rank", title: "ランキング"}
         ,{name: "downloadcount", title: "ダウンロード数"}
@@ -66,7 +66,7 @@
         <$ var os = (app.require && app.require.os) ? app.require.os : "No require"; $>
         <$ var osPath = "#"; $> app.appType ? $app.osImagePath(app.appType) : '#'; $>
         <$ var device = (app.require && app.require.device) ? app.require.device : "No require"; $>
-        <$ var updater = app.update_user ? app.update_user : app.create_user $>
+        <$ var updater = app.updateBy ? app.updateBy : app.createBy $>
         <$ if(col.name == "icon") { $>
             <td style="min-width:100px;"><a href="#" onclick="javascript:appDetail.show('{{ app._id }}', false);return false;">
             <!--<td style="min-width:100px;"><a href="/app/{{ app._id }}">-->
@@ -126,20 +126,20 @@
                 <$ } $>
             </td>
 
-        <$ } else if(col.name == "create_date") { $>
-            <td nowrap>  {{ smart.date(app.create_date) }} </td>
-        <$ } else if(col.name == "create_user") { $>
-            <td nowrap>  {{ _.escape(app.create_user) }} </td>
-        <$ } else if(col.name == "update_date") { $>
-            <td nowrap>  {{ smart.date(app.update_date) }} </td>
-        <$ } else if(col.name == "update_user") { $>
-            <td nowrap>  {{ _.escape(app.update_user) }} </td>
+        <$ } else if(col.name == "createAt") { $>
+            <td nowrap>  {{ smart.date(app.createAt) }} </td>
+        <$ } else if(col.name == "createBy") { $>
+            <td nowrap>  {{ _.escape(app.createBy) }} </td>
+        <$ } else if(col.name == "updateAt") { $>
+            <td nowrap>  {{ smart.date(app.updateAt) }} </td>
+        <$ } else if(col.name == "updateBy") { $>
+            <td nowrap>  {{ _.escape(app.updateBy) }} </td>
         <$ } else if(col.name == "update_info") { $>
             <td nowrap>
-                <strong>更新者：</strong> {{ _.escape(app.update_user) }}<br>
-                <strong>更新日時：</strong> {{ smart.date(app.update_date) }}<br>
-                <strong>作成者：</strong> {{ _.escape(app.create_user) }}<br>
-                <strong>作成日時：</strong> {{ smart.date(app.create_date) }}<br>
+                <strong>更新者：</strong> {{ _.escape(app.updateBy) }}<br>
+                <strong>更新日時：</strong> {{ smart.date(app.updateAt) }}<br>
+                <strong>作成者：</strong> {{ _.escape(app.createBy) }}<br>
+                <strong>作成日時：</strong> {{ smart.date(app.createAt) }}<br>
             </td>
         <$ } else if(col.name == "rank") { $>
             <td>  {{ app.rank? app.rank: 0 }} </td>
