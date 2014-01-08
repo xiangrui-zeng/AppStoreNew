@@ -63,13 +63,14 @@ function render(appId) {
         $("#step1").addClass("active");
       }
 
-      //公开对象permission_download
+      //公开对象permission_view
       console.log(data);
       if(!data.name){
         return;
       }
       var permission = data.permission;
       $('input[name="permission.download"]').val(permission.download.join(','));
+
       $("#download_user_selected").html('');
       for (var i = 0; i < data.download_list.length; i++) {
         $("#download_user_selected").append("<li class=\"user_has_selected\" data=\"" + data.download_list[i].id + "\"><div ><div style='float: left'><i class='icon-user'/>" + data.download_list[i].name.name_zh + "</div><div class='close_user' style='display: none;float: right;'>X</div><div><br></li>");

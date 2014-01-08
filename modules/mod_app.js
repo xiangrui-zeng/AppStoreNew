@@ -40,7 +40,7 @@ var App = new schema({
     , rankcount       : {type: Number, description:"评分次数",default: 0}
     , bundle_identifier : {type:String, description:"plist  标识"}
     , bundle_version  : {type:String, description:"plist"}
-    , kind            : {type:String, description:"种类"}
+    , kind            : {type:String, description:"plist种类  固定的",default: "software"}
     , downloadCount   : {type: Number, description:"下载数量"}
     , notice          : {type: String, description:"审核信息"}
     , noticeimage     : [String]
@@ -110,7 +110,7 @@ exports.update = function (code, appId, update, callback) {
 
   var App = model(code);
 
-  App.findByIdAndUpdate(appId, update, function (err, result) {
+  App.findByIdAndUpdate(appId+"", update, function (err, result) {
     callback(err, result);
   });
 };
