@@ -6,6 +6,7 @@ var context       = smart.framework.context
   , file          = smart.ctrl.file
   , async         = smart.util.async
   , error         = smart.framework.error
+  , util          = smart.framework.util
   , app           = require("../modules/mod_app.js")
   , downloadInfo  = require("../modules/mod_download")
   , categorory    = require("../modules/mod_category")
@@ -13,9 +14,32 @@ var context       = smart.framework.context
   , starerrors    = require("../core/starerrors.js")
   , apputil       = require("../core/apputil.js");
 
-exports.create = function (data_, callback_){
+exports.create = function (handler, callback_){
+  var creator = handler.uid;//创建者
+  var data = util.checkObject(handler.params);
+  data.require = {                  //require 两项
+    device: data.require_device,
+    os: data.require_os
+  };
+  data.rank = 0;
+  data.rankcount = 0;
+  data.downloadCount = 0;
+  data.create_user = creator;
+  data.editstep = 1;              //编辑步骤
+  data.editing = 0;               //?
+  data.status = 0;
+  data.category = handler.params.category;   //类别
+  data.permission = {                  //权限
+    admin: [creator],
+    edit: [creator],
+    view: [creator],
+    download: [creator]
+
+  };
+  data.update_date = new Date();       //更新时间 当前时间
+  data.update_user = creator;
   var date = Date.now();
-  var app_ = data_;
+  var app_ = data;
   app_.create_date = date;
   app_.update_date = date;
 
@@ -24,12 +48,12 @@ exports.create = function (data_, callback_){
     return callback_(err, result);
   });
 };
-exports.findAppInfoById = function (app_id_, callback_) {
-    console.log(app_id_);
-    app.find(app_id_, function (err, docs) {
-        console.log(docs);
-        callback_(err, docs);
-    });
+exports.findAppInfoById = function (appId, callback_) {
+  console.log(appId);
+  app.find(appId, function (err, docs) {
+    console.log(docs);
+    callback_(err, docs);
+  });
 };
 
 exports.addimage = function(handler, callback) {
@@ -117,23 +141,24 @@ exports.downloadedList = function(handler, callback_){
  */
 exports.search = function(handler, callback){
 	var category  = handler.params.category
-		 ,keywords  = handler.params.keywords;
+		, keywords  = handler.params.keywords;
 	var condition = {"name": new RegExp("^.*" + keywords.toLowerCase() + ".*$", "i")};
 	var options   = {
       start: handler.params.start
-     ,limit: handler.params.count
-     ,sort: {update_date:-1}
-  };
+    , limit: handler.params.count
+    , sort: {update_date:-1}
+    };
 	if(category) {
-		if(categorory.isAppTypes(category))
+		if(categorory.isAppTypes(category)) {
 			condition.appType = category;
-		else
+    } else {
 			condition.category = { $elemMatch: {$in: [category]} };
+    }
 	}
 	app.list(condition,options, function(err, result){
 		return callback(err, result);
 	});
-}
+};
 
 /**
  * @file list ctrl
@@ -142,19 +167,20 @@ exports.search = function(handler, callback){
  */
 exports.list = function(handler, callback){
   var sort        = handler.params.sort
-	   ,category    = handler.params.category
-	   ,create_user = handler.params.create_user
-	   ,status      = handler.params.status
-	   ,asc         = handler.params.asc;
+	  , category    = handler.params.category
+	  , create_user = handler.params.create_user
+	  , status      = handler.params.status
+	  , asc         = handler.params.asc;
 	var condition   = {};
 
 	if(category){
-    if(categorory.isAppTypes(category))
+    if(categorory.isAppTypes(category)) {
       condition.appType = category;
-    else
+    } else {
       condition.category = { $elemMatch: {$in: [category]} };
+    }
   }
-  if(create_user){
+  if (create_user) {
     condition.create_user = create_user;
   }
   if(status){
@@ -164,81 +190,61 @@ exports.list = function(handler, callback){
   var options = {
       start: handler.params.start
     , limit: handler.params.limit
-  };
+    };
   if (sort){
     options.sort = {};
-    options.sort[sort] = asc == 1 ? 1 : -1;
+    options.sort[sort] = asc === 1 ? 1 : -1;
   }
-	  app.list(condition,options, function(err, result){
-      if (err) {
-        return callback(new error.InternalServer(err));
-      }
-      return callback(err, result);
+  app.list(condition, options, function (err, result) {
+    if (err) {
+      return callback(new error.InternalServer(err));
+    }
+    return callback(err, result);
   });
 
 	var tasks = [];
-  var task_getAppList = function(cb){
+  var taskGetAppList = function(cb){
     app.list(condition,options, function(err, result){
       cb(err,result);
     });
   };
-  tasks.push(task_getAppList);
+  tasks.push(taskGetAppList);
 
-  var task_getCreator = function(result, cb){
+  var taskGetCreator = function(result, cb){
     async.forEach(result.items, function(app, cb_){
     }, function(err){
       cb(err, result);
     });
   };
-  tasks.push(task_getCreator);
+  tasks.push(taskGetCreator);
 
-  var task_getUpdater = function(result, cb){
+  var taskGetUpdater = function(result, cb){
     async.forEach(result.items, function(app, cb_){
     }, function(err){
       cb(err, result);
     });
   };
-  tasks.push(task_getUpdater);
+  tasks.push(taskGetUpdater);
 
-  var task_other = function(result, cb){
+  var taskOther = function(result, cb){
     async.forEach(result.items, function(app, cb_){
       app._doc.appTypeCategory = categorory.getByCode(app.appType); // 追加系统分类
-      if(app.require && app.require.device)
+      if(app.require && app.require.device) {
         app._doc.device = devices.getDevice(app.require.device);  // 追加设备
-        cb_(null, result);
-       }, function(err){
-          cb(err, result);
-      });
-   };
-  tasks.push(task_other);
+      }
+      cb_(null, result);
+    }, function(err){
+      cb(err, result);
+    });
+  };
+  tasks.push(taskOther);
 
   async.waterfall(tasks,function(err,result){
     return callback(err, result);
-});
+  });
 };
 
-/**
- * 渲染详细画面
- * @param req
- * @param res
- * @param app_id
- */
-exports.renderDetail = function(req, res, app_id) {
-    exports.findAppInfoById(app_id, function(err, app) {
-        if(err)
-           return starerrors.render(req, res, err);
-        // 阅览权限check
-        if(!apputil.isCanView(app, req.session.user._id))
-            return starerrors.render(req, res, new starerrors.NoViewError);
-        // 正常跳转
-        res.render("app_detail", {
-            app_id: app_id,
-            title: "star", bright: "home",
-            user: req.session.user,
-            app: app
-         });
-    });
-};
+
 /**
  * 渲染追加或编辑画面
  * @param req
@@ -264,38 +270,6 @@ exports.renderAppStep = function(req, res, step) {
         _renderAppStep(req, res, step, appId);
     }
 };
-// 更新变为两步
-//exports.updatestep1 = function (handler, callback) {
-//  var appId = handler.params.appId
-//    , code  = handler.params.code
-//    , create_user = handler.uid
-//    , icon_big = handler.params['icon.big']
-//    , icon_small = handler.params['icon.small']
-//    , screenshot = handler.params.screenshot
-//    , pptfile = handler.params.pptfile
-//    , downloadId = handler.params.downloadId
-//    , size = handler.params.pptfile_size
-//    , editstep = handler.params.editstep
-//  var app_update = {
-//    update_date : new Date()
-//    ,update_user : create_user
-//    , icon :{
-//      big: icon_big
-//      ,small :icon_small
-//
-//    }
-//    , screenshot : screenshot
-//    , pptfile : pptfile
-//    , size : size
-//    , downloadId : downloadId
-//    , editstep : editstep
-//    , plistDownloadId : ""
-//  };
-//
-//  app.update(code, appId, app_update, function (err, result) {
-//    callback(err, result);
-//  });
-//}
 
 exports.update = function (handler, callback) {
   var appId = handler.params.appId

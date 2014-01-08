@@ -58,35 +58,19 @@ exports.updateAppStep1 = function (req_, res_) {
     response.send(res, err, result);
   });
 }
-exports.createAppStep1 = function (req, res) {
-  var creator = req.session.user._id;//创建者
-  var data = util.checkObject(req.body);
-  data.require = {                  //require 两项
-    device: data.require_device,
-    os: data.require_os
-  };
-  data.rank = 0;
-  data.rankcount = 0;
-  data.downloadCount = 0;
-  data.create_user = creator;
-  data.editstep = 1;              //编辑步骤
-  data.editing = 0;               //?
-  data.status = 0;                //状态 默认为0：未申请
-  data.category = req.body.category;   //类别
-  data.permission = {                  //权限
-    admin: [creator],
-    edit: [creator],
-    view: [creator],
-    download: [creator]
 
-  };
-  data.update_date = new Date();       //更新时间 当前时间
-  data.update_user = creator;
-  app.create(data, function (err, result) {
+//APP上传第一步
+exports.createAppStep1 = function (req, res) {
+  var handler = new context().bind(req, res);
+  log.operation("begin: create an app step1.", handler.uid);
+
+  app.create(handler, function (err, result) {
+    log.operation("finish: create an app step1.", handler.uid);
     response.send(res, err, result);
   });
 };
-//
+
+//APP上传第二步
 exports.createAppStep2 = function (req, res) {
   var handler = new context().bind(req, res);
   log.operation("begin: create an app step2.", handler.uid);
@@ -124,17 +108,6 @@ exports.saveimage = function (req, res) {
   });
 };
 
-exports.createApp = function (req_, res_) {
-  var creator = req_.session.user._id;
-  var data = util.checkObject(req_.body);
-  data.create_user = creator;
-  data.update_user = creator;
-  console.log(req_.body);
-  app.create(data, function (err, result) {
-    response.send(res_, err, result);
-  });
-};
-
 exports.getAppInfo = function (req, res) {
   var handler = new context().bind(req, res);
   app.getAppInfoById(handler, function (err, result) {
@@ -144,12 +117,11 @@ exports.getAppInfo = function (req, res) {
 };
 
 exports.downloadedList = function (req, res) {
-  var uid = req_.session.user._id;
   var handler = new context().bind(req, res);
 
   app.downloadedList(handler, function (err, result) {
-    setDownloadURL(req_, result);
-    response.send(res_, err, result);
+    setDownloadURL(req, result);
+    response.send(res, err, result);
   });
 };
 
@@ -158,11 +130,11 @@ exports.downloadedList = function (req, res) {
  * @author chenda
  * @copyright Dreamarts Corporation. All Rights Reserved.
  */
-exports.search = function (req_, res_) {
-	var handler = new context().bind(req_,res_);
+exports.search = function (req, res) {
+	var handler = new context().bind(req,res);
 	app.search(handler, function(err, result) {
 		log.operation("finish : search app list",handler.uid);
-		response.send(res_,err,result);
+		response.send(res,err,result);
 	});
 };
 
@@ -171,13 +143,13 @@ exports.search = function (req_, res_) {
  * @author chenda
  * @copyright Dreamarts Corporation. All Rights Reserved.
  */
-exports.list = function (req_, res_) {
-  var handler = new context().bind(req_,res_);
-	log.operation("finish : list app ",handler.uid);
+exports.list = function (req, res) {
+  var handler = new context().bind(req,res);
+
 	app.list(handler,function(err, result){
-		setDownloadURL(req_, result);
-		response.send(res_, err, result);
-	})
+		setDownloadURL(req, result);
+		response.send(res, err, result);
+	});
 };
 
 exports.checkApply = function(req, res) {

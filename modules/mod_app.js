@@ -54,17 +54,17 @@ function model() {
 }
 
 exports.create = function (app_, callback_) {
-  var app = model();
-  new app(app_).save(function (err, result) {
+  var App = model();
+  new App(app_).save(function (err, result) {
     callback_(err, result);
   });
 };
 //更新评分
 exports.updateRank = function (appId, rank, rankCount, callback_) {
-    var app = model();
-    app.findByIdAndUpdate(appId, { rank: rank, rankcount: rankCount }, function (err, result) {
-        callback_(err, result);
-    });
+  var app = model();
+  app.findByIdAndUpdate(appId, { rank: rank, rankcount: rankCount }, function (err, result) {
+    callback_(err, result);
+  });
 };
 //更新下载数量
 exports.updateDownloadCount = function (appId_, dlCount_, callback_) {
@@ -75,16 +75,16 @@ exports.updateDownloadCount = function (appId_, dlCount_, callback_) {
 };
 
 exports.find = function (appId, callback_) {
-    var app = model();
-    app.findOne({_id:appId}, function (err, result) {
-        callback_(err, result);
-    });
+  var app = model();
+  app.findOne({_id: appId}, function (err, result) {
+    callback_(err, result);
+  });
 };
 
 exports.getAppsByIds = function (ids_, callback_) {
   var app = model();
 
-  app.find({'_id': {$in: ids_}}).exec(function (err, result) {
+  app.find({"_id": {$in: ids_}}).exec(function (err, result) {
     callback_(err, result);
   });
 };
