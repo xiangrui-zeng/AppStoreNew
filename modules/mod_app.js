@@ -85,7 +85,11 @@ exports.getAppsByIds = function (ids_, callback_) {
     callback_(err, result);
   });
 };
-
+/**
+ * @file list apis
+ * @author chenda
+ * @copyright Dreamarts Corporation. All Rights Reserved.
+ */
 exports.list = function (condition_, options_, callback_) {
   var app = model();
   app.find(condition_)

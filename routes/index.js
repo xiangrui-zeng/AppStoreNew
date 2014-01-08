@@ -1,7 +1,9 @@
 var user        = require("../apis/user")
   , apiApp      = require('./api_app')
   , apiFile     = require('./api_file')
-  , apiComment  = require('./api_comment');
+  , apiComment  = require('./api_comment')
+  , apiAnalyze  = require("./api_analyze")
+  , apiDownload = require("./api_download");
 
 /*
  * GET home page.
@@ -18,8 +20,14 @@ exports.guiding = function (app) {
   // comment
   apiComment.guiding(app);
 
+  // analyze
+  apiAnalyze.guiding(app);
+
+  // download
+  apiDownload.guiding(app);
+
   // 登陆
-  app.get('/simplelogin', function (req, res) {
+  app.get("/simplelogin", function (req, res) {
     user.simpleLogin(req, res);
   });
 
@@ -29,17 +37,17 @@ exports.guiding = function (app) {
   });
 
   // root
-  app.get("/",function(req, res) {
+  app.get("/", function(req, res) {
     res.render("login", {"title": "login"});
   });
 
   // login
-  app.get("/login",function(req, res) {
+  app.get("/login", function(req, res) {
     res.render("login", {"title": "login"});
   });
 
   // homepage
-  app.get("/starwall",function(req, res) {
+  app.get("/starwall", function(req, res) {
     res.render("starwall", {"title": "starwall", user: req.session.user});
   });
 

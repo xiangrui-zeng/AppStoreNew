@@ -7,7 +7,6 @@
 "use strict";
 
 var response  = smart.framework.response
-  , handler   = smart.framework.context
   , category = require("../modules/mod_category");
 
 /**
@@ -16,6 +15,6 @@ var response  = smart.framework.response
  * @param res 响应对象
  * @returns {*} 无
  */
-exports.getCategory = function (req_, res_) {
-  response.send(res_, null, category.getCategories());
+exports.getCategory = function (req, res) {
+  response.send(res, null, category.getCategories());
 };

@@ -1,49 +1,52 @@
+/**
+ * @file 下载App的api
+ * @author lizheng
+ * @copyright Dreamarts Corporation. All Rights Reserved.
+ */
 
-var app = require("../controllers/ctrl_app.js")
-    , download = require("../controllers/ctrl_download")
-    , util = smart.framework.util
-    , json = smart.framework.response;
+"use strict";
 
+var context  = smart.framework.context
+  , response = smart.framework.response
+  , download = require("../controllers/ctrl_download");
 
-exports.create = function (req_, res_, callback) {
-    var creator = req_.session.user._id||0;
-    var data = {};
-    data.app_id = req_.query.app_id;
-    data.create_user = creator;
-    data.device = 'ios';
-    data.ip = getClientIp(req_);
-    console.log("fdsdfdsf 1");
-    app.findAppInfoById(data.app_id, function (err, app_docs) {
-        var flag = req_.query.flag;
-        console.log("fdsdfdsf 2");
-        console.log(flag);
-        if (app_docs.appType == "10001"&&!flag) {
-            console.log("跳出");
-            res_.redirect("/ios/download?app_id=" + app_docs._id);
-            return;
-        } else {
-            console.log("fdsdfds  3f");
-            download.create(data, function (err, result) {
-                console.log("fdsdfdsf 4");
-                callback(err, result);
+/**
+ * 下载Plist
+ * @param req 请求对象
+ * @param res 响应对象
+ * @returns {*} 无
+ */
+exports.getPlist = function (req, res) {
 
-                return;
-            });
-        }
+  var handler = new context().bind(req, res);
+  handler.addParams("host", req.host);
+  handler.addParams("port", req.app.get("port"));
 
-    })
+  download.getPlist(handler, function(err, plist) {
+    if(err) {
+      return response.send(res, err);
+    }
 
+    res.setHeader("Content-Type", "text/xml");
+    res.send(plist);
+  });
 };
 
-function getClientIp(req) {
-    var ipAddress;
-    var forwardedIpsStr = req.header('x-forwarded-for');
-    if (forwardedIpsStr) {
-        var forwardedIps = forwardedIpsStr.split(',');
-        ipAddress = forwardedIps[0];
+/**
+ * 下载Ipa文件
+ * @param req 请求对象
+ * @param res 响应对象
+ * @returns {*} 无
+ */
+exports.getIpaFile = function (req, res) {
+
+  var handler = new context().bind(req, res);
+
+  download.getIpaFile(handler, function(err, file) {
+    if(err) {
+      return response.send(res, err);
     }
-    if (!ipAddress) {
-        ipAddress = req.connection.remoteAddress;
-    }
-    return ipAddress;
-}
+
+    response.sendFile(res, err, file);
+  });
+};

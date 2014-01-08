@@ -1,21 +1,26 @@
-var app = require("../controllers/ctrl_app.js")
-  , util = smart.framework.util
+
+"use strict";
+
+var util      = smart.framework.util
   , response  = smart.framework.response
   , context   = smart.framework.context
   , log       = smart.framework.log
-  , apputil = require("../core/apputil.js")
+  , app       = require("../controllers/ctrl_app.js")
+  , apputil   = require("../core/apputil.js");
 
-function setDownloadURL(req, app_info) {
+
+function setDownloadURL(req, appInfo) {
   // 现在API里有返回数据组，有返回json格式的。
   var list;
-  if (util.isArray(app_info)) // 数组
-    list = app_info;
-  else if (app_info.items)   // json数组
-    list = app_info.items;
-  else if (app_info._doc)
-    list = [ app_info ];
-  else if (app_info.data)
-    list = [ app_info.data ];
+  if (util.isArray(appInfo)) { // 数组
+    list = appInfo;
+  } else if (appInfo.items) { // json数组
+    list = appInfo.items;
+  } else if (appInfo._doc) {
+    list = [ appInfo ];
+  } else if (appInfo.data) {
+    list = [ appInfo.data ];
+  }
 
   for (var i = 0; i < list.length; i++) {
     var app_ = list[i];
@@ -96,6 +101,7 @@ exports.createAppStep2 = function (req, res) {
 exports.saveimage = function (req, res) {
   var handler = new context().bind(req, res);
   log.operation("begin: upload an item.", handler.uid);
+  // 文件个数判断 引入0.1.34版本后的smartcore 此处逻辑可删除
   var params = handler.params
     , files = params.files;
   var tmpFiles = [];
@@ -137,10 +143,11 @@ exports.getAppInfo = function (req, res) {
   });
 };
 
-exports.downloadedList = function (req_, res_) {
+exports.downloadedList = function (req, res) {
   var uid = req_.session.user._id;
+  var handler = new context().bind(req, res);
 
-  app.downloadedList(uid, function (err, result) {
+  app.downloadedList(handler, function (err, result) {
     setDownloadURL(req_, result);
     response.send(res_, err, result);
   });
@@ -159,21 +166,18 @@ exports.search = function (req_, res_) {
 	});
 };
 
+/**
+ * @file list apis
+ * @author chenda
+ * @copyright Dreamarts Corporation. All Rights Reserved.
+ */
 exports.list = function (req_, res_) {
-  var start = Number(util.checkString(req_.query.start));
-  var count = Number(util.checkString(req_.query.count));
-  var sort = util.checkString(req_.query.sort);
-  var asc = Number(util.checkString(req_.query.asc));
-  //var uid = req_.session.user._id;
-  //var admin = req_.query.admin ? true : false;
-  var category = req_.query.category;
-  var status = req_.query.status;
-  var create_user = req_.query.create_user;
-
-  app.list(sort, asc, category, start, count, status , create_user, function (err, result) {
-    setDownloadURL(req_, result);
-    response.send(res_, err, result);
-  });
+  var handler = new context().bind(req_,res_);
+	log.operation("finish : list app ",handler.uid);
+	app.list(handler,function(err, result){
+		setDownloadURL(req_, result);
+		response.send(res_, err, result);
+	})
 };
 
 exports.checkApply = function(req, res) {
@@ -184,7 +188,7 @@ exports.checkApply = function(req, res) {
     log.operation("finish: apply an app.", handler.uid);
     response.send(res, err, result);
   });
-}
+};
 
 exports.checkAllow = function(req, res) {
   var handler = new context().bind(req, res);
@@ -194,7 +198,7 @@ exports.checkAllow = function(req, res) {
     log.operation("finish: allow an app.", handler.uid);
     response.send(res, err, result);
   });
-}
+};
 
 exports.checkDeny = function(req, res) {
   var handler = new context().bind(req, res);
@@ -204,7 +208,7 @@ exports.checkDeny = function(req, res) {
     log.operation("finish: Deny an app.", handler.uid);
     response.send(res, err, result);
   });
-}
+};
 
 exports.checkStop = function(req, res) {
   var handler = new context().bind(req, res);
@@ -214,7 +218,7 @@ exports.checkStop = function(req, res) {
     log.operation("finish: Stop an app.", handler.uid);
     response.send(res, err, result);
   });
-}
+};
 //获取plist文件
 exports.getPlist = function (req_, res_) {
     console.log(req_.host);

@@ -1,3 +1,5 @@
+
+"use strict";
 var EventProxy = require('eventproxy');
 var app = require("../modules/mod_app.js")
   , context  = smart.framework.context
@@ -40,11 +42,11 @@ exports.addimage = function(handler, callback) {
   });
 };
 
-exports.getAppInfoById = function (handler, callback_) {
+exports.getAppInfoById = function (handler, callback) {
   var params = handler.params;
   app.find(params.app_id, function (err, docs) {
     console.log(docs);
-    callback_(err,docs);
+    callback(err,docs);
   });
 };
 
@@ -129,54 +131,49 @@ exports.search = function(handler, callback){
 		return callback(err, result);
 	});
 }
-exports.list = function(sort_,asc_,category_, start_, count_, status_, create_user_,callback_){
-  var condition = {};
-//  if (admin_) {
-//    condition.$or = [
-//        {'create_user': uid_}
-//      , {'permission.admin': uid_}
-//      , {'permission.edit': uid_}
-//    ];
-//  } else {
-//      condition.$and = [
-//          {'permission.view': uid_}
-//          , {'status': 1}           // 1、社内公开
-//      ];
-//  }
-  if(category_) {
-      if(categorory.isAppTypes(category_))
-        condition.appType = category_;
-      else
-        condition.category = { $elemMatch: {$in: [category_]} };
-  }
-  if(create_user_)
-  {
-    condition.create_user = create_user_;
-  }
 
-  if(status_)
-  {
-    condition.status = status_;
+/**
+ * @file list ctrl
+ * @author chenda
+ * @copyright Dreamarts Corporation. All Rights Reserved.
+ */
+exports.list = function(handler, callback){
+  var sort        = handler.params.sort
+	   ,category    = handler.params.category
+	   ,create_user = handler.params.create_user
+	   ,status      = handler.params.status
+	   ,asc         = handler.params.asc;
+	var condition   = {};
+
+	if(category){
+    if(categorory.isAppTypes(category))
+      condition.appType = category;
+    else
+      condition.category = { $elemMatch: {$in: [category]} };
+  }
+  if(create_user){
+    condition.create_user = create_user;
+  }
+  if(status){
+    condition.status = status;
   }
 
   var options = {
-      start: start_
-    , limit: count_
+      start: handler.params.start
+    , limit: handler.params.limit
   };
-  if (sort_){
+  if (sort){
     options.sort = {};
-    options.sort[sort_] = asc_ == 1 ? 1 : -1;
+    options.sort[sort] = asc == 1 ? 1 : -1;
   }
-
-  app.list(condition,options, function(err, result){
-    if (err) {
-      return callback_(new error.InternalServer(err));
-    }
-    console.log(result)
-    return callback_(err, result);
+	  app.list(condition,options, function(err, result){
+      if (err) {
+        return callback(new error.InternalServer(err));
+      }
+      return callback(err, result);
   });
 
-  var tasks = [];
+	var tasks = [];
   var task_getAppList = function(cb){
     app.list(condition,options, function(err, result){
       cb(err,result);
@@ -186,12 +183,6 @@ exports.list = function(sort_,asc_,category_, start_, count_, status_, create_us
 
   var task_getCreator = function(result, cb){
     async.forEach(result.items, function(app, cb_){
-//      var tmphandler = new context().create(app.create_user, "","");
-//      tmphandler.addParams("uid", app.create_user);
-//      user.get(tmphandler, function(err, creator){
-//        app._doc.creator = creator.userName;
-//        cb_(err);
-//      });
     }, function(err){
       cb(err, result);
     });
@@ -200,25 +191,18 @@ exports.list = function(sort_,asc_,category_, start_, count_, status_, create_us
 
   var task_getUpdater = function(result, cb){
     async.forEach(result.items, function(app, cb_){
-//      var tmphandler = new context().create(app.update_user, "","");
-//      tmphandler.addParams("uid", app.update_user);
-//      console.log("====="+tmphandler)
-//      user.get(tmphandler, function(err, updater){
-//        app._doc.updater = updater.userName;
-//        cb_(err);
-//      });
     }, function(err){
       cb(err, result);
     });
   };
-tasks.push(task_getUpdater);
+  tasks.push(task_getUpdater);
 
-   var task_other = function(result, cb){
-      async.forEach(result.items, function(app, cb_){
-           app._doc.appTypeCategory = categorory.getByCode(app.appType); // 追加系统分类
-           if(app.require && app.require.device)
-               app._doc.device = devices.getDevice(app.require.device);  // 追加设备
-           cb_(null, result);
+  var task_other = function(result, cb){
+    async.forEach(result.items, function(app, cb_){
+      app._doc.appTypeCategory = categorory.getByCode(app.appType); // 追加系统分类
+      if(app.require && app.require.device)
+        app._doc.device = devices.getDevice(app.require.device);  // 追加设备
+        cb_(null, result);
        }, function(err){
           cb(err, result);
       });
@@ -226,8 +210,8 @@ tasks.push(task_getUpdater);
   tasks.push(task_other);
 
   async.waterfall(tasks,function(err,result){
-    return callback_(err, result);
- });
+    return callback(err, result);
+});
 };
 
 /**
