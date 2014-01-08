@@ -4,7 +4,6 @@ var app = require("../controllers/ctrl_app.js")
   , context   = smart.framework.context
   , log       = smart.framework.log
   , apputil = require("../core/apputil.js")
-  , starerrors = require("../core/starerrors.js");
 
 function setDownloadURL(req, app_info) {
   // 现在API里有返回数据组，有返回json格式的。
@@ -40,7 +39,6 @@ exports.updateAppStep1 = function (req_, res_) {
   var copyright = req_.body.copyright;
   var version = req_.body.version;
   var release_note = req_body.release_note;
-  //var memo = req_.body.memo;
   var description = req_.body.description;
   var device = req_.require.device;
   var os = req_.require.os;
@@ -48,7 +46,6 @@ exports.updateAppStep1 = function (req_, res_) {
   var bundle_identifier = req_.body.bundle_identifier;
   var bundle_version = req_.body.bundle_version;
   var title = req_.body.title;
-  var editstep = 1;
 //  app.findAppInfoById(appId,function(err,docs){
 //    docs.name = name;
 //    docs.appType = appType;
@@ -65,34 +62,8 @@ exports.updateAppStep1 = function (req_, res_) {
 //          response.send(res, err_, result);
 //        });
 //  });
-//    app.findAppInfoById(appId, function (err, docs) {
-//        // check编辑权限
-//        if(!apputil.isCanEdit(docs, req_.session.user._id))
-//          return new error.InternalServer(err);
-//
-//        docs.name = name;
-//        docs.version = version;
-//        docs.bundle_identifier = bundle_identifier;
-//        docs.bundle_version = bundle_version;
-//        docs.title = title;
-//        docs.memo = memo;
-//        docs.description = description;
-//        docs.require = {device: device, os: os};
-//        docs.appType = appType;
-//        docs.category = category;
-//        docs.update_date = new Date();
-//        docs.update_user = creator;
-//        if (docs.editstep < editstep) {
-//            docs.editstep = editstep;
-//        }
-//        if (!docs.editstep) {
-//            docs.editstep = editstep;
-//        }
-//        docs.save(function (err_, result) {
-//          response.send(res, err_, result);
-//        });
-//    });
-};
+//    }
+}
 exports.createAppStep1 = function (req, res) {
   var creator = req.session.user._id;//创建者
   var data = util.checkObject(req.body);

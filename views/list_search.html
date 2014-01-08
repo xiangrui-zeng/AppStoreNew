@@ -2,43 +2,65 @@
 
 <!-- Side bar -->
 <% include common/sidebar.html %>
+<!--详细模版-->
+<% include common/app_detail.html %>
 
 <div class="span9">
-    <div class="page-header">
-      <h3 id="search_title">"<%= keywords %>"的检索结果</h3>
-    </div>
-    <%  include view_search.html  %>
+  <div class="page-header">
+    <h3 id="search_title">"<%= keywords %>"的检索结果</h3>
+  </div>
+  <table class = "table table table-hover" style = "width:80%">
+    <thead id = "dl_list_thead">
+      <tr>
+        <!-- 设置title -->
+        <th nowrap = "">アイコン</th>
+        <th nowrap = "" style = "width:200px">App</th>
+        <th nowrap = "">要求</th>
+        <th nowrap = "">状態</th>
+        <th nowrap = "">更新情報</th>
+        <th nowrap = "">操作</th>
+      </tr>
+    </thead>
+    <tbody id = "dl_list_tbody">  </tbody>
+    <tfoot id = "dl_list_foot">
+      <tr>
+        <th colspan = "7">
+          <!-- foot分页 -->
+          <div id = "dl_list_foot_pages" class = "pagination pagination-right"></div>
+        </th>
+      </tr>
+    </tfoot>
+  </table>
 </div>
 
 <% include common/template_detail_list.html %>
 
 <script type="text/javascript">
-    var list = DetailList.create();
-    var is_loading = false;
-    var search_title_string = '"<%= keywords %>"的检索结果';
-    $(document).ready(function() {
-        list.init($("#list_container"), {
-            id_prex :  "dl_list"
-            ,str    : {"loading": "加载中........"}
-            ,cols   : [ "icon", "info", "os", "require", "status", "update_info", "option"]
-            ,url    : "/app/search.json?keywords=<%= keywords %>&sort=name"
-        });
-
-        // 初始化加载数据
-        list.load();
-        is_loading = true;
+  var list = DetailList.create();
+  var is_loading = false;
+  var search_title_string = '"<%= keywords %>"的检索结果';
+  $(document).ready(function() {
+    list.init($("#list_container"), {
+      id_prex :  "dl_list"
+        ,str    : {"loading": "加载中........"}
+        ,cols   : [ "icon", "info", "os", "require", "status", "update_info", "option"]
+        ,url    : "/app/search.json?keywords=<%= keywords %>&sort=name"
     });
 
-    function filterCategory(code, name) {
-        if(is_loading == false || !code || !name)
-            return;
+    // 初始化加载数据
+    list.load();
+    is_loading = true;
+    });
 
-        // 设置检索title
-        $('#search_title').html(_.escape(search_title_string + '(分类"' + name + '")'));
-
-        list.category = code;
-        list.category_name = name;
-        list.load();
+  function filterCategory(code, name) {
+    if(is_loading == false || !code || !name){
+      return;
+    }
+    // 设置检索title
+    $('#search_title').html(_.escape(search_title_string + '(分类"' + name + '")'));
+      list.category = code;
+      list.category_name = name;
+      list.load();
     }
 </script>
 
