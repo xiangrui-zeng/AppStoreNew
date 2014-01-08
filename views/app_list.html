@@ -11,14 +11,18 @@
 
 <div class="span9">
   <section id="thumbnails">
-    <span style="float: right" style="margin-bottom: 5px">
-      <a href="/app/add/step1">
-        <button type="button" class="btn btn-small btn-primary">
-          <span class="icon-plus"></span>
+	  <!-- 进行判定，如果title == “app_list”则不显示“上传新应用按钮”，其他情况显示 -->
+	  <% if(title == "app_list") { %>
+	  <% }else{ %>
+      <span style="float: right" style="margin-bottom: 5px">
+        <a href="/app/add/step1">
+          <button type="button" class="btn btn-small btn-primary">
+            <span class="icon-plus"></span>
             <span class="sr-only">上传新应用</span>
-        </button>
-       </a>
-    </span>
+          </button>
+        </a>
+      </span>
+	  <% } %>
     <h3 class="page-header" id ="app_view_title" style="width: auto;">应用一览</h3>
     <div id="check_list_container" style="padding:5px; background:#ffffff;width:800px">
     </div><!--well-->

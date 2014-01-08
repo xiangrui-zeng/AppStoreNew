@@ -111,11 +111,15 @@ exports.saveimage = function (req, res) {
     response.send(res, err, result);
   });
 };
-
+/**
+ * apis 获取app信息
+ * @param req 请求对象
+ * @param res 响应对象
+ */
 exports.getAppInfo = function (req, res) {
   var handler = new context().bind(req, res);
   app.getAppInfoById(handler, function (err, result) {
-//    setDownloadURL(req_, result);    留后用
+    setDownloadURL(req, result);
     response.send(res, err, result);
   });
 };
@@ -130,9 +134,9 @@ exports.downloadedList = function (req, res) {
 };
 
 /**
- * @file 查询apis
- * @author chenda
- * @copyright Dreamarts Corporation. All Rights Reserved.
+ * apis查找方法
+ * @param req 请求对象
+ * @param res 响应对象
  */
 exports.search = function (req, res) {
 	var handler = new context().bind(req,res);
@@ -143,9 +147,9 @@ exports.search = function (req, res) {
 };
 
 /**
- * @file list apis
- * @author chenda
- * @copyright Dreamarts Corporation. All Rights Reserved.
+ * apis中list方法
+ * @param req 请求对象
+ * @param res 响应对象
  */
 exports.list = function (req, res) {
   var handler = new context().bind(req,res);
@@ -155,7 +159,11 @@ exports.list = function (req, res) {
 		response.send(res, err, result);
 	});
 };
-
+/**
+ * apis中app申请
+ * @param req 请求对象
+ * @param res 响应对象
+ */
 exports.checkApply = function(req, res) {
   var handler = new context().bind(req, res);
   log.operation("begin: apply an app.", handler.uid);
@@ -165,7 +173,11 @@ exports.checkApply = function(req, res) {
     response.send(res, err, result);
   });
 };
-
+/**
+ * apis中app审核通过
+ * @param req 请求对象
+ * @param res 响应对象
+ */
 exports.checkAllow = function(req, res) {
   var handler = new context().bind(req, res);
   log.operation("begin: allow an app.", handler.uid);
@@ -175,7 +187,11 @@ exports.checkAllow = function(req, res) {
     response.send(res, err, result);
   });
 };
-
+/**
+ * apis中app拒绝通过
+ * @param req 请求对象
+ * @param res 响应对象
+ */
 exports.checkDeny = function(req, res) {
   var handler = new context().bind(req, res);
   log.operation("begin: Deny an app.", handler.uid);
@@ -185,7 +201,11 @@ exports.checkDeny = function(req, res) {
     response.send(res, err, result);
   });
 };
-
+/**
+ * apis中app无效
+ * @param req 请求对象
+ * @param res 响应对象
+ */
 exports.checkStop = function(req, res) {
   var handler = new context().bind(req, res);
   log.operation("begin: Stop an app.", handler.uid);

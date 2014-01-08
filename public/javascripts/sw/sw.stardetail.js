@@ -67,7 +67,7 @@ var appDetail = {
       $('#appVersion').html("v" + app.version);
       // 评价等级
       var scoreTmpl = $("#score-template").html();
-      $("#appScore").html(_.template(scoreTmpl, {"avg": app.rank/(app.rankcount === 0 ? 1 : app.rankcount)}));
+      $("#appScore").html(_.template(scoreTmpl, {"avg": app.rank}));
       $("#userCount").html("(" + app.rankcount + ")");
       // 分类
       if (app.category && app.category.length > 0) {

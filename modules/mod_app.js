@@ -54,56 +54,64 @@ var App = new schema({
 function model() {
   return conn.model("", "app", App);
 }
-
-exports.create = function (app_, callback_) {
+//创建app
+exports.create = function (app, callback) {
   var App = model();
-  new App(app_).save(function (err, result) {
-    callback_(err, result);
+  new App(app).save(function (err, result) {
+    callback(err, result);
   });
 };
 //更新评分
-exports.updateRank = function (appId, rank, rankCount, callback_) {
+exports.updateRank = function (appId, rank, rankCount, callback) {
   var app = model();
   app.findByIdAndUpdate(appId, { rank: rank, rankcount: rankCount }, function (err, result) {
-    callback_(err, result);
+    callback(err, result);
   });
 };
 //更新下载数量
-exports.updateDownloadCount = function (appId_, dlCount_, callback_) {
+exports.updateDownloadCount = function (appId, dlCount, callback) {
   var app = model();
-  app.findByIdAndUpdate(appId_, { downloadCount: dlCount_ }, function (err, result) {
-    callback_(err, result);
-  });
-};
-
-exports.find = function (appId, callback_) {
-  var app = model();
-  app.findOne({_id: appId}, function (err, result) {
-    callback_(err, result);
-  });
-};
-
-exports.getAppsByIds = function (ids_, callback_) {
-  var app = model();
-
-  app.find({"_id": {$in: ids_}}).exec(function (err, result) {
-    callback_(err, result);
+  app.findByIdAndUpdate(appId, { downloadCount: dlCount}, function (err, result) {
+    callback(err, result);
   });
 };
 /**
- * @file list apis
- * @author chenda
- * @copyright Dreamarts Corporation. All Rights Reserved.
+ * 查找app信息
+ * @param {String} appId 应用标识
+ * @param {Function} callback 回调函数，返回app信息
  */
-exports.list = function (condition_, options_, callback_) {
+exports.find = function (appId,callback) {
   var app = model();
-  app.find(condition_)
-    .skip(options_.start || 0)
-    .limit(options_.limit || 20)
+  app.findOne({_id: appId}, function (err, result) {
+    callback(err, result);
+  });
+};
+/**
+ * 通过appId获取app
+ * @param {String} appId 应用标识
+ * @param {Function} callback 回调函数，返回app信息
+ */
+exports.getAppsByIds = function (ids, callback) {
+  var app = model();
+
+  app.find({"_id": {$in: ids}}).exec(function (err, result) {
+    callback(err, result);
+  });
+};
+/**
+ * app列表
+ * @param {Object} list 列表
+ * @param {Function} callback 回调函数，返回app列表
+ */
+exports.list = function (condition,options,callback) {
+  var app = model();
+  app.find(condition)
+    .skip(options.start || 0)
+    .limit(options.limit || 20)
     .sort({updateAt: -1})
     .exec(function (err, result) {
-      app.count(condition_).exec(function (err, count) {
-        callback_(err, {total: count, items: result});
+      app.count(condition).exec(function (err, count) {
+        callback(err, {total: count, items: result});
       });
     });
 };
