@@ -75,7 +75,11 @@ exports.updateDownloadCount = function (appId_, dlCount_, callback_) {
     callback_(err, result);
   });
 };
-
+/**
+ * 查找app信息
+ * @param {String} appId 应用标识
+ * @param {Function} callback 回调函数，返回app信息
+ */
 exports.find = function (appId, callback_) {
   var app = model();
   app.findOne({_id: appId}, function (err, result) {
@@ -91,19 +95,19 @@ exports.getAppsByIds = function (ids_, callback_) {
   });
 };
 /**
- * @file list apis
- * @author chenda
- * @copyright Dreamarts Corporation. All Rights Reserved.
+ * app列表
+ * @param {Object} list 列表
+ * @param {Function} callback 回调函数，返回app列表
  */
-exports.list = function (condition_, options_, callback_) {
+exports.list = function (condition,options,callback) {
   var app = model();
-  app.find(condition_)
-    .skip(options_.start || 0)
-    .limit(options_.limit || 20)
+  app.find(condition)
+    .skip(options.start || 0)
+    .limit(options.limit || 20)
     .sort({updateAt: -1})
     .exec(function (err, result) {
-      app.count(condition_).exec(function (err, count) {
-        callback_(err, {total: count, items: result});
+      app.count(condition).exec(function (err, count) {
+        callback(err, {total: count, items: result});
       });
     });
 };

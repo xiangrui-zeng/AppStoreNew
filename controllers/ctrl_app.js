@@ -66,7 +66,11 @@ exports.addimage = function(handler, callback) {
     callback(err, result);
   });
 };
-
+/**
+ * 根据appid获取app信息
+ * @param {Object} handler 上下文对象
+ * @param {Function} callback 回调函数，返回app信息
+ */
 exports.getAppInfoById = function (handler, callback) {
   var params = handler.params;
   app.find(params.app_id, function (err, docs) {
@@ -135,9 +139,9 @@ exports.downloadedList = function(handler, callback_){
 };
 
 /**
- * @file 查询ctrl
- * @author chenda
- * @copyright Dreamarts Corporation. All Rights Reserved.
+ * search
+ * @param {Object} handler 上下文对象
+ * @param {Function} callback 回调函数，返回查询结果
  */
 exports.search = function(handler, callback){
 	var category  = handler.params.category
@@ -161,9 +165,9 @@ exports.search = function(handler, callback){
 };
 
 /**
- * @file list ctrl
- * @author chenda
- * @copyright Dreamarts Corporation. All Rights Reserved.
+ * list
+ * @param {Object} handler 上下文对象
+ * @param {Function} callback 回调函数，返回app列表
  */
 exports.list = function(handler, callback){
   var sort        = handler.params.sort
