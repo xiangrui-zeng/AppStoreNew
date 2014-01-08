@@ -1,22 +1,25 @@
+
+"use strict";
+
 var mongo       = smart.util.mongoose
   , conn        = smart.framework.connection
   , schema      = mongo.Schema;
 
 var App = new schema({
 
-      name          : {type: String, description:"名称"}
-    , description   : {type: String, description:"详细信息"}
-    , release_note  : {type: String, description:"更新信息"}
-    , appType       : {type: String, description:"设备的类型：OS、android、PC "}
-    , permission    : {
-          admin      : [String]
-        , edit       : [String]
-        , view       : [String]
-        , download   : [String]
-        }
+    name          : {type: String, description:"名称"}
+  , description   : {type: String, description:"详细信息"}
+  , release_note  : {type: String, description:"更新信息"}
+  , appType       : {type: String, description:"设备的类型：OS、android、PC "}
+  , permission    : {
+        admin      : [String]
+      , edit       : [String]
+      , view       : [String]
+      , download   : [String]
+      }
     , icon          : {
-        big          : {type: String}
-      , small        : {type: String}}
+        big          : { type: String }
+      , small        : { type: String }  }
     , screenshot      : [String]
     , category        : [String]
     , version         : {type: String, description:"版本"}

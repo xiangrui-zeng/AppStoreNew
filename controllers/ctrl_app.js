@@ -1,17 +1,18 @@
 
 "use strict";
-var EventProxy = require('eventproxy');
-var app = require("../modules/mod_app.js")
-  , context  = smart.framework.context
-  , user = smart.ctrl.user
-  , file      = smart.ctrl.file
-  , downloadInfo = require("../modules/mod_download")
-  , async = smart.util.async
-  , categorory = require('../modules/mod_category')
-  , devices = require('../modules/mod_device');
-var error = smart.framework.error;
-var starerrors = require('../core/starerrors.js');
-var apputil = require('../core/apputil.js');
+
+var context       = smart.framework.context
+  , user          = smart.ctrl.user
+  , file          = smart.ctrl.file
+  , async         = smart.util.async
+  , error         = smart.framework.error
+  , app           = require("../modules/mod_app.js")
+  , downloadInfo  = require("../modules/mod_download")
+  , categorory    = require("../modules/mod_category")
+  , devices       = require("../modules/mod_device")
+  , starerrors    = require("../core/starerrors.js")
+  , apputil       = require("../core/apputil.js");
+
 exports.create = function (data_, callback_){
   var date = Date.now();
   var app_ = data_;
@@ -50,57 +51,59 @@ exports.getAppInfoById = function (handler, callback) {
   });
 };
 
-exports.downloadedList = function(uid_, callback_){
+exports.downloadedList = function(handler, callback_){
+  var uid_ = handler.uid;
   var tasks = [];
-  var task_getAppIds = function(cb){
+  var taskGetAppIds = function(cb){
     downloadInfo.appIdsByUser(uid_,function(err, ids){
       cb(err,ids);
     });
   };
-  tasks.push(task_getAppIds);
+  tasks.push(taskGetAppIds);
 
-  var task_getApps = function(ids, cb){
+  var taskGetApps = function(ids, cb){
     app.getAppsByIds(ids, function(err, result){
       cb(err, result);
     });
   };
-  tasks.push(task_getApps);
+  tasks.push(taskGetApps);
 
-    var task_getCreator = function(result, cb){
-        async.forEach(result, function(app, cb_){
-            user.at(app.create_user, function(err, creator){
-                app._doc.creator = creator;
-                cb_(err);
-            });
-        }, function(err){
-            cb(err, result);
-        });
-    };
-    tasks.push(task_getCreator);
+  var taskGetCreator = function (result, cb) {
+    async.forEach(result, function (app, cb_) {
+      user.at(app.create_user, function (err, creator) {
+        app._doc.creator = creator;
+        cb_(err);
+      });
+    }, function (err) {
+      cb(err, result);
+    });
+  };
+  tasks.push(taskGetCreator);
 
-    var task_getUpdater = function(result, cb){
-        async.forEach(result, function(app, cb_){
-            user.at(app.update_user, function(err, updater){
-                app._doc.updater = updater;
-                cb_(err);
-            });
-        }, function(err){
-            cb(err, result);
-        });
-    };
-    tasks.push(task_getUpdater);
+  var taskGetUpdater = function (result, cb) {
+    async.forEach(result, function (app, cb_) {
+      user.at(app.update_user, function (err, updater) {
+        app._doc.updater = updater;
+        cb_(err);
+      });
+    }, function (err) {
+      cb(err, result);
+    });
+  };
+  tasks.push(taskGetUpdater);
 
-    var task_other = function(result, cb){
-        async.forEach(result, function(app, cb_){
-            app._doc.appTypeCategory = categorory.getByCode(app.appType); // 追加系统分类
-            if(app.require && app.require.device)
-                app._doc.device = devices.getDevice(app.require.device);  // 追加设备
-            cb_(null, result);
-        }, function(err){
-            cb(err, result);
-        });
-    };
-    tasks.push(task_other);
+  var taskOther = function (result, cb) {
+    async.forEach(result, function (app, cb_) {
+      app._doc.appTypeCategory = categorory.getByCode(app.appType); // 追加系统分类
+      if (app.require && app.require.device){
+        app._doc.device = devices.getDevice(app.require.device);  // 追加设备
+      }
+      cb_(null, result);
+    }, function (err) {
+      cb(err, result);
+    });
+  };
+  tasks.push(taskOther);
 
   async.waterfall(tasks,function(err,result){
     return callback_(err, result);
