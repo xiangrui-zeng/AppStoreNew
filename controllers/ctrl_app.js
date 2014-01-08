@@ -24,7 +24,7 @@ exports.create = function (handler, callback_){
   data.rank = 0;
   data.rankcount = 0;
   data.downloadCount = 0;
-  data.create_user = creator;
+  data.createBy = creator;
   data.editstep = 1;              //编辑步骤
   data.editing = 0;               //?
   data.status = 0;
@@ -36,12 +36,12 @@ exports.create = function (handler, callback_){
     download: [creator]
 
   };
-  data.update_date = new Date();       //更新时间 当前时间
-  data.update_user = creator;
+  data.updateAt = new Date();       //更新时间 当前时间
+  data.updateBy = creator;
   var date = Date.now();
   var app_ = data;
-  app_.create_date = date;
-  app_.update_date = date;
+  app_.createAt = date;
+  app_.updateAt = date;
 
 //创建App 第一步
 exports.create = function (handler, callback) {
@@ -123,7 +123,7 @@ exports.downloadedList = function(handler, callback_){
 
   var taskGetCreator = function (result, cb) {
     async.forEach(result, function (app, cb_) {
-      user.at(app.create_user, function (err, creator) {
+      user.at(app.createBy, function (err, creator) {
         app._doc.creator = creator;
         cb_(err);
       });
@@ -135,7 +135,7 @@ exports.downloadedList = function(handler, callback_){
 
   var taskGetUpdater = function (result, cb) {
     async.forEach(result, function (app, cb_) {
-      user.at(app.update_user, function (err, updater) {
+      user.at(app.updateBy, function (err, updater) {
         app._doc.updater = updater;
         cb_(err);
       });
@@ -175,7 +175,7 @@ exports.search = function(handler, callback){
 	var options   = {
       start: handler.params.start
     , limit: handler.params.count
-    , sort: {update_date:-1}
+    , sort: {updateAt:-1}
     };
 	if(category) {
 		if(categorory.isAppTypes(category)) {
@@ -196,10 +196,10 @@ exports.search = function(handler, callback){
  */
 exports.list = function(handler, callback){
   var sort        = handler.params.sort
-	  , category    = handler.params.category
-	  , create_user = handler.params.create_user
-	  , status      = handler.params.status
-	  , asc         = handler.params.asc;
+    , category    = handler.params.category
+    , createBy    = handler.params.createBy
+    , status      = handler.params.status
+    , asc         = handler.params.asc;
 	var condition   = {};
 
 	if(category){
@@ -209,8 +209,8 @@ exports.list = function(handler, callback){
       condition.category = { $elemMatch: {$in: [category]} };
     }
   }
-  if (create_user) {
-    condition.create_user = create_user;
+  if (createBy) {
+    condition.createBy = createBy;
   }
   if(status){
     condition.status = status;
@@ -333,21 +333,30 @@ exports.renderAppStep = function(req, res, step) {
 //}
 
 exports.update = function (handler, callback) {
-
   var appId = handler.params.appId
-    , code = handler.params.code
-    , create_user = handler.uid
+    , code  = handler.params.code
+    , createBy = handler.uid
     , icon_big = handler.params['icon.big']
     , icon_small = handler.params['icon.small']
     , screenshot = handler.params.screenshot
     , pptfile = handler.params.pptfile
     , downloadId = handler.params.downloadId
     , size = handler.params.pptfile_size
+//    , editstep = handler.params.editstep
   var app_update = {
-    update_date: new Date(), update_user: create_user, icon: {
-      big: icon_big, small: icon_small
+    updateAt : new Date()
+   ,updateBy : createBy
+   , icon :{
+      big: icon_big
+      ,small :icon_small
 
-    }, screenshot: screenshot, pptfile: pptfile, size: size, downloadId: downloadId, plistDownloadId: ""
+    }
+  , screenshot : screenshot
+  , pptfile : pptfile
+  , size : size
+  , downloadId : downloadId
+//  , editstep : editstep
+  , plistDownloadId : ""
   };
 
   app.update(code, appId, app_update, function (err, result) {
@@ -358,8 +367,8 @@ exports.update = function (handler, callback) {
 exports.checkApply = function (handler, callback) {
   var appId = handler.params.app
     , code        = "";
-  var app_apply = { status:  1}
-  app.update(code, appId, app_apply, function (err, result) {
+  var appApply = { status: 1 };
+  app.update(code, appId, appApply, function (err, result) {
     callback(err, result);
   });
 }
@@ -367,8 +376,8 @@ exports.checkApply = function (handler, callback) {
 exports.checkAllow = function (handler, callback) {
   var appId = handler.params.app
     , code        = "";
-  var app_allow = { status:  2}
-  app.update(code, appId, app_allow, function (err, result) {
+  var appAllow = { status:  2} ;
+  app.update(code, appId, appAllow, function (err, result) {
     callback(err, result);
   });
 }
@@ -377,33 +386,35 @@ exports.checkDeny = function (handler, callback) {
   var appId = handler.params.app
     , code        = "";
   var data = handler.params;
-  var app_Deny = {
+  var appDeny = {
     status:  3
-  , notice: data.notice
-  , noticeimage: data.noticeimage
-  }
-  app.update(code, appId, app_Deny, function (err, result) {
+  , noticeMessage: data.noticeMessage
+  , noticeImage: data.noticeImage
+  };
+  app.update(code, appId, appDeny, function (err, result) {
     callback(err, result);
   });
-}
+};
 
 exports.checkStop = function (handler, callback) {
   var appId = handler.params.app
-    , code = "";
-  var app_stop = { status: 4}
-  app.update(code, appId, app_stop, function (err, result) {
+    , code        = "";
+  var appStop = { status:  4 };
+  app.update(code, appId, appStop, function (err, result) {
     callback(err, result);
   });
-}
+};
 
 function _renderAppStep(req, res, step, appId) {
-  if (step == 1) {
-    res.render('app_add_step_1', {
-      title: "star", bright: "home", user: req.session.user, appId: appId, appTypes: categorory.getAppTypes(), categoryTypes: categorory.getCategoryTypes()
-    });
-  } else if (step == 2) {
-    res.render('app_add_step_2', {
-      title: "star", bright: "home", user: req.session.user, appId: appId
-    });
-  }
+    if (step == 1) {
+        res.render('app_add_step_1', {
+            title: "star", bright: "home", user: req.session.user, appId: appId
+            ,appTypes: categorory.getAppTypes()
+            ,categoryTypes: categorory.getCategoryTypes()
+        });
+    } else if (step == 2) {
+        res.render('app_add_step_2', {
+            title: "star", bright: "home", user: req.session.user, appId: appId
+        });
+    }
 }

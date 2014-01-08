@@ -195,20 +195,20 @@ exports.checkStop = function(req, res) {
 };
 //获取plist文件
 exports.getPlist = function (req_, res_) {
-  console.log(req_.host);
-  var app_id = req_.params.app_id;
-  app.getAppInfoById(app_id, function (err, result) {
-    if (err) {
-      return new error.InternalServer(err);
-    } else {
-      var url = "http://" + req_.host + ":3000/file/download.json?_id=" + result.downloadId + "&amp;app_id=" + app_id + "&amp;flag=phone";
-      var bundle_identifier = result.bundle_identifier;
-      var bundle_version = result.bundle_version;
-      var kind = "software";
-      var title = result.name;
+    console.log(req_.host);
+    var app_id = req_.params.app_id;
+    app.getAppInfoById(app_id, function (err, result) {
+        if (err) {
+          return new error.InternalServer(err);
+        } else {
+            var url = "http://"+req_.host+":3000/file/download.json?_id="+result.downloadId+"&amp;app_id="+app_id+"&amp;flag=phone";
+            var bundleIdentifier = result.bundleIdentifier;
+            var bundleVersion = result.bundleVersion;
+            var kind = "software";
+            var title = result.name;
 
-      res_.setHeader('Content-Type', "text/xml");
-      res_.send("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\
+            res_.setHeader('Content-Type', "text/xml");
+            res_.send("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\
 <!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\
 <plist version=\"1.0\">\
 <dict>\
@@ -221,10 +221,10 @@ exports.getPlist = function (req_, res_) {
 <key>kind</key>\
 <string>software-package</string>\
 <key>url</key>"
-        + "<string>"
-        + url
-        + "</string>"
-        + "</dict>\
++"<string>"
++url
++"</string>"
++"</dict>\
 <dict>\
 <key>kind</key>\
 <string>display-image</string>\
@@ -241,20 +241,20 @@ exports.getPlist = function (req_, res_) {
 </array><key>metadata</key>\
 <dict>\
 <key>bundle-identifier</key>               \
-<string>" + bundle_identifier + "</string>     \
+<string>"+bundleIdentifier+"</string>     \
 <key>bundle-version</key>                  \
-<string>" + bundle_version + "</string>                       \
+<string>"+bundleVersion+"</string>                       \
 <key>kind</key>                            \
 <string>software</string>                  \
 <key>title</key>                           \
-<string>" + title + "</string>                     \
+<string>"+title+"</string>                     \
 </dict>\
 </dict>\
 </array>\
 </dict>\
 </plist>");
-      return;
-    }
-  });
+            return;
+        }
+    });
 
 }
