@@ -24,132 +24,146 @@
 
 <!-- 详细列表共通模板 -->
 <script type="text/template" id="template_detail_list">
-    <table id="{{id_prex}}_table" class="table table-hover">
-        <thead id="{{id_prex}}_thead">
-        <$ if(isShowTopPages) { $>
-        <tr>
-            <th colspan="{{cols.length}}">
-                <!-- Head分页 -->
-                <div id="{{id_prex}}_head_pages" class="pagination pagination-right"></div>
-            </th>
-        </tr>
-        <$ } $>
-        <tr>
-            <!-- 设置title -->
-            <$ _.each(cols, function(col) { $> <th nowrap>{{ _.escape(col.title) }}</th> <$ }); $>
-        </tr>
-        </thead>
-        <tbody id="{{id_prex}}_tbody">
-        <tr>
-            <td colspan="{{cols.length}}">{{ _.escape(str.loading) }}</td>
-        </tr>
-        </tbody>
-        <tfoot id="{{id_prex}}_foot">
-        <tr>
-            <th colspan="{{cols.length}}">
-                <!-- Foot分页 -->
-                <div id="{{id_prex}}_foot_pages" class="pagination pagination-right"></div>
-            </th>
-        </tr>
-        </tfoot>
-    </table>
+	<table id="{{id_prex}}_table" class="table table-hover">
+		<thead id="{{id_prex}}_thead">
+		<$ if(isShowTopPages) { $>
+		<tr>
+			<th colspan="{{cols.length}}">
+				<!-- Head分页 -->
+				<div id="{{id_prex}}_head_pages" class="pagination pagination-right"></div>
+			</th>
+		</tr>
+		<$ } $>
+		<tr>
+			<!-- 设置title -->
+			<$ _.each(cols, function(col) { $>
+			<th nowrap>{{ _.escape(col.title) }}</th>
+			<$ }); $>
+		</tr>
+		</thead>
+		<tbody id="{{id_prex}}_tbody">
+		<tr>
+			<td colspan="{{cols.length}}">{{ _.escape(str.loading) }}</td>
+		</tr>
+		</tbody>
+		<tfoot id="{{id_prex}}_foot">
+		<tr>
+			<th colspan="{{cols.length}}">
+				<!-- Foot分页 -->
+				<div id="{{id_prex}}_foot_pages" class="pagination pagination-right"></div>
+			</th>
+		</tr>
+		</tfoot>
+	</table>
 </script>
 
 <!-- 详细列表项目共通模板 -->
 <script type="text/template" id="template_detail_list_item">
 <$ if(!apps ||  apps.length == 0) { $>
-    <tr><td colspan="{{cols.length}}">データーがありません</td></tr>
+  <tr><td colspan="{{cols.length}}">データーがありません</td></tr>
 <$ } else { $>
-    <$ _.each(apps, function(app) { $>
-    <tr>
-        <$ _.each(cols, function(col) { $>
-        <$ var os = (app.require && app.require.os) ? app.require.os : "No require"; $>
-        <$ var osPath = "#"; $> app.appType ? $app.osImagePath(app.appType) : '#'; $>
-        <$ var device = (app.require && app.require.device) ? app.require.device : "No require"; $>
-        <$ var updater = app.updateBy ? app.updateBy : app.createBy $>
-        <$ if(col.name == "icon") { $>
-            <td style="min-width:100px;"><a href="#" onclick="javascript:appDetail.show('{{ app._id }}', false);return false;">
-            <!--<td style="min-width:100px;"><a href="/app/{{ app._id }}">-->
-                <!--<img src="/picture/52bbe3a063eb733b05000010" alt="{{ _.escape(app.name) }}" style="width:100%;height:auto"/>-->
-                <img src="/picture/{{ (app.icon && app.icon.big) ? app.icon.big: '#' }}" alt="{{ _.escape(app.name) }}" style="width:100%;height:auto"/>
-            </a></td>
-        <$ } else if(col.name == "info") { $>
-            <td style="min-width:150px;">
-                <strong>名称：</strong> {{ _.escape(app.name) }}<br>
-                <strong>バージョン：</strong> {{ _.escape(app.version) }}<br>
-                <strong>サイズ：</strong> {{ $sw.string.bytesToSize(app.size) }} <br>
-            </td>
-        <$ } else if(col.name == "os") { $>
-            <td style="min-width:48px;">
-                <img src="{{(app.appType ? $app.osImagePath(app.appType) : '#')}}" style="width:48px;height:auto"/>
-                <!--<img src="{{ app.appTypeCategory ? _.escape(app.appTypeCategory.icon) : '' }}" style="width:48px;height:auto"/>-->
-            </td>
-        <$ } else if(col.name == "require") { $>
-            <!-- 需求 -->
-            <td style="min-width:150px;">
-                <strong>OS:</strong> {{ (app.require && app.require.os) ? app.require.os : "No require" }}<br>
-                    <strong>デバイス：</strong>  {{ (app.require && app.require.device) ? app.require.device : "No require" }}<br>
-            </td>
-        <$ } else if(col.name == "status") { $>
-            <!-- 状态 -->
-            <td nowrap>
-                <$ if(app.status == 0) { $>
-                未申请
-                <$ } else if(app.status == 1) { $>
-                待审核
-                <$ } else if(app.status == 2) { $>
-                公开中
-                <$ } else if(app.status == 3) { $>
-                审核未通过
-                <$ } else { $>
-                無効
-                <$ } $>
-            </td>
-        <$ } else if(col.name == "option") { $>
-            <td nowrap >
+<$ _.each(apps, function(app) { $>
+<tr>
+	<$ _.each(cols, function(col) { $>
+	<$ var os = (app.require && app.require.os) ? app.require.os : "No require"; $>
+	<$ var osPath = "#"; $> app.appType ? $app.osImagePath(app.appType) : '#'; $>
+	<$ var device = (app.require && app.require.device) ? app.require.device : "No require"; $>
+	<$ var updater = app.updateBy ? app.updateBy : app.createBy $>
+	<$ if(col.name == "icon") { $>
+	<td style="min-width:100px;">
+		<a href="#" onclick="javascript:appDetail.show('{{ app._id }}', false);return false;">
+		<img src="/picture/{{ (app.icon && app.icon.big) ? app.icon.big: '#' }}" alt="{{ _.escape(app.name) }}"style="width:100%;height:auto"/>
+	  </a>
+	</td>
+	<$ } else if(col.name == "info") { $>
+	<td style="min-width:150px;">
+		<strong>名称：</strong> {{ _.escape(app.name) }}<br>
+		<strong>バージョン：</strong> {{ _.escape(app.version) }}<br>
+		<strong>サイズ：</strong> {{ $sw.string.bytesToSize(app.size) }} <br>
+	</td>
+	<$ } else if(col.name == "os") { $>
+	<td style="min-width:48px;">
+		<img src="{{(app.appType ? $app.osImagePath(app.appType) : '#')}}" style="width:48px;height:auto"/>
+	</td>
+	<$ } else if(col.name == "require") { $>
+	<!-- 需求 -->
+	<td style="min-width:150px;">
+		<strong>OS:</strong> {{ (app.require && app.require.os) ? app.require.os : "No require" }}<br>
+		<strong>デバイス：</strong> {{ (app.require && app.require.device) ? app.require.device : "No require" }}<br>
+	</td>
+	<$ } else if(col.name == "status") { $>
+	<!-- 状态 -->
+	<td nowrap>
+		<$ if(app.status == 0) { $>
+		未申请
+		<$ } else if(app.status == 1) { $>
+		待审核
+		<$ } else if(app.status == 2) { $>
+		公开中
+		<$ } else if(app.status == 3) { $>
+		审核未通过
+		<$ } else { $>
+		無効
+		<$ } $>
+	</td>
+	<$ } else if(col.name == "option") { $>
+	<td nowrap>
+		<$ if($app.canEdit(app)) { $>
+		<a href="/app/add/step1?appId={{ app._id }}" style="float:left;margin-right:2px;margin-top: 4px">
+			<button class="btn btn-small btn-success" operation="edit">編 集</button>
+		</a> <br/>
+		<$ } $>
+		<$ if(app.downloadURL) { $>
+		<a href="{{ _.escape(app.downloadURL) }}" style="float:left;margin-right:2px;margin-top: 4px">
+			<button class="btn btn-small btn-success" appId="{{ app._id }}" operation="install">安 装</button>
+		</a> <br/>
+		<$ } $>
+		<$ if(app.status == 0) { $>
+		<a href="#" style="float:left;margin-right:2px;margin-top: 4px">
+			<button class="btn btn-small btn-success" appId="{{ app._id }}" operation="apply">申 请</button>
+		</a> <br/>
+		<$ } else if(app.status == 1) { $>
+		<a href="#" style="float:left;margin-right:2px;margin-top: 4px">
+			<button class="btn btn-small btn-success" appId="{{ app._id }}" operation="allow">通 过</button>
+		</a> <br/>
+		<a href="#" style="float:left;margin-right:2px;margin-top: 4px">
+			<button class="btn btn-small btn-success" appId="{{ app._id }}" operation="deny">拒 绝</button>
+		</a> <br/>
+		<$ } else if(app.status == 2) { $>
+		<a href="#" style="float:left;margin-right:2px;margin-top: 4px">
+			<button class="btn btn-small btn-success" appId="{{ app._id }}" operation="stop">无 效</button>
+		</a> <br/>
+		<$ }else { $>
+		<a href="#" style="float:left;margin-right:2px;margin-top: 4px">
+			<button class="btn btn-small btn-success hidden">未通过</button>
+		</a> <br/>
+		<$ } $>
+	</td>
 
-                <$ if($app.canEdit(app)) { $>
-                    <a href="/app/add/step1?appId={{ app._id }}" style="float:left;margin-right:2px;margin-top: 4px"><button class="btn btn-small btn-success" operation="edit">編 集</button></a>  <br/>
-                <$ } $>
-                <$ if(app.downloadURL) { $>
-                    <a href="{{ _.escape(app.downloadURL) }}" style="float:left;margin-right:2px;margin-top: 4px"><button class="btn btn-small btn-success" appId="{{ app._id }}" operation="install">安 装</button></a> <br/>
-                <$ } $>
-                <$ if(app.status == 0) { $>
-                    <a href="#" style="float:left;margin-right:2px;margin-top: 4px"><button class="btn btn-small btn-success" appId="{{ app._id }}" operation="apply">申 请</button></a>  <br/>
-                <$ } else if(app.status == 1) { $>
-                    <a href="#" style="float:left;margin-right:2px;margin-top: 4px"><button class="btn btn-small btn-success" appId="{{ app._id }}" operation="allow">通 过</button></a> <br/>
-                    <a href="#" style="float:left;margin-right:2px;margin-top: 4px"><button class="btn btn-small btn-success" appId="{{ app._id }}" operation="deny">拒 绝</button></a> <br/>
-                <$ } else if(app.status == 2) { $>
-                    <a href="#" style="float:left;margin-right:2px;margin-top: 4px"><button class="btn btn-small btn-success" appId="{{ app._id }}" operation="stop">无 效</button></a> <br/>
-                <$ }else { $>
-                   <a href="#" style="float:left;margin-right:2px;margin-top: 4px"><button class="btn btn-small btn-success hidden">未通过</button></a> <br/>
-                <$ } $>
-            </td>
-
-        <$ } else if(col.name == "createAt") { $>
-            <td nowrap>  {{ smart.date(app.createAt) }} </td>
-        <$ } else if(col.name == "createBy") { $>
-            <td nowrap>  {{ _.escape(app.createBy) }} </td>
-        <$ } else if(col.name == "updateAt") { $>
-            <td nowrap>  {{ smart.date(app.updateAt) }} </td>
-        <$ } else if(col.name == "updateBy") { $>
-            <td nowrap>  {{ _.escape(app.updateBy) }} </td>
-        <$ } else if(col.name == "update_info") { $>
-            <td nowrap>
-                <strong>更新者：</strong> {{ _.escape(app.updateBy) }}<br>
-                <strong>更新日時：</strong> {{ smart.date(app.updateAt) }}<br>
-                <strong>作成者：</strong> {{ _.escape(app.createBy) }}<br>
-                <strong>作成日時：</strong> {{ smart.date(app.createAt) }}<br>
-            </td>
-        <$ } else if(col.name == "rank") { $>
-            <td>  {{ app.rank? app.rank: 0 }} </td>
-        <$ } else if(col.name == "downloadcount") { $>
-            <td>  {{ app.downloadcount? app.downloadcount: 0  }} </td>
-        <$ } else { $>
-            <td>&nbsp;</td>
-        <$ } $>
-        <$ }); $>
-    </tr>
-    <$ }); $>
+	<$ } else if(col.name == "createAt") { $>
+	<td nowrap> {{ smart.date(app.createAt) }}</td>
+	<$ } else if(col.name == "createBy") { $>
+	<td nowrap> {{ _.escape(app.createBy) }}</td>
+	<$ } else if(col.name == "updateAt") { $>
+	<td nowrap> {{ smart.date(app.updateAt) }}</td>
+	<$ } else if(col.name == "updateBy") { $>
+	<td nowrap> {{ _.escape(app.updateBy) }}</td>
+	<$ } else if(col.name == "update_info") { $>
+	<td nowrap>
+		<strong>更新者：</strong> {{ _.escape(app.updateBy) }}<br>
+		<strong>更新日時：</strong> {{ smart.date(app.updateAt) }}<br>
+		<strong>作成者：</strong> {{ _.escape(app.createBy) }}<br>
+		<strong>作成日時：</strong> {{ smart.date(app.createAt) }}<br>
+	</td>
+	<$ } else if(col.name == "rank") { $>
+	<td> {{ app.rank? app.rank: 0 }}</td>
+	<$ } else if(col.name == "downloadcount") { $>
+	<td> {{ app.downloadcount? app.downloadcount: 0 }}</td>
+	<$ } else { $>
+	<td>&nbsp;</td>
+	<$ } $>
+	<$ }); $>
+</tr>
+<$ }); $>
 <$ } $>
 </script>
