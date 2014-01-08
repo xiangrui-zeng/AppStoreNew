@@ -1,21 +1,11 @@
-    </div>
-
-    <footer class="footer">
-        <div style="text-align: center;">Copyright © 2013, DA Corporation. All Rights Reserved.</div>
-    </footer>
 </div>
+  <footer class="footer">
+    <div style="text-align: center;">Copyright © 2013, DA Corporation. All Rights Reserved.</div>
+  </footer>
 
 <!-- 共通模板 -->
 <% include template.html %>
 
-<!-- 文件下载Form 配合js使用 -->
-<script>
-function downloadDBFile(id){
-
-}
-</script>
 <form id="formFileDownload" method="get" action="">
-    <input type="hidden" id="_csrf" name="_csrf" value="<%= csrftoken %>" />
+  <input type="hidden" id="_csrf" name="_csrf" value="<%= csrftoken %>" />
 </form>
-</body>
-</html>

@@ -78,6 +78,10 @@ exports.getPlist = function (handler, callback) {
  */
 exports.getIpaFile = function (handler, callback) {
 
+  var params = handler.params;
+  var uid = params.user_id;
+  var appId = params.app_id;
+
   var tasks = [];
   // 获取App
   var taskGetApp = function(cb){
@@ -89,7 +93,7 @@ exports.getIpaFile = function (handler, callback) {
 
   // 获取文件
   var taskGetFile = function(app, cb){
-    var tempHandler = new context().create(handler.uid, handler.code, handler.lang);
+    var tempHandler = new context().create(uid, handler.code, handler.lang);
     tempHandler.addParams("id", app.downloadId);
     ctrlFile.getFile(tempHandler, function(err, file) {
       cb(err, app, file);
@@ -99,7 +103,9 @@ exports.getIpaFile = function (handler, callback) {
 
   // 更新下载信息
   var taskAddHistory = function(app, file, cb){
-    exports.addHistory(handler, function(err) {
+    var tempHandler = new context().create(uid, handler.code, handler.lang);
+    tempHandler.addParams("app_id", appId);
+    exports.addHistory(tempHandler, function(err) {
       cb(err, file);
     });
   };

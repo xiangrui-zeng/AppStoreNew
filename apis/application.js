@@ -36,24 +36,25 @@ function setDownloadURL(req, appInfo) {
   }
 }
 //还需要调整 by yt
-exports.updateAppStep1 = function (req_, res_) {
-  var handler = new context().bind(req_, res_);
-  console.log(handler+"???????");
-  var creator = handler.session.uid;
+exports.updateAppStep1 = function (req, res) {
+
+  var handler = new context().bind(req, res);
+  console.log(handler + "???????");
+
+  var creator = handler.uid;
   var appId = handler.params.app;
   var appType = handler.params.appType;
   var name = handler.params.name;
   var copyright = handler.params.copyright;
   var version = handler.params.version;
-  var releaseNote = handler.params.releaseNote;
+  var release_note = handler.params.release_note;
   var description = handler.params.description;
   var device = handler.params.device_device;
   var os = handler.params.require_os;
-  var category = handler.body.category;
-  var bundleIdentifier = handler.params.bundleIdentifier;
-  var bundleVersion = handler.params.bundleVersion;
-  var title = handler.body.title;
-  var permission_download =handler.params.permission.download;
+  var category = handler.params.category;
+  var bundle_identifier = handler.params.bundle_identifier;
+  var bundle_version = handler.params.bundle_version;
+  var permission_download = handler.params.permission.download;
   app.create(data, function (err, result) {
     response.send(res, err, result);
   });
@@ -68,6 +69,7 @@ exports.createAppStep1 = function (req, res) {
     log.operation("finish: create an app step1.", handler.uid);
     response.send(res, err, result);
   });
+
 };
 
 //APP上传第二步
@@ -75,7 +77,7 @@ exports.createAppStep2 = function (req, res) {
   var handler = new context().bind(req, res);
   log.operation("begin: create an app step2.", handler.uid);
 
-  app.update (handler, function(err, result) {
+  app.update(handler, function (err, result) {
     log.operation("finish: create an app step2.", handler.uid);
     response.send(res, err, result);
   });
@@ -191,68 +193,4 @@ exports.checkStop = function(req, res) {
     response.send(res, err, result);
   });
 };
-//获取plist文件
-exports.getPlist = function (req_, res_) {
-    console.log(req_.host);
-    var app_id = req_.params.app_id;
-    app.getAppInfoById(app_id, function (err, result) {
-        if (err) {
-          return new error.InternalServer(err);
-        } else {
-            var url = "http://"+req_.host+":3000/file/download.json?_id="+result.downloadId+"&amp;app_id="+app_id+"&amp;flag=phone";
-            var bundleIdentifier = result.bundleIdentifier;
-            var bundleVersion = result.bundleVersion;
-            var kind = "software";
-            var title = result.name;
 
-            res_.setHeader('Content-Type', "text/xml");
-            res_.send("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\
-<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\
-<plist version=\"1.0\">\
-<dict>\
-<key>items</key>\
-<array>\
-<dict>\
-<key>assets</key>\
-<array>\
-<dict>\
-<key>kind</key>\
-<string>software-package</string>\
-<key>url</key>"
-+"<string>"
-+url
-+"</string>"
-+"</dict>\
-<dict>\
-<key>kind</key>\
-<string>display-image</string>\
-<key>needs-shine</key>\
-<true/>\
-<key>url</key>\
-<string>http://3g.momo.im/down/ICON.PNG</string>\
-</dict>\
-<dict>\
-<key>kind</key>\
-<string>full-size-image</string>\
-<key>url</key><string>http://3g.momo.im/down/ICON@2x.PNG</string>\
-</dict>\
-</array><key>metadata</key>\
-<dict>\
-<key>bundle-identifier</key>               \
-<string>"+bundleIdentifier+"</string>     \
-<key>bundle-version</key>                  \
-<string>"+bundleVersion+"</string>                       \
-<key>kind</key>                            \
-<string>software</string>                  \
-<key>title</key>                           \
-<string>"+title+"</string>                     \
-</dict>\
-</dict>\
-</array>\
-</dict>\
-</plist>");
-            return;
-        }
-    });
-
-}

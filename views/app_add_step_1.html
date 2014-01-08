@@ -1,55 +1,8 @@
 <% include common/head.html %>
 
-<!-- Side bar -->
-
 <script type="text/javascript" src="/javascripts/app_add_step_1.js"></script>
 <script src="/javascripts/sw/sw.app.js"></script>
 
-<!-- This is just a little bit of custom CSS code to enhance things. Feel free to place this in your main CSS file. I've commented to say what each bit does. -->
-<style type="text/css">
-  /* Removes the default 20px margin and creates some padding space for the indicators and controls */
-  .carousel {
-    margin-bottom: 0;
-    padding: 0 40px 30px 40px;
-  }
-
-  /* Reposition the controls slightly */
-  .carousel-control {
-    left: -12px;
-  }
-
-  .carousel-control.right {
-    right: -12px;
-  }
-
-  /* Changes the position of the indicators */
-  .carousel-indicators {
-    right: 50%;
-    top: auto;
-    bottom: 0px;
-    margin-right: -19px;
-  }
-
-  /* Changes the colour of the indicators */
-  .carousel-indicators li {
-    background: #c0c0c0;
-  }
-
-  .carousel-indicators .active {
-    background: #333333;
-  }
-
-  .desc {
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: rgba(128, 0, 0, 0.4);
-    width: 100%;
-    height: 100%;
-    color: #fff !important;
-  }
-</style>
 
 <script type="text/javascript">
   $(document).ready(function () {
@@ -77,9 +30,7 @@
       <% include common/app_add_sidebar.html %>
     </div>
     <div class="span9 span10_left_line">
-
-      <form class="required-validate form-horizontal" action="/app/create/step1.json" method="post"
-            onsubmit="return validateCallback(this,didSendStep1Callback,didSendFn,'确认提交吗？')">
+      <form class="required-validate form-horizontal" action="/app/create/step1.json" method="post" onsubmit="return validateCallback(this,didSendStep1Callback,didSendFn,'确认提交吗？')">
         <input type="hidden" name="appId" id="appId" value="<%=appId%>">
         <% if (appId != '0') { %>
         <input type="hidden" name="_id" value=""/>
@@ -93,20 +44,17 @@
                   <% if(appTypes && appTypes.items) { %>
                   <% appTypes.items.forEach(function(c,i) { %>
                   <label class="radio span3">
-                    <input class="required" type="radio" name="appType" id="appType"
-                           value="<%= c.code %>" <%=i==0?"checked":""%> />
+                    <input class="required" type="radio" name="appType" id="appType" value="<%= c.code %>" <%=i==0?"checked":""%> />
                     <%= c.name %>
                   </label>
                   <% }); %>
                   <% } %>
                 </div>
-
               </div>
             </div>
 
             <div class="control-group">
               <label class="control-label">名称</label>
-
               <div class="controls">
                 <input class="required" type="text" name="name" id="name" placeholder="例：捕鱼达人">
               </div>
@@ -114,24 +62,18 @@
             <!--新加数据项-->
             <div class="control-group">
               <label class="control-label">版权</label>
-
               <div class="controls">
                 <input class="required" type="text" name="copyright" id="copyright" placeholder="例：触控科技">
               </div>
             </div>
-
             <div class="control-group">
               <label class="control-label">说明</label>
-
               <div class="controls">
-                <textarea class="required" name="description" id="description" placeholder=
-                  "应用介绍以及使用方法 "
-                          style="width: 270px;height: 120px"></textarea>
+                <textarea class="required" name="description" id="description" placeholde = "应用介绍以及使用方法 " style="width: 270px;height: 120px"></textarea>
               </div>
             </div>
             <div class="control-group">
               <label class="control-label">类别</label>
-
               <div class="controls">
                 <select name="category" multiple="multiple" style="height: 120px">
                   <% if(categoryTypes && categoryTypes.items) { %>
@@ -145,83 +87,61 @@
 
             <div class="control-group">
               <label class="control-label">版本</label>
-
               <div class="controls">
                 <input class="required" type="text" name="version" id="version" placeholder="例：1.5.2">
               </div>
             </div>
             <div class="control-group">
               <label class="control-label">更新说明</label>
-
               <div class="controls">
-                <textarea class="required" name="releaseNote" id="releaseNote" placeholder=
-                  "更新信息说明"
-                          style="width: 270px;height: 100px"></textarea>
+                <textarea class="required" name="releaseNote" id="releaseNote" placeholder = "更新信息说明" style="width: 270px;height: 100px"></textarea>
               </div>
             </div>
-
             <div class="control-group">
               <label class="control-label">OS版本</label>
-
               <div class="controls">
                 <input class="required" type="text" name="require_os" id="require_os" placeholder="最低要求系统">
               </div>
             </div>
-
             <div class="control-group">
               <label class="control-label">设备要求</label>
-
               <div class="controls">
                 <input class="required" type="text" name="require_device" id="require_device" placeholder="最低设备要求">
               </div>
             </div>
             <div class="control-group">
               <label class="control-label">bundleIdentifier</label>
-
               <div class="controls">
-                <input class="required" type="text" name="bundleIdentifier" id="bundleIdentifier"
-                       placeholder="IOS应用必须">
+                <input class="required" type="text" name="bundleIdentifier" id="bundleIdentifier" placeholder="IOS应用必须">
               </div>
             </div>
-
             <div class="control-group">
               <label class="control-label">bundleVersion</label>
-
               <div class="controls">
-                <input class="required" type="text" name="bundleVersion" id="bundleVersion"
-                       placeholder="IOS应用必须">
+                <input class="required" type="text" name="bundleVersion" id="bundleVersion" placeholder="IOS应用必须">
               </div>
             </div>
-
-
             <div class="control-group">
               <label class="control-label">公开对象</label>
-
               <div class="controls">
                 <input type="hidden" name="permission.download" id="permission_download_input"/>
-
                 <div class="user_select_print" style="width: 203px">
                   <ul id="download_user_selected">
                     <li>公开对象</li>
                   </ul>
                 </div>
-
-
                 <div style="margin-left: 15px" id="download_set_btn" action="/user/list.json"
                      data="{ }"
                      for="required"
                      generated="true"
                      class="help-inline setUserList" href="#document-selector" data-toggle="modal">
-                  <button class='btn'>
-                    設定
-                  </button>
+                  <button class='btn'>設定</button>
                 </div>
               </div>
             </div>
 
             <div class="control-group">
               <label class="control-label"></label>
-
               <div class="controls">
                 <button class="btn btn-small btn-success" type="submit">
                   <!--<a href ='/app/add/step2'>-->
@@ -252,8 +172,7 @@
           <th>姓名</th>
         </tr>
         </thead>
-        <tbody id="setuserlist" target="ajaxGet" action="/user/list.json" callback="$app.didUserListRender"
-               render="" style="height:300px;overflow: scroll;">
+        <tbody id="setuserlist" target="ajaxGet" action="/user/list.json" callback="$app.didUserListRender" render="" style="height:300px;overflow: scroll;">
         </tbody>
       </table>
     </fieldset>
