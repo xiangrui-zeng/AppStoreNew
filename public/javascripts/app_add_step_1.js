@@ -14,6 +14,8 @@ function events(appId) {
 function render(appId) {
   if (appId != '0') {
     smart.doget("/app/info.json?app_id="+appId, function (err, data) {
+    console.log(data);
+    //by yt test
     $("#appType").val(data.appType);
     $("#name").val(data.name);
     $("#copyright").val(data.copyright);
@@ -23,10 +25,10 @@ function render(appId) {
     $("#category").val(data.category);
     $("#bundleVersion").val(data.bundleVersion);
     $("#bundleIdentifier").val(data.bundleIdentifier);
-    $("#require_os").val(data.require.os);
-    $("#require_device").val(data.require.device);
+    $("#requireOs").val(data.require.os);
+    $("#requireDevice").val(data.require.device);
 
-      //device 例：phone、pad 暂时没有这数据段  先留着  l
+      //device 例：phone、pad 暂时没有这数据段  先留着
 //      $device = $("input[name=device]");
 //      for (var i = 0; i < $device.length; i++) {
 //        if ($($device[i]).val() == data.require.device) {

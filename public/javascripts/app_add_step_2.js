@@ -15,7 +15,7 @@ function render() {
     $(function () {
       smart.doget('/app/info.json?app_id=<%=appId%>', function (err, data) {
         console.log(data.editstep);
-        for (var i = 1; i <= 5; i++) {
+        for (var i = 1; i <= 2; i++) {
           if (data.editstep >= i) {
             $("#step" + (i) + "").attr("href", "/app/add/step" + (i) + "?appId=" + data._id);
             $("#step" + (i) + "").css("background-image", "url(/images/check.png)");

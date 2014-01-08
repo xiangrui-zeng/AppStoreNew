@@ -15,18 +15,23 @@ var context       = smart.framework.context
   , apputil       = require("../core/apputil.js");
 
 //创建App 第一步
+/**
+ * 上传App
+ * @param {Object} handler    上下文对象
+ * @param {Function} callback 回调函数，返回结果？
+ */
 exports.create = function (handler, callback) {
 
   var creator = handler.req.session.user._id;//创建者
   var data = handler.params;
   data.require = {                  //require 两项
-    device: data.require_device,
-    os: data.require_os
+    device: data.requireDevice,
+    os: data.requireOs
   };
   data.rank = 0;
   data.rankcount = 0;
   data.downloadCount = 0;
-  data.create_user = creator;
+  data.createUser = creator;
   data.editstep = 1;              //编辑步骤
   data.editing = 0;               //?
   data.status = 0;                //状态 默认为0：未申请
@@ -39,20 +44,20 @@ exports.create = function (handler, callback) {
 
   };
   var date = new Date();
-  data.create_date = date;
-  data.update_date = date;       //更新时间 当前时间
-  data.update_user = creator;
+  data.createDate = date;
+  data.updateDate = date;       //更新时间 当前时间
+  data.updateUser = creator;
 
   app.create(data, function (err, result) {
     err = err ? new error.InternalServer(err) : null;
     return callback(err, result);
   });
 };
-exports.findAppInfoById = function (appId, callback_) {
+exports.findAppInfoById = function (appId, callback) {
   console.log(appId);
   app.find(appId, function (err, docs) {
     console.log(docs);
-    callback_(err, docs);
+    callback(err, docs);
   });
 };
 
@@ -270,70 +275,96 @@ exports.renderAppStep = function(req, res, step) {
         _renderAppStep(req, res, step, appId);
     }
 };
-// 更新变为两步
-//exports.updatestep1 = function (handler, callback) {
-//  var appId = handler.params.appId
-//    , code  = handler.params.code
-//    , create_user = handler.uid
-//    , icon_big = handler.params['icon.big']
-//    , icon_small = handler.params['icon.small']
-//    , screenshot = handler.params.screenshot
-//    , pptfile = handler.params.pptfile
-//    , downloadId = handler.params.downloadId
-//    , size = handler.params.pptfile_size
-//    , editstep = handler.params.editstep
-//  var app_update = {
-//    update_date : new Date()
-//    ,update_user : create_user
-//    , icon :{
-//      big: icon_big
-//      ,small :icon_small
-//
-//    }
-//    , screenshot : screenshot
-//    , pptfile : pptfile
-//    , size : size
-//    , downloadId : downloadId
-//    , editstep : editstep
-//    , plistDownloadId : ""
-//  };
-//
-//  app.update(code, appId, app_update, function (err, result) {
-//    callback(err, result);
-//  });
-//}
 
-exports.update = function (handler, callback) {
-  var appId = handler.params.appId
-    , code  = handler.params.code
-    , createBy = handler.uid
-    , icon_big = handler.params['icon.big']
-    , icon_small = handler.params['icon.small']
+/**
+ * 更新应用信息-step1
+ * @param {Object} handler    上下文对象
+ * @param {Function} callback 回调函数，返回结果
+ */
+exports.update1 = function (handler, callback) {
+
+  var updatetor   = handler.req.session.user._id;
+  var code        = handler.params.code
+    , appId       = handler.params.appId
+    , name        = handler.params.name
+    , description = handler.params.description
+    , appType     = handler.params.appType
+    , releaseNote = handler.params.releaseNote
+    , copyright   = handler.params.copyright
+    , category    = handler.params.category
+    , version     = handler.params.version
+    , requireOs   = handler.params.requireOs
+    , requireDevice = handler.params.requireDevice
+    , bundleIdentifier = handler.params.bundleIdentifier
+    , bundlerVersion   = handler.params.bundlerVersion
+    , editstep         = 1
+//    , editstep         = handler.params.editstep;
+    //added by 需要测试 ！！
+    , permissonDownload = hanlder.params.permisson.download;
+
+  var appUpdate = {
+      updateAt    : new Date()
+    , updateBy    : updatetor
+    , name        : name
+    , description : description
+    , appType     : appType
+    , releaseNote : releaseNote
+    , copyright   : copyright
+    , category    : category
+    , version     : version
+    , require     : {
+        device    : requireDevice
+      , os        : requireOs
+      }
+    , bundleIdentifier : bundleIdentifier
+    , bundlerVersion   : bundlerVersion
+    //added by yt
+    , permission       : permissonDownload
+    , status           : 0
+    , editstep         : editstep
+    };
+
+  app.update(code, appId, appUpdate, function (err, result) {
+    callback(err, result);
+  });
+};
+/**
+ * 更新应用信息-step2
+ * @param {Object} handler    上下文对象
+ * @param {Function} callback 回调函数，返回结果
+ */
+exports.update2 = function (handler, callback) {
+  var appId      = handler.params.appId
+    , code       = handler.params.code
+    , createBy   = handler.uid
+    , iconBig    = handler.params['icon.big']
+    , iconSmall  = handler.params['icon.small']
     , screenshot = handler.params.screenshot
-    , pptfile = handler.params.pptfile
+    , pptfile    = handler.params.pptfile
     , downloadId = handler.params.downloadId
-    , size = handler.params.pptfile_size
-//    , editstep = handler.params.editstep
-  var app_update = {
+    , size       = handler.params.pptfileSize
+//    , editstep   = handler.params.editstep;
+    , editstep   = 2;
+  var appUpdate = {
     updateAt : new Date()
    ,updateBy : createBy
-   , icon :{
-      big: icon_big
-      ,small :icon_small
+   ,icon :{
+      big: iconBig
+     ,small :iconSmall
 
     }
   , screenshot : screenshot
   , pptfile : pptfile
   , size : size
   , downloadId : downloadId
-//  , editstep : editstep
+  , editstep : editstep
   , plistDownloadId : ""
   };
 
-  app.update(code, appId, app_update, function (err, result) {
+  app.update(code, appId, appUpdate, function (err, result) {
     callback(err, result);
   });
-}
+};
 
 exports.checkApply = function (handler, callback) {
   var appId = handler.params.app

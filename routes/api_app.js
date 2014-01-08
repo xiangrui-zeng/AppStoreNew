@@ -63,37 +63,37 @@ exports.guiding = function(app){
   });
 
   //上传应用
-  app.post('/app/create.json',function(req,res){
-    application.createApp(req,res);
-  });
+//  app.post('/app/create.json',function(req,res){
+//    application.createApp(req,res);
+//  });
 
   //上传数据：创建app第一步信息
-  app.post('/app/create/step1.json',function(req,res){
+  app.post("/app/create/step1.json",function(req,res){
     application.createAppStep1(req,res);
   });
 
-  //上传数据：更新app第一步信息
-  app.post('/app/update/step1.json',function(req,res){
-    application.updateAppStep1(req,res);
+  //上传数据：更新app信息
+  app.post("/app/update/step1.json",function(req,res){
+    application.updateAppStep(req,res);
   });
 
-  //上传数据：创建app的第2-5步信息
-  app.post('/app/create/step2.json',function(req,res)
+  //上传数据：创建app的第二步信息
+  app.post("/app/create/step2.json",function(req,res)
   {
     application.createAppStep2(req,res);
   });
 
   // info
-  app.get('/app/info.json',function(req, res){
+  app.get("/app/info.json",function(req, res){
     application.getAppInfo(req, res);
   });
 
-  app.get('/app/list.json', function(req, res){
+  app.get("/app/list.json", function(req, res){
     application.list(req, res);
   });
 
   //存储图片
-  app.post('/app/image/save.json', function (req, res) {
+  app.post("/app/image/save.json", function (req, res) {
     application.saveimage(req, res);
   });
 

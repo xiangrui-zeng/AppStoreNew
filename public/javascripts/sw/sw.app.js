@@ -318,7 +318,7 @@ var $app = {
         var fid = file.data[0]._id;
         var size = file.data[0].length;
 
-        $("#pptfile_size").val(size);
+        $("#pptfileSize").val(size);
 
         $("#pptfile_hid").val(fid);
         $("#pptfile_hid").attr("readonly", "readonly");
