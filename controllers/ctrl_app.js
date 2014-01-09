@@ -362,8 +362,7 @@ exports.update2 = function (handler, callback) {
    ,icon : {
       big     : iconBig
      ,small  :iconSmall
-
-    }
+   }
   , screenshot : screenshot
   , pptfile : pptfile
   , size : size
