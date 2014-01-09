@@ -52,6 +52,7 @@ function events() {
       $("#applyModal").modal("show");
       $("#confirmApply").bind("click", function () {
         $("#applyModal").modal("hide");
+        window.location = "/app/check/list";
         smart.dopost("/app/appAllow.json", {app: app_id}, function (err, result) {
           if (err) {
             Alertify.log.error(i18n["js.public.error.device.operation"]);
@@ -70,7 +71,7 @@ function events() {
           console.log(err);
         } else {
           Alertify.log.info(i18n["js.public.info.device.allow"]);
-          render(0, 15);
+
         }
       });
     }
