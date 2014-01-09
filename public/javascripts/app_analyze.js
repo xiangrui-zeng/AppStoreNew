@@ -20,10 +20,8 @@ function events() {
     var tmpDateStart = new Date(data.startDate);
     var tmpDateEnd = new Date(data.endDate);
     var dateCount = (tmpDateEnd-tmpDateStart)/86400000+1;
-    console.log(dateCount);
     var dd = new Date();
     dd = tmpDateStart;
-    console.log(dd);
     var areaDate = [];
 
     smart.dopost("/app/analyze.json", data, function(err, result){
@@ -31,11 +29,9 @@ function events() {
       {
         alert("err");
       }else{
-        console.log(result);
         for(var i = 0; i < dateCount; i++){
           var conter = 0;
           var tmpDate = formatDate(dd.getFullYear(), dd.getMonth()+1, dd.getDate());
-          console.log(tmpDate);
           for (var j = 0; j < result.data.length; j++){
             if( result.data[j].createAt.substr(0,10) <= tmpDate ){
               conter++;
@@ -50,7 +46,6 @@ function events() {
           areaDate[i] = tempData;
           dd.setDate(dd.getDate() + 1);
         }
-        console.log(areaDate);
         tmpLine = areaDate;
         reloadNum ();
       }
@@ -62,15 +57,13 @@ function events() {
     $("#hero-area").empty();
     var data = {
       "startDate" :  $("#startdateOsTy").val()
-      , "endDate"   :  $("#enddateOsTy").val()
+    , "endDate"   :  $("#enddateOsTy").val()
     };
     var tmpDateStart = new Date(data.startDate);
     var tmpDateEnd = new Date(data.endDate);
     var dateCount = (tmpDateEnd-tmpDateStart)/86400000+1;
-    console.log(dateCount);
     var dd = new Date();
     dd = tmpDateStart;
-    console.log(dd);
     var areaDate = [];
 
     smart.dopost("/app/analyze.json", data, function(err, result){
@@ -78,13 +71,11 @@ function events() {
       {
         alert("err");
       }else{
-        console.log(result);
         for(var i = 0; i < dateCount; i++){
           var IOSconter = 0
             , Andriodconter = 0
             , Winconter = 0;
           var tmpDate = formatDate(dd.getFullYear(), dd.getMonth()+1, dd.getDate());
-          console.log(tmpDate);
           for (var j = 0; j < result.data.length; j++){
             if( result.data[j].createAt.substr(0,10) <= tmpDate ){
               if(result.data[j].appType === "10001"){
@@ -107,7 +98,6 @@ function events() {
           areaDate[i] = tempData;
           dd.setDate(dd.getDate() + 1);
         }
-        console.log(areaDate);
         tmpArea = areaDate;
         reloadOsTy ();
       }
@@ -121,13 +111,6 @@ function events() {
       "startDate" :  $("#startdateAppTy").val()
       , "endDate"   :  $("#enddateAppTy").val()
     };
-    var tmpDateStart = new Date(data.startDate);
-    var tmpDateEnd = new Date(data.endDate);
-    var dateCount = (tmpDateEnd-tmpDateStart)/86400000+1;
-    console.log(dateCount);
-    var dd = new Date();
-    dd = tmpDateStart;
-    console.log(dd);
 
     smart.dopost("/app/analyze.json", data, function(err, result){
       if(err)
