@@ -37,22 +37,6 @@ exports.guiding = function(app){
   app.get("/app/check/list", function (req, res) {
     res.render("app_check_list", {"title": "check_list", user: req.session.user});
   });
-	//待审核一览
-	app.get("/app/check/list?type=checking", function (req, res) {
-		res.render("app_check_list", {"title": "check_list", user: req.session.user});
-	});
-	//已通过一览
-	app.get("/app/check/list?type=passed", function (req, res) {
-		res.render("app_check_list", {"title": "check_list", user: req.session.user});
-	});
-	//未通过一览
-	app.get("/app/check/list?type=rejected", function (req, res) {
-		res.render("app_check_list", {"title": "check_list", user: req.session.user});
-	});
-	//无效一览
-	app.get("/app/check/list?type=unvalid", function (req, res) {
-		res.render("app_check_list", {"title": "check_list", user: req.session.user});
-	});
   // APP详细
   app.get("/app/detail/list", function (req, res) {
     res.render("app_detail_list", {"title": "app_list", user: req.session.user});
