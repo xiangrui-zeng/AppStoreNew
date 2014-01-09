@@ -120,7 +120,7 @@
 		<$ } $>
 		<$ if(app.status == 0) { $>
 		<a href="#" style="float:left;margin-right:2px;margin-top: 4px">
-			<button class="btn btn-small btn-success" appId="{{ app._id }}" operation="apply">申 请</button>
+			<button class="btn btn-small btn-success" appId="{{ app._id }}" operation="apply" onclick="location.reload()">申 请</button>
 		</a> <br/>
 		<$ } else if(app.status == 1) { $>
 		<a href="#" style="float:left;margin-right:2px;margin-top: 4px">
@@ -131,7 +131,7 @@
 		</a> <br/>
 		<$ } else if(app.status == 2) { $>
 		<a href="#" style="float:left;margin-right:2px;margin-top: 4px">
-			<button class="btn btn-small btn-success" appId="{{ app._id }}" operation="stop">无 效</button>
+			<button class="btn btn-small btn-success" appId="{{ app._id }}" operation="stop" onclick="location.reload()">无 效</button>
 		</a> <br/>
 		<$ }else { $>
 		<a href="#" style="float:left;margin-right:2px;margin-top: 4px">
