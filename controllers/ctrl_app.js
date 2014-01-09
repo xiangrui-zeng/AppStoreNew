@@ -374,6 +374,7 @@ exports.update2 = function (handler, callback) {
   , downloadId : downloadId
   , editstep : editstep
   , plistDownloadId : ""
+  , status          : 0
   };
 
   if(!flag)
