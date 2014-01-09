@@ -114,7 +114,7 @@ var $Comment = {
   toggleBtn: function(){
     var rank = $("#comment_rank").attr("value")
       , comment = $("#comment_text").attr("value");
-    if (comment && comment !== "") {
+    if (comment && comment !== "" && rank !== "0") {
       $("#comment_commit").attr("disabled", false);
     } else {
       $("#comment_commit").attr("disabled", true);
