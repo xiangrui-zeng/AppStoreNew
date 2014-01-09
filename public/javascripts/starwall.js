@@ -1,4 +1,4 @@
-
+"use strict";
 // namespace
 var smart = {
   //chenda delete
@@ -9,69 +9,57 @@ var smart = {
       evaluate: /\<\$(.+?)\$\>/gim
     };
   }(),
-  datailImageLoader:function (){
-      var imgs = $("[data-img]");
-      var urlArray = [];
-      var countImg = 0;
-      imgs.each(function(i,img){
-        urlArray.push($(img).attr("data-img"));
-      });
-      $.imageloader({
-          urls: urlArray,
-
-          smoothing: true,
-
-          onComplete: function(images){
-              $('#complete-icon').animate({opacity:1}, 600);
-          },
-
-          onUpdate: function(ratio, image){
-              if(image){
-                  
-                  $("[data-img='"+image+"']").delay(countImg * 50).animate({opacity: 1}, 1000);
-                  $("[data-img='"+image+"']").attr("src", image );
-
-                  countImg++;
-              }
-          },
-
-          onError: function(err){
-              console.log(err);
-          }
-      });
+	datailImageLoader:function (){
+    var imgs = $("[data-img]");
+    var urlArray = [];
+    var countImg = 0;
+    imgs.each(function(i,img){
+      urlArray.push($(img).attr("data-img"));
+    });
+    $.imageloader({
+      urls: urlArray,
+      smoothing: true,
+      onComplete: function(images){
+        $("#complete-icon").animate({opacity:1}, 600);
+      },
+      onUpdate: function(ratio, image){
+        if(image) {
+          $("[data-img='"+image+"']").delay(countImg * 50).animate({opacity: 1}, 1000);
+          $("[data-img='"+image+"']").attr("src", image );
+          countImg++;
+        }
+      },
+      onError: function(err){
+        console.log(err);
+      }
+    });
   },
   imageLoader:function (){
-      var imgs = $("[data-img]");
-      var urlArray = [];
-      var countImg = 0;
-      imgs.each(function(i,img){
-        urlArray.push($(img).attr("data-img"));
-      });
-      $.imageloader({
-          urls: urlArray,
-
-          smoothing: true,
-
-          onComplete: function(images){
-              $('#complete-icon').animate({opacity:1}, 600);
-          },
-
-          onUpdate: function(ratio, image){
-              if(image){
-                  
-                  $("[data-img='"+image+"']").delay(countImg * 50).animate({opacity: 1}, 1000);
-                  $("[data-img='"+image+"']").css("width","155px");
-                  //$("[data-img='"+image+"']").css("height","155px");  
-                  $("[data-img='"+image+"']").attr("src", image );
-
-                  countImg++;
-              }
-          },
-
-          onError: function(err){
-              console.log(err);
-          }
-      });
+    var imgs = $("[data-img]");
+    var urlArray = [];
+    var countImg = 0;
+    imgs.each(function(i,img){
+      urlArray.push($(img).attr("data-img"));
+    });
+    $.imageloader({
+      urls: urlArray,
+      smoothing: true,
+      onComplete: function(images){
+        $('#complete-icon').animate({opacity:1}, 600);
+      },
+      onUpdate: function(ratio, image){
+        if(image){
+          $("[data-img='"+image+"']").delay(countImg * 50).animate({opacity: 1}, 1000);
+          $("[data-img='"+image+"']").css("width","155px");
+          //$("[data-img='"+image+"']").css("height","155px");
+          $("[data-img='"+image+"']").attr("src", image );
+          countImg++;
+        }
+      },
+      onError: function(err){
+        console.log(err);
+      }
+    });
   },
   /**
    * Create this closure to contain the cached models
@@ -92,7 +80,7 @@ var smart = {
       // Create a model and save it under this name
       return models[name] = {};
     };
-  }(),
+  },
   
   /**
    * Create this closure to contain the cached views
@@ -131,10 +119,11 @@ var smart = {
   },
 
   date: function(date, format, withTimezone) {
-    if(typeof(date) != "string" || date == "")
-        return "";
+    if(typeof(date) !== "string" || date === ""){
+      return "";
+    }
     format = format || "yyyy/MM/dd hh:mm";
-    withTimezone = (withTimezone == true)? true: false;
+    withTimezone = (withTimezone === true)? true: false;
 
     var timezone = $("#timezone").val();
     var time = Date.parse(date, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
@@ -142,9 +131,9 @@ var smart = {
     time += timezone.substring(3,6) * 3600 * 1000;
 
     if(withTimezone) { // 2013/04/18 08:00(+0800)
-        return new Date(time).Format(format) + "(" + timezone.substring(3,9) + ")";
+      return new Date(time).Format(format) + "(" + timezone.substring(3,9) + ")";
     } else { // 2013/04/18 08:00
-        return new Date(time).Format(format);
+      return new Date(time).Format(format);
     }
     //return new Date(time).toLocaleString() + $.datepicker.formatDate('yy/mm/dd h:mm', new Date(time)) 
   },
@@ -162,7 +151,7 @@ var smart = {
 		    var u = uid
           , m = $('#_privatemsg_txt').val();
         smart.send(u, m, function() {
-          msgbox.modal('hide');
+          msgbox.modal("hide");
           sendbutton.unbind('click');
           if(success){success();}
         });
@@ -209,9 +198,9 @@ var smart = {
       , async: false
       , type: "POST"
       , data: {
-        "_id": userid, "content": content, "type": type
-      }
-    });
+          "_id": userid, "content": content, "type": type
+        }
+      });
   },
 
   /*
@@ -460,29 +449,6 @@ var smart = {
     
     var tmpl = $("#alert-template").html();
 
-    // // 显示消息框
-    // $(document.body).append(_.template(tmpl, {
-    //     "type": type
-    //   , "title": title
-    //   , "message": message
-    // }));
-
-    // // 确定位置
-    // var msgbody = $("#_alert")
-    //   , x = position ? position.x : ($(document).width() - msgbody.width()) / 2
-    //   , y = position ? position.y : 5;
-    // msgbody.css("top", y);
-    // msgbody.css("left", x);
-
-    // // 绑定
-    // $("#_alert button").on("click", function(){
-    //   msgbody.remove();
-    // });
-
-    // // 自动销毁
-    // if (destroy > 0) {
-    //   setTimeout(function(){ if (msgbody) { msgbody.remove(); } }, destroy * 1000);
-    // }
   },
 
   // 尝试使用浏览器的通知功能
