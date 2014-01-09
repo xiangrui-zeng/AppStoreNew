@@ -1,6 +1,7 @@
 
+
 $(function () {
-  'use strict';
+  "use strict";
   var appId = $("#appId").val();
   render(appId);
   events(appId);
@@ -12,29 +13,22 @@ function events(appId) {
 }
 
 function render(appId) {
-  if (appId != '0') {
-    smart.doget("/app/info.json?app_id="+appId, function (err, data) {
-    console.log(data);
-    //by yt test
-    $("#appType").val(data.appType);
-    $("#name").val(data.name);
-    $("#copyright").val(data.copyright);
-    $("#description").val(data.description);
-    $("#version").val(data.version);
-    $("#releaseNote").val(data.releaseNote);
-    $("#category").val(data.category);
-    $("#bundleVersion").val(data.bundleVersion);
-    $("#bundleIdentifier").val(data.bundleIdentifier);
-    $("#requireOs").val(data.require.os);
-    $("#requireDevice").val(data.require.device);
+  if (appId !== "0")
+  {
+    smart.doget("/app/info.json?app_id="+appId, function (err, data)
+    {
+      $("#appType").val(data.appType);
+      $("#name").val(data.name);
+      $("#copyright").val(data.copyright);
+      $("#description").val(data.description);
+      $("#version").val(data.version);
+      $("#releaseNote").val(data.releaseNote);
+      $("#category").val(data.category);
+      $("#bundleVersion").val(data.bundleVersion);
+      $("#bundleIdentifier").val(data.bundleIdentifier);
+      $("#requireOs").val(data.require.os);
+      $("#requireDevice").val(data.require.device);
 
-      //device 例：phone、pad 暂时没有这数据段  先留着
-//      $device = $("input[name=device]");
-//      for (var i = 0; i < $device.length; i++) {
-//        if ($($device[i]).val() == data.require.device) {
-//          $($device[i]).attr("checked", "checked");
-//        }
-//      }
       //选择应用类别
       $select = $("select[name=category] option");
       for (var i = 0; i < $select.length; i++) {
@@ -117,7 +111,8 @@ function didSendFn(data) {
   var sendData = {};
   var crsf = $("#_csrf").val();
   var category = [];
-  for (var i in data) {
+  for (var i in data)
+  {
     sendData[data[i].name] = data[i].value;
     if (data[i].name == 'category') {
       category.push(data[i].value);

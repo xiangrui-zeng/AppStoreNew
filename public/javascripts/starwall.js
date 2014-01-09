@@ -1,7 +1,5 @@
-
 // namespace
 var smart = {
-  
   // The global setting
   init: function() {
     _.templateSettings = {
@@ -10,80 +8,80 @@ var smart = {
     };
   }(),
   datailImageLoader:function (){
-      var imgs = $("[data-img]");
-      var urlArray = [];
-      var countImg = 0;
-      imgs.each(function(i,img){
-        urlArray.push($(img).attr("data-img"));
-      });
-      $.imageloader({
-          urls: urlArray,
+    var imgs = $("[data-img]");
+    var urlArray = [];
+    var countImg = 0;
+    imgs.each(function(i,img){
+      urlArray.push($(img).attr("data-img"));
+    });
+    $.imageloader({
+      urls: urlArray,
 
-          smoothing: true,
+      smoothing: true,
 
-          onComplete: function(images){
-              $('#complete-icon').animate({opacity:1}, 600);
-          },
+      onComplete: function(images){
+        $('#complete-icon').animate({opacity:1}, 600);
+      },
 
-          onUpdate: function(ratio, image){
-              if(image){
-                  
-                  $("[data-img='"+image+"']").delay(countImg * 50).animate({opacity: 1}, 1000);
-                  $("[data-img='"+image+"']").attr("src", image );
+      onUpdate: function(ratio, image){
+        if(image){
 
-                  countImg++;
-              }
-          },
+          $("[data-img='"+image+"']").delay(countImg * 50).animate({opacity: 1}, 1000);
+          $("[data-img='"+image+"']").attr("src", image );
 
-          onError: function(err){
-              console.log(err);
-          }
-      });
+          countImg++;
+        }
+      },
+
+      onError: function(err){
+        console.log(err);
+      }
+    });
   },
   imageLoader:function (){
-      var imgs = $("[data-img]");
-      var urlArray = [];
-      var countImg = 0;
-      imgs.each(function(i,img){
-        urlArray.push($(img).attr("data-img"));
-      });
-      $.imageloader({
-          urls: urlArray,
+    var imgs = $("[data-img]");
+    var urlArray = [];
+    var countImg = 0;
+    imgs.each(function(i,img){
+      urlArray.push($(img).attr("data-img"));
+    });
+    $.imageloader({
+      urls: urlArray,
 
-          smoothing: true,
+      smoothing: true,
 
-          onComplete: function(images){
-              $('#complete-icon').animate({opacity:1}, 600);
-          },
+      onComplete: function(images){
+        $('#complete-icon').animate({opacity:1}, 600);
+      },
 
-          onUpdate: function(ratio, image){
-              if(image){
-                  
-                  $("[data-img='"+image+"']").delay(countImg * 50).animate({opacity: 1}, 1000);
-                  $("[data-img='"+image+"']").css("width","155px");
-                  //$("[data-img='"+image+"']").css("height","155px");  
-                  $("[data-img='"+image+"']").attr("src", image );
+      onUpdate: function(ratio, image){
+        if(image){
 
-                  countImg++;
-              }
-          },
+          $("[data-img='"+image+"']").delay(countImg * 50).animate({opacity: 1}, 1000);
+          $("[data-img='"+image+"']").css("width","155px");
+          //$("[data-img='"+image+"']").css("height","155px");
+          $("[data-img='"+image+"']").attr("src", image );
 
-          onError: function(err){
-              console.log(err);
-          }
-      });
+          countImg++;
+        }
+      },
+
+      onError: function(err){
+        console.log(err);
+      }
+    });
   },
   /**
    * Create this closure to contain the cached models
    */
   model: function() {
-    
+
     // Internal model cache.
     var models = {};
-    
+
     // Create a new model reference scaffold or load an existing model.
     return function(name) {
-      
+
       // If this model has already been created, return it.
       if (models[name]) {
         return models[name];
@@ -93,14 +91,14 @@ var smart = {
       return models[name] = {};
     };
   }(),
-  
+
   /**
    * Create this closure to contain the cached views
    */
   view: function() {
 
     var views = {};
-    
+
     return function(name) {
       if (views[name]) {
         return views[name];
@@ -108,7 +106,7 @@ var smart = {
       return views[name] = {};
     };
   }(),
-  
+
   /**
    * 获取CSRF Token
    */
@@ -132,7 +130,7 @@ var smart = {
 
   date: function(date, format, withTimezone) {
     if(typeof(date) != "string" || date == "")
-        return "";
+      return "";
     format = format || "yyyy/MM/dd hh:mm";
     withTimezone = (withTimezone == true)? true: false;
 
@@ -142,11 +140,11 @@ var smart = {
     time += timezone.substring(3,6) * 3600 * 1000;
 
     if(withTimezone) { // 2013/04/18 08:00(+0800)
-        return new Date(time).Format(format) + "(" + timezone.substring(3,9) + ")";
+      return new Date(time).Format(format) + "(" + timezone.substring(3,9) + ")";
     } else { // 2013/04/18 08:00
-        return new Date(time).Format(format);
+      return new Date(time).Format(format);
     }
-    //return new Date(time).toLocaleString() + $.datepicker.formatDate('yy/mm/dd h:mm', new Date(time)) 
+    //return new Date(time).toLocaleString() + $.datepicker.formatDate('yy/mm/dd h:mm', new Date(time))
   },
 
   /**
@@ -159,7 +157,7 @@ var smart = {
     if (msgbox) {
 
       sendbutton.bind("click", function(){
-		    var u = uid
+        var u = uid
           , m = $('#_privatemsg_txt').val();
         smart.send(u, m, function() {
           msgbox.modal('hide');
@@ -182,7 +180,7 @@ var smart = {
 
     var self = this;
     $.ajax({
-        url: "/shortmail/creat.json?_csrf=" + self.csrf()
+      url: "/shortmail/creat.json?_csrf=" + self.csrf()
       , async: false
       , type: "POST"
       , data: {
@@ -205,7 +203,7 @@ var smart = {
 
     var self = this;
     $.ajax({
-        url: "/message/notification.json?_csrf=" + self.csrf()
+      url: "/message/notification.json?_csrf=" + self.csrf()
       , async: false
       , type: "POST"
       , data: {
@@ -215,11 +213,11 @@ var smart = {
   },
 
   /*
-  ******************************
-  *      注意
-  ******************************
-  * html中的...缩略显示推荐使用text-overflow属性实现
-  */
+   ******************************
+   *      注意
+   ******************************
+   * html中的...缩略显示推荐使用text-overflow属性实现
+   */
   cutString: function(str, len) {
     //length属性读出来的汉字长度为1
     if(str.length*2 <= len) {
@@ -250,7 +248,7 @@ var smart = {
 
     var self = this;
     $.ajax({
-        url: url_ + "?_csrf=" + self.csrf()
+      url: url_ + "?_csrf=" + self.csrf()
       , type: "POST"
       , async: false
       , data: data_
@@ -258,15 +256,15 @@ var smart = {
       , contentType: false
       , processData: false
       , success: function(result) {
-          if (result.error) {
-            callback_(1, result.error);
-          } else {
-            callback_(0, result);
-          }
+        if (result.error) {
+          callback_(1, result.error);
+        } else {
+          callback_(0, result);
         }
+      }
       , error: function(err) {
-          callback_(1, err);
-        }
+        callback_(1, err);
+      }
     });
   },
 
@@ -274,7 +272,7 @@ var smart = {
     obj_["uid"] = this.uid();
     var self = this;
     $.ajax({
-        url: url_ + "?_csrf=" + self.csrf()
+      url: url_ + "?_csrf=" + self.csrf()
       , type: "POST"
       , async: false
       , data: JSON.stringify(obj_)
@@ -282,28 +280,28 @@ var smart = {
       , contentType: "application/json"
       , processData: false
       , success: function(result) {
-          if (result.error) {
-            callback_(1, result.error);
-          } else {
-            callback_(0, result);
-          }
+        if (result.error) {
+          callback_(1, result.error);
+        } else {
+          callback_(0, result);
         }
+      }
       , error: function(err) {
-          callback_(1, err);
-        }
+        callback_(1, err);
+      }
     });
   },
 
   doput: function(url_, data_, callback_) {
     var self = this;
     $.ajax({
-        url: url_ + "?_csrf=" + self.csrf()
+      url: url_ + "?_csrf=" + self.csrf()
       , type: "PUT"
       , async: false
       , data: data_
       , success: function(result) {
-          callback_(result.error, result.data);
-        }
+        callback_(result.error, result.data);
+      }
       , error: function(err) {
         callback_(err);
       }
@@ -313,7 +311,7 @@ var smart = {
   dodelete: function(url_, data_, callback_) {
     var self = this;
     $.ajax({
-        url: url_ + "?_csrf=" + self.csrf()
+      url: url_ + "?_csrf=" + self.csrf()
       , type: "DELETE"
       , async: false
       , data: data_
@@ -321,9 +319,9 @@ var smart = {
       , contentType: false
       , processData: false
       , success: function(result) {
-          callback_(result.error, result.data);
-        }
-      , error: function(err) { 
+        callback_(result.error, result.data);
+      }
+      , error: function(err) {
         callback_(err);
       }
     });
@@ -331,12 +329,12 @@ var smart = {
 
   doget: function(url_, callback_) {
     $.ajax({
-        type: "GET"
+      type: "GET"
       , url: url_
       , dataType: "json"
       , success: function(result) {
-          callback_(result.error, result.data);
-        }
+        callback_(result.error, result.data);
+      }
       , error: function(err) {
         callback_(err);
       }
@@ -373,12 +371,12 @@ var smart = {
       pageContainer = pageContainer.children();
 
       pageContainer.append(_.template(pageTmpl, {
-          "classname": curpage == 1 ? "prev disabled" : "prev"
+        "classname": curpage == 1 ? "prev disabled" : "prev"
         , "page": curpage - 1
         , "content":i18n["fulltextsearch.html.label.uppage"]
         , "dis":"block"
       }));
-      
+
       var i;
       var pageSizee = 0;
       for(i = 1; i * limit < total + limit; i++){
@@ -397,33 +395,33 @@ var smart = {
           || i == (parseInt(curpage) - 2)
           || i == (parseInt(curpage) - 3)
           ){
-              if(i==1 || i == parseInt(curpage) || i == pageSizee
-                || i == (parseInt(curpage) + 2)
-                || i == (parseInt(curpage) + 1)
-                || i == (parseInt(curpage) - 1)
-                || i == (parseInt(curpage) - 2)
-                ) {
-                    pageContainer.append(_.template(pageTmpl, {
-                      "classname": curpage == i ? "active" : ""
-                    , "page": i
-                    , "content":i
-                    , "dis":"block"
-                    }));
-                  } else {
-                    pageContainer.append(_.template(pageTmpl, {
-                      "classname": curpage == i ? "active" : ""
-                    , "page": i
-                    , "content":"..."
-                    , "dis":"block"
-                    }));
-                  }
-          
+          if(i==1 || i == parseInt(curpage) || i == pageSizee
+            || i == (parseInt(curpage) + 2)
+            || i == (parseInt(curpage) + 1)
+            || i == (parseInt(curpage) - 1)
+            || i == (parseInt(curpage) - 2)
+            ) {
+            pageContainer.append(_.template(pageTmpl, {
+              "classname": curpage == i ? "active" : ""
+              , "page": i
+              , "content":i
+              , "dis":"block"
+            }));
+          } else {
+            pageContainer.append(_.template(pageTmpl, {
+              "classname": curpage == i ? "active" : ""
+              , "page": i
+              , "content":"..."
+              , "dis":"block"
+            }));
+          }
+
         } else {
           pageContainer.append(_.template(pageTmpl, {
             "classname": curpage == i ? "active" : ""
-          , "page": i
-          , "content":i
-          , "dis":"none"
+            , "page": i
+            , "content":i
+            , "dis":"none"
           }));
         }
 
@@ -431,7 +429,7 @@ var smart = {
       i-=1;
 
       pageContainer.append(_.template(pageTmpl, {
-          "classname": curpage == i ? "next disabled" : "next"
+        "classname": curpage == i ? "next disabled" : "next"
         , "page": curpage == i ? 0 : parseInt(curpage) + 1
         , "content":i18n["fulltextsearch.html.label.downpage"]
         , "dis":"block"
@@ -457,7 +455,7 @@ var smart = {
    */
   show: function(type, title, message, destroy, position) {
     Alertify.log.success(message);
-    
+
     var tmpl = $("#alert-template").html();
 
     // // 显示消息框
@@ -500,7 +498,7 @@ var smart = {
       });
 
     } else if(nc.checkPermission() == 0) {
-       // Parameters: string URL_TO_IMAGE, string Title, string Body
+      // Parameters: string URL_TO_IMAGE, string Title, string Body
       var notif = nc.createNotification(null, title, message);
       notif.show();
 
@@ -553,27 +551,27 @@ jQuery(function($) {
     v = new FinderView({model: m});
     window.finder = {model:m, view:v};
   }
-  
+
 });
 
-Date.prototype.Format = function (fmt) { //author: meizz 
+Date.prototype.Format = function (fmt) { //author: meizz
   var o = {
-      "M+": this.getMonth() + 1, //月份 
-      "d+": this.getDate(), //日 
-      "h+": this.getHours(), //小时 
-      "m+": this.getMinutes(), //分 
-      "s+": this.getSeconds(), //秒 
-      "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
-      "S": this.getMilliseconds() //毫秒 
+    "M+": this.getMonth() + 1, //月份
+    "d+": this.getDate(), //日
+    "h+": this.getHours(), //小时
+    "m+": this.getMinutes(), //分
+    "s+": this.getSeconds(), //秒
+    "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+    "S": this.getMilliseconds() //毫秒
   };
-    
-  if (/(y+)/.test(fmt)) 
+
+  if (/(y+)/.test(fmt))
     fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-  
+
   for (var k in o)
-    if (new RegExp("(" + k + ")").test(fmt)) 
+    if (new RegExp("(" + k + ")").test(fmt))
       fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-  
+
   return fmt;
 }
 

@@ -1,13 +1,10 @@
 /**
  * Created by xiangrui.zeng@gmail.com on 13/12/26.
  */
-
+"use strict";
 $(function () {
-
-  'use strict';
   events();
 });
-
 
 function events() {
 
@@ -34,7 +31,7 @@ function events() {
           }
         );
       } else {
-        alert('上传图片不要超过6张');
+        alert("上传图片不要超过6张");
       }
 
       $("#icon_big_file").unbind("change");
@@ -42,13 +39,13 @@ function events() {
     var src = $("#image_big_file");
     src.attr("accept", "");
     src.attr("multiple", "multiple");
-    src.trigger('click');
+    src.trigger("click");
   });
 
   $("#check_list_container").on("click", "a", function (event) {
     var operation = $(event.target).attr("operation")
       , app_id = $(event.target).attr("appId");
-    if (operation == "allow") {
+    if (operation === "allow") {
       $("#applyModal").modal("show");
       $("#confirmApply").bind("click", function () {
         $("#applyModal").modal("hide");
@@ -64,7 +61,7 @@ function events() {
       });
     }
 
-    if (operation == "apply") {
+    if (operation === "apply") {
       smart.dopost("/app/checkApply.json", {app: app_id}, function (err, result) {
         if (err) {
           Alertify.log.error(i18n["js.public.error.device.operation"]);
@@ -76,7 +73,7 @@ function events() {
       });
     }
 
-    if (operation == "deny") {
+    if (operation === "deny") {
       $("#rejectModal").modal("show");
       $("#confirmReject").bind("click", function () {
         $("#rejectModal").modal("hide");
@@ -94,7 +91,7 @@ function events() {
       });
     }
 
-    if (operation == "stop") {
+    if (operation === "stop") {
       smart.dopost("/app/checkStop.json", {app: app_id}, function (err, result) {
         if (err) {
           Alertify.log.error(i18n["js.public.error.device.operation"]);

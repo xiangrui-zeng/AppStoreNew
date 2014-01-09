@@ -14,9 +14,8 @@ var context       = smart.framework.context
   , starerrors    = require("../core/starerrors.js")
   , apputil       = require("../core/apputil.js");
 
-//创建App 第一步
 /**
- * 上传App
+ * 上传App第一步
  * @param {Object} handler    上下文对象
  * @param {Function} callback 回调函数，返回结果？
  */
@@ -44,9 +43,8 @@ exports.create = function (handler, callback) {
 
   };
   var date = new Date();
-  data.createDate = date;
-  data.updateDate = date;       //更新时间 当前时间
-  data.updateUser = creator;
+  data.createAt   = date;
+  data.createBy   = creator;
 
   app.create(data, function (err, result) {
     err = err ? new error.InternalServer(err) : null;
@@ -308,10 +306,8 @@ exports.update1 = function (handler, callback) {
     , requireDevice = handler.params.requireDevice
     , bundleIdentifier = handler.params.bundleIdentifier
     , bundlerVersion   = handler.params.bundlerVersion
-    , editstep         = 1
-//    , editstep         = handler.params.editstep;
-    //added by 需要测试 ！！
-    , permissonDownload = handler.params.permisson.download;
+    //added by 留着 后期权限设置用
+//    , permisson        = handler.params.permisson;
 
   var appUpdate = {
       updateAt    : new Date()
@@ -329,10 +325,9 @@ exports.update1 = function (handler, callback) {
       }
     , bundleIdentifier : bundleIdentifier
     , bundlerVersion   : bundlerVersion
-    //added by yt
-    , permission       : permissonDownload
+    //added by yt 先留着 后期权限设置使用
+//    , permission       : permisson
     , status           : 0
-    , editstep         : editstep
     };
 
   app.update(code, appId, appUpdate, function (err, result) {
@@ -345,6 +340,16 @@ exports.update1 = function (handler, callback) {
  * @param {Function} callback 回调函数，返回结果
  */
 exports.update2 = function (handler, callback) {
+  //flag标记editstep 判断是否为更新 默认不考虑上传中断
+  var flag =-1;
+  if(1===handler.params.editstep)//???editstep
+  {
+    flag = 0;//第二步上传
+  }
+  else
+  {
+    flag = 1;//更新App信息
+  }
   var appId      = handler.params.appId
     , code       = handler.params.code
     , createBy   = handler.uid
@@ -362,7 +367,7 @@ exports.update2 = function (handler, callback) {
    ,icon : {
       big     : iconBig
      ,small  :iconSmall
-   }
+    }
   , screenshot : screenshot
   , pptfile : pptfile
   , size : size
@@ -370,6 +375,12 @@ exports.update2 = function (handler, callback) {
   , editstep : editstep
   , plistDownloadId : ""
   };
+
+  if(!flag)
+  {
+    appUpdate.updateAt = "";
+    appUpdate.updateBy = "";
+  }
 
   app.update(code, appId, appUpdate, function (err, result) {
     callback(err, result);
