@@ -15,6 +15,14 @@ exports.guiding = function(app){
 	app.get("/app/list?type=title_new_list", function (req, res) {
 		res.render("app_list", {"title": "app_list", user: req.session.user});
 	});
+	//download更多一览
+	app.get("/app/list?type=title_download_list", function (req, res) {
+		res.render("app_list", {"title": "app_list", user: req.session.user});
+	});
+	//评价更多一览
+	app.get("/app/list?type=title_rank_list", function (req, res) {
+		res.render("app_list", {"title": "app_list", user: req.session.user});
+	});
   // 上传一览
   app.get("/app/upload/list", function (req, res) {
     res.render("app_list", {"title": "upload_list", user: req.session.user});
@@ -29,7 +37,6 @@ exports.guiding = function(app){
   app.get("/app/check/list", function (req, res) {
     res.render("app_check_list", {"title": "check_list", user: req.session.user});
   });
-
   // APP详细
   app.get("/app/detail/list", function (req, res) {
     res.render("app_detail_list", {"title": "app_list", user: req.session.user});
