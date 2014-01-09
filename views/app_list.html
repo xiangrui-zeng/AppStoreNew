@@ -36,9 +36,9 @@
   var condition = "";
   if("<%= title %>" == "app_list"){
     condition = "status=2"
-  } else if("<%= title %>" == "app_upload_list") {
+  } else if("<%= title %>" == "upload_list") {
     condition = "createBy="+smart.uid()
-  } else if("<%= title %>" == "app_upload_list") {
+  } else if("<%= title %>" == "manage_list") {
     condition = ""
   }
 
