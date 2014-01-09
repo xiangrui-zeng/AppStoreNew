@@ -308,10 +308,10 @@ exports.update1 = function (handler, callback) {
     , requireDevice = handler.params.requireDevice
     , bundleIdentifier = handler.params.bundleIdentifier
     , bundlerVersion   = handler.params.bundlerVersion
-    , editstep         = 1;
+    , editstep         = 1
 //    , editstep         = handler.params.editstep;
     //added by 需要测试 ！！
-//    , permissonDownload = hanlder.params.permisson.download;
+    , permissonDownload = handler.params.permisson.download;
 
   var appUpdate = {
       updateAt    : new Date()
@@ -330,7 +330,7 @@ exports.update1 = function (handler, callback) {
     , bundleIdentifier : bundleIdentifier
     , bundlerVersion   : bundlerVersion
     //added by yt
-//    , permission       : permissonDownload
+    , permission       : permissonDownload
     , status           : 0
     , editstep         : editstep
     };
@@ -355,7 +355,7 @@ exports.update2 = function (handler, callback) {
     , downloadId = handler.params.downloadId
     , size       = handler.params.pptfileSize
     , editstep   = 2;
-//    , editstep = handler.params.editstep
+
   var appUpdate = {
     updateAt : new Date()
    ,updateBy : createBy
