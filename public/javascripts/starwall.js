@@ -1,7 +1,7 @@
 
 // namespace
 var smart = {
-  
+  //chenda delete
   // The global setting
   init: function() {
     _.templateSettings = {
