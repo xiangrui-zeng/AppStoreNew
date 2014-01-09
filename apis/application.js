@@ -35,31 +35,29 @@ function setDownloadURL(req, appInfo) {
     }
   }
 }
-//还需要调整 by yt
-exports.updateAppStep1 = function (req, res) {
-  var handler = new context().bind(req, res);
-  console.log(handler + "???????");
 
-  var creator = handler.uid;
-  var appId = handler.params.app;
-  var appType = handler.params.appType;
-  var name = handler.params.name;
-  var copyright = handler.params.copyright;
-  var version = handler.params.version;
-  var release_note = handler.params.release_note;
-  var description = handler.params.description;
-  var device = handler.params.device_device;
-  var os = handler.params.require_os;
-  var category = handler.params.category;
-  var bundle_identifier = handler.params.bundle_identifier;
-  var bundle_version = handler.params.bundle_version;
-  var permission_download = handler.params.permission.download;
-  app.create(data, function (err, result) {
+/**
+ * 更新App信息
+ * @param req 请求对象
+ * @param res 响应对象
+ * @returns {*} 无
+ */
+exports.updateAppStep = function (req, res) {
+  var handler = new context().bind(req, res);
+  log.operation("begin: update an app step1.", handler.uid);
+
+  app.update1(handler, function (err, result) {
+    log.operation("finish: update an app step1.", handler.uid);
     response.send(res, err, result);
   });
 };
 
-//APP上传第一步
+/**
+ * 上传App第一步
+ * @param req 请求对象
+ * @param res 响应对象
+ * @returns {*} 无
+ */
 exports.createAppStep1 = function (req, res) {
   var handler = new context().bind(req, res);
   log.operation("begin: create an app step1.", handler.uid);
@@ -71,12 +69,17 @@ exports.createAppStep1 = function (req, res) {
 
 };
 
-//APP上传第二步
+/**
+ * 上传App第二步
+ * @param req 请求对象
+ * @param res 响应对象
+ * @returns {*} 无
+ */
 exports.createAppStep2 = function (req, res) {
   var handler = new context().bind(req, res);
   log.operation("begin: create an app step2.", handler.uid);
 
-  app.update(handler, function (err, result) {
+  app.update2(handler, function (err, result) {
     log.operation("finish: create an app step2.", handler.uid);
     response.send(res, err, result);
   });

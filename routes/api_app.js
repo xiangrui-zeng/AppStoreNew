@@ -1,8 +1,8 @@
 "use strict";
 
 var application = require("../apis/application")
-  , category = require("../apis/category")
-  , ctrlapp = require("../controllers/ctrl_app");
+  , category    = require("../apis/category")
+  , ctrlapp     = require("../controllers/ctrl_app");
 
 exports.guiding = function(app){
 
