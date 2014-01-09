@@ -108,7 +108,7 @@ exports.list = function (condition,options,callback) {
   app.find(condition)
     .skip(options.start || 0)
     .limit(options.limit || 20)
-    .sort({updateAt: -1})
+    .sort(options.sort)
     .exec(function (err, result) {
       app.count(condition).exec(function (err, count) {
         callback(err, {total: count, items: result});
