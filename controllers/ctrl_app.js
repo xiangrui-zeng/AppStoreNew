@@ -7,6 +7,7 @@ var context       = smart.framework.context
   , async         = smart.util.async
   , error         = smart.framework.error
   , util          = smart.framework.util
+  , moment        = smart.util.moment
   , app           = require("../modules/mod_app.js")
   , downloadInfo  = require("../modules/mod_download")
   , categorory    = require("../modules/mod_category")
@@ -428,6 +429,31 @@ exports.checkStop = function (handler, callback) {
     callback(err, result);
   });
 };
+
+//查询App数量
+exports.getAppNum = function (handler, callback) {
+  var code = handler.code
+    , startDate = handler.params.startDate
+    , endDate   = handler.params.endDate;
+  var startTime = moment(startDate, ["YYYY-MM-DD"])
+    , endTime   = moment(endDate, ["YYYY-MM-DD"]);
+  startTime.set("hour", 0);
+  endTime.set("hour", 24);
+
+  startTime = startTime.toDate();
+  endTime = endTime.toDate();
+
+  var condition = {
+    valid : 1
+  };
+
+  condition.createAt = {"$gte":startTime,"$lte":endTime};
+  console.log(condition);
+  app.getList(code, condition, function(err, total){
+    callback(err, total);
+  });
+};
+
 
 function _renderAppStep(req, res, step, appId) {
   if (step === 1) {

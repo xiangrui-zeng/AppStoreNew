@@ -216,3 +216,16 @@ exports.checkStop = function(req, res) {
   });
 };
 
+/**
+ * apis中查找APP数量
+ * @param req 请求对象
+ * @param res 响应对象
+ */
+exports.getAppNum = function(req, res) {
+  var handler = new context().bind(req, res);
+
+  app.getAppNum (handler, function(err, result) {
+    response.send(res, err, result);
+  });
+};
+

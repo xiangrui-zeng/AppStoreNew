@@ -131,3 +131,30 @@ exports.update = function (code, appId, update, callback) {
     callback(err, result);
   });
 };
+
+/**
+ * 获取App件数
+ * @param {string} code 公司Code
+ * @param {object} condition 条件
+ * @param {function} callback 返回服务件数
+ */
+
+exports.total = function (code, condition, callback) {
+
+  var App = model(code);
+
+  App.count(condition).exec(function(err, count) {
+    callback(err, count);
+  });
+};
+
+exports.getList = function(code, condition, callback) {
+
+  var App = model(code);
+  console.log(condition);
+  App.find(condition)
+    .sort({createAt: +1})
+    .exec(function(err, result) {
+      callback(err, result);
+    });
+};
