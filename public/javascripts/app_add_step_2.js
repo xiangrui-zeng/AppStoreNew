@@ -1,19 +1,21 @@
 /**
  * Created by Administrator on 14-1-2.
  */
-
 $(function () {
   'use strict';
-
-  var appId = "";
+  var appId = $("#appId").val();
   render(appId);
   events(appId);
-
 });
-function render() {
-  if (appId != '0') {
+
+function events(appId) {
+
+}
+
+function render(appId) {
+  if ("0" !== appId) {
     $(function () {
-      smart.doget('/app/info.json?app_id=<%=appId%>', function (err, data) {
+      smart.doget("/app/info.json?app_id=<%=appId%>", function (err, data) {
         console.log(data.editstep);
         for (var i = 1; i <= 2; i++) {
           if (data.editstep >= i) {
@@ -70,6 +72,7 @@ function render() {
       });
     });
   }
+
 }
 
 $(function () {

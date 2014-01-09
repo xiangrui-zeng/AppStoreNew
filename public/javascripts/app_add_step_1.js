@@ -1,6 +1,6 @@
+"use strict";
 
 $(function () {
-  'use strict';
   var appId = $("#appId").val();
   render(appId);
   events(appId);
@@ -12,21 +12,21 @@ function events(appId) {
 }
 
 function render(appId) {
-  if (appId != '0') {
-    smart.doget("/app/info.json?app_id="+appId, function (err, data) {
-    console.log(data);
-    //by yt test
-    $("#appType").val(data.appType);
-    $("#name").val(data.name);
-    $("#copyright").val(data.copyright);
-    $("#description").val(data.description);
-    $("#version").val(data.version);
-    $("#releaseNote").val(data.releaseNote);
-    $("#category").val(data.category);
-    $("#bundleVersion").val(data.bundleVersion);
-    $("#bundleIdentifier").val(data.bundleIdentifier);
-    $("#requireOs").val(data.require.os);
-    $("#requireDevice").val(data.require.device);
+  if (appId !== "0")
+  {
+    smart.doget("/app/info.json?app_id="+appId, function (err, data)
+    {
+      $("#appType").val(data.appType);
+      $("#name").val(data.name);
+      $("#copyright").val(data.copyright);
+      $("#description").val(data.description);
+      $("#version").val(data.version);
+      $("#releaseNote").val(data.releaseNote);
+      $("#category").val(data.category);
+      $("#bundleVersion").val(data.bundleVersion);
+      $("#bundleIdentifier").val(data.bundleIdentifier);
+      $("#requireOs").val(data.require.os);
+      $("#requireDevice").val(data.require.device);
 
       //device 例：phone、pad 暂时没有这数据段  先留着
 //      $device = $("input[name=device]");
