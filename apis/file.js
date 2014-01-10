@@ -8,22 +8,21 @@
 
 var context              = smart.framework.context
   , log                  = smart.framework.log
-  , response             = smart.framework.response
   , file                 = require("../controllers/ctrl_file");
 
 
 function createErrorSchema(errCode, errMessage, errorDetail) {
   return {
     apiVersion: "1.0"
-    , error: {
+  , error: {
       code: errCode
-      , message: errMessage
-      , errors: errorDetail
+    , message: errMessage
+    , errors: errorDetail
     }
   };
 }
 /**
- * 获取店铺摄影
+ * 获取图片
  * @param req 请求对象
  * @param res 响应对象
  * @returns {*} 无

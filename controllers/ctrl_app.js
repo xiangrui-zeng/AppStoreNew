@@ -1,12 +1,10 @@
 
 "use strict";
 
-var context       = smart.framework.context
-  , user          = smart.ctrl.user
+var user          = smart.ctrl.user
   , file          = smart.ctrl.file
   , async         = smart.util.async
   , error         = smart.framework.error
-  , util          = smart.framework.util
   , moment        = smart.util.moment
   , app           = require("../modules/mod_app.js")
   , downloadInfo  = require("../modules/mod_download")
@@ -60,7 +58,6 @@ exports.create = function (handler, callback) {
 exports.findAppInfoById = function (appId, callback) {
   console.log(appId);
   app.find(appId, function (err, docs) {
-    console.log(docs);
     callback(err, docs);
   });
 };
@@ -76,7 +73,7 @@ exports.addimage = function(handler, callback) {
   });
 };
 /**
- * 根据appid获取app信息
+ * 根据appId获取app信息
  * @param {Object} handler 上下文对象
  * @param {Function} callback 回调函数，返回app信息
  */
