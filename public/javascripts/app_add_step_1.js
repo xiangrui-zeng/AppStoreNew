@@ -4,12 +4,25 @@ $(function () {
   "use strict";
   var appId = $("#appId").val();
   render(appId);
-  events(appId);
+  events();
 
 });
 
-function events(appId) {
-
+function events() {
+  $("#appType").on("click", function () {
+    var temp = $("#appType").val();
+    if("10001" === temp)
+    {
+      $("#bundleId").css("display", "block");
+      $("#bundleVer").css("display", "block");
+    }
+    else{
+      $("#bundleId").css("display", "none");
+      $("#bundleVer").css("display", "none");
+      $("#bundleIdentifier").val("NULL");
+      $("#bundleVersion").val("NULL");
+    }
+  });
 }
 
 function render(appId) {
@@ -17,7 +30,7 @@ function render(appId) {
   {
     smart.doget("/app/info.json?app_id="+appId, function (err, data)
     {
-      $("#appType").val(data.appType);
+      new ButtonGroup("appType",data.appType).init();
       $("#name").val(data.name);
       $("#copyright").val(data.copyright);
       $("#description").val(data.description);
@@ -47,7 +60,6 @@ function render(appId) {
       $("form").attr("action", "/app/update/step1.json");
 
       //控制sidebar
-      console.log(data.editstep);
       for (var i = 1; i <= 2; i++) {
         if (data.editstep >= i) {
           $("#step" + (i) + "").attr("href", "/app/add/step" + (i) + "?appId=" + data._id);
@@ -60,7 +72,6 @@ function render(appId) {
       }
 
       //公开对象permission_view
-      console.log(data);
       if(!data.name){
         return;
       }
@@ -80,30 +91,26 @@ function render(appId) {
         });
         $(this).click(function () {
           var data = $(this).attr("data");
-          console.log(data);
-          console.log(chk_value_id);
-          console.log(chk_value_id);
           var new_chk_value_id = _.without(chk_value_id, data);
-          console.log(new_chk_value_id);
-          console.log();
           $("#permission_download_input").val(new_chk_value_id);
           $(this).remove();
         });
       });
     });
   }
+  else
+  {
+    new ButtonGroup("appType","10001").init();
+  }
 };
 
 function didSendStep1Callback(result) {
   // 错误信息
-  if(result.error && result.error.code) {
+  if(result.error && result.error.code){
     $alertMsg.error(result.error.message);
     return;
   }
-  console.log("console.log(result);");
-  console.log(result);
   var appId = result.data._id;
-  console.log("appp id   is   %s", appId);
   window.location.href = "/app/add/step2?appId=" + appId;
 };
 

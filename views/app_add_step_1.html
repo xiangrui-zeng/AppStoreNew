@@ -40,15 +40,10 @@
             <div class="control-group">
               <label class="control-label">系统OS</label>
               <div class="controls row-fluid">
-                <div class="span6">
-                  <% if(appTypes && appTypes.items) { %>
-                  <% appTypes.items.forEach(function(c,i) { %>
-                  <label class="radio span3">
-                    <input class="required" type="radio" name="appType" id="appType" value="<%= c.code %>" <%=i==0?"checked":""%> />
-                    <%= c.name %>
-                  </label>
-                  <% }); %>
-                  <% } %>
+                <div class="btn-group" id="appType" value="">
+                  <button type="button" class="btn btn-default" value="10001" style="width: 90px">IOS</button>
+                  <button type="button" class="btn btn-default" value="10002" style="width: 90px">Android</button>
+                  <button type="button" class="btn btn-default" value="10003" style="width: 90px">Web</button>
                 </div>
               </div>
             </div>
@@ -109,13 +104,14 @@
                 <input class="required" type="text" name="requireDevice" id="requireDevice" placeholder="最低设备要求">
               </div>
             </div>
-            <div class="control-group">
+
+            <div class="control-group" id="bundleId">
               <label class="control-label">bundleIdentifier</label>
               <div class="controls">
                 <input class="required" type="text" name="bundleIdentifier" id="bundleIdentifier" placeholder="IOS应用必须">
               </div>
             </div>
-            <div class="control-group">
+            <div class="control-group" id="bundleVer">
               <label class="control-label">bundleVersion</label>
               <div class="controls">
                 <input class="required" type="text" name="bundleVersion" id="bundleVersion" placeholder="IOS应用必须">
