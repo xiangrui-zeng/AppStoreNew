@@ -12,16 +12,16 @@ exports.guiding = function(app){
     res.render("app_list", {"title": "app_list", user: req.session.user});
   });
 	//新着更多一览
-	app.get("/app/list?type=title_new_list", function (req, res) {
-		res.render("app_list", {"title": "all_apps", user: req.session.user});
+	app.get("/app/list/title_new_list", function (req, res) {
+		res.render("app_list", {"title": "title_new_list", user: req.session.user});
 	});
 	//download更多一览
-	app.get("/app/list?type=title_download_list", function (req, res) {
-		res.render("app_list", {"title": "all_apps", user: req.session.user});
+	app.get("/app/list/title_download_list", function (req, res) {
+		res.render("app_list", {"title": "title_download_list", user: req.session.user});
 	});
 	//评价更多一览
-	app.get("/app/list?type=title_rank_list", function (req, res) {
-		res.render("app_list", {"title": "all_apps", user: req.session.user});
+	app.get("/app/list/title_rank_list", function (req, res) {
+		res.render("app_list", {"title": "title_rank_list", user: req.session.user});
 	});
   // 上传一览
   app.get("/app/upload/list", function (req, res) {

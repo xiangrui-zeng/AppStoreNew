@@ -27,7 +27,16 @@
       <h3 class="page-header" id ="app_view_title" style="width: auto;">APP管理</h3>
 	  <% } %>
 	  <% if(title == "app_list") { %>
-	    <h3 class="page-header" id ="app_view_title" style="width: auto;">应用一览</h3>
+	    <h3 class="page-header" id ="app_view_title" style="width: auto;">ダウンロード一覧</h3>
+	  <% } %>
+	  <% if(title == "title_new_list") { %>
+	  <h3 class="page-header" id ="app_view_title" style="width: auto;">新着</h3>
+	  <% } %>
+	  <% if(title == "title_download_list") { %>
+	  <h3 class="page-header" id ="app_view_title" style="width: auto;">おすすめ</h3>
+	  <% } %>
+	  <% if(title == "title_rank_list") { %>
+	  <h3 class="page-header" id ="app_view_title" style="width: auto;">ランキング</h3>
 	  <% } %>
     <div id="check_list_container" style="padding:5px; background:#ffffff;width:800px">
     </div><!--well-->
@@ -40,8 +49,10 @@
 <script type="text/javascript">
 	var app_view_string = "";
   var condition       = "";
+	var list       = DetailList.create();
+	var is_loading = false;
   if("<%= title %>" == "app_list"){
-	  app_view_string = "应用一览";
+	  app_view_string = "ダウンロード一覧";
 	  condition = "status=2"
   } else if("<%= title %>" == "upload_list") {
 	  app_view_string = " アップロード一覧";
@@ -49,10 +60,17 @@
   } else if("<%= title %>" == "manage_list") {
 	  app_view_string = "APP管理一览";
     condition = ""
+  } else if("<%= title %>" == "title_new_list") {
+	  app_view_string = "新着";
+	  condition = ""
+  } else if("<%= title %>" == "title_download_list") {
+	  app_view_string = "おすすめ";
+	  condition = ""
+  } else if("<%= title %>" == "title_rank_list") {
+	  app_view_string = "ランキング";
+	  condition = ""
   }
 
-  var list       = DetailList.create();
-  var is_loading = false;
   $(document).ready(function() {
     list.init($("#check_list_container"), {
       id_prex :  "dl_list"
