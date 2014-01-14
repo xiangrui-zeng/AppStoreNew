@@ -91,8 +91,8 @@ function render(appId) {
         });
         $(this).click(function () {
           var data = $(this).attr("data");
-          var new_chk_value_id = _.without(chk_value_id, data);
-          $("#permission_download_input").val(new_chk_value_id);
+          var newChkValueId = _.without(chkValueId, data);
+          $("#permissionDownloadInput").val(newChkValueId);
           $(this).remove();
         });
       });
@@ -102,7 +102,7 @@ function render(appId) {
   {
     new ButtonGroup("appType","10001").init();
   }
-};
+}
 
 function didSendStep1Callback(result) {
   // 错误信息
@@ -112,27 +112,29 @@ function didSendStep1Callback(result) {
   }
   var appId = result.data._id;
   window.location.href = "/app/add/step2?appId=" + appId;
-};
+}
 
 function didSendFn(data) {
   var sendData = {};
   var crsf = $("#_csrf").val();
   var category = [];
+  var appType = $("#appType").val();
   for (var i in data)
   {
     sendData[data[i].name] = data[i].value;
-    if (data[i].name == 'category') {
+    if (data[i].name === "category") {
       category.push(data[i].value);
     }
-    if (data[i].name == 'device') {
+    if (data[i].name === "device") {
       sendData["require.device"] = data[i].value;
     }
-    if (data[i].name == "permission.download") {
-      sendData[data[i].name] = data[i].value.split(',');
+    if (data[i].name === "permission.download") {
+      sendData[data[i].name] = data[i].value.split(",");
     }
   }
-  sendData["category"] = category;
-  sendData["_csrf"] = crsf;
+  sendData.appType = appType;
+  sendData.category = category;
+  sendData._csrf = crsf;
   return sendData;
 }
 
