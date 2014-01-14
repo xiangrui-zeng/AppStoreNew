@@ -49,40 +49,113 @@
 <script type="text/javascript">
 	var app_view_string = "";
   var condition       = "";
-	var list       = DetailList.create();
-	var is_loading = false;
-  if("<%= title %>" == "app_list"){
+	var list            = DetailList.create();
+	var is_loading      = false;
+
+  if("<%= title %>" == "app_list"){  //ダウンロード一覧
 	  app_view_string = "ダウンロード一覧";
-	  condition = "status=2"
-  } else if("<%= title %>" == "upload_list") {
+	  condition = "status=2";
+	  $(document).ready(function() {
+		  list.init($("#check_list_container"), {
+			  id_prex :  "dl_list"
+			  ,str    : {"loading": "Loading........"}
+			  ,cols   : [ "icon", "info", "os", "require", "status", "update_info", "option"]
+			  ,url    : "/app/list.json?admin=1&sort=downloadCount&asc=1&"+condition
+		  });
+
+		  // 初始化加载数据
+		  list.load();
+		  is_loading = true;
+	  });
+  } else if("<%= title %>" == "upload_list") {  //アップロード一覧
 	  app_view_string = " アップロード一覧";
-    condition = "createBy="+smart.uid()
-  } else if("<%= title %>" == "manage_list") {
+    condition = "createBy="+smart.uid();
+	  $(document).ready(function() {
+		  list.init($("#check_list_container"), {
+			  id_prex :  "dl_list"
+			  ,str    : {"loading": "Loading........"}
+			  ,cols   : [ "icon", "info", "os", "require", "status", "update_info", "option"]
+			  ,url    : "/app/list.json?admin=1&sort=status&asc=0&"+condition
+		  });
+
+		  // 初始化加载数据
+		  list.load();
+		  is_loading = true;
+	  });
+  } else if("<%= title %>" == "manage_list") {  //APP管理一览
 	  app_view_string = "APP管理一览";
-    condition = ""
-  } else if("<%= title %>" == "title_new_list") {
+    condition = "";
+	  $(document).ready(function() {
+		  list.init($("#check_list_container"), {
+			  id_prex :  "dl_list"
+			  ,str    : {"loading": "Loading........"}
+			  ,cols   : [ "icon", "info", "os", "require", "status", "update_info", "option"]
+			  ,url    : "/app/list.json?admin=1&sort=updateAt&asc=1&"+condition
+		  });
+
+		  // 初始化加载数据
+		  list.load();
+		  is_loading = true;
+	  });
+  } else if("<%= title %>" == "title_new_list") { //新着一览
 	  app_view_string = "新着";
-	  condition = ""
-  } else if("<%= title %>" == "title_download_list") {
+	  condition = "status=2";
+	  $(document).ready(function() {
+		  list.init($("#check_list_container"), {
+			  id_prex :  "dl_list"
+			  ,str    : {"loading": "Loading........"}
+			  ,cols   : [ "icon", "info", "os", "require", "status", "update_info", "option"]
+			  ,url    : "/app/list.json?admin=1&sort=updateAt&asc=1&"+condition
+		  });
+
+		  // 初始化加载数据
+		  list.load();
+		  is_loading = true;
+	  });
+  } else if("<%= title %>" == "title_download_list") {  //おすすめ一览
 	  app_view_string = "おすすめ";
-	  condition = ""
-  } else if("<%= title %>" == "title_rank_list") {
+	  condition = "status=2";
+	  $(document).ready(function() {
+		  list.init($("#check_list_container"), {
+			  id_prex :  "dl_list"
+			  ,str    : {"loading": "Loading........"}
+			  ,cols   : [ "icon", "info", "os", "require", "status", "update_info", "option"]
+			  ,url    : "/app/list.json?admin=1&sort=downloadCount&asc=1&"+condition
+		  });
+
+		  // 初始化加载数据
+		  list.load();
+		  is_loading = true;
+	  });
+  } else if("<%= title %>" == "title_rank_list") {  //ランキング一览
 	  app_view_string = "ランキング";
-	  condition = ""
+	  condition = "status=2";
+	  $(document).ready(function() {
+		  list.init($("#check_list_container"), {
+			  id_prex :  "dl_list"
+			  ,str    : {"loading": "Loading........"}
+			  ,cols   : [ "icon", "info", "os", "require", "status", "update_info", "option"]
+			  ,url    : "/app/list.json?admin=1&sort=rank&asc=1&"+condition
+		  });
+
+		  // 初始化加载数据
+		  list.load();
+		  is_loading = true;
+	  });
   }
 
-  $(document).ready(function() {
-    list.init($("#check_list_container"), {
-      id_prex :  "dl_list"
-      ,str    : {"loading": "Loading........"}
-      ,cols   : [ "icon", "info", "os", "require", "status", "update_info", "option"]
-      ,url    : "/app/list.json?admin=1&sort=name&asc=1&"+condition
-    });
-
-    // 初始化加载数据
-    list.load();
-	  is_loading = true;
-  });
+//  $(document).ready(function() {
+//    list.init($("#check_list_container"), {
+//      id_prex :  "dl_list"
+//      ,str    : {"loading": "Loading........"}
+//      ,cols   : [ "icon", "info", "os", "require", "status", "update_info", "option"]
+//      ,url    : "/app/list.json?admin=1&sort=name&asc=1&"+condition
+//    });
+//
+//    // 初始化加载数据
+//    list.load();
+//	  is_loading = true;
+//  });
 
   function filterCategory(code, name) {
 	  if(is_loading == false || !code || !name){
