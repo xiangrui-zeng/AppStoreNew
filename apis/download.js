@@ -50,3 +50,43 @@ exports.getIpaFile = function (req, res) {
     response.sendFile(res, err, file);
   });
 };
+
+
+/**
+ * 下载Apk文件
+ * @param req 请求对象
+ * @param res 响应对象
+ * @returns {*} 无
+ */
+exports.getApkFile = function (req, res) {
+
+	var handler = new context().bind(req, res);
+
+	download.getApkFile(handler, function(err, file) {
+		if(err) {
+			return response.send(res, err);
+		}
+
+		response.sendFile(res, err, file);
+	});
+};
+
+
+/**
+ * 下载exe文件
+ * @param req 请求对象
+ * @param res 响应对象
+ * @returns {*} 无
+ */
+exports.getExeFile = function (req, res) {
+
+	var handler = new context().bind(req, res);
+
+	download.getExeFile(handler, function(err, file) {
+		if(err) {
+			return response.send(res, err);
+		}
+
+		response.sendFile(res, err, file);
+	});
+};
