@@ -16,11 +16,11 @@ exports.guiding = function(app){
 
   //获取apk文件
 	app.get("/download/:app_id/:user_id/AndriodApp.apk", function(req, res) {
-		download.getIpaFile(req, res);
+		download.getApkFile(req, res);
 	});
 
 	//获取exe文件
 	app.get("/download/:app_id/:user_id/PCWebApp.exe", function(req, res) {
-		download.getIpaFile(req, res);
+		download.getExeFile(req, res);
 	});
 };
