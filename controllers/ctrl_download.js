@@ -31,9 +31,20 @@ exports.getPlist = function (handler, callback) {
       callback(new errors.InternalServer(err));
       return;
     }
-
-    var url = "http://"  + params.host + ":" + params.port +"/download/" + app._id + "/" + params.user_id + "/app.ipa";
-
+    var params  = handler.params;
+    var appType = params.appType;
+    var appName = params.appName;
+    var url = "";  //设置空的url
+    if(appType === "10001"){
+      //对应ios的url
+      url = "http://"  + params.host + ":" + params.port +"/download/" + app._id + "/" + params.user_id + "/"+appName+".ipa";
+    } else if(appType === "10002"){
+      //对应andriod的URL
+      url = "http://"  + params.host + ":" + params.port +"/download/" + app._id + "/" + params.user_id + "/app.apk";
+    } else if(appType === "10003"){
+      //对应pcweb的URL
+      url = "http://"  + params.host + ":" + params.port +"/download/" + app._id + "/" + params.user_id + "/"+appName+".exe";
+    }
     var plist = "";
     plist += "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>";
     plist += "<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">";
@@ -120,6 +131,108 @@ exports.getIpaFile = function (handler, callback) {
 
     return callback(err, file);
   });
+};
+
+/**
+ * 下载Apk文件
+ * @param {Object} handler 上下文对象
+ * @param {Function} callback 回调函数，返回Apk文件
+ */
+exports.getApkFile = function (handler, callback) {
+
+	var params = handler.params;
+	var uid = params.user_id;
+	var appId = params.app_id;
+
+	var tasks = [];
+	// 获取App
+	var taskGetApp = function(cb){
+		ctrlApp.getAppInfoById(handler, function (err, app) {
+			cb(err, app);
+		});
+	};
+	tasks.push(taskGetApp);
+
+	// 获取文件
+	var taskGetFile = function(app, cb){
+		var tempHandler = new context().create(uid, handler.code, handler.lang);
+		tempHandler.addParams("id", app.downloadId);
+		ctrlFile.getFile(tempHandler, function(err, file) {
+			cb(err, app, file);
+		});
+	};
+	tasks.push(taskGetFile);
+
+	// 更新下载信息
+	var taskAddHistory = function(app, file, cb){
+		var tempHandler = new context().create(uid, handler.code, handler.lang);
+		tempHandler.addParams("app_id", appId);
+		exports.addHistory(tempHandler, function(err) {
+			cb(err, file);
+		});
+	};
+	tasks.push(taskAddHistory);
+
+	async.waterfall(tasks, function(err, file){
+		if (err) {
+			log.error(err, handler.uid);
+			callback(new errors.InternalServer(err));
+			return;
+		}
+
+		return callback(err, file);
+	});
+};
+
+/**
+ * 下载Exe文件
+ * @param {Object} handler 上下文对象
+ * @param {Function} callback 回调函数，返回Exe文件
+ */
+exports.getExeFile = function (handler, callback) {
+
+	var params = handler.params;
+	var uid = params.user_id;
+	var appId = params.app_id;
+
+	var tasks = [];
+	// 获取App
+	var taskGetApp = function(cb){
+		ctrlApp.getAppInfoById(handler, function (err, app) {
+			cb(err, app);
+		});
+	};
+	tasks.push(taskGetApp);
+
+	// 获取文件
+	var taskGetFile = function(app, cb){
+		var tempHandler = new context().create(uid, handler.code, handler.lang);
+		tempHandler.addParams("id", app.downloadId);
+		ctrlFile.getFile(tempHandler, function(err, file) {
+			cb(err, app, file);
+		});
+	};
+	tasks.push(taskGetFile);
+
+	// 更新下载信息
+	var taskAddHistory = function(app, file, cb){
+		var tempHandler = new context().create(uid, handler.code, handler.lang);
+		tempHandler.addParams("app_id", appId);
+		exports.addHistory(tempHandler, function(err) {
+			cb(err, file);
+		});
+	};
+	tasks.push(taskAddHistory);
+
+	async.waterfall(tasks, function(err, file){
+		if (err) {
+			log.error(err, handler.uid);
+			callback(new errors.InternalServer(err));
+			return;
+		}
+
+		return callback(err, file);
+	});
 };
 
 /**
