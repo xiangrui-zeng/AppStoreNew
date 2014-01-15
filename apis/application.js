@@ -9,32 +9,7 @@ var util      = smart.framework.util
   , apputil   = require("../core/apputil.js");
 
 
-function setDownloadURL(req, appInfo) {
-  // 现在API里有返回数据组，有返回json格式的。
-  var list;
-  if (util.isArray(appInfo)) { // 数组
-    list = appInfo;
-  } else if (appInfo.items) { // json数组
-    list = appInfo.items;
-  } else if (appInfo._doc) {
-    list = [ appInfo ];
-  } else if (appInfo.data) {
-    list = [ appInfo.data ];
-  }
 
-  for (var i = 0; i < list.length; i++) {
-    var app_ = list[i];
-    var url = apputil.getDownloadURL(req, app_);
-
-    if (app_._doc) {
-      app_._doc.downloadURL = url;
-      //app_._doc.downloadId = ""; // 移除downloadId
-    } else {
-      app_.downloadURL = url;
-      //app_.downloadId = ""; // 移除downloadId
-    }
-  }
-}
 
 /**
  * 更新App信息
@@ -119,7 +94,7 @@ exports.saveimage = function (req, res) {
 exports.getAppInfo = function (req, res) {
   var handler = new context().bind(req, res);
   app.getAppInfoById(handler, function (err, result) {
-    setDownloadURL(req, result);
+    app.setDownloadURL(req, result);
     response.send(res, err, result);
   });
 };
@@ -128,7 +103,7 @@ exports.downloadedList = function (req, res) {
   var handler = new context().bind(req, res);
 
   app.downloadedList(handler, function (err, result) {
-    setDownloadURL(req, result);
+    app.setDownloadURL(req, result);
     response.send(res, err, result);
   });
 };
@@ -155,7 +130,7 @@ exports.list = function (req, res) {
   var handler = new context().bind(req,res);
 
 	app.list(handler,function(err, result){
-		setDownloadURL(req, result);
+		app.setDownloadURL(req, result);
 		response.send(res, err, result);
 	});
 };

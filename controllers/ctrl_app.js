@@ -6,6 +6,7 @@ var user          = smart.ctrl.user
   , async         = smart.util.async
   , error         = smart.framework.error
   , moment        = smart.util.moment
+	, util          = smart.framework.util
   , app           = require("../modules/mod_app.js")
   , downloadInfo  = require("../modules/mod_download")
   , categorory    = require("../modules/mod_category")
@@ -466,3 +467,31 @@ function _renderAppStep(req, res, step, appId) {
     });
   }
 }
+
+exports.setDownloadURL = function(req, appInfo) {
+
+	// 现在API里有返回数据组，有返回json格式的。
+	var list;
+	if (util.isArray(appInfo)) { // 数组
+		list = appInfo;
+	} else if (appInfo.items) { // json数组
+		list = appInfo.items;
+	} else if (appInfo._doc) {
+		list = [ appInfo ];
+	} else if (appInfo.data) {
+		list = [ appInfo.data ];
+	}
+
+	for (var i = 0; i < list.length; i++) {
+		var app_ = list[i];
+		var url = apputil.getDownloadURL(req, app_);
+
+		if (app_._doc) {
+			app_._doc.downloadURL = url;
+			//app_._doc.downloadId = ""; // 移除downloadId
+		} else {
+			app_.downloadURL = url;
+			//app_.downloadId = ""; // 移除downloadId
+		}
+	}
+};
