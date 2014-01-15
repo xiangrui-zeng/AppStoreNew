@@ -31,19 +31,19 @@ exports.getPlist = function (handler, callback) {
       callback(new errors.InternalServer(err));
       return;
     }
-    var params  = handler.params;
+
     var appType = params.appType;
-    var appName = params.appName;
+
     var url = "";  //设置空的url
     if(appType === "10001"){
       //对应ios的url
-      url = "http://"  + params.host + ":" + params.port +"/download/" + app._id + "/" + params.user_id + "/"+appName+".ipa";
+      url = "http://"  + params.host + ":" + params.port +"/download/" + app._id + "/" + params.user_id + "/IosApp.plist";
     } else if(appType === "10002"){
       //对应andriod的URL
-      url = "http://"  + params.host + ":" + params.port +"/download/" + app._id + "/" + params.user_id + "/app.apk";
+      url = "http://"  + params.host + ":" + params.port +"/download/" + app._id + "/" + params.user_id + "/AndriodApp.apk";
     } else if(appType === "10003"){
       //对应pcweb的URL
-      url = "http://"  + params.host + ":" + params.port +"/download/" + app._id + "/" + params.user_id + "/"+appName+".exe";
+      url = "http://"  + params.host + ":" + params.port +"/download/" + app._id + "/" + params.user_id + "/PCWebApp.exe";
     }
     var plist = "";
     plist += "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>";
