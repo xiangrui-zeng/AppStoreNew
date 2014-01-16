@@ -37,6 +37,7 @@
 
 <script type="text/javascript">
   var list = DetailList.create();
+  var condition = "status=2"
   var is_loading = false;
   var search_title_string = '"<%= keywords %>"的检索结果';
   $(document).ready(function() {
@@ -44,7 +45,7 @@
       id_prex :  "dl_list"
         ,str    : {"loading": "加载中........"}
         ,cols   : [ "icon", "info", "os", "require", "status", "update_info", "option"]
-        ,url    : "/app/search.json?keywords=<%= keywords %>&sort=name"
+        ,url    : "/app/search.json?keywords=<%= keywords %>&sort=updateAp&asc=0&"+condition
     });
 
     // 初始化加载数据

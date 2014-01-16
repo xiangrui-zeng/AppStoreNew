@@ -153,7 +153,8 @@ exports.downloadedList = function(handler, callback_){
 exports.search = function(handler, callback){
 	var category  = handler.params.category
 		, keywords  = handler.params.keywords;
-	var condition = {"name": new RegExp("^.*" + keywords.toLowerCase() + ".*$", "i")};
+	var condition = {"name": new RegExp("^.*" + keywords.toLowerCase() + ".*$", "i")
+                  ,status: handler.params.status};
 	var options   = {
       start: handler.params.start
     , limit: handler.params.count
