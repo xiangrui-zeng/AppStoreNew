@@ -21,21 +21,21 @@ var user          = smart.ctrl.user
  */
 exports.create = function (handler, callback) {
 
-  var creator = handler.req.session.user._id;//创建者
-  var data = handler.params;
+  var creator  = handler.req.session.user._id;//创建者
+  var data     = handler.params;
   data.require = {                  //require 两项
     device: data.requireDevice,
     os: data.requireOs
   };
-  data.rank = 0;
-  data.rankcount = 0;
+  data.rank          = 0;
+  data.rankcount     = 0;
   data.downloadCount = 0;
-  data.createUser = creator;
-  data.editstep = 1;              //编辑步骤
-  data.editing = 0;               //?
-  data.status = 0;                //状态 默认为0：未申请
-  data.category = handler.params.category;   //类别
-  data.permission = {                  //权限
+  data.createUser    = creator;
+  data.editstep      = 1;              //编辑步骤
+  data.editing       = 0;               //?
+  data.status        = 0;                //状态 默认为0：未申请
+  data.category      = handler.params.category;   //类别
+  data.permission    = {                  //权限
     admin: [creator],
     edit: [creator],
     view: [creator],
@@ -87,7 +87,7 @@ exports.getAppInfoById = function (handler, callback) {
 };
 
 exports.downloadedList = function(handler, callback_){
-  var uid_ = handler.uid;
+  var uid_  = handler.uid;
   var tasks = [];
   var taskGetAppIds = function(cb){
     downloadInfo.appIdsByUser(uid_,function(err, ids){
@@ -202,10 +202,14 @@ exports.list = function(handler, callback){
       start: handler.params.start
     , limit: handler.params.limit
     };
+
   if (sort){
     options.sort = {};
-    options.sort[sort] = asc === 1 ? 1 : -1;
+
+    options.sort[sort] = asc == 1 ? 1 : -1;
+
   }
+
   app.list(condition, options, function (err, result) {
     if (err) {
       return callback(new error.InternalServer(err));
@@ -291,20 +295,20 @@ exports.renderAppStep = function(req, res, step) {
  */
 exports.update1 = function (handler, callback) {
 
-  var updatetor   = handler.req.session.user._id;
-  var code        = handler.params.code
-    , appId       = handler.params.appId
-    , name        = handler.params.name
-    , description = handler.params.description
-    , appType     = handler.params.appType
-    , releaseNote = handler.params.releaseNote
-    , copyright   = handler.params.copyright
-    , category    = handler.params.category
-    , version     = handler.params.version
-    , requireOs   = handler.params.requireOs
-    , requireDevice = handler.params.requireDevice
+  var updatetor        = handler.req.session.user._id;
+  var code             = handler.params.code
+    , appId            = handler.params.appId
+    , name             = handler.params.name
+    , description      = handler.params.description
+    , appType          = handler.params.appType
+    , releaseNote      = handler.params.releaseNote
+    , copyright        = handler.params.copyright
+    , category         = handler.params.category
+    , version          = handler.params.version
+    , requireOs        = handler.params.requireOs
+    , requireDevice    = handler.params.requireDevice
     , bundleIdentifier = handler.params.bundleIdentifier
-    , bundlerVersion   = handler.params.bundlerVersion
+    , bundlerVersion   = handler.params.bundlerVersion;
     //added by 留着 后期权限设置用
 //    , permisson        = handler.params.permisson;
 
@@ -341,7 +345,7 @@ exports.update1 = function (handler, callback) {
 exports.update2 = function (handler, callback) {
   //flag标记editstep 判断是否为更新 默认不考虑上传中断
   var flag =-1;
-  if(1===handler.params.editstep)//???editstep
+  if(1 === handler.params.editstep)//???editstep
   {
     flag = 0;//第二步上传
   }
@@ -389,8 +393,8 @@ exports.update2 = function (handler, callback) {
 
 //申请
 exports.checkApply = function (handler, callback) {
-  var appId = handler.params.app
-    , code        = "";
+  var appId    = handler.params.app
+    , code     = "";
   var appApply = { status: 1 };
   app.update(code, appId, appApply, function (err, result) {
     callback(err, result);
@@ -398,8 +402,8 @@ exports.checkApply = function (handler, callback) {
 };
 //通过
 exports.checkAllow = function (handler, callback) {
-  var appId = handler.params.app
-    , code        = "";
+  var appId    = handler.params.app
+    , code     = "";
   var appAllow = { status:  2} ;
   app.update(code, appId, appAllow, function (err, result) {
     callback(err, result);
@@ -407,9 +411,9 @@ exports.checkAllow = function (handler, callback) {
 };
 //拒绝
 exports.checkDeny = function (handler, callback) {
-  var appId = handler.params.app
-    , code        = "";
-  var data = handler.params;
+  var appId   = handler.params.app
+    , code    = "";
+  var data    = handler.params;
   var appDeny = {
     status:  3
   , noticeMessage: data.noticeMessage
@@ -421,8 +425,8 @@ exports.checkDeny = function (handler, callback) {
 };
 //无效
 exports.checkStop = function (handler, callback) {
-  var appId = handler.params.app
-    , code        = "";
+  var appId   = handler.params.app
+    , code    = "";
   var appStop = { status:  4 };
   app.update(code, appId, appStop, function (err, result) {
     callback(err, result);
@@ -431,7 +435,7 @@ exports.checkStop = function (handler, callback) {
 
 //查询App数量
 exports.getAppNum = function (handler, callback) {
-  var code = handler.code
+  var code      = handler.code
     , startDate = handler.params.startDate
     , endDate   = handler.params.endDate;
   var startTime = moment(startDate, ["YYYY-MM-DD"])
@@ -440,7 +444,7 @@ exports.getAppNum = function (handler, callback) {
   endTime.set("hour", 24);
 
   startTime = startTime.toDate();
-  endTime = endTime.toDate();
+  endTime   = endTime.toDate();
 
   var condition = {
     valid : 1
@@ -462,7 +466,7 @@ function _renderAppStep(req, res, step, appId) {
      ,categoryTypes: categorory.getCategoryTypes()
     });
   } else if (step === 2) {
-    res.render('app_add_step_2', {
+    res.render("app_add_step_2", {
       title: "star", bright: "home", user: req.session.user, appId: appId
     });
   }
