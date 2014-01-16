@@ -32,7 +32,7 @@ exports.getPlist = function (handler, callback) {
       return;
     }
 
-     var url = "http://"  + params.host + ":" + params.port +"/download/" + app._id + "/" + params.user_id + "/IosApp.plist";
+     var url = "http://"  + params.host + ":" + params.port +"/download/" + app._id + "/" + params.user_id + "/IosApp.ipa";
 
     var plist = "";
     plist += "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>";
