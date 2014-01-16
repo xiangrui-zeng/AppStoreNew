@@ -32,19 +32,8 @@ exports.getPlist = function (handler, callback) {
       return;
     }
 
-    var appType = params.appType;
+     var url = "http://"  + params.host + ":" + params.port +"/download/" + app._id + "/" + params.user_id + "/IosApp.plist";
 
-    var url = "";  //设置空的url
-    if(appType === "10001"){
-      //对应ios的url
-      url = "http://"  + params.host + ":" + params.port +"/download/" + app._id + "/" + params.user_id + "/IosApp.plist";
-    } else if(appType === "10002"){
-      //对应andriod的URL
-      url = "http://"  + params.host + ":" + params.port +"/download/" + app._id + "/" + params.user_id + "/AndriodApp.apk";
-    } else if(appType === "10003"){
-      //对应pcweb的URL
-      url = "http://"  + params.host + ":" + params.port +"/download/" + app._id + "/" + params.user_id + "/PCWebApp.exe";
-    }
     var plist = "";
     plist += "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>";
     plist += "<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">";
