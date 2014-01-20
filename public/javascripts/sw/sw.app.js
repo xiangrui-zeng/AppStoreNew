@@ -72,7 +72,7 @@ var $app = {
       //上传第二步 App
         $("#pptfile_btn").bind("click", function () {
             $("#pptfile_file").bind("change", function (e) {
-                uploadFiles('didUploadPPTFile', e.target.files, that.didUploadPPTFile);
+                uploadFiles("didUploadPPTFile", e.target.files, that.didUploadPPTFile);
                 $("#pptfile_file").unbind("change");
             });
             var src = $("#pptfile_file");
@@ -314,15 +314,19 @@ var $app = {
         });
     },
     didUploadPPTFile: function (status, input, file) {
-        console.log(fid);
-        var fid = file.data[0]._id;
-        var size = file.data[0].length;
+      var fid = file.data[0]._id;
+      var size = file.data[0].length;
+      var name = file.data[0].name;
 
-        $("#pptfileSize").val(size);
+      $("#pptfileSize").val(size);
 
-        $("#pptfile_hid").val(fid);
-        $("#pptfile_hid").attr("readonly", "readonly");
-        $("#pptfile_hid").after(fid);
+      $("#pptfile_name").val(name);
+      $("#pptfile_name").attr("readonly", "readonly");
+      $("#pptfile_name").after(name);
+
+      $("#pptfile_hid").val(fid);
+//      $("#pptfile_hid").attr("readonly", "readonly");
+//      $("#pptfile_hid").after(fid);
 
     },
     didUploadPlistFile: function (status, input, fid) {

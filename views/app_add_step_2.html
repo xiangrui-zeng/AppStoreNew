@@ -59,8 +59,11 @@
                     $($("#image_show img").eq(i)[0]).attr("src", '/picture/' + data.screenshot[i]);
                 }
                 $("#image_big_file_hid").val(fids);
-//                $("#video").val(data.video);
                 $("#pptfile_hid").val(data.downloadId);
+//                留下 处理name显示
+//                $("#pptfile_name").val(data.appfileName);
+//                $("#pptfile_name").attr("readonly","readonly");
+//                $("#pptfile_name").after(data.appfileName);
             });
 
         });
@@ -122,10 +125,11 @@
 								<label class="control-label">安装包</label>
 								<div class="controls">
 									<input type="hidden" id="pptfile_hid" name="downloadId"/>
+                  <input type="hidden" id="pptfile_name" name="pptfileName"/>
 									<input type="file" id="pptfile_file" name="pptfile_file" style="display: none" value=""/>
 									<input type="hidden" id="pptfileSize" name="pptfileSize"/>
 									<button id="pptfile_btn" class="btn" onclick="return false;">アップロード</button>
-									<span id="pptfile_span" for="required" generated="true" class="help-inline" style="">ipaファイルをアップロード</span>
+									<span id="pptfile_span" for="required" generated="true" class="help-inline" style="">ファイルをアップロード</span>
 								</div>
 							</div>
 							<div class="control-group">
