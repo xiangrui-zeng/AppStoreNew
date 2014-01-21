@@ -120,4 +120,20 @@
     }
 </script>
 
+
+//方便与测试屏幕参数
+<script type="text/javascript">
+	var s ="网页可见区域宽："+ document.body.clientWidth;
+	s+="\r\n网页可见区域高："+ document.body.clientHeight;
+	s += "\r\n网页正文全文宽："+ document.body.scrollWidth;
+	s += "\r\n网页正文全文高："+ document.body.scrollHeight;
+	s += "\r\n网页正文部分上："+ window.screenTop;
+	s += "\r\n网页正文部分左："+ window.screenLeft;
+	s += "\r\n屏幕分辨率的高："+ window.screen.height;
+	s += "\r\n屏幕分辨率的宽："+ window.screen.width;
+	s +="\r\n屏幕可用工作区高度："+ window.screen.availHeight;
+	s +="\r\n屏幕可用工作区宽度："+ window.screen.availWidth;
+	alert(s);
+</script>
+
 <% include common/foot.html %>
