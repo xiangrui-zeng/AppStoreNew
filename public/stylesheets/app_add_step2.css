@@ -1,0 +1,72 @@
+@media screen and (min-width: 980px) {
+	.span3 {
+		width: 11% ;
+	}
+	.list-style {
+		list-style-type: none;
+		padding-top: 5%;
+	}
+	.widget-box {
+		margin-left: 10%;
+	}
+	.row-fluid {
+		margin-left: -6%;
+	}
+
+	#icon_big_span {
+		margin-left: 43%;
+		margin-top: -16%;
+	}
+
+  #image_big_span{
+	  margin-left: 43%;
+	  margin-top: -16%;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 979px) {
+	.span3 {
+		width: 11% ;
+	}
+	.list-style {
+		list-style-type: none;
+		padding-top: 5%;
+	}
+	.widget-box {
+		margin-left: -15%;
+	}
+	.row-fluid {
+		margin-left: -6%;
+	}
+}
+@media screen and (min-width: 360px) and (max-width: 768px) {
+	.span3 {
+		width: 11% ;
+	}
+	.list-style {
+		list-style-type: none;
+		padding-top: 5%;
+	}
+	.widget-box {
+		margin-left: -58%;
+		margin-top: 17%;
+	}
+	.control-label {
+		margin-top: 3%;
+	}
+	#pptfile_span {
+		margin-top: 10%;
+		margin-left: -30%;
+	}
+	#icon_small_span {
+		margin-top: 10%;
+		margin-left: -30%;
+	}
+	#icon_big_span {
+		margin-top: 10%;
+		margin-left: -30%;
+	}
+	#image_big_span {
+		margin-top: 10%;
+		margin-left: -30%;
+	}
+}
