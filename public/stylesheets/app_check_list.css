@@ -1,42 +1,28 @@
-#appModal {
-  width: 980px;
-  height: 550px;
-  margin: 0 0 0 -490px;
+.sidebar {
+  margin-left: -30%;
 }
-#appModal .modal-body {
-  width: 960px;
-  height: 550px;
+.app_add {
+  margin-top: 29px;
+  margin-left: 22%;
+  list-style-type: none;
+  font-size: 1em;
 }
-.carousel-image {
-  /* border: 1px solid #EEE; */
-  max-width: 100%;
-  max-height: auto;
-  width: 100%;
-  height: auto;
+#thumbnails {
+  margin-left: -4%;
+  margin-top: -11%;
 }
-.breadcrumb-ext {
-  padding: 1px 5px;
-  width: 800px;
+#checking {
+  font-size: 1.5em;
 }
-.carousel {
-  margin-bottom: 0;
-  padding: 0 40px 30px 40px;
+#passed {
+  font-size: 1.5em;
 }
-.carousel-control {
-  left: -12px;
+#rejected {
+  font-size: 1.5em;
 }
-.carousel-control.right {
-  right: -12px;
+#unvalid {
+  font-size: 1.5em;
 }
-.carousel-indicators {
-  right: 50%;
-  top: auto;
-  bottom: 0px;
-  margin-right: -19px;
-}
-.carousel-indicators li {
-  background: #c0c0c0;
-}
-.carousel-indicators .active {
-  background: #333333;
+#check_list_container {
+  width: 91%;
 }

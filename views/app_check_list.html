@@ -2,15 +2,15 @@
 <!-- 加载模板 -->
 <% include common/app_detail.html %>
 <% include common/template_carousel.html %>
-
+<link href="/stylesheets/app_check_list.css" rel="stylesheet">
 <script type="text/javascript" src="/javascripts/app_check_list.js"></script>
 
 <div class="sidebar">
-  <ul class="col-nav span9 app_add" style="margin-top: 25px">
+  <ul class="col-nav span9 app_add">
     <li><a id="checking" href="#" onclick="checking()">待审核一览<i class="icon-ok-circle" style="display: none"></i></a></li>
     <li><a id="passed" href="#" onclick="passed()">已通过一览<i class="icon-ok-circle" style="display: none"></i></a></li>
     <li><a id="rejected" href="#" onclick="rejected()">未通过一览<i class="icon-ok-circle" style="display: none"></i></a></li>
-    <li><a id="unvaild" href="#" onclick="unvalid()">无效一览<i class="icon-ok-circle" style="display: none"></i></a></li>
+    <li><a id="unvalid" href="#" onclick="unvalid()">无效&nbsp &nbsp一览<i class="icon-ok-circle" style="display: none"></i></a></li>
   </ul>
 </div>
 
@@ -19,7 +19,7 @@
     <div class="breadcrumb breadcrumb-ext">
       <h4 id="check_app_list">Checking List</h4>
     </div>
-    <div id="check_list_container" style="padding:5px; background:#ffffff;width:800px">
+    <div id="check_list_container">
     </div><!--well-->
     <% include common/template_detail_list.html %>
   </section>
