@@ -4,7 +4,14 @@
     <title><%= title %></title>
     <% include common/required.html %>
     <link rel='stylesheet' href='/stylesheets/smart.css' />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--<link rel="stylesheet" media="only screen and（min-width: 960px）"  href="/stylesheets/login.320.css" />-->
+    <!--<link rel="stylesheet" media="only screen and (min-width: 1024px)"  href="/stylesheets/login.css" />-->
+
     <link rel='stylesheet' href='/stylesheets/login.css' />
+
     <script type='text/javascript' src='/vendor/jquery-1.9.1.min.js'></script>
     <script type='text/javascript' src='/vendor/jquery.jrumble.1.3.min.js'></script>
     <script type='text/javascript' src='/javascripts/login/login.js'></script>
@@ -26,12 +33,12 @@
       </article>
     </section>
     <div id="container-demo">
-      <div class="bubble">
+      <div class="bubble" style="text-align: center">
         <h4 class="rectangle">StarWall</h4>
         <div class="triangle-l"></div>
         <div class="triangle-r"></div>
 
-        <form id="loginform" method="post" action="/login">
+        <form id="loginform" method="post" action="/login" style="align-content: center;">
           <input type="hidden" id="_csrf" name="_csrf" value="<%= csrftoken %>" />
           <input type="hidden" name="_method" value="post" />
           <p id="detail">
