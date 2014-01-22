@@ -8,9 +8,9 @@ body {
   font: 12px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 header {
-  height: 90px;
-  margin: 0 auto;
-  width: 980px;
+  height: auto;
+  margin: auto;
+  width: auto;
 }
 header strong {
   display: block;
